@@ -824,6 +824,7 @@
   margin-top: 10px;
   padding-top: 10px;
   display: flex;
+  column-gap: 5px;
   align-items: center;
   justify-content: flex-start;
   border-top: 1px solid grey;
@@ -831,11 +832,14 @@
 .gameNewsBlock__FooterButton {
   border: none;
   background: none;
+  width: 36px;
+  height: 36px;
   font-size: 24px;
   color: green;
 }
 .gameNewsBlock__FooterButton:hover {
   color: #19a204;
+  font-size: 26px;
 }
 .gameNewsBlocks {
   margin-top: 70px;

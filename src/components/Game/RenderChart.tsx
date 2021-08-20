@@ -1,11 +1,11 @@
 import React, {FC, SetStateAction, useState} from "react";
 import {Button, InputNumber} from "antd";
 import {CloseOutlined} from "@ant-design/icons";
-import {CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
 import {actions} from "../../redux/game-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {getWalletSelector} from "../../redux/game-selector";
 import {myStockType, stocksActions, stockType} from "../../redux/stocks-reducer";
+import { Line } from "react-chartjs-2";
 
 export type RenderChartType = {
   setIsHistoryShown: SetStateAction<any>
@@ -35,28 +35,56 @@ export const RenderChart: FC<RenderChartType> = React.memo((props) => {
     'Июль', '', '', '', 'Август', '', '', '', 'Сентябрь', '', '', '',
     'Октябрь', '', '', '', 'Ноябрь', '', '', '', 'Декабрь', '', '', '',
   ]
-  let data: DataType[] = []
+  let labels: any[] = []
 
   // TODO настройка показа графика(неделя / месяц / год / все время)
 
   props.stock.price.forEach((price, index) => {
-    let dataCopy = [...data]
+    let labelsCopy = [...labels]
     if(props.stock.price.length > 48 && index < props.stock.price.length - 48) {
       return
     }
-    let dataCopyItem = {
-      name: Months[index % 48],
-      price: price,
-      pv: 2400,
-      amt: 2400
-    }
+    // let dataCopyItem = {
+    //   name: Months[index % 48],
+    //   price: price,
+    //   pv: 2400,
+    //   amt: 2400
+    // }
 
-    dataCopy.push(dataCopyItem)
-    data = dataCopy
+    labelsCopy.push(price)
+    labels = labelsCopy
   })
 
+  console.log(labels)
+  console.log('====================')
+
+  const data = {
+    labels: Months,
+    datasets: [
+      {
+        label: 'цена за шт.',
+        data: labels,
+        fill: false,
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgba(255, 99, 132, 0.2)',
+      },
+    ],
+  };
+
+  const options = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  };
+
   // при покупке акции обновляем оставшееся её количество . . .
-  function updateStocksCount() {
+  const updateStocksCount = () => {
     let stockCopy = [...props.stocks]
     stockCopy.forEach((stock, index) => {
       if (stock.title === props.stock.title) {
@@ -71,7 +99,7 @@ export const RenderChart: FC<RenderChartType> = React.memo((props) => {
   }
 
   // покупаем акцию и добовляем её в портфель . . .
-  function addStocks(stock: stockType) {
+  const addStocks = (stock: stockType) => {
     let myStocksCopy = [...props.myStocks]
 
     let newStock: myStockType = {
@@ -108,13 +136,15 @@ export const RenderChart: FC<RenderChartType> = React.memo((props) => {
           </div>
           {/* рисуем график с ценой на акции . . . */}
 
-          <LineChart width={600} height={250} data={data}>
-            <Line type="monotone" dataKey="price"/>
-            {/*<CartesianGrid stroke="#ccc" strokeDasharray="10 10"/>*/}
-            <XAxis dataKey="name"/>
-            <YAxis/>
-            <Tooltip/>
-          </LineChart>
+          <Line data={data} options={options} title='цена акций' contextMenu={'Привет'} />
+
+          {/*<LineChart width={600} height={250} data={data}>*/}
+          {/*  <Line type="monotone" dataKey="price"/>*/}
+          {/*  /!*<CartesianGrid stroke="#ccc" strokeDasharray="10 10"/>*!/*/}
+          {/*  <XAxis dataKey="name"/>*/}
+          {/*  <YAxis/>*/}
+          {/*  <Tooltip/>*/}
+          {/*</LineChart>*/}
 
           {/*<Line data={data} options={options} className='chartPopupBlock__Chart'/>*/}
           <div>
