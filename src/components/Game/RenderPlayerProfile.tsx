@@ -1,4 +1,4 @@
-import {Avatar, Slider} from "antd";
+import {Avatar, Progress, Slider} from "antd";
 import React, {FC} from "react";
 import {RenderTime} from "./RenderTime";
 import {useDispatch, useSelector} from "react-redux";
@@ -28,7 +28,7 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
 
   const onChangeTime = (time: number) => {
     dispatch(settingsActions.setTimeSpeed(time))
-  };
+  }
 
   let styleName = props.wallet > 1500
     ? `${props.wallet > 3000
@@ -41,7 +41,15 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
         <div className="gameProfileStats__Avatar">
           <div className="gameProfileStats__AvatarImg">
             <div className="gameProfileStats__AvatarImgPhoto">
-              <Avatar src={profile.avatar} size={45}/>
+              <Progress
+                width={58}
+                strokeWidth={7}
+                type="circle"
+                percent={20}
+                strokeColor={'rgb(16, 153, 209'}
+                trailColor={'#282c34'}
+                format={() => <Avatar src={profile.avatar} size={50}/> }
+              />
               <div className="gameProfileStats__AvatarImgLevel" onMouseOver={() => console.log('ррр')}>
                 <b>{level}</b>
               </div>

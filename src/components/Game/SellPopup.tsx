@@ -2,27 +2,37 @@ import {FC, SetStateAction, useState} from "react";
 import {CloseOutlined} from "@ant-design/icons";
 import {Button, InputNumber} from "antd";
 import {actions} from "../../redux/game-reducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {myStockType, stocksActions} from "../../redux/stocks-reducer";
+import {getWalletSelector} from "../../redux/game-selector";
+import {getMyStocksSelector} from "../../redux/stocks-selector";
+import {settingsActions} from "../../redux/settings-reducer";
+import {getConstTimeSpeedSelector} from "../../redux/settings-selector";
 
 export type SellPopupType = {
   stock: myStockType
-  wallet: number
   setIsStockToSell: SetStateAction<any>
-  myStocks: myStockType[]
 }
 export const SellPopup: FC<SellPopupType> = (props) => {
   // количество акций на продажу . . .
   const [stocksToSellCount, setStocksToSellCount] = useState(1)
-
+  const timeSpeed = useSelector(getConstTimeSpeedSelector)
+  const wallet = useSelector(getWalletSelector)
   const dispatch = useDispatch()
+
+  const onChangeTime = (time: number) => {
+    dispatch(settingsActions.setTimeSpeed(time))
+  }
 
   return (
     <>
       <div className="sellPopup">
         <div className="sellPopupBlock">
           <div className="sellPopupBlock__Close">
-            <CloseOutlined onClick={() => props.setIsStockToSell(false)}/>
+            <CloseOutlined onClick={() => {
+              props.setIsStockToSell(false)
+              onChangeTime(timeSpeed)
+            }}/>
           </div>
           <div className="sellPopupBlock__Title">
             <div>Вы хотите продать акции компании:</div>
@@ -51,7 +61,7 @@ export const SellPopup: FC<SellPopupType> = (props) => {
               // уменьшаем количество акций в пакете . . .
               dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount))
               // увеличиваем баланс пользователя . . .
-              dispatch(actions.setWallet(props.wallet + stocksToSellCount * props.stock.price))
+              dispatch(actions.setWallet(wallet + stocksToSellCount * props.stock.price))
             }}>
               Продать
             </Button>

@@ -99,27 +99,9 @@ export const GamePage: FC = () => {
       {income
         ?
           <div>
-            {isStockToSell
-              ? <SellPopup
-                  wallet={wallet}
-                  stock={myStocks[myActiveStock]}
-                  setIsStockToSell={setIsStockToSell}
-                  myStocks={myStocks} />
-              : ''
-            }
-            {isHistoryShown
-              ? <RenderChart
-                  setIsHistoryShown={setIsHistoryShown}
-                  stocks={stocks}
-                  stock={activeStock as stockType}
-                  wallet={wallet}
-                  myStocks={myStocks} />
-              : ''
-            }
-            {isChangeWorkShown
-              ? <WorksChoicePopup setIsChangeWorkShown={setIsChangeWorkShown}/>
-              : ''
-            }
+            {isStockToSell ? <SellPopup stock={myStocks[myActiveStock]} setIsStockToSell={setIsStockToSell} /> : ''}
+            {isHistoryShown ? <RenderChart setIsHistoryShown={setIsHistoryShown} stock={activeStock as stockType} /> : ''}
+            {isChangeWorkShown ? <WorksChoicePopup setIsChangeWorkShown={setIsChangeWorkShown}/> : ''}
             <div className="game">
               <div className='gameProfile'>
                 <RenderPlayerProfile wallet={wallet} income={income}/>

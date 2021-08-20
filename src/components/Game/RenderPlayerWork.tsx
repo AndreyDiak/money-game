@@ -78,6 +78,7 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
   }
   // обновляем данные по работе после повышения
   const updateWorkStats = () => {
+    console.log(Number((currentWork.options[currentWork.level - 1].income * currentWork.startSalary / 100).toFixed(1)))
     dispatch(actions.setIncome(income + Number((currentWork.options[currentWork.level - 1].income * currentWork.startSalary / 100).toFixed(1))))
     dispatch(worksActions.setDaysWorked(0))
     dispatch(worksActions.setWorkLevel(currentWork.level + 1))

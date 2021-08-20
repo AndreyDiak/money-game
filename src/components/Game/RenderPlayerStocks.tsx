@@ -53,16 +53,6 @@ export const RenderPlayerStocks: FC<RenderPlayerStocksType> = (props) => {
             </div>
           </div>
         </div>
-        <div className="gameProfitStocks__Menu">
-          <div className="gameProfitStocks__MenuButtons">
-            <button className="gameProfitStocks__MenuButton">
-              Купить акции
-            </button>
-            <button className="gameProfitStocks__MenuButton">
-              Продать акции
-            </button>
-          </div>
-        </div>
       </div>
     </>
   )

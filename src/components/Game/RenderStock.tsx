@@ -1,6 +1,8 @@
 import React, { FC, SetStateAction} from "react"
 import {ArrowDownOutlined, ArrowUpOutlined, FallOutlined, RiseOutlined } from "@ant-design/icons"
 import {myStockType, stockType } from "../../redux/stocks-reducer"
+import {settingsActions} from "../../redux/settings-reducer";
+import {useDispatch} from "react-redux";
 
 export type RenderStockType = {
   stock: stockType,
@@ -19,6 +21,12 @@ export type RenderMyStockType = {
 }
 
 export const RenderStock: FC<RenderStockType> = (props) => {
+
+  const dispatch = useDispatch()
+
+  const onChangeTime = (time: number) => {
+    dispatch(settingsActions.setTimeSpeed(time))
+  }
 
   return (
     <>
@@ -46,6 +54,7 @@ export const RenderStock: FC<RenderStockType> = (props) => {
           <button className="gameProfitStocks__OfferBlock__Button" onClick={() => {
             props.setActiveStock(props.stock)
             props.setIsHistoryShown(true)
+            onChangeTime(0)
           }}>
             Посмотреть историю
           </button>
@@ -56,6 +65,12 @@ export const RenderStock: FC<RenderStockType> = (props) => {
 }
 
 export const RenderMyStock: FC<RenderMyStockType> = (props) => {
+
+  const dispatch = useDispatch()
+
+  const onChangeTime = (time: number) => {
+    dispatch(settingsActions.setTimeSpeed(time))
+  }
 
   return (
     <>
@@ -83,6 +98,7 @@ export const RenderMyStock: FC<RenderMyStockType> = (props) => {
           <button className="gameProfitStocks__OfferBlock__Button" onClick={() => {
             props.setIsStockToSell(true)
             props.setMyActiveStock(props.index)
+            onChangeTime(0)
           }}>
             Продать
           </button>
