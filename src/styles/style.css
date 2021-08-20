@@ -809,12 +809,33 @@
   font-size: 24px;
   border-bottom: 1px solid grey;
 }
+.gameNewsBlock__News {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 .gameNewsBlock__NewsTitle {
   font-size: 18px;
   color: #414141;
 }
 .gameNewsBlock__NewsPrice {
   font-size: 18px;
+}
+.gameNewsBlock__Footer {
+  margin-top: 10px;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-top: 1px solid grey;
+}
+.gameNewsBlock__FooterButton {
+  border: none;
+  background: none;
+  font-size: 24px;
+  color: green;
+}
+.gameNewsBlock__FooterButton:hover {
+  color: #19a204;
 }
 .gameNewsBlocks {
   margin-top: 70px;

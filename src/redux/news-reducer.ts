@@ -1,7 +1,6 @@
 import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
 import {actions} from "./game-reducer";
-import {useDispatch} from "react-redux";
 
 const ADD_NEWS = 'newsPage/ADD_NEWS'
 const ABLE_TO_SHOW = 'newsPage/ABLE_TO_SHOW'
@@ -189,8 +188,6 @@ export type NewsThunkType = ThunkAction<any, AppStateType, unknown, NewsActionsT
 
 export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkType => (dispatch, getState) => {
   const state = getState().newsPage
-  const wallet = getState().gamePage.wallet
-  const income = getState().gamePage.income
 
   let newsCopy = [...state.news]
   let news = {
@@ -207,7 +204,7 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
       switch (newsType) {
         case "personNews":
           // если новость плохая или хорошая . . .
-          if(condition === 0 || condition == 1) {
+          if(condition === 0 || condition === 1) {
             // @ts-ignore
             // вид выплаты (один раз или постоянная)
             let typeOfPayout = Number((Math.random() * (newsTypes.variants[condition].events.length - 1)).toFixed(0))
@@ -252,6 +249,7 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
       }
 
     }
+    return null
   })
   // диспачим обновленные новости в state
   newsCopy.push(news)

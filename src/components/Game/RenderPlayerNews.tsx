@@ -1,4 +1,4 @@
-import { CheckCircleOutlined } from "@ant-design/icons/lib/icons";
+import {CheckSquareOutlined} from "@ant-design/icons/lib/icons";
 import {FC} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
@@ -95,11 +95,13 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
         {props.isArchive
           ? ''
           :
-            <div>
-              <hr/>
-              <button onClick={() => moveToArchive()}>
-                <CheckCircleOutlined />
+            <div className='gameNewsBlock__Footer' >
+              <button onClick={() => moveToArchive()} className='gameNewsBlock__FooterButton'>
+                <CheckSquareOutlined />
               </button>
+              <div className="gameNewsBlock__FooterText">
+                <b>Я прочитал</b>
+              </div>
             </div>}
         </div>
     </>
