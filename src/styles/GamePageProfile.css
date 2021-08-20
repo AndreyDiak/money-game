@@ -1,0 +1,72 @@
+.gameProfile {
+  grid-area: profile;
+  display: flex;
+  position: relative;
+  height: 100vh;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  border-right: 5px solid lightgrey;
+}
+.gameProfile::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+.gameProfileHeader {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 30px;
+  font-weight: 700;
+}
+.gameProfileContent {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  font-size: 30px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+.gameProfileContent__WorkZone__Info {
+  margin-top: 10px;
+  margin-right: 70px;
+  display: flex;
+  column-gap: 70px;
+  justify-content: flex-start;
+}
+.gameProfileContent__Person {
+  display: flex;
+}
+.gameProfileContent__PersonInfo {
+  display: flex;
+}
+.gameProfileContent__PersonInfo__Name {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.gameProfileContent__PersonImg {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 15px;
+}
+.gameProfileContent__PersonImg img {
+  width: 350px;
+}
+.gameProfileContent__PersonAvatar {
+  margin-top: 15px;
+  margin-left: 15px;
+  height: 500px;
+}
+.gameProfileContent__PersonAvatar img {
+  height: 100%;
+}
+
+/*# sourceMappingURL=GamePageProfile.css.map */

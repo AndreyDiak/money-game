@@ -1,0 +1,11 @@
+.settings {
+  width: 100vw;
+  height: 100vh;
+}
+.settingsList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*# sourceMappingURL=SettingsPage.css.map */

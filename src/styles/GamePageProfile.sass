@@ -1,0 +1,131 @@
+.game
+  &Profile
+    grid-area: profile
+    display: flex
+    position: relative
+    height: 100vh
+    justify-content: space-between
+    flex-direction: column
+    align-items: center
+    border-right: 5px solid lightgrey
+    font-family: 'Fira Mono', sans-serif
+    &Stats
+      padding-left: 20px
+      display: flex
+      align-items: center
+      justify-content: space-between
+      width: 100%
+      height: 70px
+      background: rgb(204, 90, 90)
+      border-bottom: 3px solid #282c34
+      &__Avatar
+        position: relative
+        &Img
+          display: flex
+          column-gap: 10px
+          align-items: center
+          &Level
+            padding: 5px
+            position: absolute
+            width: 30px
+            height: 30px
+            text-align: center
+            bottom: -9px
+            left: 25px
+            background: #fffb00
+            border-radius: 50%
+            font-weight: 900
+            font-size: 15px
+            &:hover
+              cursor: pointer
+          &__Name
+            font-weight: 700
+            font-size: 24px
+            color: #fff
+      &__Menu
+        display: flex
+        column-gap: 15px
+        &Item
+          color: #000
+          font-size: 20px
+          background: transparent
+          border: none
+      &__Wallet
+        padding-left: 20px
+        height: 100%
+        width: 150px
+        display: flex
+        align-items: center
+        font-size: 30px
+        background: rgba(159, 11, 11, 0.8)
+    &Progress
+      padding: 20px
+      width: 100%
+      background: #282c34
+      text-align: center
+      z-index: 2
+      &__Title
+        margin: 15px auto
+        font-size: 36px
+        font-weight: 900
+        color: #f1f1f1
+        text-align: center
+      &__Slider
+        margin: 15px auto
+        width: 400px
+        height: 10px
+    &Header
+      margin-top: 30px
+      margin-bottom: 30px
+      font-size: 30px
+      font-weight: 700
+    &Content
+      position: relative
+      width: 100%
+      height: calc(100% - 171px)
+      background-size: cover
+      font-size: 30px
+      text-transform: uppercase
+      &__Img
+        margin-top: 50px
+        display: flex
+        justify-content: center
+        height: 500px
+        text-align: center
+        img
+          height: 100%
+          z-index: 3
+      &__Work
+        display: flex
+        justify-content: space-between
+        &Stats
+          margin-top: -3px
+          padding: 10px 50px 10px 10px
+          display: flex
+          flex-direction: column
+          font-weight: 700
+          background: rgba(255, 255, 255, 0.7)
+          z-index: 3
+          border: 3px solid #282c34
+          border-bottom-right-radius: 30px
+          &__Level
+            padding: 5px
+            margin-bottom: 20px
+            border-radius: 5px
+            color: #fff
+            border: 2px solid #282c34
+            background: rgb(204, 90, 90)
+          &__Income
+            span
+              &::after
+                top: -6px
+        &Img
+          margin-top: -3px
+          width: 150px
+          height: 150px
+          border: 3px solid #282c34
+          z-index: 3
+          border-bottom-left-radius: 30px
+          img
+            width: 100%
+            border-bottom-left-radius: 30px

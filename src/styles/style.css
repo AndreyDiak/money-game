@@ -1,0 +1,1023 @@
+@import '~antd/dist/antd.css';
+.menu {
+  background: url("../img/background.jpg") center no-repeat;
+  background-size: cover;
+}
+.menuContent {
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 128px);
+  flex-direction: column;
+  align-items: center;
+}
+.menuGameName {
+  padding-top: 50px;
+  text-align: center;
+  font-size: 50px;
+  font-weight: 900;
+  color: #fff;
+}
+.menuHeader {
+  margin-bottom: 50px;
+  font-size: 65px;
+  font-weight: 700;
+  color: #fff0f4;
+  z-index: 1;
+  font-family: "Roboto", sans-serif;
+}
+.menuList {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 20px;
+  z-index: 1;
+}
+.menuListItem__Button {
+  padding: 7px 12px;
+  width: 320px;
+  background: rgba(255, 255, 255, 0.4);
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+}
+.menuListItem__Button:hover {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.profile {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: url("../img/characters/banner.jpg") center no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-family: "Roboto", sans-serif;
+}
+.profileContent {
+  z-index: 1;
+}
+.profileContentButtons {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.profileChoice {
+  text-align: center;
+}
+.profileChoiceHeader {
+  margin-bottom: 30px;
+  color: #fff0f4;
+  font-size: 40px;
+  font-weight: 700;
+  text-shadow: 2px 3px 2px black;
+}
+.profileChoiceList {
+  display: flex;
+  justify-content: center;
+  column-gap: 15px;
+}
+.profileChoiceList__Button {
+  width: 60px;
+  height: 60px;
+  font-size: 40px;
+  border: 1px solid #fff0f4;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.7);
+}
+.profileChoiceList__Button:hover {
+  background: #fff;
+}
+
+.person {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Fira Mono", sans-serif;
+  font-weight: 900;
+  font-size: 36px;
+}
+.persons {
+  max-width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.personsDots {
+  left: 0 !important;
+  height: 100vh !important;
+  width: 160px !important;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  column-gap: 40px;
+  row-gap: 10px;
+}
+.personsDots li {
+  width: 45px !important;
+  height: 45px !important;
+}
+.personsDots li button {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+}
+.personImg {
+  width: 500px;
+  height: 700px;
+}
+.personInfo {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+.personInfo__preferencesBlock {
+  width: 30px;
+  height: 45px;
+  border: 1px solid #282c34;
+  background: #ff6f3c;
+}
+.personInfo__preferencesBlocks {
+  display: flex;
+  column-gap: 5px;
+}
+.personInfo__preferencesTitle {
+  margin-bottom: 15px;
+  border-bottom: 2px solid #282c34;
+}
+.personInfo__name {
+  text-align: center;
+}
+.personInfo__salary, .personInfo .personInfo__tax {
+  position: relative;
+}
+.personInfo__salary::after, .personInfo .personInfo__tax::after {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: -8px;
+  background: url("./../img/gold.png") center no-repeat;
+  background-size: cover;
+}
+
+.saveProfile {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.saveProfileButton {
+  padding: 15px;
+  font-size: 24px;
+  border: 1px solid #fff0f4;
+}
+.saveProfileButton:hover {
+  background: #cccccc;
+}
+
+.settings {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background: url("../img/banner-settings.jpg") center no-repeat;
+  background-size: cover;
+}
+.settingsList {
+  padding: 100px 70px;
+  display: flex;
+  width: 550px;
+  height: 100vh;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 30px;
+  z-index: 2;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: "Fira Mono", sans-serif;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.65);
+}
+.settingsListItem {
+  width: 350px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #cacaca;
+}
+.workChoice {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background: url("../img/works/banner.png") center no-repeat;
+  background-size: cover;
+}
+.workChoiceNav {
+  height: 100vh;
+  width: 160px;
+  background: rgba(0, 0, 0, 0.6);
+}
+.workChoiceContent {
+  display: flex;
+  width: calc(100% - 160px);
+  justify-content: center;
+  align-items: center;
+}
+.workChoiceContent__List {
+  z-index: 10;
+  text-align: center;
+}
+.workChoiceContent__ListAbout {
+  margin-top: 30px;
+  padding: 10px 30px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 5px;
+}
+.workChoiceContent__ListAbout__Header {
+  padding-bottom: 5px;
+  font-size: 24px;
+  font-weight: 700;
+  border-bottom: 1px solid gray;
+}
+.workChoiceContent__ListAbout__Content {
+  text-align: start;
+  font-size: 28px;
+  font-weight: 500;
+  max-width: 320px;
+}
+.workChoiceContent__ListAbout__ContentRise {
+  margin-bottom: 10px;
+}
+.workChoiceContent__ListAbout__ContentText {
+  font-size: 12px;
+  color: #303030;
+  font-weight: 300;
+  font-family: "Fira Mono", sans-serif;
+}
+.workChoiceContent__ListAbout__ContentSalary {
+  margin-bottom: 10px;
+}
+.workChoiceContent__ListAbout__ContentSalaryBonus {
+  color: #35b924;
+}
+.workChoiceContent__ListHeader {
+  margin-bottom: 10px;
+  font-size: 40px;
+  font-weight: 700;
+  color: #fff;
+}
+.workChoiceContent__ListItem {
+  border: 4px solid #282c34;
+  border-radius: 5px;
+  position: relative;
+}
+.workChoiceContent__ListItem::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+.workChoiceContent__ListItems {
+  display: flex;
+  column-gap: 15px;
+}
+.workChoiceContent__ListItem:hover {
+  cursor: pointer;
+}
+
+.game {
+  display: grid;
+  grid-template-areas: "profile actions";
+  grid-template-columns: 1.2fr 2fr;
+  width: 100%;
+  height: 100vh;
+}
+.gameActions {
+  height: 100vh;
+  grid-area: actions;
+}
+
+.personImg img {
+  height: 100%;
+}
+
+.gameProfit {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  background: url("../img/banner-market.jpg") center no-repeat;
+  background-size: cover;
+  height: calc(100vh - 55px);
+  grid-area: profit;
+  color: #fff;
+  z-index: 0;
+}
+.gameProfit::after {
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+.gameProfitHeader {
+  margin-bottom: 50px;
+  display: flex;
+  text-transform: lowercase;
+  z-index: 2;
+}
+.gameProfitHeader span {
+  font-size: 20px;
+  font-family: "Fira Mono", sans-serif;
+  font-weight: 500;
+  color: #999999;
+}
+.gameProfitStocks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  z-index: 2;
+}
+.gameProfitStocks__Me {
+  padding: 15px;
+  border-right: 2px dashed #f1f1f1;
+}
+.gameProfitStocks__Header {
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.gameProfitStocks__Menu {
+  z-index: 2;
+}
+.gameProfitStocks__MenuButton {
+  padding: 7px 15px;
+  font-weight: 700;
+  font-size: 24px;
+  width: 50%;
+  color: #fff;
+  font-family: "Fira Mono", sans-serif;
+  border: 1px solid #999999;
+  background: rgba(0, 0, 0, 0.2);
+}
+.gameProfitStocks__MenuButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.gameProfitStocks__MenuButtons {
+  display: flex;
+}
+.gameProfitStocks__Offer {
+  padding: 15px;
+}
+.gameProfitStocks__OfferBlock {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  border-bottom: 1px solid darkgrey;
+}
+.gameProfitStocks__OfferBlock__Button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: 1px solid #d5d5d5;
+  border-radius: 5px;
+  color: #d5d5d5;
+  font-size: 18px;
+  background: transparent;
+}
+.gameProfitStocks__OfferBlock__Button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.gameProfitStocks__OfferBlock__Title {
+  font-weight: 700;
+  font-size: 24px;
+}
+.gameProfitStocks__OfferBlock__Info {
+  display: flex;
+  column-gap: 15px;
+}
+.gameProfitStocks__OfferBlocks {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-height: 70vh;
+  overflow: auto;
+  row-gap: 30px;
+}
+
+.gameProfile {
+  grid-area: profile;
+  display: flex;
+  position: relative;
+  height: 100vh;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  border-right: 5px solid lightgrey;
+  font-family: "Fira Mono", sans-serif;
+}
+.gameProfileStats {
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 70px;
+  background: #cc5a5a;
+  border-bottom: 3px solid #282c34;
+}
+.gameProfileStats__Avatar {
+  position: relative;
+}
+.gameProfileStats__AvatarImg {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+}
+.gameProfileStats__AvatarImgLevel {
+  padding: 5px;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  bottom: -9px;
+  left: 25px;
+  background: #fffb00;
+  border-radius: 50%;
+  font-weight: 900;
+  font-size: 15px;
+}
+.gameProfileStats__AvatarImgLevel:hover {
+  cursor: pointer;
+}
+.gameProfileStats__AvatarImg__Name {
+  font-weight: 700;
+  font-size: 24px;
+  color: #fff;
+}
+.gameProfileStats__Menu {
+  display: flex;
+  column-gap: 15px;
+}
+.gameProfileStats__MenuItem {
+  color: #000;
+  font-size: 20px;
+  background: transparent;
+  border: none;
+}
+.gameProfileStats__Wallet {
+  padding-left: 20px;
+  height: 100%;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  background: rgba(159, 11, 11, 0.8);
+}
+.gameProfileProgress {
+  padding: 20px;
+  width: 100%;
+  background: #282c34;
+  text-align: center;
+  z-index: 2;
+}
+.gameProfileProgress__Title {
+  margin: 15px auto;
+  font-size: 36px;
+  font-weight: 900;
+  color: #f1f1f1;
+  text-align: center;
+}
+.gameProfileProgress__Slider {
+  margin: 15px auto;
+  width: 400px;
+  height: 10px;
+}
+.gameProfileHeader {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 30px;
+  font-weight: 700;
+}
+.gameProfileContent {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 171px);
+  background-size: cover;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+.gameProfileContent__Img {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  height: 500px;
+  text-align: center;
+}
+.gameProfileContent__Img img {
+  height: 100%;
+  z-index: 3;
+}
+.gameProfileContent__Work {
+  display: flex;
+  justify-content: space-between;
+}
+.gameProfileContent__WorkStats {
+  margin-top: -3px;
+  padding: 10px 50px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 3;
+  border: 3px solid #282c34;
+  border-bottom-right-radius: 30px;
+}
+.gameProfileContent__WorkStats__Level {
+  padding: 5px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  color: #fff;
+  border: 2px solid #282c34;
+  background: #cc5a5a;
+}
+.gameProfileContent__WorkStats__Income span::after {
+  top: -6px;
+}
+.gameProfileContent__WorkImg {
+  margin-top: -3px;
+  width: 150px;
+  height: 150px;
+  border: 3px solid #282c34;
+  z-index: 3;
+  border-bottom-left-radius: 30px;
+}
+.gameProfileContent__WorkImg img {
+  width: 100%;
+  border-bottom-left-radius: 30px;
+}
+
+.gameWork {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - 55px);
+  background: url("../img/banner-work.jpg") no-repeat;
+  background-size: cover;
+  z-index: 0;
+}
+.gameWork__current {
+  font-family: "Fira Mono", sans-serif;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 3;
+}
+.gameWork__currentTitle {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  width: 470px;
+  font-size: 28px;
+  font-weight: 500;
+  border-bottom: 1px solid #999999;
+}
+.gameWork__currentAsk {
+  padding: 7px;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.gameWork__currentButton {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  border-bottom: 2px solid #282c34;
+}
+.gameWork__currentButton button {
+  height: auto !important;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid #282c34;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 700;
+}
+.gameWork__types {
+  padding: 50px;
+  background: rgba(255, 255, 255, 0.7);
+}
+.gameWork__typesTitle {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 32px;
+  text-align: center;
+  border-bottom: 2px solid #282c34;
+}
+.gameWork__typesContent {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 15px;
+  z-index: 3;
+}
+.gameWork__typesBlock {
+  padding: 7px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  color: #fff;
+  z-index: 3;
+}
+.gameWork__typesBlockImg {
+  text-align: center;
+}
+.gameWork__typesBlocks {
+  padding: 10px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  justify-content: flex-start;
+  font-size: 20px;
+  font-weight: 700;
+  z-index: 3;
+  border-radius: 5px;
+  border: 1px solid #282c34;
+}
+
+.workChoicePopup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+.workChoicePopup__Block {
+  position: relative;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #fff;
+  width: 600px;
+  border-radius: 10px;
+  z-index: 10;
+}
+.workChoicePopup__BlockClose {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  font-weight: 700;
+  font-size: 32px;
+}
+.workChoicePopup__BlockClose:hover {
+  cursor: pointer;
+}
+.workChoicePopup__BlockWork img {
+  border: 2px solid #282c34;
+  border-radius: 10px;
+  position: relative;
+}
+.workChoicePopup__BlockWork img:hover {
+  border: 2px solid crimson;
+  cursor: pointer;
+}
+.workChoicePopup__BlockWorks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 30px;
+}
+.workChoicePopup::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+.gameSpend {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: calc(100vh - 46px);
+  background: url("../img/banner-life.jpg") center no-repeat;
+  background-size: cover;
+  z-index: 0;
+}
+.gameSpendHeader {
+  padding: 7px 35px;
+  display: block;
+  margin: 0 auto;
+  font-size: 32px;
+  font-weight: 700;
+  color: #000000;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.7);
+}
+.gameSpendBlock {
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  width: 250px;
+}
+.gameSpendBlocks {
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  column-gap: 20px;
+  row-gap: 20px;
+  overflow: auto;
+  z-index: 10;
+}
+.gameSpendBlock__Title {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 24px;
+  text-align: center;
+  border-bottom: 2px solid #282c34;
+  color: #303030;
+}
+.gameSpendBlock__Item {
+  display: flex;
+  justify-content: space-between;
+}
+.gameSpendBlock__ItemTitle {
+  color: #414141;
+}
+.gameSpendBlock__ItemPrice {
+  font-weight: 700;
+  color: crimson;
+}
+.gameSpendBlock__Items {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  height: 200px;
+  overflow: auto;
+}
+
+.gameNews {
+  position: relative;
+  height: calc(100vh - 55px);
+  background: url("../img/banner-news.jpg") center no-repeat;
+  background-size: cover;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  font-family: "Fira Mono", sans-serif;
+}
+.gameNewsContent {
+  z-index: 10;
+  overflow: auto;
+}
+.gameNewsContent__Tabs .ant-tabs-nav {
+  position: fixed;
+  width: calc(100% * 2/3.2);
+  background: #282c34;
+  color: #fff;
+}
+.gameNewsTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  z-index: 10;
+}
+.gameNewsBlock {
+  padding: 20px;
+  z-index: 10;
+  background: #fff;
+}
+.gameNewsBlock__Title {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  font-size: 24px;
+  border-bottom: 1px solid grey;
+}
+.gameNewsBlock__NewsTitle {
+  font-size: 18px;
+  color: #414141;
+}
+.gameNewsBlock__NewsPrice {
+  font-size: 18px;
+}
+.gameNewsBlocks {
+  margin-top: 70px;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 50px;
+  overflow: auto;
+  z-index: 10;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button, input {
+  outline: none;
+}
+button:hover, input:hover {
+  cursor: pointer;
+}
+button:active, input:active {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  cursor: pointer;
+}
+
+input:checked, input:active, input:focus {
+  border: none;
+  outline: none;
+}
+
+.returnBack {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+}
+
+.buttonNav {
+  font-size: 35px;
+  background: transparent;
+  border: none;
+  color: #fff;
+}
+.buttonNav:hover {
+  color: #cccccc;
+}
+
+.continue {
+  position: absolute;
+  top: 20px;
+  left: 90px;
+  z-index: 100;
+}
+
+.gold {
+  position: relative;
+  color: goldenrod;
+}
+.gold::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 2px;
+  background: url("./../img/gold.png") center no-repeat;
+  background-size: cover;
+}
+
+.chartPopup, .sellPopup {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+.chartPopupBlock, .sellPopupBlock {
+  position: relative;
+  padding: 30px 50px;
+  width: 700px;
+  background-color: #f1f1f1;
+  z-index: 3;
+}
+.chartPopupBlock__Button, .sellPopupBlock__Button {
+  margin-top: 15px;
+  padding: 7px 25px;
+  font-size: 24px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #282c34;
+  border-radius: 2px;
+}
+.chartPopupBlock__Button:hover, .sellPopupBlock__Button:hover {
+  background: rgba(0, 0, 0, 0.12);
+}
+.chartPopupBlock__Title, .sellPopupBlock__Title {
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 500;
+}
+.chartPopupBlock__Close, .sellPopupBlock__Close {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-size: 30px;
+}
+.chartPopupBlock__Close:hover, .sellPopupBlock__Close:hover {
+  cursor: pointer;
+}
+.chartPopup::after, .sellPopup::after {
+  content: "";
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.bannerBack {
+  position: relative;
+  z-index: 1;
+}
+.bannerBack::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.profile-start {
+  background: url("../img/banner-profile-1.jpg") center no-repeat;
+  background-size: cover;
+  z-index: 1;
+}
+
+.profile-medium {
+  background: url("../img/banner-profile-2.jpg") center no-repeat;
+  background-size: cover;
+  z-index: 1;
+}
+
+.profile-top {
+  background: url("../img/banner-profile-3.jpg") center no-repeat;
+  background-size: cover;
+  z-index: 1;
+}
+
+.ant-tabs-nav {
+  margin: 0 !important;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.ant-slider {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.ant-slider-rail {
+  height: 15px;
+}
+
+.ant-slider-track {
+  height: 15px;
+  background-color: darkgrey;
+}
+
+.ant-slider-step {
+  height: 15px;
+}
+
+.ant-slider-handle {
+  top: 1px;
+  width: 30px;
+  height: 30px;
+  background: url("../img/gold.png") center no-repeat;
+  background-size: cover;
+  border: none;
+}
+
+.ant-tabs-tab, .ant-badge {
+  font-family: "Fira Mono", sans-serif;
+  font-size: 20px;
+}
+
+.ant-badge-count {
+  padding: 0 4px;
+  font-size: 10px !important;
+  right: -10px !important;
+}
+
+/*# sourceMappingURL=style.css.map */

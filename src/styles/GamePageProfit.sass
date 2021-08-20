@@ -1,0 +1,83 @@
+.game
+  &Profit
+    display: flex
+    position: relative
+    flex-direction: column
+    justify-content: space-between
+    background: url("../img/banner-market.jpg") center no-repeat
+    background-size: cover
+    height: calc(100vh - 55px)
+    grid-area: profit
+    color: #fff
+    z-index: 0
+    &::after
+      background: rgba(0, 0, 0, 0.6) !important
+    &Header
+      margin-bottom: 50px
+      display: flex
+      text-transform: lowercase
+      z-index: 2
+      span
+        font-size: 20px
+        font-family: 'Fira Mono', sans-serif
+        font-weight: 500
+        color: #999999
+    &Stocks
+      display: grid
+      grid-template-columns: 1fr 1fr
+      z-index: 2
+      &__Me
+        padding: 15px
+        border-right: 2px dashed #f1f1f1
+      &__Header
+        text-align: center
+        font-weight: 700
+        text-transform: uppercase
+      &__Menu
+        z-index: 2
+        &Button
+          padding: 7px 15px
+          font-weight: 700
+          font-size: 24px
+          width: 50%
+          color: #fff
+          font-family: 'Fira Mono', sans-serif
+          border: 1px solid #999999
+          background: rgba(0, 0, 0, 0.2)
+          &:hover
+            background: rgba(255, 255, 255, 0.1)
+          &s
+            display: flex
+      &__Offer
+        padding: 15px
+        &Block
+          padding-top: 10px
+          padding-bottom: 10px
+          display: flex
+          width: 70%
+          flex-direction: column
+          border-bottom: 1px solid darkgrey
+          &__Button
+            margin-top: 10px
+            padding: 5px 10px
+            border: 1px solid #d5d5d5
+            border-radius: 5px
+            color: #d5d5d5
+            font-size: 18px
+            background: transparent
+            &:hover
+              background: rgba(255, 255, 255, 0.2)
+          &__Title
+            font-weight: 700
+            font-size: 24px
+          &__Info
+            display: flex
+            column-gap: 15px
+          &s
+            margin-top: 30px
+            display: flex
+            justify-content: center
+            flex-direction: column
+            max-height: 70vh
+            overflow: auto
+            row-gap: 30px

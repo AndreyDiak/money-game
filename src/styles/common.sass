@@ -1,0 +1,142 @@
+.returnBack
+  position: absolute
+  top: 20px
+  left: 20px
+  z-index: 100
+
+.buttonNav
+  font-size: 35px
+  background: transparent
+  border: none
+  color: #fff
+  &:hover
+    color: darken(#fff, 20)
+
+.continue
+  position: absolute
+  top: 20px
+  left: 90px
+  z-index: 100
+
+
+.gold
+  position: relative
+  color: goldenrod
+  &::after
+    content: ''
+    position: absolute
+    width: 40px
+    height: 40px
+    top: 2px
+    background: url("./../img/gold.png") center no-repeat
+    background-size: cover
+
+.chartPopup, .sellPopup
+  position: absolute
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 100%
+  height: 100%
+  z-index: 10
+  &Block
+    position: relative
+    padding: 30px 50px
+    width: 700px
+    background-color: #f1f1f1
+    z-index: 3
+    &__Button
+      margin-top: 15px
+      padding: 7px 25px
+      font-size: 24px
+      background: rgba(0, 0, 0, 0.05)
+      border: 1px solid #282c34
+      border-radius: 2px
+      &:hover
+        background: rgba(0, 0, 0, 0.12)
+    &__Title
+      margin-bottom: 30px
+      font-size: 28px
+      font-weight: 500
+    &__Close
+      position: absolute
+      top: 30px
+      right: 30px
+      font-size: 30px
+      &:hover
+        cursor: pointer
+
+  &::after
+    content: ''
+    position: absolute
+    width: 100vw
+    height: 100vh
+    top: 0
+    left: 0
+    background: rgba(0, 0, 0, 0.5)
+    z-index: 1
+
+.bannerBack
+  position: relative
+  z-index: 1
+  &::after
+    content: ''
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background: rgba(0,0,0,0.4)
+
+// фон профиля . . .
+.profile-start
+  background: url("../img/banner-profile-1.jpg") center no-repeat
+  background-size: cover
+  z-index: 1
+
+.profile-medium
+  background: url("../img/banner-profile-2.jpg") center no-repeat
+  background-size: cover
+  z-index: 1
+
+.profile-top
+  background: url("../img/banner-profile-3.jpg") center no-repeat
+  background-size: cover
+  z-index: 1
+
+.ant-tabs-nav
+  margin: 0 !important
+  background: rgba(0, 0, 0, 0.1)
+
+.ant-slider
+  text-align: center
+  display: flex
+  justify-content: center
+
+
+.ant-slider-rail
+  height: 15px
+
+.ant-slider-track
+  height: 15px
+  background-color: darkgrey
+
+.ant-slider-step
+  height: 15px
+
+.ant-slider-handle
+  top: 1px
+  width: 30px
+  height: 30px
+  background: url("../img/gold.png") center no-repeat
+  background-size: cover
+  border: none
+
+.ant-tabs-tab, .ant-badge
+  font-family: 'Fira Mono', sans-serif
+  font-size: 20px
+
+.ant-badge-count
+  padding: 0 4px
+  font-size: 10px !important
+  right: -10px !important

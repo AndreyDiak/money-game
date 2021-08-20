@@ -1,0 +1,49 @@
+.game
+  &News
+    position: relative
+    height: calc(100vh - 55px)
+    background: url('../img/banner-news.jpg') center no-repeat
+    background-size: cover
+    z-index: 0
+    display: flex
+    flex-direction: column
+    row-gap: 30px
+    font-family: 'Fira Mono', sans-serif
+    &Content
+      z-index: 10
+      overflow: auto
+      &__Tabs
+        .ant-tabs-nav
+          position: fixed
+          width: calc(100% * 2/3.2)
+          background: #282c34
+          color: #fff
+    &Title
+      font-size: 28px
+      font-weight: 700
+      color: #fff
+      text-align: center
+      z-index:  10
+    &Block
+      padding: 20px
+      z-index: 10
+      background: #fff
+      &__Title
+        margin-bottom: 10px
+        padding-bottom: 10px
+        font-size: 24px
+        border-bottom: 1px solid grey
+      &__News
+        &Title
+          font-size: 18px
+          color: #414141
+        &Price
+          font-size: 18px
+      &s
+        margin-top: 70px
+        padding: 50px
+        display: flex
+        flex-direction: column
+        row-gap: 50px
+        overflow: auto
+        z-index: 10

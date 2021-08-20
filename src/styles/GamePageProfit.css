@@ -1,0 +1,86 @@
+.gameProfit {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #282c34;
+  height: calc(100vh - 46px);
+  grid-area: profit;
+  color: #fff;
+}
+.gameProfitHeader {
+  margin-bottom: 50px;
+  display: flex;
+  text-transform: lowercase;
+  font-size: 24px;
+  font-weight: 500;
+}
+.gameProfitStocks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.gameProfitStocks__Me {
+  padding: 15px;
+  border-right: 2px dashed #f1f1f1;
+}
+.gameProfitStocks__Header {
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.gameProfitStocks__MenuButton {
+  padding: 7px 15px;
+  font-weight: 700;
+  font-size: 24px;
+  width: 50%;
+  color: #fff;
+  font-family: "Fira Mono", sans-serif;
+  border: 1px solid #999999;
+  background: rgba(0, 0, 0, 0.2);
+}
+.gameProfitStocks__MenuButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+.gameProfitStocks__MenuButtons {
+  display: flex;
+}
+.gameProfitStocks__Offer {
+  padding: 15px;
+}
+.gameProfitStocks__OfferBlock {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  border-bottom: 1px solid darkgrey;
+}
+.gameProfitStocks__OfferBlock__Button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: 1px solid #d5d5d5;
+  border-radius: 5px;
+  color: #d5d5d5;
+  font-size: 18px;
+  background: transparent;
+}
+.gameProfitStocks__OfferBlock__Button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.gameProfitStocks__OfferBlock__Title {
+  font-weight: 700;
+  font-size: 24px;
+}
+.gameProfitStocks__OfferBlock__Info {
+  display: flex;
+  column-gap: 15px;
+}
+.gameProfitStocks__OfferBlocks {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  max-height: 50vh;
+  overflow: auto;
+  row-gap: 30px;
+}
+
+/*# sourceMappingURL=GamePageProfit.css.map */

@@ -1,0 +1,32 @@
+.returnBack {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  z-index: 1;
+}
+.returnBackButton {
+  padding: 10px 18px;
+  font-size: 40px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid #fff;
+}
+.returnBackButton:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.gold {
+  position: relative;
+  color: goldenrod;
+}
+.gold::after {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: -8px;
+  background: url("./../img/gold.png") center no-repeat;
+  background-size: cover;
+}
+
+/*# sourceMappingURL=common.css.map */

@@ -1,0 +1,42 @@
+.menu
+  background: url("../img/background.jpg") center no-repeat
+  background-size: cover
+  &Content
+    display: flex
+    justify-content: center
+    height: calc(100vh - 128px)
+    flex-direction: column
+    align-items: center
+  &GameName
+    padding-top: 50px
+    text-align: center
+    font-size: 50px
+    font-weight: 900
+    color: #fff
+  &Header
+    margin-bottom: 50px
+    font-size: 65px
+    font-weight: 700
+    color: #fff0f4
+    z-index: 1
+    font-family: 'Roboto', sans-serif
+  &List
+    display: flex
+    align-items: center
+    flex-direction: column
+    row-gap: 20px
+    z-index: 1
+    &Item
+      &__Button
+        padding: 7px 12px
+        width: 320px
+        background: rgba(255,255,255, 0.4)
+        font-size: 30px
+        font-family: 'Roboto', sans-serif
+        font-weight: 500
+        border: 1px solid #fff
+        border-radius: 10px
+        color: #fff
+        &:hover
+          background: rgba(255,255,255, 0.65)
+

@@ -1,0 +1,55 @@
+.game
+  &Spend
+    padding: 20px
+    display: flex
+    flex-direction: column
+    position: relative
+    height: calc(100vh - 46px)
+    background: url('../img/banner-life.jpg') center no-repeat
+    background-size: cover
+    z-index: 0
+    &Header
+      padding: 7px 35px
+      display: block
+      margin: 0 auto
+      font-size: 32px
+      font-weight: 700
+      color: #000000
+      z-index: 100
+      background: rgba(255, 255, 255, 0.7)
+    &Block
+      border-radius: 5px
+      background: rgba(255, 255, 255, 0.8)
+      width: 250px
+      &s
+        padding: 30px
+        display: flex
+        flex-wrap: wrap
+        justify-content: space-around
+        column-gap: 20px
+        row-gap: 20px
+        overflow: auto
+        z-index:  10
+      &__Title
+        padding-top: 5px
+        padding-bottom: 5px
+        font-size: 24px
+        text-align: center
+        border-bottom: 2px solid #282c34
+        color: #303030
+      &__Item
+        display: flex
+        justify-content: space-between
+        &Title
+          color: #414141
+        &Price
+          font-weight: 700
+          color: crimson
+        &s
+          padding: 10px
+          display: flex
+          flex-direction: column
+          row-gap: 5px
+          height: 200px
+          overflow: auto
+          //border-bottom: 1px solid #999999
