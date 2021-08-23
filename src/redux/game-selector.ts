@@ -4,6 +4,9 @@ import {AppStateType} from "./store";
 export const getDaySelector = (state: AppStateType) => {
   return state.gamePage.day
 }
+export const getDayInMonthSelector = (state: AppStateType) => {
+  return state.gamePage.daysInMonth
+}
 // wallet return
 export const getWalletSelector = (state: AppStateType) => {
   return state.gamePage.wallet
@@ -15,10 +18,6 @@ export const getIncomeSelector = (state: AppStateType) => {
 // happenedEvents return
 export const getHappenedEventsSelector = (state: AppStateType) => {
   return state.gamePage.happenedEvents
-}
-// businesses return
-export const getBusinessesSelector = (state: AppStateType) => {
-  return state.gamePage.businesses
 }
 // month return (current month)
 export const getMonthSelector = (state: AppStateType) => {

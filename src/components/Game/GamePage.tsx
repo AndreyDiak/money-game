@@ -6,7 +6,7 @@ import {Badge, Tabs} from "antd";
 import {SellPopup} from "./SellPopup";
 import {useDispatch, useSelector} from "react-redux"
 import {actions} from "../../redux/game-reducer";
-import {getBusinessesSelector, getDaySelector, getIncomeSelector, getWalletSelector} from "../../redux/game-selector";
+import {getDaySelector, getIncomeSelector, getWalletSelector} from "../../redux/game-selector";
 import {getTimeSpeedSelector} from "../../redux/settings-selector";
 import {AppStateType} from "../../redux/store";
 import {RenderPlayerWork, WorksChoicePopup} from "./RenderPlayerWork";
@@ -15,6 +15,9 @@ import {RenderPlayerNews} from "./RenderPlayerNews";
 import {stocksActions, stockType} from "../../redux/stocks-reducer";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {newsActions} from "../../redux/news-reducer";
+import {RenderPlayerBusiness} from "./RenderPlayerBusiness";
+import {getBusinessesSelector} from "../../redux/business-selector";
+import {businessActions} from "../../redux/business-reducer";
 
 const { TabPane } = Tabs
 
@@ -69,19 +72,20 @@ export const GamePage: FC = () => {
   // заполнение массива акциями . . .
   useEffect(() => {
     // создаём акции
-    if(wallet >= 500 && stocks.length === 0) {
+    // TODO доработать
+    if (wallet >= 300 && stocks.length === 0) {
       // создаём акции
       dispatch(stocksActions.setStocks())
       // новости про акции
       dispatch(newsActions.setAbleToShow('stocksNews'))
-    }
+      }
     // создаём бизнесс
-    if(wallet >= 3000 && businesses.length === 0) {
+    if (wallet >= 3000 && businesses.length === 0) {
       // создаем бизнесс
-      dispatch(actions.setBusinesses())
+      dispatch(businessActions.setBusinesses())
       // новости про бизнесс
       dispatch(newsActions.setAbleToShow('businessNews'))
-    }
+      }
     },[wallet])
   // заполнение массива предложениями о бизнессе . . .
 
@@ -119,7 +123,7 @@ export const GamePage: FC = () => {
                   <TabPane tab="Затраты" key="3">
                     <RenderPlayerSpends/>
                   </TabPane>
-                  <TabPane tab="Акции" key="4" disabled={wallet <= 500 && myStocks.length === 0} >
+                  <TabPane tab="Акции" key="4" disabled={wallet < 300 && myStocks.length === 0} >
                     <RenderPlayerStocks
                       setIsHistoryShown={setIsHistoryShown}
                       setMyActiveStock={setMyActiveStock}
@@ -128,7 +132,7 @@ export const GamePage: FC = () => {
                     />
                   </TabPane >
                   <TabPane tab="Бизнесс" key="5" disabled={wallet <= 3000}>
-                    Ваш бизнесс
+                    <RenderPlayerBusiness />
                   </TabPane>
                 </Tabs>
               </div>

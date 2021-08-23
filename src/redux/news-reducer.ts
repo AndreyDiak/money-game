@@ -1,6 +1,7 @@
 import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
 import {actions} from "./game-reducer";
+import {stocksActions} from "./stocks-reducer";
 
 const ADD_NEWS = 'newsPage/ADD_NEWS'
 const ABLE_TO_SHOW = 'newsPage/ABLE_TO_SHOW'
@@ -175,25 +176,18 @@ export const newsActions = {
   setAbleToShow: (types: NewsTypes) => ({type: ABLE_TO_SHOW, types} as const),
   setToArchive: (index: number) => ({type: SET_TO_ARCHIVE, index} as const)
 }
-export type NewsTypes = 'stocksNews' | 'businessNews' | 'personNews'
-export type VariantType = 'positive' | 'negative' | 'neutral'
-export type newsArrayType = {
-  title: string
-  amount: number
-  company: string
-}
-type NewsActionsType = InferActionsType<typeof newsActions>
-
-export type NewsThunkType = ThunkAction<any, AppStateType, unknown, NewsActionsType>
 
 export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkType => (dispatch, getState) => {
   const state = getState().newsPage
-
+  const dayInMonth = getState().gamePage.daysInMonth
+  const month = getState().gamePage.months[getState().gamePage.month].name
   let newsCopy = [...state.news]
   let news = {
     title: '',
     amount: 0,
-    company: ''
+    company: '',
+    dayInMonth: dayInMonth,
+    month: month
   }
 
   state.newsTypes.map((newsTypes, index) => {
@@ -241,8 +235,19 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
           news.title = newsTypes.variants[condition].titles[titleIndex]
           if (condition === 0 || condition === 1) {
             news.company = company
+            // продолжительность роста / падения акции
+            const growType = condition === 0 ? 'up' : 'down'
+            const timeInterval = Number((Math.random() * 4 + 3).toFixed(0))
+
+            // @ts-ignore
+            dispatch(stocksActions.setPriceChangeInterval(company, timeInterval, growType))
+
           }
           // TODO падение или рост акции
+
+          // @ts-ignore / обновляем состояние акций . . .
+          // dispatch(stocksActions.setPriceChangeInterval(company, timeInterval, growType))
+
           break
         case "businessNews":
           break
@@ -255,3 +260,16 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
   newsCopy.push(news)
   dispatch(newsActions.addNews(newsCopy))
 }
+
+export type NewsTypes = 'stocksNews' | 'businessNews' | 'personNews'
+export type VariantType = 'positive' | 'negative' | 'neutral'
+export type newsArrayType = {
+  title: string
+  amount: number
+  company: string
+  month: string
+  dayInMonth: number
+}
+type NewsActionsType = InferActionsType<typeof newsActions>
+
+export type NewsThunkType = ThunkAction<any, AppStateType, unknown, NewsActionsType>

@@ -58,6 +58,8 @@ export const SellPopup: FC<SellPopupType> = (props) => {
           <div style={{textAlign: 'center'}}>
             <Button onClick={() => {
               props.setIsStockToSell(false)
+              // возвращаем скорость времени
+              onChangeTime(timeSpeed)
               // уменьшаем количество акций в пакете . . .
               dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount))
               // увеличиваем баланс пользователя . . .

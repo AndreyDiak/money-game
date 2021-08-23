@@ -856,6 +856,50 @@
   overflow: auto;
   z-index: 10;
 }
+.gameNewsBlocks__reverse {
+  flex-direction: column-reverse;
+}
+
+.gameBusiness {
+  padding: 50px 20px;
+  height: calc(100vh - 55px);
+  background: url("../img/banner-business.jpg") center no-repeat;
+  background-size: cover;
+  z-index: 0;
+}
+.gameBusinessBlock {
+  padding: 20px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.8);
+}
+.gameBusinessBlock__Stats {
+  display: flex;
+  justify-content: space-between;
+}
+.gameBusinessBlock__Title {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  border-bottom: 1px solid grey;
+}
+.gameBusinessBlock__Img {
+  margin-bottom: 10px;
+  width: 400px;
+  height: 230px;
+  border: 1px solid #282c34;
+}
+.gameBusinessBlock__Img img {
+  width: 100%;
+  height: 100%;
+}
+.gameBusinessBlocks {
+  display: flex;
+  column-gap: 30px;
+  row-gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
 body {
   margin: 0;

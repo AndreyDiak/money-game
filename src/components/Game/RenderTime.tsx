@@ -1,7 +1,7 @@
 import React, {Dispatch, FC, SetStateAction, useEffect, useState} from "react";
 import {Breadcrumb} from "antd";
 import {useDispatch, useSelector} from "react-redux";
-import {getDaySelector, getMonthSelector, getMonthsSelector} from "../../redux/game-selector";
+import {getDayInMonthSelector, getDaySelector, getMonthSelector, getMonthsSelector} from "../../redux/game-selector";
 import {actions} from "../../redux/game-reducer";
 import {AppStateType} from "../../redux/store";
 import {Work} from "../../redux/work-reducer";
@@ -20,9 +20,8 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   const newsTypeArray = useSelector((state: AppStateType) => state.newsPage.newsTypes)
 
   const companies = useSelector((state: AppStateType) => state.stocksPage.companiesForStocks)
-
-  const [dayInMonth, setDayInMonth] = useState(0)
-
+  // день месяца . . .
+  const dayInMonth = useSelector(getDayInMonthSelector)
   const difficulty = useSelector(getDifficultySelector)
 
   const dispatch = useDispatch()
@@ -51,8 +50,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
 
   // обновляем счётчик недель . . .
   useEffect(() => {
-
-    setDayInMonth(dayInMonth + 1)
+    dispatch(actions.setDayInMonth(dayInMonth + 1))
     // еженедельные покупки . . .
     if (day % 7 === 0 && day !== 0) {
       const generateNews = () => {
@@ -70,7 +68,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
       }
       // создаем новости каждые две недели
       if (day % 14 === 0 && day !== 0) {
-        generateNews()
+          generateNews()
       }
       // еженедельная трата . . .
       dispatch(actions.weekSpend(difficulty))
@@ -84,7 +82,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
 
     // если сегодня последний день месяца, то обновляем месяц и выдаём зарплату игроку . . .
     if(dayInMonth === months[month].duration) {
-      setDayInMonth(1)
+      dispatch(actions.setDayInMonth(1))
       const walletUp = currentWork.options[currentWork.level - 1].income * currentWork.startSalary / 100
       dispatch(actions.setMonth(month + 1))
       dispatch(actions.updateWallet(walletUp))
@@ -95,7 +93,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   useEffect(() => {
     if (month === 11 && dayInMonth === 31) {
       dispatch(actions.setMonth(0))
-      setDayInMonth(1)
+      dispatch(actions.setDayInMonth(1))
     }
   }, [month, dayInMonth])
 

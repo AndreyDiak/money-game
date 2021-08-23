@@ -28,12 +28,14 @@ export const RenderPlayerNews = () => {
                     amount={newsBlock.amount}
                     index={index}
                     isArchive={false}
+                    month={newsBlock.month}
+                    dayInMonth={newsBlock.dayInMonth}
                   />
                 )}
               </div>
             </TabPane>
             <TabPane tab="Архив" key="2">
-              <div className="gameNewsBlocks">
+              <div className="gameNewsBlocks gameNewsBlocks__reverse">
                 {archive.map((newsBlock, index) =>
                   <RenderNewsBlock
                     key={index}
@@ -42,6 +44,8 @@ export const RenderPlayerNews = () => {
                     amount={newsBlock.amount}
                     index={index}
                     isArchive={true}
+                    month={newsBlock.month}
+                    dayInMonth={newsBlock.dayInMonth}
                   />
                 )}
               </div>
@@ -59,6 +63,8 @@ type NewsBlockType = {
   amount: number
   index: number
   isArchive: boolean
+  month: string
+  dayInMonth: number
 }
 
 export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
@@ -74,6 +80,7 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
       <div className="gameNewsBlock">
         <div className="gameNewsBlock__Title">
           <b>Новость!</b>
+          <span style={{color: 'darkgrey'}}> / <i>{props.month} {props.dayInMonth}</i></span>
         </div>
         <div className="gameNewsBlock__News">
           <div className="gameNewsBlock__NewsTitle">

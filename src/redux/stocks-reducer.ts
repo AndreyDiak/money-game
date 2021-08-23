@@ -5,6 +5,7 @@ const SELL_STOCKS = 'gamePage/SELL_STOCKS'
 const UPDATE_MY_STOCKS = 'gamePage/UPDATE_MY_STOCKS'
 const UPDATE_STOCKS = 'gamePage/UPDATE_STOCKS'
 const INDEXING_STOCKS = 'gamePage/INDEXING_STOCKS'
+const SET_PRICE_CHANGE_INTERVAL = 'gamePage/SET_PRICE_CHANGE_INTERVAL'
 
 let initialState = {
   // изменение цены . . .
@@ -50,6 +51,8 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
           price: [price],
           // вероятносто того, что акция идёт вверх . . .
           condition: Math.random() * 10 >= (state.normalPriceChange - 1 + risk) ? 'up' : 'down',
+          // должна ли рости акции всвязи с новостями . . .
+          priceChangeInterval: 0,
           // макс цена акции
           maxPrice: Number((price + Math.random() * state.normalPriceChange * (risk + 1)).toFixed(1)),
           // мин цена акции
@@ -85,6 +88,7 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
         myStocks: myStocksCopyToSell
       }
     // изменение цен на акции . . .
+    // TODO сделать проверку акций если она зависит от новостей . . .
     case INDEXING_STOCKS:
       let stocksCopy = [...state.stocks]
       let myStocksCopy = [...state.myStocks]
@@ -92,10 +96,14 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
       state.stocks.map((stock, index) => {
         // изменение количества акций . . .
         let indexCount = Number((Math.random() * 10 - 4).toFixed(0))
-        // изменение состояния акций . . .
-        let indexCondition: 'up' | 'down' = Math.random() * 10 >= (state.normalPriceChange - 1 + stock.risk) ? 'up' : 'down'
+        // изменение состояния акций при условии, что она не подвежена новостям . . .
+        let indexCondition: 'up' | 'down' = stock.condition
+
+        if (stock.priceChangeInterval === 0) {
+          indexCondition = Math.random() * 10 >= (state.normalPriceChange - 1 + stock.risk) ? 'up' : 'down'
+        }
         // изменение цены акции . . .
-        let indexPriceCount = Number((stock.risk * Number(Math.random().toFixed(1))).toFixed(1))
+        let indexPriceCount = Number((stock.risk * Number((Math.random() + 0.1).toFixed(1))).toFixed(1))
 
         let indexPrice: number = indexCondition === 'up'
           ? stock.price[stock.price.length - 1] + indexPriceCount
@@ -112,19 +120,26 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
           count: stocksCopy[index].count + indexCount > 0
             ? stocksCopy[index].count + indexCount
             : stocksCopy[index].count,
+          // обновляем сроки зависимости роста акции от новостей
+          priceChangeInterval: stocksCopy[index].priceChangeInterval > 0
+            ? stocksCopy[index].priceChangeInterval -1
+            : stocksCopy[index].priceChangeInterval,
           // новая цена акции . . .
-          // @ts-ignore
-          price: (indexPrice > stocksCopy[index].maxPrice) || (indexPrice < stocksCopy[index].minPrice)
-            // если цена доходит до своего максимума или минимума , то цена на акции больше не меняется . . .
-            ? [
-              ...stocksCopy[index].price,
-              stock.price[stock.price.length - 1]
-            ]
-            // обновляем цены на акции при условии, что всё хорошо . . .
-            : [
-              ...stocksCopy[index].price,
-              indexPrice
-            ]
+          price: [
+            ...stocksCopy[index].price,
+            indexPrice
+          ]
+            // (indexPrice > stocksCopy[index].maxPrice) || (indexPrice < stocksCopy[index].minPrice)
+            // // если цена доходит до своего максимума или минимума , то цена на акции больше не меняется . . .
+            // ? [
+            //   ...stocksCopy[index].price,
+            //   stock.price[stock.price.length - 1]
+            // ]
+            // // обновляем цены на акции при условии, что всё хорошо . . .
+            // : [
+            //   ...stocksCopy[index].price,
+            //   indexPrice
+            // ]
         }
 
         // обновление цены в портфеле игрока . . .
@@ -139,13 +154,33 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
           }
         })
       })
-
+      console.log('================================')
+      console.log('обновленные акции')
+      console.log(stocksCopy)
       return {
         ...state,
         stocks: stocksCopy,
         myStocks: myStocksCopy
       }
     // обновление цен наших акций . . .
+    case SET_PRICE_CHANGE_INTERVAL:
+      let stocksPriceChangeCopy = [...state.stocks]
+      stocksPriceChangeCopy.map((stock, index) => {
+        // находим нужную акцию
+        // сетаем кол-во недель и тип роста
+        if (stock.title === action.company) {
+          console.log(stock)
+          stocksPriceChangeCopy[index] = {
+            ...stock,
+            condition: action.condition,
+            priceChangeInterval: action.timeInterval
+          }
+        }
+      })
+      return {
+        ...state,
+        stocks: stocksPriceChangeCopy
+      }
     case UPDATE_MY_STOCKS:
       return {
         ...state,
@@ -170,6 +205,7 @@ export const stocksActions = {
   updateMyStocks: (myStocks: myStockType[]) => ({type: UPDATE_MY_STOCKS, myStocks} as const),
   updateStocks: (stocks: stockType[]) => ({type: UPDATE_STOCKS, stocks} as const),
   sellStocks: (stock: myStockType, count: number) => ({type: SELL_STOCKS, stock, count} as const),
+  setPriceChangeInterval: (company: string, timeInterval: number, condition: 'up' | 'down') => ({type: SET_PRICE_CHANGE_INTERVAL, company, timeInterval, condition} as const)
 
 }
 
@@ -179,6 +215,7 @@ export type stockType = {
   risk: number
   price: number[]
   condition: 'up' | 'down'
+  priceChangeInterval: number
   maxPrice: number
   minPrice: number
 }

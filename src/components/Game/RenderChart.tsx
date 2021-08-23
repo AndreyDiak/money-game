@@ -48,8 +48,20 @@ export const RenderChart: FC<RenderChartType> = React.memo((props) => {
         label: 'цена за шт.',
         data: labels,
         fill: false,
+        // сглаживание . . .
+        lineTension: 0.4,
+        // цвета . . .
         backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 0.8)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBorderWidth: 2,
+        pointRadius: 0,
+        pointHitRadius: 10,
       },
     ],
   };
