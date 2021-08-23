@@ -12,7 +12,8 @@ const SET_WALLET = 'gamePage/SET_WALLET'
 const UPDATE_WALLET = 'gamePage/UPDATE_WALLET'
 const SET_INCOME = 'gamePage/SET_INCOME'
 
-const SET_BUSINESSES = 'gamePage/SET_BUSINESSES'
+const BUY_BUSINESS = 'gamePage/BUY_BUSINESS'
+const SELL_BUSINESS = 'gamePage/SELL_BUSINESS'
 
 // spends and update . . .
 const WEEK_SPEND = 'gamePage/WEEK_SPEND'
@@ -154,6 +155,20 @@ export const gameReducer = (state = initialState, action: ActionsType): InitialG
         wallet: state.wallet + indexWallet,
         income: state.income + indexIncome
       }
+    // обновляем данные по кошельку после покупки бизнесса
+    case BUY_BUSINESS:
+      return {
+        ...state,
+        wallet: state.wallet - action.price,
+        income: state.income + action.income
+      }
+    case SELL_BUSINESS:
+      return {
+        ...state,
+        wallet: state.wallet + action.price,
+        income: state.income - action.income
+      }
+
     // еженедельные траты игрока
     case WEEK_SPEND:
       // берем случайное событие . . .
@@ -195,7 +210,8 @@ export const actions = {
   setIncome: (income: number) => ({type: SET_INCOME, income} as const),
 
   getNewsPayout: (payout: 'one' | 'regular', amount: number) => ({type: GET_NEWS_PAYOUT, payout, amount} as const),
-
+  buyBusiness: (price: number, income: number) => ({type: BUY_BUSINESS, price, income} as const),
+  sellBusiness: (price: number, income: number) => ({type: SELL_BUSINESS, price, income} as const),
   setEventsPrice: (indexPrice: number) => ({type: INDEX_PRICE, indexPrice} as const),
   weekSpend: (difficult: DifficultyType) => ({type: WEEK_SPEND, difficult} as const),
 

@@ -103,7 +103,7 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
             defaultValue={1}
             value={props.wallet}
             min={0}
-            max={5000}
+            max={10000}
           />
         </div>
       </div>

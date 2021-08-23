@@ -20,16 +20,23 @@ let initialState = {
       variants: [
         {
           variantType: 'positive' as VariantType,
-          titles: [
-            '',
-            ''
+          events: [
+            {type: 'restaurant',titles: [
+
+              ]},
+            {type: 'garage',titles: [
+
+              ]},
+            {type: 'service',titles: [
+
+              ]},
+            {type: 'hotel',titles: [
+
+              ]},
           ]
         }, {
         variantType: 'negative' as VariantType,
-          titles: [
-            '',
-            ''
-          ]
+
         }
       ]
     }, {

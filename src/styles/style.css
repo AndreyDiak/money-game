@@ -861,20 +861,40 @@
 }
 
 .gameBusiness {
-  padding: 50px 20px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
   height: calc(100vh - 55px);
   background: url("../img/banner-business.jpg") center no-repeat;
   background-size: cover;
-  z-index: 0;
+  z-index: 3;
+}
+.gameBusinessTabs {
+  z-index: 10;
 }
 .gameBusinessBlock {
   padding: 20px;
   z-index: 10;
   background: rgba(255, 255, 255, 0.8);
 }
+.gameBusinessBlock__Bought {
+  position: relative;
+}
+.gameBusinessBlock__Bought::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+}
 .gameBusinessBlock__Stats {
+  padding-top: 10px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid grey;
 }
 .gameBusinessBlock__Title {
   padding-bottom: 10px;
@@ -894,11 +914,13 @@
   height: 100%;
 }
 .gameBusinessBlocks {
+  margin-top: 30px;
   display: flex;
   column-gap: 30px;
   row-gap: 30px;
   justify-content: center;
   flex-wrap: wrap;
+  z-index: 10;
 }
 
 body {

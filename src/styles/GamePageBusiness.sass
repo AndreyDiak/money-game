@@ -1,16 +1,33 @@
 .gameBusiness
-  padding: 50px 20px
+  padding: 0 20px
+  display: flex
+  flex-direction: column
   height: calc(100vh - 55px)
   background: url('../img/banner-business.jpg') center no-repeat
   background-size: cover
-  z-index: 0
+  z-index: 3
+  &Tabs
+    z-index: 10
   &Block
     padding: 20px
     z-index: 10
     background: rgba(255, 255, 255, 0.8)
+    &__Bought
+      position: relative
+      &::after
+        content: ''
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        background: rgba(0,0,0,0.2)
     &__Stats
+      padding-top: 10px
       display: flex
       justify-content: space-between
+      align-items: center
+      border-top: 1px solid grey
     &__Title
       padding-bottom: 10px
       margin-bottom: 10px
@@ -26,8 +43,10 @@
         width: 100%
         height: 100%
     &s
+      margin-top: 30px
       display: flex
       column-gap: 30px
       row-gap: 30px
       justify-content: center
       flex-wrap: wrap
+      z-index: 10
