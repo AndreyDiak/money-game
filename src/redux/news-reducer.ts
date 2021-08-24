@@ -21,16 +21,26 @@ let initialState = {
         {
           variantType: 'positive' as VariantType,
           events: [
-            {type: 'restaurant', titles: [
+            {
+              type: 'restaurant',
+              titles: [
+                'Ваш ресторан становится популярнее, доходы растут!',
+                'Критики написали хороший отзыв, ждите прилив гостей!',
+                'Начался сезон, ждите гостей!'
+              ]},
+            {
+              type: 'garage',
+              titles: [
 
               ]},
-            {type: 'garage', titles: [
+            {
+              type: 'service',
+              titles: [
 
               ]},
-            {type: 'service', titles: [
-
-              ]},
-            {type: 'hotel', titles: [
+            {
+              type: 'hotel',
+              titles: [
 
               ]},
           ]
