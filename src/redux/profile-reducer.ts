@@ -23,7 +23,7 @@ let initialState = {
         {type: 'manager' as WorksType, rise: 0},
         {type: 'engineer' as WorksType, rise: 7},
       ],
-      saving: 300,
+      saving: 30000,
       avatar: person1Avatar
     }, {
       name: 'Max',

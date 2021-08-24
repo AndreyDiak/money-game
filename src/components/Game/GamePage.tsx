@@ -16,7 +16,7 @@ import {stocksActions, stockType} from "../../redux/stocks-reducer";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {newsActions} from "../../redux/news-reducer";
 import {RenderPlayerBusiness} from "./RenderPlayerBusiness";
-import {getBusinessesSelector} from "../../redux/business-selector";
+import {getBusinessesSelector, getMyBusinessesSelector} from "../../redux/business-selector";
 import {businessActions} from "../../redux/business-reducer";
 
 const { TabPane } = Tabs
@@ -38,6 +38,8 @@ export const GamePage: FC = () => {
   const stocks = useSelector(getStocksSelector)
   // массив купленных акций . . .
   const myStocks = useSelector(getMyStocksSelector)
+  // массив ваших бизнессов . . .
+  const myBusinesses = useSelector(getMyBusinessesSelector)
   // будущий массив с предложением по бизнессу . . .
   const businesses = useSelector(getBusinessesSelector)
   // количество новостей . . .
@@ -75,9 +77,9 @@ export const GamePage: FC = () => {
     // TODO доработать
     if (wallet >= 300 && stocks.length === 0) {
       // создаём акции
-      dispatch(stocksActions.setStocks())
+      // dispatch(stocksActions.setStocks())
       // новости про акции
-      dispatch(newsActions.setAbleToShow('stocksNews'))
+      // dispatch(newsActions.setAbleToShow('stocksNews'))
       }
     // создаём бизнесс
     if (wallet >= 3000 && businesses.length === 0) {
@@ -131,7 +133,7 @@ export const GamePage: FC = () => {
                       setIsStockToSell={setIsStockToSell}
                     />
                   </TabPane >
-                  <TabPane tab="Бизнесс" key="5" disabled={wallet <= 3000}>
+                  <TabPane tab="Бизнесс" key="5" disabled={wallet <= 3000 && myBusinesses.length === 0}>
                     <RenderPlayerBusiness />
                   </TabPane>
                 </Tabs>

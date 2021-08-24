@@ -9,6 +9,7 @@ import {stocksActions} from "../../redux/stocks-reducer";
 import { getStocksSelector } from "../../redux/stocks-selector";
 import {getDifficultySelector} from "../../redux/settings-selector";
 import {setNewsThunk} from "../../redux/news-reducer";
+import {getMyBusinessesSelector} from "../../redux/business-selector";
 
 type RenderTimeType = {
   income: number
@@ -33,6 +34,8 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   const month = useSelector(getMonthSelector)
   // массив с месяцами . . .
   const months = useSelector(getMonthsSelector)
+  // массив ваших бизнессов . . .
+  const myBusinesses = useSelector(getMyBusinessesSelector)
   // текущая работа . . .
   const currentWork = useSelector((state: AppStateType) => state.worksPage.currentWork) as Work
   // массив с днями . . .
@@ -54,11 +57,20 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
     // еженедельные покупки . . .
     if (day % 7 === 0 && day !== 0) {
       const generateNews = () => {
+        // stocksNews / businessNews / personNews . . .
         let newsType = Number((Math.random() * 2).toFixed(0))
+
         if (newsTypeArray[newsType].ableToShow) {
           let company = ''
           if(newsTypeArray[newsType].type === 'stocksNews') {
             company = companies[Number((Math.random() * (companies.length - 1)).toFixed(0))]
+          }
+          if (newsTypeArray[newsType].type === 'businessNews' && myBusinesses.length !== 0) {
+            let companyIndex = Number((Math.random() * (myBusinesses.length - 1)).toFixed(0))
+            console.log(companyIndex)
+            company = myBusinesses[companyIndex].name
+          } else {
+            generateNews()
           }
           dispatch(setNewsThunk(newsTypeArray[newsType].type, company))
           // dispatch(newsActions.addNews(newsTypeArray[newsType].type, company))
