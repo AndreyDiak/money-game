@@ -9,6 +9,7 @@ import {actions} from "./game-reducer";
 const SET_BUSINESSES = 'businessPage/SET_BUSINESSES'
 const ADD_TO_MY_BUSINESSES = 'businessPage/ADD_TO_MY_BUSINESSES'
 const REMOVE_FROM_MY_BUSINESSES = 'businessPage/REMOVE_FROM_MY_BUSINESSES'
+const UPDATE_BUSINESS_INCOME = 'businessPage/UPDATE_BUSINESS_INCOME'
 
 let initialState = {
   myBusinesses: [] as BusinessType[],
@@ -61,6 +62,17 @@ export const businessReducer = (state = initialState, action: BusinessActionType
         ...state,
         myBusinesses: myBusinessCopy
       }
+    case UPDATE_BUSINESS_INCOME:
+      let myBusinessesCopy = [...state.myBusinesses]
+      myBusinessesCopy.map((business, index) => {
+        if (business.name === action.title) {
+          myBusinessesCopy[index].income += action.income
+        }
+      })
+      return {
+        ...state,
+        myBusinesses: myBusinessesCopy
+      }
     default:
       return {
         ...state
@@ -71,7 +83,8 @@ export const businessReducer = (state = initialState, action: BusinessActionType
 export const businessActions = {
   setBusinesses: () => ({type: SET_BUSINESSES} as const),
   addToMyBusinesses: (business: BusinessType) => ({type: ADD_TO_MY_BUSINESSES, business} as const),
-  removeFromMyBusiness: (business: BusinessType) => ({type: REMOVE_FROM_MY_BUSINESSES, business } as const)
+  removeFromMyBusiness: (business: BusinessType) => ({type: REMOVE_FROM_MY_BUSINESSES, business } as const),
+  updateBusinessIncome: (title: string, income: number) => ({type: UPDATE_BUSINESS_INCOME, title, income} as const),
 }
 
 

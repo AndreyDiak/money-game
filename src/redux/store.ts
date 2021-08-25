@@ -7,6 +7,7 @@ import {newsReducer} from "./news-reducer";
 import {worksReducer} from "./work-reducer";
 import {stocksReducer} from "./stocks-reducer";
 import {businessReducer} from "./business-reducer";
+import {appReducer} from "./app-reducer";
 
 
 let rootReducer = combineReducers({
@@ -16,7 +17,8 @@ let rootReducer = combineReducers({
   newsPage: newsReducer,
   worksPage: worksReducer,
   stocksPage: stocksReducer,
-  businessPage: businessReducer
+  businessPage: businessReducer,
+  app: appReducer
 })
 
 type RootReduceType = typeof rootReducer

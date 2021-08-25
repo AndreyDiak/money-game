@@ -88,7 +88,6 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
         myStocks: myStocksCopyToSell
       }
     // изменение цен на акции . . .
-    // TODO сделать проверку акций если она зависит от новостей . . .
     case INDEXING_STOCKS:
       let stocksCopy = [...state.stocks]
       let myStocksCopy = [...state.myStocks]
@@ -129,17 +128,6 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
             ...stocksCopy[index].price,
             indexPrice
           ]
-            // (indexPrice > stocksCopy[index].maxPrice) || (indexPrice < stocksCopy[index].minPrice)
-            // // если цена доходит до своего максимума или минимума , то цена на акции больше не меняется . . .
-            // ? [
-            //   ...stocksCopy[index].price,
-            //   stock.price[stock.price.length - 1]
-            // ]
-            // // обновляем цены на акции при условии, что всё хорошо . . .
-            // : [
-            //   ...stocksCopy[index].price,
-            //   indexPrice
-            // ]
         }
 
         // обновление цены в портфеле игрока . . .

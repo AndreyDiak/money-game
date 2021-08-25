@@ -2,11 +2,12 @@
 .menu {
   background: url("../img/background.jpg") center no-repeat;
   background-size: cover;
+  position: relative;
 }
 .menuContent {
   display: flex;
   justify-content: center;
-  height: calc(100vh - 128px);
+  height: calc(100vh - 206px);
   flex-direction: column;
   align-items: center;
 }

@@ -2,6 +2,8 @@ import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
 import {actions} from "./game-reducer";
 import {stocksActions} from "./stocks-reducer";
+import {businessActions} from "./business-reducer";
+import {getRandomNumber} from "../utils/getRandomNumber";
 
 const ADD_NEWS = 'newsPage/ADD_NEWS'
 const ABLE_TO_SHOW = 'newsPage/ABLE_TO_SHOW'
@@ -13,7 +15,6 @@ let initialState = {
   archive: [] as newsArrayType[],
   newsTypes: [
     {
-      // TODO подредачить включение типов новостей
       type: 'businessNews' as NewsTypes,
       ableToShow: false,
       variants: [
@@ -243,7 +244,7 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
   state.newsTypes.map((newsTypes, index) => {
     if(newsTypes.type === newsType) {
       // выбираем одну из 3 видов новостей хорошая / плохая / нейтральная
-      let condition = Number((Math.random() * (newsTypes.variants.length - 1)).toFixed(0))
+      let condition = getRandomNumber(newsTypes.variants.length)
       // 0 - хорошая / 1 - плохая / 2 - нейтральная
       switch (newsType) {
         case "personNews":
@@ -251,22 +252,15 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
           if(condition === 0 || condition === 1) {
             // вид новости . . .
             let typeOfNews = newsTypes.variants[condition] // positive / negative / neutral
-            // @ts-ignore
-            // вид выплаты (один раз или постоянная)
-            let typeOfPayout = Number((Math.random() * (typeOfNews.events.length - 1)).toFixed(0))
-            // @ts-ignore
-            // выбираем новость
-            let titleIndex = Number((Math.random() * (typeOfNews.events[typeOfPayout].titles.length - 1)).toFixed(0))
+            // @ts-ignore / вид выплаты (один раз или постоянная)
+            let typeOfPayout = getRandomNumber(typeOfNews.events.length)
+            // @ts-ignore / выбираем новость
+            let titleIndex = getRandomNumber(typeOfNews.events[typeOfPayout].titles.length)
 
-            // создаём новость . . .
-
-            // @ts-ignore
-            // заголовок новости
+            // @ts-ignore/ заголовок новости
             news.title = typeOfNews.events[typeOfPayout].titles[titleIndex].title
-            // @ts-ignore
-            // цена
+            // @ts-ignore/ цена
             news.amount = typeOfNews.events[typeOfPayout].titles[titleIndex].amount
-
             // @ts-ignore / обновляем баланс или доход игрока
             dispatch(actions.getNewsPayout(typeOfNews.events[typeOfPayout].type, news.amount))
 
@@ -295,38 +289,55 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
             dispatch(stocksActions.setPriceChangeInterval(company, timeInterval, growType))
 
           }
-          // @ts-ignore / обновляем состояние акций . . .
-          // dispatch(stocksActions.setPriceChangeInterval(company, timeInterval, growType))
 
           break
         case "businessNews":
           if (condition === 0 || condition === 1) {
-
+            console.log(condition)
             // вид новости . . .
             let typeOfNews = newsTypes.variants[condition] // positive / negative / neutral
 
             let incomeAmount = Number((Math.random() * 100 + 50).toFixed(0))
+
+            let businessType: number
+            switch (company) {
+              case 'Ресторан':
+                businessType = 0
+                break
+              case 'Сдача гаража':
+                businessType = 1
+                break
+              case 'Сервис':
+                businessType = 2
+                break
+              case 'Мотель':
+                businessType = 3
+                break
+              default:
+                return null
+            }
             // @ts-ignore
-            let businessType = Number((Math.random() * (typeOfNews.events.length - 1)).toFixed(0))
-            // @ts-ignore
-            let titleIndex = Number(((typeOfNews.events[businessType].titles.length - 1)).toFixed(0))
+            let titleIndex = getRandomNumber(typeOfNews.events[businessType].titles.length)
 
             // @ts-ignore // заголовок новости
             news.title = typeOfNews.events[businessType].titles[titleIndex]
-            // @ts-ignore // название бизнеса
-            // news.company = typeOfNews.events[businessType].type
+            // название бизнеса
             news.company = company
             // прибыль/убыль бизнеса
             news.amount = incomeAmount
-          } else {
+
+            // @ts-ignore / обновляем доход пользователя . . .
+            condition === 0 ? dispatch(actions.updateBusinessIncome(incomeAmount)) : dispatch(actions.updateBusinessIncome(-incomeAmount))
             // @ts-ignore
-            let titleIndex = Number((Math.random() * (newsTypes.variants[condition].events.length - 1)).toFixed(0))
+            condition === 0 ? dispatch(businessActions.updateBusinessIncome(company, incomeAmount)) : dispatch(businessActions.updateBusinessIncome(company, -incomeAmount))
+          } else {
+            // @ts-ignore / если новость не связана с доходом то просто отдаем заголовок . . .
+            let titleIndex = getRandomNumber(newsTypes.variants[condition].events.length)
             // @ts-ignore
             news.title = newsTypes.variants[condition].events[titleIndex]
           }
           break
       }
-
     }
     return null
   })

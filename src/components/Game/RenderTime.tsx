@@ -10,6 +10,7 @@ import { getStocksSelector } from "../../redux/stocks-selector";
 import {getDifficultySelector} from "../../redux/settings-selector";
 import {setNewsThunk} from "../../redux/news-reducer";
 import {getMyBusinessesSelector} from "../../redux/business-selector";
+import {getRandomNumber} from "../../utils/getRandomNumber";
 
 type RenderTimeType = {
   income: number
@@ -56,24 +57,23 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
     dispatch(actions.setDayInMonth(dayInMonth + 1))
     // еженедельные покупки . . .
     if (day % 7 === 0 && day !== 0) {
-      const generateNews = () => {
+      const generateNews = (): any => {
         // stocksNews / businessNews / personNews . . .
-        let newsType = Number((Math.random() * 2).toFixed(0))
-
+        let newsType = getRandomNumber(3)
         if (newsTypeArray[newsType].ableToShow) {
           let company = ''
           if(newsTypeArray[newsType].type === 'stocksNews') {
-            company = companies[Number((Math.random() * (companies.length - 1)).toFixed(0))]
+            company = companies[getRandomNumber(companies.length)]
           }
-          if (newsTypeArray[newsType].type === 'businessNews' && myBusinesses.length !== 0) {
-            let companyIndex = Number((Math.random() * (myBusinesses.length - 1)).toFixed(0))
-            console.log(companyIndex)
-            company = myBusinesses[companyIndex].name
-          } else {
-            generateNews()
+          if (newsTypeArray[newsType].type === 'businessNews') {
+            if (myBusinesses.length !== 0) {
+              let companyIndex = getRandomNumber(myBusinesses.length)
+              company = myBusinesses[companyIndex].name
+            } else {
+              return generateNews()
+            }
           }
           dispatch(setNewsThunk(newsTypeArray[newsType].type, company))
-          // dispatch(newsActions.addNews(newsTypeArray[newsType].type, company))
         } else {
           generateNews()
         }

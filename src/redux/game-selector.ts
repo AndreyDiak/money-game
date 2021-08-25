@@ -27,7 +27,15 @@ export const getMonthSelector = (state: AppStateType) => {
 export const getMonthsSelector = (state: AppStateType) => {
   return state.gamePage.months
 }
-
+// victoryBalance return
+export const getVictoryBalance = (state: AppStateType) => {
+  return state.gamePage.victoryBalance
+}
+// loseBalance return
+export const getLoseBalance = (state: AppStateType) => {
+  return state.gamePage.loseBalance
+}
+// player level return
 export const getLevelSelector = (state: AppStateType) => {
   return state.gamePage.level
 }

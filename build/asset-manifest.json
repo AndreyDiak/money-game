@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/money-game/static/css/main.70d12175.chunk.css",
-    "main.js": "/money-game/static/js/main.9feb723f.chunk.js",
-    "main.js.map": "/money-game/static/js/main.9feb723f.chunk.js.map",
-    "runtime-main.js": "/money-game/static/js/runtime-main.e9bd6edd.js",
-    "runtime-main.js.map": "/money-game/static/js/runtime-main.e9bd6edd.js.map",
+    "main.css": "/money-game/static/css/main.e0adfc33.chunk.css",
+    "main.js": "/money-game/static/js/main.33eeca4f.chunk.js",
+    "main.js.map": "/money-game/static/js/main.33eeca4f.chunk.js.map",
+    "runtime-main.js": "/money-game/static/js/runtime-main.6fdd9a6e.js",
+    "runtime-main.js.map": "/money-game/static/js/runtime-main.6fdd9a6e.js.map",
     "static/css/2.630ef54a.chunk.css": "/money-game/static/css/2.630ef54a.chunk.css",
-    "static/js/2.35c01926.chunk.js": "/money-game/static/js/2.35c01926.chunk.js",
-    "static/js/2.35c01926.chunk.js.map": "/money-game/static/js/2.35c01926.chunk.js.map",
-    "static/js/3.47dddae2.chunk.js": "/money-game/static/js/3.47dddae2.chunk.js",
-    "static/js/3.47dddae2.chunk.js.map": "/money-game/static/js/3.47dddae2.chunk.js.map",
+    "static/js/2.f675c36b.chunk.js": "/money-game/static/js/2.f675c36b.chunk.js",
+    "static/js/2.f675c36b.chunk.js.map": "/money-game/static/js/2.f675c36b.chunk.js.map",
+    "static/js/3.0fcd5211.chunk.js": "/money-game/static/js/3.0fcd5211.chunk.js",
+    "static/js/3.0fcd5211.chunk.js.map": "/money-game/static/js/3.0fcd5211.chunk.js.map",
     "index.html": "/money-game/index.html",
     "static/css/2.630ef54a.chunk.css.map": "/money-game/static/css/2.630ef54a.chunk.css.map",
-    "static/css/main.70d12175.chunk.css.map": "/money-game/static/css/main.70d12175.chunk.css.map",
-    "static/js/2.35c01926.chunk.js.LICENSE.txt": "/money-game/static/js/2.35c01926.chunk.js.LICENSE.txt",
+    "static/css/main.e0adfc33.chunk.css.map": "/money-game/static/css/main.e0adfc33.chunk.css.map",
+    "static/js/2.f675c36b.chunk.js.LICENSE.txt": "/money-game/static/js/2.f675c36b.chunk.js.LICENSE.txt",
     "static/media/style.css": "/money-game/static/media/gold.8fdea6a7.png",
     "static/media/cafe.6b4a7055.jpg": "/money-game/static/media/cafe.6b4a7055.jpg",
     "static/media/engineer.836a743d.jpg": "/money-game/static/media/engineer.836a743d.jpg",
@@ -32,10 +32,10 @@
     "static/media/service.2c5d60b8.jpg": "/money-game/static/media/service.2c5d60b8.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.e9bd6edd.js",
+    "static/js/runtime-main.6fdd9a6e.js",
     "static/css/2.630ef54a.chunk.css",
-    "static/js/2.35c01926.chunk.js",
-    "static/css/main.70d12175.chunk.css",
-    "static/js/main.9feb723f.chunk.js"
+    "static/js/2.f675c36b.chunk.js",
+    "static/css/main.e0adfc33.chunk.css",
+    "static/js/main.33eeca4f.chunk.js"
   ]
 }

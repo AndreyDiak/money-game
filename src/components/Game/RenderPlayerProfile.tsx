@@ -1,11 +1,11 @@
-import {Avatar, Progress, Slider} from "antd";
+import {Avatar, message, Progress, Slider} from "antd";
 import React, {FC} from "react";
 import {RenderTime} from "./RenderTime";
 import {useDispatch, useSelector} from "react-redux";
 import {getPersonSelector} from "../../redux/profile-selector";
 import {personType} from "../../redux/profile-reducer";
 import {DoubleRightOutlined, PauseOutlined, RightOutlined } from "@ant-design/icons/lib/icons";
-import {getLevelSelector} from "../../redux/game-selector";
+import {getLevelSelector, getVictoryBalance} from "../../redux/game-selector";
 import Radio from "antd/lib/radio";
 import {settingsActions} from "../../redux/settings-reducer";
 import {getConstTimeSpeedSelector, getTimeSpeedSelector} from "../../redux/settings-selector";
@@ -19,12 +19,23 @@ type RenderPlayerProfileType = {
 
 export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
 
-  const profile = useSelector(getPersonSelector) as personType
-  const work = useSelector((state: AppStateType) => state.worksPage.currentWork) as Work
-  const level = useSelector(getLevelSelector)
-  const time = useSelector(getTimeSpeedSelector)
-  const timeSpeed = useSelector(getConstTimeSpeedSelector)
   const dispatch = useDispatch()
+  // персонаж игрока
+  const profile = useSelector(getPersonSelector) as personType
+  // работа игрока
+  const work = useSelector((state: AppStateType) => state.worksPage.currentWork) as Work
+  // уровень игрока
+  const level = useSelector(getLevelSelector)
+  // нынешняя скорость игры
+  const time = useSelector(getTimeSpeedSelector)
+  // скорость установленная в начале игры / д.4с / д.2с / д.1с
+  const timeSpeed = useSelector(getConstTimeSpeedSelector)
+  // баланс необходимый для победы . . .
+  const victoryBalance = useSelector(getVictoryBalance)
+
+  const info = () => {
+    message.warning('Эта функция пока не доступна(')
+  }
 
   const onChangeTime = (time: number) => {
     dispatch(settingsActions.setTimeSpeed(time))
@@ -50,7 +61,7 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
                 trailColor={'#282c34'}
                 format={() => <Avatar src={profile.avatar} size={50}/> }
               />
-              <div className="gameProfileStats__AvatarImgLevel" onMouseOver={() => console.log('ррр')}>
+              <div className="gameProfileStats__AvatarImgLevel" onClick={info} onMouseOver={() => console.log('Сделать всплавашку про уровень')}>
                 <b>{level}</b>
               </div>
             </div>
@@ -81,7 +92,6 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
               {work.options[work.level - 1].title}
             </div>
             <div className="gameProfileContent__WorkStats__Income">
-              {/* (work.startSalary + work.options[work.level - 1].income * work.startSalary / 100).toFixed(1) */}
               доход -  <span className="gold">{props.income}</span>
             </div>
           </div>
@@ -103,7 +113,7 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
             defaultValue={1}
             value={props.wallet}
             min={0}
-            max={10000}
+            max={victoryBalance}
           />
         </div>
       </div>

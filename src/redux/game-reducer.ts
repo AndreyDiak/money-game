@@ -19,7 +19,10 @@ const SELL_BUSINESS = 'gamePage/SELL_BUSINESS'
 const WEEK_SPEND = 'gamePage/WEEK_SPEND'
 const INDEX_PRICE = 'gamePage/INDEX_PRICE'
 
+const INIT_GAME = 'gamePage/INIT_GAME'
+
 const GET_NEWS_PAYOUT = 'gamePage/GET_NEWS_PAYOUT'
+const UPDATE_BUSINESS_INCOME = 'gamePage/UPDATE_BUSINESS_INCOME'
 
 let initialState = {
   // счётчик дней . . .
@@ -34,6 +37,10 @@ let initialState = {
   wallet: 0,
   // доход игрока . . .
   income: 0,
+  // баланс необходимый для победы / возможно потом его можно менять . . .
+  victoryBalance: 10000,
+  // баланс для пораженя
+  loseBalance: 0,
   // месяцы игры . . .
   months: [
     {name: 'Январь', duration: 31}, {name: 'Февраль', duration: 28}, {name: 'Март', duration: 31},
@@ -113,7 +120,6 @@ export const gameReducer = (state = initialState, action: ActionsType): InitialG
       }
     // обновляем баланс кошелька
     case SET_DAY_IN_MONTH:
-      console.log(action.dayInMonth)
       return {
         ...state,
         daysInMonth: action.dayInMonth
@@ -168,7 +174,11 @@ export const gameReducer = (state = initialState, action: ActionsType): InitialG
         wallet: state.wallet + action.price,
         income: state.income - action.income
       }
-
+    case UPDATE_BUSINESS_INCOME:
+      return {
+        ...state,
+        income: state.income + action.income
+      }
     // еженедельные траты игрока
     case WEEK_SPEND:
       // берем случайное событие . . .
@@ -195,26 +205,41 @@ export const gameReducer = (state = initialState, action: ActionsType): InitialG
           }
         })
       }
+    case INIT_GAME:
+      return {
+        ...state,
+        day: 1,
+        level: 1,
+        daysInMonth: 0,
+        month: 0,
+        wallet: 0,
+        income: 0,
+        happenedEvents: Array(12).fill([] as eventType[])
+      }
     default:
       return state
   }
 }
 
 export const actions = {
+  // actions даты и времени . . .
   setDay: (day: number) => ({type: SET_DAY, day} as const),
   setMonth: (month: number) => ({type: SET_MONTH, month} as const),
   setDayInMonth: (dayInMonth: number) => ({type: SET_DAY_IN_MONTH, dayInMonth} as const),
-
+  // actions для кошелька . . .
   setWallet: (wallet: number) => ({type: SET_WALLET, wallet} as const),
   updateWallet: (wallet: number) => ({type: UPDATE_WALLET, wallet} as const),
   setIncome: (income: number) => ({type: SET_INCOME, income} as const),
 
   getNewsPayout: (payout: 'one' | 'regular', amount: number) => ({type: GET_NEWS_PAYOUT, payout, amount} as const),
-  buyBusiness: (price: number, income: number) => ({type: BUY_BUSINESS, price, income} as const),
-  sellBusiness: (price: number, income: number) => ({type: SELL_BUSINESS, price, income} as const),
+
   setEventsPrice: (indexPrice: number) => ({type: INDEX_PRICE, indexPrice} as const),
   weekSpend: (difficult: DifficultyType) => ({type: WEEK_SPEND, difficult} as const),
-
+  // actions для бизнесса . . .
+  buyBusiness: (price: number, income: number) => ({type: BUY_BUSINESS, price, income} as const),
+  sellBusiness: (price: number, income: number) => ({type: SELL_BUSINESS, price, income} as const),
+  updateBusinessIncome: (income: number) => ({type: UPDATE_BUSINESS_INCOME, income} as const),
+  initGame: () => ({type: INIT_GAME} as const),
 }
 
 type ActionsType = InferActionsType<typeof actions>

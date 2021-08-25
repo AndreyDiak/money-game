@@ -15,13 +15,13 @@ let initialState = {
   // список возможных персонажей . . .
   persons: [
     {
-      name: 'Davie',
+      name: 'Тестовый персонаж',
       age: 28,
       img: person1Photo,
       preferences: [
-        {type: 'it' as WorksType, rise: 2},
-        {type: 'manager' as WorksType, rise: 0},
-        {type: 'engineer' as WorksType, rise: 7},
+        {type: 'it' as WorksType, rise: 10},
+        {type: 'manager' as WorksType, rise: 10},
+        {type: 'engineer' as WorksType, rise: 10},
       ],
       saving: 30000,
       avatar: person1Avatar
