@@ -9,7 +9,7 @@ export const Main = () => {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Switch>
           <Redirect exact from='/' to='/menu'/>
           <Redirect exact from='/money-game' to='/menu'/>

@@ -79,17 +79,11 @@ export const GamePage: FC = () => {
       // зануление игры . . .
       if(!isEndOfGame) setIsEndOfGame(true)
       dispatch(settingsActions.setTimeSpeed(0))
-      // TODO выводим окно с поздравлением и выходом в главное меню
-      //  инициализируем приложение
-      //  добавляем игру в статистику . . .
     }
     if(wallet < loseBalance) {
       // зануление игры . . .
-      setIsEndOfGame(true)
+      if(!isEndOfGame) setIsEndOfGame(true)
       dispatch(settingsActions.setTimeSpeed(0))
-      // TODO инициализируем приложение
-      //  предлагаем начать заново
-      //  добавляем игру в статистику . . .
     }
   }
 
@@ -175,7 +169,7 @@ export const GamePage: FC = () => {
                   <TabPane tab="Затраты" key="3">
                     <RenderPlayerSpends/>
                   </TabPane>
-                  <TabPane tab="Акции" key="4" disabled={wallet < 300 && myStocks.length === 0} >
+                  <TabPane tab="Акции" key="4" disabled={wallet <= 500 && myStocks.length === 0} >
                     <RenderPlayerStocks
                       setIsHistoryShown={setIsHistoryShown}
                       setMyActiveStock={setMyActiveStock}
