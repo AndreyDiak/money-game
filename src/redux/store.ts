@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import {gameReducer} from "./game-reducer";
 import thunkMiddleWare from "redux-thunk"
 import {profileReducer} from "./profile-reducer";
@@ -29,6 +29,8 @@ export type InferActionsType<T extends {[key: string]: (...args: any[]) => any}>
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleWare)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleWare)))
+// тестовый билд без разрешения
+// const store = createStore(rootReducer, compose(applyMiddleware(thunkMiddleWare)))
 
 export default store

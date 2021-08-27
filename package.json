@@ -2,7 +2,7 @@
   "name": "my-app-money",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://andreydiak.github.io/money-game",
+  "homepage": "http://u112306.test-handyhost.ru",
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@testing-library/jest-dom": "^5.14.1",

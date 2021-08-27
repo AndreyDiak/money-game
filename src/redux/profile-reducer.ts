@@ -56,7 +56,7 @@ let initialState = {
         {type: 'manager' as WorksType, rise: 7},
         {type: 'engineer' as WorksType, rise: 4},
       ],
-      saving: 400,
+      saving: 1000,
       avatar: person4Avatar
     } as personType,
   ],

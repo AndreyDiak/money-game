@@ -6,7 +6,9 @@ const UPDATE_MY_STOCKS = 'gamePage/UPDATE_MY_STOCKS'
 const UPDATE_STOCKS = 'gamePage/UPDATE_STOCKS'
 const INDEXING_STOCKS = 'gamePage/INDEXING_STOCKS'
 const SET_PRICE_CHANGE_INTERVAL = 'gamePage/SET_PRICE_CHANGE_INTERVAL'
-
+const RESET_MY_STOCKS = 'gamePage/RESET_MY_STOCKS'
+const FILTER_STOCKS = 'gamePage/FILTER_STOCKS'
+const REVERSE_FILTERED_STOCKS = 'gamePage/REVERSE_FILTERED_STOCKS'
 let initialState = {
   // изменение цены . . .
   normalPriceChange: 3,
@@ -18,13 +20,17 @@ let initialState = {
     'ОАО КосмосТек', 'МашинСтрой',
     'ОАО КазиноАльянс', 'СибирьТек',
     'ЕвропаБизнес', 'ЗАО АлмазПродажн',
-    'ЗАО ПлодЛюбви'
+    'ЗАО ПлодЛюбви', 'ОАО ТенЗдоровье',
+    'СтройДвор', 'АвтоМаркет', 'ИнтернетСервис',
+    'ОАО ЭкмоСеть', 'ОАО БыстраяДоставка', 'АэроТехнологии',
+    'ОАО НаСвязи',
   ],
   // акции в портфеле . . .
   myStocks: [] as myStockType[],
   // акции на рынке . . .
   stocks: [] as stockType[],
-
+  // отфильтрованнае акции . . .
+  filteredStocks: [] as stockType[],
 }
 
 export const stocksReducer = (state = initialState, action: ActionType) => {
@@ -64,25 +70,36 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
       console.log(initialStocksCopy)
       return {
         ...state,
-        stocks: initialStocksCopy
+        stocks: initialStocksCopy,
+        filteredStocks: initialStocksCopy
       }
     // продажа акций . . .
     case SELL_STOCKS:
       let myStocksCopyToSell = [...state.myStocks]
-      myStocksCopyToSell.forEach((myStock, index) => {
-        if (myStock.title === action.stock.title) {
-          // создаем новый объект . . .
-          myStocksCopyToSell[index] = {
-            ...myStocksCopyToSell[index],
-            count: myStocksCopyToSell[index].count - action.count
-          }
-          // если количество акций === 0, то убираем её из портфеля . . .
-          if (myStocksCopyToSell[index].count === 0) {
-            // удаляем из массива данные акции . . .
-            myStocksCopyToSell.splice(index, 1)
-          }
-        }
-      })
+
+      myStocksCopyToSell[action.activeStock] = {
+        ...myStocksCopyToSell[action.activeStock],
+        count: myStocksCopyToSell[action.activeStock].count - action.count
+      }
+
+      if(myStocksCopyToSell[action.activeStock].count === 0) {
+        myStocksCopyToSell.splice(action.activeStock, 1)
+      }
+
+      // myStocksCopyToSell.forEach((myStock, index) => {
+      //   if (myStock.title === action.stock.title) {
+      //     // создаем новый объект . . .
+      //     myStocksCopyToSell[index] = {
+      //       ...myStocksCopyToSell[index],
+      //       count: myStocksCopyToSell[index].count - action.count
+      //     }
+      //     // если количество акций === 0, то убираем её из портфеля . . .
+      //     if (myStocksCopyToSell[index].count === 0) {
+      //       // удаляем из массива данные акции . . .
+      //       myStocksCopyToSell.splice(index, 1)
+      //     }
+      //   }
+      // })
       return {
         ...state,
         myStocks: myStocksCopyToSell
@@ -109,6 +126,12 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
           : stock.price[stock.price.length - 1] - indexPriceCount
 
         indexPrice = Number(indexPrice.toFixed(1))
+
+        if (indexPrice <= 0) {
+          indexPrice = stock.price[stock.price.length - 1]
+          stocksCopy[index].priceChangeInterval = Math.round(Math.random() * 3 + 1)
+          indexCondition = 'up'
+        }
 
         stocksCopy[index] = {
           // возвращаем пред. данные . . .
@@ -142,9 +165,9 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
           }
         })
       })
-      console.log('================================')
-      console.log('обновленные акции')
-      console.log(stocksCopy)
+      // console.log('================================')
+      // console.log('обновленные акции')
+      // console.log(stocksCopy)
       return {
         ...state,
         stocks: stocksCopy,
@@ -169,6 +192,7 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
         ...state,
         stocks: stocksPriceChangeCopy
       }
+    // сет моих акций . . .
     case UPDATE_MY_STOCKS:
       return {
         ...state,
@@ -178,9 +202,71 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
     case UPDATE_STOCKS:
       return {
         ...state,
-        stocks: action.stocks
+        stocks: action.stocks,
+        filteredStocks: action.filteredStocks
+      }
+    // обнуление акций персонажа . . .
+    case RESET_MY_STOCKS:
+      return {
+        ...state,
+        myStocks: [] as myStockType[]
+      }
+    // фильтр акций . . .
+    case FILTER_STOCKS:
+      let filteredStocksCopy = [] as stockType[]
+
+      switch (action.filter) {
+        case "title":
+          if (action.value === '') {
+            filteredStocksCopy = [...state.stocks]
+          } else {
+            state.stocks.forEach(stock => {
+              if (stock.title.includes(action.value)) filteredStocksCopy = [...filteredStocksCopy, stock]})
+          }
+          break
+
+        case "condition":
+          filteredStocksCopy = state.filteredStocks.sort((prev, next) => {
+            if (prev.condition === 'up' && next.condition === 'down') {
+              return -1
+            }
+            if (prev.condition === 'down' && next.condition === 'up') {
+              return 1
+            }
+            return 0
+          })
+          break
+
+        case "price":
+          filteredStocksCopy = state.stocks.sort((prev, next) => prev.price[prev.price.length - 1] - next.price[next.price.length - 1])
+          break
+
+        case "count":
+          filteredStocksCopy = state.stocks.sort((prev, next) => prev.count - next.count)
+          break
+
+        case "risk":
+          filteredStocksCopy = state.stocks.sort((prev, next) => prev.risk - next.risk)
+          break
+
+        case "none":
+          filteredStocksCopy = [...state.stocks]
+          break
+
+        default:
+          break
       }
 
+      return {
+        ...state,
+        filteredStocks: filteredStocksCopy
+      }
+    // изменить последовательность . . .
+    case REVERSE_FILTERED_STOCKS:
+      return {
+        ...state,
+        filteredStocks: [...state.filteredStocks.reverse()]
+      }
     default:
       return state
   }
@@ -191,9 +277,12 @@ export const stocksActions = {
   setStocks: () => ({type: SET_STOCKS} as const),
   indexingStocks: () => ({type: INDEXING_STOCKS} as const),
   updateMyStocks: (myStocks: myStockType[]) => ({type: UPDATE_MY_STOCKS, myStocks} as const),
-  updateStocks: (stocks: stockType[]) => ({type: UPDATE_STOCKS, stocks} as const),
-  sellStocks: (stock: myStockType, count: number) => ({type: SELL_STOCKS, stock, count} as const),
-  setPriceChangeInterval: (company: string, timeInterval: number, condition: 'up' | 'down') => ({type: SET_PRICE_CHANGE_INTERVAL, company, timeInterval, condition} as const)
+  updateStocks: (stocks: stockType[], filteredStocks: stockType[]) => ({type: UPDATE_STOCKS, stocks, filteredStocks} as const),
+  sellStocks: (stock: myStockType, count: number, activeStock: number) => ({type: SELL_STOCKS, stock, count, activeStock} as const),
+  setPriceChangeInterval: (company: string, timeInterval: number, condition: 'up' | 'down') => ({type: SET_PRICE_CHANGE_INTERVAL, company, timeInterval, condition} as const),
+  resetMyStocks: () => ({type: RESET_MY_STOCKS} as const),
+  filterStocks: (filter: filterType, value: string) => ({type: FILTER_STOCKS, filter, value} as const),
+  reverseFilteredStocks: () => ({type: REVERSE_FILTERED_STOCKS} as const)
 
 }
 
@@ -214,4 +303,5 @@ export type myStockType = {
   count: number
   condition: 'up' | 'down'
 }
+export type filterType = 'price' | 'condition' | 'title' | 'count' | 'none' | 'risk'
 type ActionType = InferActionsType<typeof stocksActions>

@@ -139,7 +139,7 @@ export const gameReducer = (state = initialState, action: ActionsType): InitialG
     case UPDATE_WALLET:
       return {
         ...state,
-        wallet: state.wallet + state.income + action.wallet
+        wallet: Math.round(state.wallet + state.income + action.wallet)
       }
     // обновление кошелька после новостей
     case GET_NEWS_PAYOUT:

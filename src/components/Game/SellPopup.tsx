@@ -12,6 +12,7 @@ import {getConstTimeSpeedSelector} from "../../redux/settings-selector";
 export type SellPopupType = {
   stock: myStockType
   setIsStockToSell: SetStateAction<any>
+  activeStock: number
 }
 export const SellPopup: FC<SellPopupType> = (props) => {
   // количество акций на продажу . . .
@@ -58,12 +59,13 @@ export const SellPopup: FC<SellPopupType> = (props) => {
           <div style={{textAlign: 'center'}}>
             <Button onClick={() => {
               props.setIsStockToSell(false)
+              console.log(props.activeStock)
               // возвращаем скорость времени
               onChangeTime(timeSpeed)
               // уменьшаем количество акций в пакете . . .
-              dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount))
+              dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount, props.activeStock))
               // увеличиваем баланс пользователя . . .
-              dispatch(actions.setWallet(wallet + stocksToSellCount * props.stock.price))
+              dispatch(actions.setWallet(Math.round(wallet + stocksToSellCount * props.stock.price)))
             }}>
               Продать
             </Button>

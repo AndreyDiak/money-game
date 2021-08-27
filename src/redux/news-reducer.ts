@@ -8,6 +8,7 @@ import {getRandomNumber} from "../utils/getRandomNumber";
 const ADD_NEWS = 'newsPage/ADD_NEWS'
 const ABLE_TO_SHOW = 'newsPage/ABLE_TO_SHOW'
 const SET_TO_ARCHIVE = 'newsPage/SET_TO_ARCHIVE'
+const RESET_NEWS = 'newsPage/RESET_NEWS'
 
 let initialState = {
   // массив с произошедшими новостями . . .
@@ -184,12 +185,14 @@ export type InitialNewsStateType = typeof initialState
 
 export const newsReducer = (state = initialState, action: NewsActionsType): InitialNewsStateType => {
   switch (action.type) {
+    // добавление новости в список
     case ADD_NEWS:
       // копия прошлых новостей . . .
       return {
         ...state,
         news: action.news
       }
+    // возможность показывать новости про акции / бизнесс (изначально нельзя)
     case ABLE_TO_SHOW:
       return {
         ...state,
@@ -200,6 +203,7 @@ export const newsReducer = (state = initialState, action: NewsActionsType): Init
           return newsType
         })
       }
+    // добавление новости в архив
     case SET_TO_ARCHIVE:
 
       let newsCopy = [...state.news]
@@ -215,6 +219,12 @@ export const newsReducer = (state = initialState, action: NewsActionsType): Init
         news: newsCopy,
         archive: archiveCopy
       }
+    // зануление новостей
+    case RESET_NEWS:
+      return {
+        ...state,
+        news: [] as newsArrayType[]
+      }
     default:
       return {
         ...state
@@ -225,7 +235,8 @@ export const newsReducer = (state = initialState, action: NewsActionsType): Init
 export const newsActions = {
   addNews: (news: newsArrayType[]) => ({type: ADD_NEWS, news} as const),
   setAbleToShow: (types: NewsTypes) => ({type: ABLE_TO_SHOW, types} as const),
-  setToArchive: (index: number) => ({type: SET_TO_ARCHIVE, index} as const)
+  setToArchive: (index: number) => ({type: SET_TO_ARCHIVE, index} as const),
+  resetNews: () => ({type: RESET_NEWS} as const)
 }
 
 export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkType => (dispatch, getState) => {
@@ -233,6 +244,7 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
   const dayInMonth = getState().gamePage.daysInMonth
   const month = getState().gamePage.months[getState().gamePage.month].name
   let newsCopy = [...state.news]
+  // создание шаблона новости
   let news = {
     title: '',
     amount: 0,

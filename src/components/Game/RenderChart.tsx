@@ -9,6 +9,7 @@ import { Line } from "react-chartjs-2";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {settingsActions} from "../../redux/settings-reducer";
 import {getConstTimeSpeedSelector} from "../../redux/settings-selector";
+import {AppStateType} from "../../redux/store";
 
 export type RenderChartType = {
   setIsHistoryShown: SetStateAction<any>
@@ -16,7 +17,7 @@ export type RenderChartType = {
 }
 
 
-export const RenderChart: FC<RenderChartType> = React.memo((props) => {
+export const RenderChart: FC<RenderChartType> = (props) => {
   const dispatch = useDispatch()
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
 
@@ -109,15 +110,16 @@ export const RenderChart: FC<RenderChartType> = React.memo((props) => {
           {/*</LineChart>*/}
 
           {/*<Line data={data} options={options} className='chartPopupBlock__Chart'/>*/}
-          <RenderChartMenu stock={props.stock} />
+          <RenderChartMenu stock={props.stock} setIsHistoryShown={props.setIsHistoryShown}/>
         </div>
       </div>
     </>
   )
-})
+}
 
 type RenderChartMenuType = {
   stock: stockType
+  setIsHistoryShown: SetStateAction<any>
 }
 
 export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
@@ -126,8 +128,11 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
   const wallet = useSelector(getWalletSelector)
   const dispatch = useDispatch()
 
+  const timeSpeed = useSelector(getConstTimeSpeedSelector)
   // массив с акциями . . .
   const stocks = useSelector(getStocksSelector)
+
+  const filteredStocks = useSelector((state: AppStateType) => state.stocksPage.filteredStocks)
   // массив купленных акций . . .
   const myStocks = useSelector(getMyStocksSelector)
   const [isFormShown, setIsFormShown] = useState(false)
@@ -137,16 +142,30 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
   // при покупке акции обновляем оставшееся её количество . . .
   const updateStocksCount = () => {
     let stockCopy = [...stocks]
+    let filteredStocksCopy = [...filteredStocks]
     stockCopy.forEach((stock, index) => {
       if (stock.title === props.stock.title) {
         stockCopy[index] = {
           ...stockCopy[index],
           count: stockCopy[index].count - stocksToBuyCount
         }
+        // TODO
+        filteredStocksCopy.map((fStock, fIndex) => {
+          if (fStock.title === props.stock.title) {
+            filteredStocksCopy[fIndex] = {
+              ...filteredStocksCopy[fIndex],
+              count: filteredStocksCopy[fIndex].count - stocksToBuyCount
+            }
+          }
+        })
+        // filteredStocksCopy[index] = {
+        //   ...filteredStocksCopy[index],
+        //   count: filteredStocksCopy[index].count - stocksToBuyCount
+        // }
       }
     })
     // обновляем данные по количеству акций . . .
-    dispatch(stocksActions.updateStocks(stockCopy))
+    dispatch(stocksActions.updateStocks(stockCopy, filteredStocksCopy))
   }
 
   // покупаем акцию и добовляем её в портфель . . .
@@ -167,11 +186,15 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
   }
 
   const buyStocks = () => {
-    dispatch(actions.setWallet(wallet - stocksToBuyPrice))
+    dispatch(actions.setWallet(Math.round(wallet - stocksToBuyPrice)))
     setStocksToBuyCount(0)
     setStocksToBuyPrice(0)
     updateStocksCount()
     addStocks(props.stock)
+  }
+
+  const onChangeTime = (time: number) => {
+    dispatch(settingsActions.setTimeSpeed(time))
   }
 
   return (
@@ -200,7 +223,14 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
               : {display: 'none', textAlign: 'center'}
             }>
             <hr/>
-            <Button disabled={!(stocksToBuyPrice <= wallet)} onClick={() => buyStocks()}>
+            <Button disabled={!(stocksToBuyPrice <= wallet) || props.stock.count <= 0} onClick={() => {
+
+              // возвращаем скорость времени
+              onChangeTime(timeSpeed)
+
+              buyStocks()
+              props.setIsHistoryShown(false)
+            }}>
               Купить
             </Button>
           </div>

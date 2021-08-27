@@ -379,15 +379,26 @@
   padding: 15px;
 }
 .gameProfitStocks__OfferBlock {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  position: relative;
+  padding: 10px;
   display: flex;
   width: 70%;
   flex-direction: column;
-  border-bottom: 1px solid darkgrey;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 }
-.gameProfitStocks__OfferBlock:last-child {
-  border-bottom: none;
+.gameProfitStocks__OfferBlock::after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  border-radius: 1px;
+  bottom: -15.5px;
+  left: 0;
+  background: rgba(255, 255, 255, 0.6);
+}
+.gameProfitStocks__OfferBlock:last-child::after {
+  content: none;
 }
 .gameProfitStocks__OfferBlock__Button {
   margin-top: 10px;
@@ -409,12 +420,16 @@
   display: flex;
   column-gap: 15px;
 }
-.gameProfitStocks__OfferBlocks {
-  margin-top: 30px;
+.gameProfitStocks__OfferBlocks__menu {
+  margin-top: 20px;
   display: flex;
-  flex-direction: column;
-  max-height: 70vh;
+}
+.gameProfitStocks__OfferBlocks__stocks {
+  margin-top: 30px;
   overflow: auto;
+  display: flex;
+  max-height: 70vh;
+  flex-direction: column;
   row-gap: 30px;
 }
 

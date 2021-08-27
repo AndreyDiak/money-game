@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from "react";
 import {RenderPlayerSpends} from "./RenderPlayerSpends";
 import {RenderChart} from "./RenderChart";
 import {RenderPlayerProfile} from "./RenderPlayerProfile";
-import {Badge, Button, message, Modal, Tabs} from "antd";
+import {Badge, Button, message, Modal, notification, Spin, Tabs} from "antd";
 import {SellPopup} from "./SellPopup";
 import {useDispatch, useSelector} from "react-redux"
 import {actions} from "../../redux/game-reducer";
@@ -70,25 +70,33 @@ export const GamePage: FC = () => {
   const [isChangeWorkShown, setIsChangeWorkShown] = useState(false)
   // активная акция пользователя . . .
   const [activeStock, setActiveStock] = useState(null as null | stockType)
-  //
+  // проверка на конец игры . . .
   const [isEndOfGame, setIsEndOfGame] = useState(false)
-
+  // функция проверка на победу/поражение
   const balanceCheck = () => {
     if (wallet >= victoryBalance) {
       console.log('победа!')
       // зануление игры . . .
-      if(!isEndOfGame) setIsEndOfGame(true)
-      dispatch(settingsActions.setTimeSpeed(0))
+      if(!isEndOfGame) {
+        setIsEndOfGame(true)
+        dispatch(settingsActions.setTimeSpeed(0))
+        dispatch(stocksActions.resetMyStocks())
+        dispatch(businessActions.resetMyBusinesses())
+        dispatch(newsActions.resetNews())
+      }
     }
     if(wallet < loseBalance) {
       // зануление игры . . .
-      if(!isEndOfGame) setIsEndOfGame(true)
-      dispatch(settingsActions.setTimeSpeed(0))
+      if(!isEndOfGame) {
+        setIsEndOfGame(true)
+        dispatch(settingsActions.setTimeSpeed(0))
+        dispatch(stocksActions.resetMyStocks())
+        dispatch(businessActions.resetMyBusinesses())
+        dispatch(newsActions.resetNews())
+      }
     }
   }
-
   // функция которая ведёт подсчёт дней . . .
-  // от работы этой функции идет работа всей игры . . .
   const liveProcess = () => {
     if(timeSpeed !== 0) {
       setTimeout(() => {
@@ -113,6 +121,7 @@ export const GamePage: FC = () => {
       dispatch(stocksActions.setStocks())
       // // // новости про акции
       dispatch(newsActions.setAbleToShow('stocksNews'))
+      openNotification('Вам стали доступны акции!')
       }
     // создаём бизнесс
     if (wallet >= 3000 && businesses.length === 0) {
@@ -120,17 +129,15 @@ export const GamePage: FC = () => {
       dispatch(businessActions.setBusinesses())
       // новости про бизнесс
       dispatch(newsActions.setAbleToShow('businessNews'))
+      openNotification('Вам стал доступен бизнесс')
       }
     },[wallet])
-  // заполнение массива предложениями о бизнессе . . .
 
-  // виды рисков при покупке акций . . .
-  enum Risks {
-    low = 1, // почти нет риска (очень маленькая маленькая прибыль)
-    small = 2, // небольшой риск (маленькая прибыль)
-    medium = 3, // средний риск (средняя прибыль)
-    big = 4, // большой риск (хорошая прибыль)
-    huge = 5 // огромный риск (большая риск)
+  const openNotification = (text: string) => {
+    notification.open({
+      message: 'Поздравляем',
+      description: text,
+    });
   }
 
   return (
@@ -149,7 +156,7 @@ export const GamePage: FC = () => {
             ]}>
               <p>Это окно появляется при окончании игры!</p>
             </Modal>
-            {isStockToSell ? <SellPopup stock={myStocks[myActiveStock]} setIsStockToSell={setIsStockToSell} /> : ''}
+            {isStockToSell ? <SellPopup stock={myStocks[myActiveStock]} setIsStockToSell={setIsStockToSell} activeStock={myActiveStock}/> : ''}
             {isHistoryShown ? <RenderChart setIsHistoryShown={setIsHistoryShown} stock={activeStock as stockType} /> : ''}
             {isChangeWorkShown ? <WorksChoicePopup setIsChangeWorkShown={setIsChangeWorkShown}/> : ''}
             <div className="game">
@@ -184,7 +191,8 @@ export const GamePage: FC = () => {
               </div>
             </div>
           </div>
-        : 'загрузка'}
+        : <Spin style={{position: 'absolute', top: 'calc(50% - 13px)', left: 'calc(50% - 10px)'}}/>
+      }
     </>
   )
 }

@@ -95,7 +95,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
     // если сегодня последний день месяца, то обновляем месяц и выдаём зарплату игроку . . .
     if(dayInMonth === months[month].duration) {
       dispatch(actions.setDayInMonth(1))
-      const walletUp = currentWork.options[currentWork.level - 1].income * currentWork.startSalary / 100
+      const walletUp = Math.round(currentWork.options[currentWork.level - 1].income * currentWork.startSalary / 100)
       dispatch(actions.setMonth(month + 1))
       dispatch(actions.updateWallet(walletUp))
     }

@@ -10,6 +10,7 @@ const SET_BUSINESSES = 'businessPage/SET_BUSINESSES'
 const ADD_TO_MY_BUSINESSES = 'businessPage/ADD_TO_MY_BUSINESSES'
 const REMOVE_FROM_MY_BUSINESSES = 'businessPage/REMOVE_FROM_MY_BUSINESSES'
 const UPDATE_BUSINESS_INCOME = 'businessPage/UPDATE_BUSINESS_INCOME'
+const RESET_MY_BUSINESSES = 'businessPage/RESET_MY_BUSINESSES'
 
 let initialState = {
   myBusinesses: [] as BusinessType[],
@@ -46,11 +47,13 @@ export const businessReducer = (state = initialState, action: BusinessActionType
         ...state,
         businesses: businessesCopy
       }
+    // покупка бизнесса
     case ADD_TO_MY_BUSINESSES:
       return {
         ...state,
         myBusinesses: [...state.myBusinesses, action.business]
       }
+    // продажа бизнесса
     case REMOVE_FROM_MY_BUSINESSES:
       let myBusinessCopy = [...state.myBusinesses]
       myBusinessCopy.map((myBusiness, index) => {
@@ -62,6 +65,7 @@ export const businessReducer = (state = initialState, action: BusinessActionType
         ...state,
         myBusinesses: myBusinessCopy
       }
+    // обновление дохода с бизнесса
     case UPDATE_BUSINESS_INCOME:
       let myBusinessesCopy = [...state.myBusinesses]
       myBusinessesCopy.map((business, index) => {
@@ -72,6 +76,12 @@ export const businessReducer = (state = initialState, action: BusinessActionType
       return {
         ...state,
         myBusinesses: myBusinessesCopy
+      }
+    // обнуление бизнесса
+    case RESET_MY_BUSINESSES:
+      return {
+        ...state,
+        myBusinesses: [] as BusinessType[]
       }
     default:
       return {
@@ -85,6 +95,7 @@ export const businessActions = {
   addToMyBusinesses: (business: BusinessType) => ({type: ADD_TO_MY_BUSINESSES, business} as const),
   removeFromMyBusiness: (business: BusinessType) => ({type: REMOVE_FROM_MY_BUSINESSES, business } as const),
   updateBusinessIncome: (title: string, income: number) => ({type: UPDATE_BUSINESS_INCOME, title, income} as const),
+  resetMyBusinesses: () => ({type: RESET_MY_BUSINESSES} as const)
 }
 
 
