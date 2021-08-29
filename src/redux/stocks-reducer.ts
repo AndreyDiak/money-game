@@ -86,20 +86,7 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
         myStocksCopyToSell.splice(action.activeStock, 1)
       }
 
-      // myStocksCopyToSell.forEach((myStock, index) => {
-      //   if (myStock.title === action.stock.title) {
-      //     // создаем новый объект . . .
-      //     myStocksCopyToSell[index] = {
-      //       ...myStocksCopyToSell[index],
-      //       count: myStocksCopyToSell[index].count - action.count
-      //     }
-      //     // если количество акций === 0, то убираем её из портфеля . . .
-      //     if (myStocksCopyToSell[index].count === 0) {
-      //       // удаляем из массива данные акции . . .
-      //       myStocksCopyToSell.splice(index, 1)
-      //     }
-      //   }
-      // })
+
       return {
         ...state,
         myStocks: myStocksCopyToSell
@@ -108,6 +95,7 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
     case INDEXING_STOCKS:
       let stocksCopy = [...state.stocks]
       let myStocksCopy = [...state.myStocks]
+      let filteredIndexingStocksCopy = [...state.filteredStocks]
 
       state.stocks.map((stock, index) => {
         // изменение количества акций . . .
@@ -164,6 +152,13 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
             }
           }
         })
+
+        filteredIndexingStocksCopy.forEach((fStock, fIndex) => {
+          if (fStock.title === stock.title) {
+            filteredIndexingStocksCopy[fIndex] = stocksCopy[index]
+          }
+        })
+
       })
       // console.log('================================')
       // console.log('обновленные акции')
@@ -171,7 +166,8 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
       return {
         ...state,
         stocks: stocksCopy,
-        myStocks: myStocksCopy
+        myStocks: myStocksCopy,
+        filteredStocks: filteredIndexingStocksCopy
       }
     // обновление цен наших акций . . .
     case SET_PRICE_CHANGE_INTERVAL:
@@ -221,7 +217,7 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
             filteredStocksCopy = [...state.stocks]
           } else {
             state.stocks.forEach(stock => {
-              if (stock.title.includes(action.value)) filteredStocksCopy = [...filteredStocksCopy, stock]})
+              if (stock.title.includes(action.value) || stock.title.toLowerCase().includes(action.value)) filteredStocksCopy = [...filteredStocksCopy, stock]})
           }
           break
 
@@ -303,5 +299,6 @@ export type myStockType = {
   count: number
   condition: 'up' | 'down'
 }
+// виды фильтров . . .
 export type filterType = 'price' | 'condition' | 'title' | 'count' | 'none' | 'risk'
 type ActionType = InferActionsType<typeof stocksActions>

@@ -12,12 +12,10 @@ const SET_WALLET = 'gamePage/SET_WALLET'
 const UPDATE_WALLET = 'gamePage/UPDATE_WALLET'
 const SET_INCOME = 'gamePage/SET_INCOME'
 
+const UPDATE_WALLET_FROM_SPENDS = 'gamePage/UPDATE_WALLET_FROM_SPENDS'
+
 const BUY_BUSINESS = 'gamePage/BUY_BUSINESS'
 const SELL_BUSINESS = 'gamePage/SELL_BUSINESS'
-
-// spends and update . . .
-const WEEK_SPEND = 'gamePage/WEEK_SPEND'
-const INDEX_PRICE = 'gamePage/INDEX_PRICE'
 
 const INIT_GAME = 'gamePage/INIT_GAME'
 
@@ -38,7 +36,7 @@ let initialState = {
   // доход игрока . . .
   income: 0,
   // баланс необходимый для победы / возможно потом его можно менять . . .
-  victoryBalance: 10000,
+  victoryBalance: 100000,
   // баланс для пораженя
   loseBalance: 0,
   // месяцы игры . . .
@@ -48,58 +46,6 @@ let initialState = {
     {name: 'Июль', duration: 31}, {name: 'Август', duration: 31}, {name: 'Сентябрь', duration: 30},
     {name: 'Октябрь', duration: 31}, {name: 'Ноябрь', duration: 30}, {name: 'Декабрь', duration: 31},
   ],
-  // вероятные события . . .
-  events: [
-    {
-      title: 'кинотеатр',
-      price: 75
-    }, {
-      title: 'ресторан',
-      price: 120
-    }, {
-      title: 'покупка продуктов',
-      price: 65
-    }, {
-      title: 'новая одежда',
-      price: 90
-    }, {
-      title: 'прогулка',
-      price: 30
-    }, {
-      title: 'ремонт машины',
-      price: 220
-    }, {
-      title: 'покупка мебели',
-      price: 75
-    }, {
-      title: 'одолжил другу',
-      price: 30
-    }, {
-      title: 'благотворительность',
-      price: 40
-    }, {
-      title: 'подох в ТЦ',
-      price: 80
-    }, {
-      title: 'оплата подписки',
-      price: 45
-    }, {
-      title: 'сходить на футбол',
-      price: 120
-    }, {
-      title: 'встреча с друзьями',
-      price: 70
-    }, {
-      title: 'помог родителям',
-      price: 100
-    }, {
-      title: 'улучшение рабочего места',
-      price: 110
-    },
-
-  ] as eventType[],
-  // случившиеся события . . .
-  happenedEvents: Array(12).fill([] as eventType[]),
 }
 
 export type InitialGameStateType = typeof initialState
@@ -124,6 +70,7 @@ export const gameReducer = (state = initialState, action: ActionsType): InitialG
         ...state,
         daysInMonth: action.dayInMonth
       }
+    // установка баланса
     case SET_WALLET:
       return {
         ...state,
@@ -165,46 +112,28 @@ export const gameReducer = (state = initialState, action: ActionsType): InitialG
     case BUY_BUSINESS:
       return {
         ...state,
-        wallet: state.wallet - action.price,
-        income: state.income + action.income
+        wallet: Math.round(state.wallet - action.price),
+        income: Math.round(state.income + action.income)
       }
+    // продажа бизнесса
     case SELL_BUSINESS:
       return {
         ...state,
-        wallet: state.wallet + action.price,
-        income: state.income - action.income
+        wallet: Math.round(state.wallet + action.price),
+        income: Math.round(state.income - action.income)
       }
+    // обновление дохода бизнесса . . .
     case UPDATE_BUSINESS_INCOME:
       return {
         ...state,
         income: state.income + action.income
       }
-    // еженедельные траты игрока
-    case WEEK_SPEND:
-      // берем случайное событие . . .
-      let event = Number((Math.random() * (state.events.length - 1)).toFixed(0))
-      // копия массива с текущими событиями . . .
-      let happenedEventsCopy = [...state.happenedEvents]
-      happenedEventsCopy[state.month] = [...happenedEventsCopy[state.month], state.events[event]]
-
-      // определение цены, которую должен потратить игрок . . .
-      let priceToSpend = state.events[event].price
+    case UPDATE_WALLET_FROM_SPENDS:
       return {
         ...state,
-        happenedEvents: happenedEventsCopy,
-        wallet: state.wallet - priceToSpend
+        wallet: state.wallet - action.wallet
       }
-    // обновление цены на события
-    case INDEX_PRICE:
-      return {
-        ...state,
-        events: state.events.map(event => {
-          return {
-            ...event,
-            price: event.price + action.indexPrice
-          }
-        })
-      }
+    // стартовая инициализация игры . . .
     case INIT_GAME:
       return {
         ...state,
@@ -214,7 +143,7 @@ export const gameReducer = (state = initialState, action: ActionsType): InitialG
         month: 0,
         wallet: 0,
         income: 0,
-        happenedEvents: Array(12).fill([] as eventType[])
+        // happenedEvents: Array(12).fill([] as eventType[])
       }
     default:
       return state
@@ -230,11 +159,9 @@ export const actions = {
   setWallet: (wallet: number) => ({type: SET_WALLET, wallet} as const),
   updateWallet: (wallet: number) => ({type: UPDATE_WALLET, wallet} as const),
   setIncome: (income: number) => ({type: SET_INCOME, income} as const),
-
+  updateWalletFromSpends: (wallet: number) => ({type: UPDATE_WALLET_FROM_SPENDS, wallet} as const),
   getNewsPayout: (payout: 'one' | 'regular', amount: number) => ({type: GET_NEWS_PAYOUT, payout, amount} as const),
 
-  setEventsPrice: (indexPrice: number) => ({type: INDEX_PRICE, indexPrice} as const),
-  weekSpend: (difficult: DifficultyType) => ({type: WEEK_SPEND, difficult} as const),
   // actions для бизнесса . . .
   buyBusiness: (price: number, income: number) => ({type: BUY_BUSINESS, price, income} as const),
   sellBusiness: (price: number, income: number) => ({type: SELL_BUSINESS, price, income} as const),
@@ -243,8 +170,3 @@ export const actions = {
 }
 
 type ActionsType = InferActionsType<typeof actions>
-
-export type eventType = {
-  title: string
-  price: number
-}

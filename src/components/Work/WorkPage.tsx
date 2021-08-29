@@ -8,6 +8,7 @@ import {RightSquareOutlined} from "@ant-design/icons/lib/icons";
 import {Work, worksActions, WorksType} from "../../redux/work-reducer";
 import {actions} from "../../redux/game-reducer";
 import {getDifficultySelector} from "../../redux/settings-selector";
+import {spendsActions} from "../../redux/spends-reducer";
 
 export const WorkPage = () => {
 
@@ -28,10 +29,7 @@ export const WorkPage = () => {
       default:
         break
     }
-    // console.log(difficultPrice)
-    // console.log(difficulty)
-    // если сложность лёгкая, то все цены на 15 меньше, если сложная то на 15 больше . . .
-    dispatch(actions.setEventsPrice(difficultPrice))
+    dispatch(spendsActions.setEventsPrice(difficultPrice))
   },[])
 
   const dispatch = useDispatch()

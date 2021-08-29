@@ -15,6 +15,7 @@ import { Work } from "../../redux/work-reducer";
 type RenderPlayerProfileType = {
   wallet: number
   income: number
+  isEndOfGame: boolean
 }
 
 export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
@@ -71,13 +72,13 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
           </div>
         </div>
         <div className="gameProfileStats__Menu">
-          <button className="gameProfileStats__MenuItem" style={time === 0 ? {color: '#fff'} : {}} onClick={() => onChangeTime(0)}>
+          <button className="gameProfileStats__MenuItem" style={time === 0 ? {color: '#fff'} : {}} onClick={() => onChangeTime(0)} disabled={props.isEndOfGame}>
             <PauseOutlined />
           </button>
-          <button className="gameProfileStats__MenuItem" style={time === timeSpeed ? {color: '#fff'} : {}} onClick={() => onChangeTime(timeSpeed)}>
+          <button className="gameProfileStats__MenuItem" style={time === timeSpeed ? {color: '#fff'} : {}} onClick={() => onChangeTime(timeSpeed)} disabled={props.isEndOfGame}>
             <RightOutlined />
           </button>
-          <button className="gameProfileStats__MenuItem" style={time === timeSpeed / 2 ? {color: '#fff'} : {}} onClick={() => onChangeTime(timeSpeed / 2)}>
+          <button className="gameProfileStats__MenuItem" style={time === timeSpeed / 2 ? {color: '#fff'} : {}} onClick={() => onChangeTime(timeSpeed / 2)} disabled={props.isEndOfGame}>
             <DoubleRightOutlined />
           </button>
         </div>

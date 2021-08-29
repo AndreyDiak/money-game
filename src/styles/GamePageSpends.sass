@@ -2,44 +2,60 @@
   &Spend
     padding: 20px
     display: flex
-    flex-direction: column
     position: relative
-    height: calc(100vh - 46px)
+    align-items: center
+    justify-content: center
+    height: calc(100vh - 55px)
     background: url('../img/banner-life.jpg') center no-repeat
     background-size: cover
     z-index: 0
+    font-family: 'Fira Mono', sans-serif
+    color: #303030
+    &Button
+      position: absolute
+      right: 20px
+      top: 20px
+      z-index: 10
+      font-size: 24px
+      height: auto
     &Header
       padding: 7px 35px
       display: block
-      margin: 0 auto
       font-size: 32px
       font-weight: 700
       color: #000000
       z-index: 100
       background: rgba(255, 255, 255, 0.7)
     &Block
-      border-radius: 5px
-      background: rgba(255, 255, 255, 0.8)
-      width: 250px
+      background: rgba(255, 255, 255, 0.9)
+      width: 350px
+      min-height: 300px
+      z-index: 10
       &s
-        padding: 30px
+        margin-top: 75px
         display: flex
         flex-wrap: wrap
-        justify-content: space-around
-        column-gap: 20px
-        row-gap: 20px
-        overflow: auto
-        z-index:  10
+        justify-content: center
+        row-gap: 10px
+        column-gap: 10px
+      &__Footer
+        &Price
+          color: crimson
       &__Title
-        padding-top: 5px
-        padding-bottom: 5px
-        font-size: 24px
-        text-align: center
-        border-bottom: 2px solid #282c34
-        color: #303030
+        padding: 7px 15px
+        font-size: 28px
+        font-weight: 700
+        border-bottom: 1px solid #282c34
+      &__Footer
+        padding: 7px 15px
+        font-size: 28px
+        font-weight: 700
+        border-top: 1px solid #282c34
       &__Item
         display: flex
+        align-items: center
         justify-content: space-between
+        font-size: 20px
         &Title
           color: #414141
         &Price
@@ -49,6 +65,7 @@
           padding: 10px
           display: flex
           flex-direction: column
+          justify-content: center
           row-gap: 5px
           height: 200px
           overflow: auto

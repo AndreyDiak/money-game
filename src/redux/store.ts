@@ -8,6 +8,7 @@ import {worksReducer} from "./work-reducer";
 import {stocksReducer} from "./stocks-reducer";
 import {businessReducer} from "./business-reducer";
 import {appReducer} from "./app-reducer";
+import {spendsReducer} from "./spends-reducer";
 
 
 let rootReducer = combineReducers({
@@ -18,6 +19,7 @@ let rootReducer = combineReducers({
   worksPage: worksReducer,
   stocksPage: stocksReducer,
   businessPage: businessReducer,
+  spendsPage: spendsReducer,
   app: appReducer
 })
 
@@ -28,7 +30,7 @@ type PropsType<T> = T extends {[key: string]: infer U} ? U : never
 export type InferActionsType<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropsType<T>>
 
 // @ts-ignore
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleWare)))
 // тестовый билд без разрешения
 // const store = createStore(rootReducer, compose(applyMiddleware(thunkMiddleWare)))

@@ -11,6 +11,7 @@ import {getDifficultySelector} from "../../redux/settings-selector";
 import {setNewsThunk} from "../../redux/news-reducer";
 import {getMyBusinessesSelector} from "../../redux/business-selector";
 import {getRandomNumber} from "../../utils/getRandomNumber";
+import {spendsActions, weekSpendThunk} from "../../redux/spends-reducer";
 
 type RenderTimeType = {
   income: number
@@ -83,7 +84,8 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
           generateNews()
       }
       // еженедельная трата . . .
-      dispatch(actions.weekSpend(difficulty))
+      // dispatch(actions.weekSpend(difficulty))
+      dispatch(weekSpendThunk(difficulty))
 
       // обновление акций . . .
       if(stocks.length !== 0) {
@@ -97,6 +99,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
       dispatch(actions.setDayInMonth(1))
       const walletUp = Math.round(currentWork.options[currentWork.level - 1].income * currentWork.startSalary / 100)
       dispatch(actions.setMonth(month + 1))
+      dispatch(spendsActions.resetCurrentMonth())
       dispatch(actions.updateWallet(walletUp))
     }
   }, [day])
@@ -105,6 +108,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   useEffect(() => {
     if (month === 11 && dayInMonth === 31) {
       dispatch(actions.setMonth(0))
+      dispatch(spendsActions.resetCurrentMonth())
       dispatch(actions.setDayInMonth(1))
     }
   }, [month, dayInMonth])

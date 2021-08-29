@@ -17,7 +17,7 @@ export const getIncomeSelector = (state: AppStateType) => {
 }
 // happenedEvents return
 export const getHappenedEventsSelector = (state: AppStateType) => {
-  return state.gamePage.happenedEvents
+  return state.spendsPage.happenedEvents
 }
 // month return (current month)
 export const getMonthSelector = (state: AppStateType) => {

@@ -72,6 +72,8 @@ export const GamePage: FC = () => {
   const [activeStock, setActiveStock] = useState(null as null | stockType)
   // проверка на конец игры . . .
   const [isEndOfGame, setIsEndOfGame] = useState(false)
+  //
+  const [showExitModal, setShowExitModal] = useState(false)
   // функция проверка на победу/поражение
   const balanceCheck = () => {
     if (wallet >= victoryBalance) {
@@ -79,6 +81,7 @@ export const GamePage: FC = () => {
       // зануление игры . . .
       if(!isEndOfGame) {
         setIsEndOfGame(true)
+        setShowExitModal(true)
         dispatch(settingsActions.setTimeSpeed(0))
         dispatch(stocksActions.resetMyStocks())
         dispatch(businessActions.resetMyBusinesses())
@@ -89,6 +92,7 @@ export const GamePage: FC = () => {
       // зануление игры . . .
       if(!isEndOfGame) {
         setIsEndOfGame(true)
+        setShowExitModal(true)
         dispatch(settingsActions.setTimeSpeed(0))
         dispatch(stocksActions.resetMyStocks())
         dispatch(businessActions.resetMyBusinesses())
@@ -145,7 +149,7 @@ export const GamePage: FC = () => {
       {income
         ?
           <div>
-            <Modal title="Конец?" visible={isEndOfGame} footer={[
+            <Modal title="Конец?" onCancel={() => setShowExitModal(false)}  visible={showExitModal} footer={[
               <>
                 <NavLink to='/'>
                   <Button type='primary' onClick={() => dispatch(actions.initGame())}>
@@ -161,14 +165,19 @@ export const GamePage: FC = () => {
             {isChangeWorkShown ? <WorksChoicePopup setIsChangeWorkShown={setIsChangeWorkShown}/> : ''}
             <div className="game">
               <div className='gameProfile'>
-                <RenderPlayerProfile wallet={wallet} income={income}/>
+                <RenderPlayerProfile wallet={wallet} income={income} isEndOfGame={isEndOfGame}/>
               </div>
               <div className="gameActions">
                 <Tabs defaultActiveKey="2">
                   <TabPane tab={
                     <Badge count={news.length} overflowCount={10}>Новости</Badge>
                   } key="1">
-                    <RenderPlayerNews />
+                    <RenderPlayerNews
+                      setIsHistoryShown={setIsHistoryShown}
+                      setMyActiveStock={setMyActiveStock}
+                      setActiveStock={setActiveStock}
+                      setIsStockToSell={setIsStockToSell}
+                    />
                   </TabPane>
                   <TabPane tab="Работа" key="2" active>
                     <RenderPlayerWork setIsChangeWorkShown={setIsChangeWorkShown}/>
@@ -176,7 +185,7 @@ export const GamePage: FC = () => {
                   <TabPane tab="Затраты" key="3">
                     <RenderPlayerSpends/>
                   </TabPane>
-                  <TabPane tab="Акции" key="4" disabled={wallet <= 500 && myStocks.length === 0} >
+                  <TabPane tab="Акции" key="4" disabled={wallet <= 500 && myStocks.length === 0 || isEndOfGame} >
                     <RenderPlayerStocks
                       setIsHistoryShown={setIsHistoryShown}
                       setMyActiveStock={setMyActiveStock}
@@ -184,7 +193,7 @@ export const GamePage: FC = () => {
                       setIsStockToSell={setIsStockToSell}
                     />
                   </TabPane >
-                  <TabPane tab="Бизнесс" key="5" disabled={wallet <= 3000 && myBusinesses.length === 0}>
+                  <TabPane tab="Бизнесс" key="5" disabled={wallet <= 3000 && myBusinesses.length === 0 || isEndOfGame}>
                     <RenderPlayerBusiness />
                   </TabPane>
                 </Tabs>

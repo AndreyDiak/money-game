@@ -4,12 +4,14 @@ import {Button, Checkbox, message, Modal} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {appActions} from "../../redux/app-reducer";
+import { HeartTwoTone } from "@ant-design/icons";
 
 export const MenuPage = () => {
 
   const dispatch = useDispatch()
   // открытие модального окна с обучением . . .
   const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isChangeModalVisible, setIsChangeModalVisible] = useState(false)
   // пройдено ли обучение . . .
   const isInstructionCompleted = useSelector((state: AppStateType) => state.app.isInstructionCompleted)
 
@@ -20,7 +22,6 @@ export const MenuPage = () => {
   const showModal = () => {
     setIsModalVisible(() => true)
   }
-
   const handleOk = () => {
     setIsModalVisible(false)
   }
@@ -28,6 +29,14 @@ export const MenuPage = () => {
   const handleCancel = () => {
     setIsModalVisible(false)
   }
+
+  const showChangesModal = () => {
+    setIsChangeModalVisible(() => true)
+  }
+  const handleChangesOk = () => {
+    setIsChangeModalVisible(false)
+  }
+
 
   return (
     <>
@@ -74,6 +83,27 @@ export const MenuPage = () => {
               </ul>
             </p>
           </Modal>
+          <Modal title='Изменения' visible={isChangeModalVisible} footer={[
+            <>
+              <NavLink to='/rofl'>
+                <Button onClick={handleChangesOk}>
+                  Не понял
+                </Button>
+              </NavLink>
+              <Button type='primary' onClick={handleChangesOk}>
+                Понял
+              </Button>
+            </>
+          ]}>
+            <ol>
+              <li>Фикс отрицательного кол-ва <b>акций</b> в портфеле</li>
+              <li>Добавлен полностью <b>рабочий</b> фильтр акций</li>
+              <li>После поражения или победы можно посмотреть свои <b>затраты</b> или новости</li>
+              <li>После покупки акций <b>время</b> восстанавливается</li>
+              <li>Сделан никому <b>не нужный</b> прелоадер(слава у всех быстрый инет)</li>
+            </ol>
+            <i>p.s. Спасибо всем тестерам <HeartTwoTone twoToneColor="#eb2f96" /></i>
+          </Modal>
           <div className="menuGameName">
             <span>#ЯИнвестор</span>
             <div><small><i>Alpha 1.10.3</i></small></div>
@@ -94,8 +124,11 @@ export const MenuPage = () => {
                       Начать игру
                     </button>
                 }
-
-
+              </div>
+              <div className="menuListItem">
+                <button className="menuListItem__Button" onClick={showChangesModal}>
+                  Список изменений
+                </button>
               </div>
               <div className="menuListItem">
                 {/*<NavLink to='/game'>*/}

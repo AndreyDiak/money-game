@@ -249,8 +249,10 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
     title: '',
     amount: 0,
     company: '',
+    type: '',
     dayInMonth: dayInMonth,
-    month: month
+    month: month,
+    condition: '' as string | number
   }
 
   state.newsTypes.map((newsTypes, index) => {
@@ -285,6 +287,7 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
             news.title = newsTypes.variants[condition].events[titleIndex]
             news.amount = 0
           }
+          news.type = 'person'
           break
         case "stocksNews":
           // @ts-ignore
@@ -299,9 +302,9 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
 
             // @ts-ignore
             dispatch(stocksActions.setPriceChangeInterval(company, timeInterval, growType))
-
           }
-
+          news.type = 'stock'
+          news.condition = condition
           break
         case "businessNews":
           if (condition === 0 || condition === 1) {
@@ -348,6 +351,7 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
             // @ts-ignore
             news.title = newsTypes.variants[condition].events[titleIndex]
           }
+          news.type = 'business'
           break
       }
     }
@@ -366,6 +370,8 @@ export type newsArrayType = {
   company: string
   month: string
   dayInMonth: number
+  type: string
+  condition: string | number
 }
 type NewsActionsType = InferActionsType<typeof newsActions>
 

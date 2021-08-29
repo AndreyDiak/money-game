@@ -4,6 +4,7 @@ import {MenuPage} from "../Menu/MenuPage";
 import {ProfilePage} from "../Profile/ProfilePage";
 import {SettingsPage} from "../Settings/SettingsPage";
 import { WorkPage } from "../Work/WorkPage";
+import {RoflPage} from "../rofl/RoflPage";
 
 export const Main = () => {
 
@@ -19,6 +20,7 @@ export const Main = () => {
           <Route path='/game' render={() => <GamePage /> }/>
           <Route path='/profile' render={() => <ProfilePage /> }/>
           <Route path='/settings' render={() => <SettingsPage/> }/>
+          <Route path='/rofl' render={() => <RoflPage/> }/>
         </Switch>
       </BrowserRouter>
     </>

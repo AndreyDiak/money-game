@@ -2,16 +2,17 @@ import {CheckSquareOutlined} from "@ant-design/icons/lib/icons";
 import {FC} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {Tabs} from "antd";
+import {Button, Tabs} from "antd";
 import {newsActions} from "../../redux/news-reducer";
+import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
+import {settingsActions} from "../../redux/settings-reducer";
 
 const { TabPane } = Tabs
 
-export const RenderPlayerNews = () => {
+export const RenderPlayerNews:FC<{setIsHistoryShown: any, setActiveStock: any, setMyActiveStock: any, setIsStockToSell: any}> = (props) => {
 
   const news = useSelector((state: AppStateType) => state.newsPage.news)
   const archive = useSelector((state: AppStateType) => state.newsPage.archive)
-
 
   return (
     <>
@@ -30,6 +31,12 @@ export const RenderPlayerNews = () => {
                     isArchive={false}
                     month={newsBlock.month}
                     dayInMonth={newsBlock.dayInMonth}
+                    type={newsBlock.type}
+                    condition={newsBlock.condition}
+                    setIsHistoryShown={props.setIsHistoryShown}
+                    setActiveStock={props.setActiveStock}
+                    setMyActiveStock={props.setMyActiveStock}
+                    setIsStockToSell={props.setIsStockToSell}
                   />
                 )}
               </div>
@@ -65,14 +72,47 @@ type NewsBlockType = {
   isArchive: boolean
   month: string
   dayInMonth: number
+  type?: string
+  condition?: string | number
+  setIsHistoryShown?: any
+  setActiveStock?: any
+  setMyActiveStock?: any
+  setIsStockToSell?: any
 }
 
 export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
 
   const dispatch = useDispatch()
 
+  const stocks = useSelector(getStocksSelector)
+  const myStocks = useSelector(getMyStocksSelector)
+
   const moveToArchive = () => {
     dispatch(newsActions.setToArchive(props.index))
+  }
+
+  const onChangeTime = (time: number) => {
+    dispatch(settingsActions.setTimeSpeed(time))
+  }
+
+  const buyStocks = () => {
+    stocks.map((stock, index) => {
+      if (stock.title === props.company) {
+        props.setActiveStock(stocks[index])
+      }
+    })
+    props.setIsHistoryShown(true)
+    onChangeTime(0)
+  }
+
+  const sellStocks = () => {
+    myStocks.map((stock, index) => {
+      if (stock.title === props.company) {
+        props.setMyActiveStock(index)
+      }
+    })
+    props.setIsStockToSell(true)
+    onChangeTime(0)
   }
 
   return (
@@ -90,6 +130,14 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
             ? <div>
               <i>{props.company}</i>
           </div>
+            : ''
+          }
+          {props.type === 'stock' && props.condition === 0
+            ? <Button onClick={() => buyStocks()}>Купить акцию</Button>
+            : ''
+          }
+          {props.type === 'stock' && props.condition === 1 && myStocks.some(s => s.title === props.company)
+            ? <Button onClick={() => sellStocks()}>Продать акцию</Button>
             : ''
           }
           {props.amount !== 0
