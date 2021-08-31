@@ -12,9 +12,10 @@ import {setNewsThunk} from "../../redux/news-reducer";
 import {getMyBusinessesSelector} from "../../redux/business-selector";
 import {getRandomNumber} from "../../utils/getRandomNumber";
 import {spendsActions, weekSpendThunk} from "../../redux/spends-reducer";
+import {personType, profileActions} from "../../redux/profile-reducer";
+import {getExpensesSelector, getPersonSelector, getTaxSelector} from "../../redux/profile-selector";
 
 type RenderTimeType = {
-  income: number
   wallet: number
 }
 
@@ -39,7 +40,11 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   // массив ваших бизнессов . . .
   const myBusinesses = useSelector(getMyBusinessesSelector)
   // текущая работа . . .
-  const currentWork = useSelector((state: AppStateType) => state.worksPage.currentWork) as Work
+  const profile = useSelector(getPersonSelector) as personType
+  //
+  const expenses = useSelector(getExpensesSelector)
+  // подоходный налог на зп
+  const tax = useSelector(getTaxSelector)
   // массив с днями . . .
   const Days = [
     'Воскресенье', 'Понедельник', 'Вторник',
@@ -96,11 +101,29 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
 
     // если сегодня последний день месяца, то обновляем месяц и выдаём зарплату игроку . . .
     if(dayInMonth === months[month].duration) {
+
       dispatch(actions.setDayInMonth(1))
-      const walletUp = Math.round(currentWork.options[currentWork.level - 1].income * currentWork.startSalary / 100)
       dispatch(actions.setMonth(month + 1))
       dispatch(spendsActions.resetCurrentMonth())
-      dispatch(actions.updateWallet(walletUp))
+
+      let salary = profile.salary // зп без налога
+
+      // налог за квартиру / машину / кредит / карту
+      let expensesSummary = 0
+      expenses.forEach(expense => {
+        expensesSummary += expense.payment
+      })
+
+      // чистая прибыль персонажа в месяц
+      let income = salary - tax - expensesSummary
+
+      dispatch(actions.updateWallet(income))
+
+      // уменьшаем необходимую выплату по долгу на месячную ставку . . .
+      // TODO включить
+      dispatch(profileActions.updateExpenses())
+
+
     }
   }, [day])
 

@@ -35,4 +35,7 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMid
 // тестовый билд без разрешения
 // const store = createStore(rootReducer, compose(applyMiddleware(thunkMiddleWare)))
 
+// @ts-ignore
+window.store = store
+
 export default store

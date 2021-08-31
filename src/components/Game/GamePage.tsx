@@ -15,7 +15,7 @@ import {
 } from "../../redux/game-selector";
 import {getTimeSpeedSelector} from "../../redux/settings-selector";
 import {AppStateType} from "../../redux/store";
-import {RenderPlayerWork, WorksChoicePopup} from "./RenderPlayerWork";
+import {RenderPlayerWork} from "./RenderPlayerWork";
 import {RenderPlayerStocks} from "./RenderPlayerStocks";
 import {RenderPlayerNews} from "./RenderPlayerNews";
 import {stocksActions, stockType} from "../../redux/stocks-reducer";
@@ -26,6 +26,9 @@ import {getBusinessesSelector, getMyBusinessesSelector} from "../../redux/busine
 import {businessActions} from "../../redux/business-reducer";
 import {settingsActions} from "../../redux/settings-reducer";
 import {NavLink} from "react-router-dom";
+import {spendsActions} from "../../redux/spends-reducer";
+import {getPersonSelector} from "../../redux/profile-selector";
+import {RenderPlayerBank} from "./RenderPlayerBank";
 
 const { TabPane } = Tabs
 
@@ -40,10 +43,10 @@ export const GamePage: FC = () => {
   // кошелёк игрока . . .
   const wallet = useSelector(getWalletSelector)
   // доход в месяц игрока . . .
-  const income = useSelector(getIncomeSelector)
+  // const income = useSelector(getIncomeSelector)
   // стартовый доход . . .
-  const startIncome = useSelector((state: AppStateType) => state.worksPage.currentWork?.startSalary) as number
-
+  // const startIncome = useSelector((state: AppStateType) => state.worksPage.currentWork?.startSalary) as number
+  const profile = useSelector(getPersonSelector)
   // баланс необходимый для победы . . .
   const victoryBalance = useSelector(getVictoryBalance)
   // баланс для поражения . . .
@@ -113,9 +116,9 @@ export const GamePage: FC = () => {
   liveProcess()
   balanceCheck()
 
-  useEffect(() => {
-    dispatch(actions.setIncome(startIncome))
-  },[])
+  // useEffect(() => {
+  //   dispatch(actions.setIncome(startIncome))
+  // },[])
 
   // заполнение массива акциями . . .
   useEffect(() => {
@@ -146,7 +149,7 @@ export const GamePage: FC = () => {
 
   return (
     <>
-      {income
+      {profile
         ?
           <div>
             <Modal title="Конец?" onCancel={() => setShowExitModal(false)}  visible={showExitModal} footer={[
@@ -162,10 +165,9 @@ export const GamePage: FC = () => {
             </Modal>
             {isStockToSell ? <SellPopup stock={myStocks[myActiveStock]} setIsStockToSell={setIsStockToSell} activeStock={myActiveStock}/> : ''}
             {isHistoryShown ? <RenderChart setIsHistoryShown={setIsHistoryShown} stock={activeStock as stockType} /> : ''}
-            {isChangeWorkShown ? <WorksChoicePopup setIsChangeWorkShown={setIsChangeWorkShown}/> : ''}
             <div className="game">
               <div className='gameProfile'>
-                <RenderPlayerProfile wallet={wallet} income={income} isEndOfGame={isEndOfGame}/>
+                <RenderPlayerProfile wallet={wallet} isEndOfGame={isEndOfGame}/>
               </div>
               <div className="gameActions">
                 <Tabs defaultActiveKey="2">
@@ -179,13 +181,14 @@ export const GamePage: FC = () => {
                       setIsStockToSell={setIsStockToSell}
                     />
                   </TabPane>
-                  <TabPane tab="Работа" key="2" active>
+                  <TabPane tab="Профиль" key="2" active>
                     <RenderPlayerWork setIsChangeWorkShown={setIsChangeWorkShown}/>
                   </TabPane>
-                  <TabPane tab="Затраты" key="3">
+                  <TabPane tab="Покупки" key="3">
                     <RenderPlayerSpends/>
                   </TabPane>
-                  <TabPane tab="Акции" key="4" disabled={wallet <= 500 && myStocks.length === 0 || isEndOfGame} >
+                  {/*wallet <= 500 && myStocks.length === 0 || isEndOfGame*/}
+                  <TabPane tab="Рынок" key="4" disabled={false} >
                     <RenderPlayerStocks
                       setIsHistoryShown={setIsHistoryShown}
                       setMyActiveStock={setMyActiveStock}
@@ -193,8 +196,9 @@ export const GamePage: FC = () => {
                       setIsStockToSell={setIsStockToSell}
                     />
                   </TabPane >
-                  <TabPane tab="Бизнесс" key="5" disabled={wallet <= 3000 && myBusinesses.length === 0 || isEndOfGame}>
-                    <RenderPlayerBusiness />
+                  {/*wallet <= 3000 && myBusinesses.length === 0 || isEndOfGame*/}
+                  <TabPane tab="Банк" key="5" disabled={false}>
+                    <RenderPlayerBank />
                   </TabPane>
                 </Tabs>
               </div>

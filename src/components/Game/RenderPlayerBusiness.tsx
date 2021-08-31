@@ -15,34 +15,34 @@ export const RenderPlayerBusiness = () => {
   return (
     <>
       <div className="gameBusiness bannerBack">
-        <Tabs defaultActiveKey="1" centered className='gameBusinessTabs'>
-          <TabPane tab="Ваш бизнесс" key="1">
-            <div className="gameBusinessBlocks">
-              {myBusinesses.length === 0
-                ? 'У вас нет своего бизнесса'
-                : <>
-                  {
-                    myBusinesses.map((myBusiness, index) => <RenderBusinessBlock key={index} business={myBusiness} isMine={true}/>
-                    )
-                  }
-                </>
-              }
-            </div>
-          </TabPane>
-          <TabPane tab="Купить бизнесс" key="2">
-            <div className="gameBusinessBlocks">
-              {businesses.map((business, index) => {
-                const isBought = myBusinesses.some(b => b.name === business.name)
-                const isMaxCount = myBusinesses.length >= 2
-                return (
-                  <>
-                    <RenderBusinessBlock key={index} business={business} isBought={isBought} isMine={false} isMaxCount={isMaxCount}/>
-                  </>
-                )
-              })}
-            </div>
-          </TabPane>
-        </Tabs>
+        {/*<Tabs defaultActiveKey="1" centered className='gameBusinessTabs'>*/}
+        {/*  <TabPane tab="Ваш бизнесс" key="1">*/}
+        {/*    <div className="gameBusinessBlocks">*/}
+        {/*      {myBusinesses.length === 0*/}
+        {/*        ? 'У вас нет своего бизнесса'*/}
+        {/*        : <>*/}
+        {/*          {*/}
+        {/*            myBusinesses.map((myBusiness, index) => <RenderBusinessBlock key={index} business={myBusiness} isMine={true}/>*/}
+        {/*            )*/}
+        {/*          }*/}
+        {/*        </>*/}
+        {/*      }*/}
+        {/*    </div>*/}
+        {/*  </TabPane>*/}
+        {/*  <TabPane tab="Купить бизнесс" key="2">*/}
+        {/*    <div className="gameBusinessBlocks">*/}
+        {/*      {businesses.map((business, index) => {*/}
+        {/*        const isBought = myBusinesses.some(b => b.name === business.name)*/}
+        {/*        const isMaxCount = myBusinesses.length >= 2*/}
+        {/*        return (*/}
+        {/*          <>*/}
+        {/*            <RenderBusinessBlock key={index} business={business} isBought={isBought} isMine={false} isMaxCount={isMaxCount}/>*/}
+        {/*          </>*/}
+        {/*        )*/}
+        {/*      })}*/}
+        {/*    </div>*/}
+        {/*  </TabPane>*/}
+        {/*</Tabs>*/}
       </div>
     </>
   )

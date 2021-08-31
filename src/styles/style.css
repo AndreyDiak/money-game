@@ -51,137 +51,148 @@
 .profile {
   width: 100vw;
   height: 100vh;
-  position: relative;
   background: url("../img/characters/banner.jpg") center no-repeat;
   background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  font-family: "Roboto", sans-serif;
-}
-.profileContent {
-  z-index: 1;
-}
-.profileContentButtons {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.profileChoice {
-  text-align: center;
-}
-.profileChoiceHeader {
-  margin-bottom: 30px;
-  color: #fff0f4;
-  font-size: 40px;
-  font-weight: 700;
-  text-shadow: 2px 3px 2px black;
-}
-.profileChoiceList {
-  display: flex;
-  justify-content: center;
-  column-gap: 15px;
-}
-.profileChoiceList__Button {
-  width: 60px;
-  height: 60px;
-  font-size: 40px;
-  border: 1px solid #fff0f4;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.7);
-}
-.profileChoiceList__Button:hover {
-  background: #fff;
-}
-
-.person {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
   font-family: "Fira Mono", sans-serif;
-  font-weight: 900;
-  font-size: 36px;
+  z-index: 10;
 }
-.persons {
-  max-width: 100vw;
+.profileMenu {
   height: 100vh;
-  display: flex;
-  align-items: center;
-}
-.personsDots {
-  left: 0 !important;
-  height: 100vh !important;
-  width: 160px !important;
   background: rgba(0, 0, 0, 0.6);
-  justify-content: center;
-  align-items: center;
-  column-gap: 40px;
-  row-gap: 10px;
+  z-index: 10;
 }
-.personsDots li {
-  width: 45px !important;
-  height: 45px !important;
+.profileMenu__Stats {
+  background: rgba(248, 209, 187, 0.8);
 }
-.personsDots li button {
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 50% !important;
+.profileMenu__StatsCash {
+  font-size: 18px;
+  font-weight: 700;
 }
-.personImg {
-  width: 500px;
-  height: 700px;
+.profileMenu__StatsTitle {
+  padding: 5px;
+  font-weight: 900;
+  font-size: 24px;
+  background: #498c1e;
+  color: #fff;
+  text-transform: uppercase;
 }
-.personInfo {
-  padding: 15px;
+.profileMenu__StatsBlock {
+  margin: 7px;
+  padding: 7px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #282c34;
+  font-size: 18px;
+  font-weight: 700;
+}
+.profileMenu__StatsBlock:last-child {
+  border-bottom: none;
+}
+.profileMenu__Settings {
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.6);
   display: flex;
   flex-direction: column;
-  row-gap: 15px;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
 }
-.personInfo__preferencesBlock {
-  width: 30px;
-  height: 45px;
-  border: 1px solid #282c34;
-  background: #ff6f3c;
-}
-.personInfo__preferencesBlocks {
-  display: flex;
-  column-gap: 5px;
-}
-.personInfo__preferencesTitle {
+.profileMenu__SettingsItem {
+  padding-bottom: 15px;
   margin-bottom: 15px;
-  border-bottom: 2px solid #282c34;
+  font-weight: 900;
+  font-size: 20px;
+  border-bottom: 1px solid #282c34;
 }
-.personInfo__name {
+.profileMenu__Button {
+  padding: 20px;
   text-align: center;
 }
-.personInfo__salary, .personInfo .personInfo__tax {
-  position: relative;
+.profileMenu__Button a button {
+  height: auto;
+  font-size: 28px;
+  font-weight: 700;
 }
-.personInfo__salary::after, .personInfo .personInfo__tax::after {
-  content: "";
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  top: -8px;
-  background: url("./../img/gold.png") center no-repeat;
-  background-size: cover;
+.profilePersons {
+  z-index: 10;
 }
-
-.saveProfile {
-  margin-top: 30px;
-  margin-bottom: 30px;
+.profilePersons__Title {
+  background: rgba(0, 0, 0, 0.6);
+  font-size: 24px;
+  font-weight: 700;
   text-align: center;
+  color: #fff;
+  padding: 15px;
 }
-.saveProfileButton {
+.profilePersons__Button {
+  text-align: center;
+  padding-top: 10px;
+}
+.profilePersons__Button a button {
+  font-size: 24px;
+  font-weight: 700;
+  height: auto;
+}
+.profilePersons__Block {
+  width: 100px;
+  height: 100px;
+  z-index: 10;
+}
+.profilePersons__Blocks {
+  padding: 45px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  row-gap: 15px;
+  column-gap: 15px;
+}
+.profilePersons__BlockImg {
+  border: none;
+  background: transparent;
+}
+.profilePersons__BlockImg span {
+  border: 2px solid #282c34;
+}
+.profilePersons__BlockImg:hover {
+  cursor: pointer;
+}
+.profilePreview {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  z-index: 10;
+}
+.profilePreview__Name {
+  margin: 30px;
+  padding-bottom: 30px;
+  font-size: 30px;
+  color: #fff;
+  font-weight: 900;
+  border-bottom: 1px solid #fff;
+}
+.profilePreview__NameWork {
+  color: darkgrey;
+}
+.profilePreview__Title {
   padding: 15px;
   font-size: 24px;
-  border: 1px solid #fff0f4;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+  border-right: 2px solid rgba(255, 255, 255, 0.6);
+  z-index: 10;
 }
-.saveProfileButton:hover {
-  background: #cccccc;
+.profilePreview__Img {
+  padding: 5px;
+  display: flex;
+  align-items: end;
+  z-index: 0;
+}
+.profilePreview__Img img {
+  z-index: -1;
 }
 
 .settings {
@@ -595,138 +606,50 @@
   background: url("../img/banner-work.jpg") no-repeat;
   background-size: cover;
   z-index: 0;
-}
-.gameWork__current {
   font-family: "Fira Mono", sans-serif;
+}
+.gameWorkContent {
   padding: 30px;
+  background: rgba(244, 212, 189, 0.6);
+  z-index: 10;
   display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.8);
-  z-index: 3;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: inherit;
+  column-gap: 50px;
+  row-gap: 50px;
 }
-.gameWork__currentTitle {
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-  width: 470px;
-  font-size: 28px;
-  font-weight: 500;
-  border-bottom: 1px solid #999999;
-}
-.gameWork__currentAsk {
+.gameWorkContent__block {
+  text-align: center;
+  margin-bottom: 7px;
   padding: 7px;
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: 700;
-}
-.gameWork__currentButton {
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  text-align: center;
-  border-bottom: 2px solid #282c34;
-}
-.gameWork__currentButton button {
-  height: auto !important;
-  background-color: rgba(0, 0, 0, 0.5);
-  border: 1px solid #282c34;
-  color: #fff;
-  font-size: 24px;
-  font-weight: 700;
-}
-.gameWork__types {
-  padding: 50px;
-  background: rgba(255, 255, 255, 0.7);
-}
-.gameWork__typesTitle {
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  font-weight: 700;
-  font-size: 32px;
-  text-align: center;
-  border-bottom: 2px solid #282c34;
-}
-.gameWork__typesContent {
   display: flex;
   justify-content: space-between;
-  column-gap: 15px;
-  z-index: 3;
+  border-bottom: 1px solid grey;
+  font-size: 22px;
 }
-.gameWork__typesBlock {
-  padding: 7px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 3px;
-  color: #fff;
-  z-index: 3;
-}
-.gameWork__typesBlockImg {
-  text-align: center;
-}
-.gameWork__typesBlocks {
-  padding: 10px;
-  margin-bottom: 30px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 15px;
-  justify-content: flex-start;
-  font-size: 20px;
+.gameWorkContent__blockTitle {
   font-weight: 700;
-  z-index: 3;
-  border-radius: 5px;
-  border: 1px solid #282c34;
+}
+.gameWorkContent__blocks {
+  padding: 25px;
+  background: #ead2ac;
+  width: calc(45% - 50px);
+}
+.gameWorkContent__blocksTitle {
+  margin-bottom: 25px;
+  padding: 10px 30px;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 22px;
+  color: #fff;
+  background: rgba(115, 193, 103, 0.9);
 }
 
-.workChoicePopup {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-}
-.workChoicePopup__Block {
-  position: relative;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  background-color: #fff;
-  width: 600px;
-  border-radius: 10px;
-  z-index: 10;
-}
-.workChoicePopup__BlockClose {
-  position: absolute;
-  right: 10px;
-  top: 7px;
-  font-weight: 700;
-  font-size: 32px;
-}
-.workChoicePopup__BlockClose:hover {
-  cursor: pointer;
-}
-.workChoicePopup__BlockWork img {
-  border: 2px solid #282c34;
-  border-radius: 10px;
-  position: relative;
-}
-.workChoicePopup__BlockWork img:hover {
-  border: 2px solid crimson;
-  cursor: pointer;
-}
-.workChoicePopup__BlockWorks {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 30px;
-}
-.workChoicePopup::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 10;
+.gameWorkContent__incomes .gameWorkContent__block:last-child {
+  font-size: 26px;
+  margin-top: 20px;
+  border-bottom: none;
 }
 
 .gameSpend {
@@ -900,7 +823,7 @@
   display: flex;
   flex-direction: column;
   height: calc(100vh - 55px);
-  background: url("../img/banner-business.jpg") center no-repeat;
+  background: url("../img/banner-bank.jpg") center no-repeat;
   background-size: cover;
   z-index: 3;
 }
@@ -956,6 +879,107 @@
   justify-content: center;
   flex-wrap: wrap;
   z-index: 10;
+}
+
+.gameBank {
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 55px);
+  background: url("../img/banner-bank.jpg") center no-repeat;
+  background-size: cover;
+  z-index: 3;
+  font-family: "Fira Mono", sans-serif;
+}
+.gameBankContent {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  column-gap: 50px;
+  flex-wrap: wrap;
+  row-gap: 50px;
+  z-index: 10;
+}
+.gameBankContent__liabilities, .gameBankContent__credit, .gameBankContent__payout {
+  background: rgba(249, 235, 217, 0.9);
+  width: 40%;
+}
+.gameBankContent__Menu {
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.gameBankContent__MenuPay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.gameBankContent__MenuPay__Price {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid grey;
+}
+.gameBankContent__MenuPay__Input {
+  width: 50%;
+}
+.gameBankContent__Title {
+  padding: 15px;
+  font-weight: 900;
+  font-size: 28px;
+  color: #fff;
+  background: #439093;
+}
+.gameBankContent__Form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+}
+.gameBankContent__FormPayload {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.gameBankContent__FormPayload:first-child {
+  border-bottom: 1px solid grey;
+}
+.gameBankContent__FormPayloads {
+  margin-top: 10px;
+  width: 80%;
+}
+.gameBankContent__FormInput {
+  margin-top: 10px;
+  width: 30%;
+}
+.gameBankContent__Button {
+  margin-bottom: 40px;
+  text-align: center;
+}
+.gameBankContent__Block {
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #999999;
+}
+.gameBankContent__Blocks {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.warning {
+  padding: 40px;
+  font-size: 16px;
+  text-align: center;
 }
 
 body {

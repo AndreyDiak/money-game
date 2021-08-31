@@ -2,19 +2,15 @@ import {Avatar, message, Progress, Slider} from "antd";
 import React, {FC} from "react";
 import {RenderTime} from "./RenderTime";
 import {useDispatch, useSelector} from "react-redux";
-import {getPersonSelector} from "../../redux/profile-selector";
+import {getExpensesSelector, getPersonSelector, getTaxSelector} from "../../redux/profile-selector";
 import {personType} from "../../redux/profile-reducer";
-import {DoubleRightOutlined, PauseOutlined, RightOutlined } from "@ant-design/icons/lib/icons";
+import {DoubleRightOutlined, PauseOutlined, RightOutlined} from "@ant-design/icons/lib/icons";
 import {getLevelSelector, getVictoryBalance} from "../../redux/game-selector";
-import Radio from "antd/lib/radio";
 import {settingsActions} from "../../redux/settings-reducer";
 import {getConstTimeSpeedSelector, getTimeSpeedSelector} from "../../redux/settings-selector";
-import {AppStateType} from "../../redux/store";
-import { Work } from "../../redux/work-reducer";
 
 type RenderPlayerProfileType = {
   wallet: number
-  income: number
   isEndOfGame: boolean
 }
 
@@ -24,7 +20,9 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
   // персонаж игрока
   const profile = useSelector(getPersonSelector) as personType
   // работа игрока
-  const work = useSelector((state: AppStateType) => state.worksPage.currentWork) as Work
+  const tax = useSelector(getTaxSelector)
+
+  const expenses = useSelector(getExpensesSelector)
   // уровень игрока
   const level = useSelector(getLevelSelector)
   // нынешняя скорость игры
@@ -33,6 +31,14 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
   // баланс необходимый для победы . . .
   const victoryBalance = useSelector(getVictoryBalance)
+
+  let expensesSummary = 0
+
+  expenses.forEach(expense => {
+    expensesSummary += expense.payment * expense.price / 100
+  })
+  // текущий доход персонажа
+  const income = profile.salary - tax - expensesSummary
 
   const info = () => {
     message.warning('Эта функция пока не доступна(')
@@ -90,22 +96,22 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
         <div className="gameProfileContent__Work">
           <div className="gameProfileContent__WorkStats">
             <div className="gameProfileContent__WorkStats__Level">
-              {work.options[work.level - 1].title}
+              {profile.work}
             </div>
             <div className="gameProfileContent__WorkStats__Income">
-              доход -  <span className="gold">{props.income}</span>
+              доход - ${income}
             </div>
           </div>
-          <div className="gameProfileContent__WorkImg">
-            <img src={work.avatar} alt=""/>
-          </div>
+          {/*<div className="gameProfileContent__WorkImg">*/}
+          {/*  <img src={profile.avatar} alt=""/>*/}
+          {/*</div>*/}
         </div>
         <div className="gameProfileContent__Img">
           <img src={profile.img} alt=""/>
         </div>
       </div>
       <div className="gameProfileProgress">
-        <RenderTime income={props.income} wallet={props.wallet}/>
+        <RenderTime wallet={props.wallet}/>
         <div className="gameProfileProgress__Title">
           Прогресс игры
         </div>

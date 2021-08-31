@@ -22,6 +22,8 @@ const INIT_GAME = 'gamePage/INIT_GAME'
 const GET_NEWS_PAYOUT = 'gamePage/GET_NEWS_PAYOUT'
 const UPDATE_BUSINESS_INCOME = 'gamePage/UPDATE_BUSINESS_INCOME'
 
+const SET_VICTORY_BALANCE = 'gamePage/SET_VICTORY_BALANCE'
+
 let initialState = {
   // счётчик дней . . .
   day: 1,
@@ -36,7 +38,7 @@ let initialState = {
   // доход игрока . . .
   income: 0,
   // баланс необходимый для победы / возможно потом его можно менять . . .
-  victoryBalance: 100000,
+  victoryBalance: 15000,
   // баланс для пораженя
   loseBalance: 0,
   // месяцы игры . . .
@@ -128,10 +130,17 @@ export const gameReducer = (state = initialState, action: ActionsType): InitialG
         ...state,
         income: state.income + action.income
       }
+    // обновление кошелька из-за затрат
     case UPDATE_WALLET_FROM_SPENDS:
       return {
         ...state,
         wallet: state.wallet - action.wallet
+      }
+    // выбор стартового баланса для победы . . .
+    case SET_VICTORY_BALANCE:
+      return {
+        ...state,
+        victoryBalance: action.victory
       }
     // стартовая инициализация игры . . .
     case INIT_GAME:
@@ -162,6 +171,7 @@ export const actions = {
   updateWalletFromSpends: (wallet: number) => ({type: UPDATE_WALLET_FROM_SPENDS, wallet} as const),
   getNewsPayout: (payout: 'one' | 'regular', amount: number) => ({type: GET_NEWS_PAYOUT, payout, amount} as const),
 
+  setVictoryBalance: (victory: number) => ({type: SET_VICTORY_BALANCE, victory} as const),
   // actions для бизнесса . . .
   buyBusiness: (price: number, income: number) => ({type: BUY_BUSINESS, price, income} as const),
   sellBusiness: (price: number, income: number) => ({type: SELL_BUSINESS, price, income} as const),

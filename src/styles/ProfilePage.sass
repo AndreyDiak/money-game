@@ -1,113 +1,124 @@
 .profile
   width: 100vw
   height: 100vh
-  position: relative
   background: url("../img/characters/banner.jpg") center no-repeat
   background-size: cover
-  display: flex
-  justify-content: center
-  align-items: flex-end
-  font-family: 'Roboto', sans-serif
-  &Content
-    z-index: 1
-    &Buttons
-      position: absolute
-      top: 0
-      left: 0
-  &Choice
-    text-align: center
-    &Header
-      margin-bottom: 30px
-      color: #fff0f4
-      font-size: 40px
-      font-weight: 700
-      text-shadow: 2px 3px 2px black
-    &List
-      display: flex
-      justify-content: center
-      column-gap: 15px
-      &__Button
-        width: 60px
-        height: 60px
-        font-size: 40px
-        border: 1px solid #fff0f4
-        border-radius: 5px
-        background: rgba(255,255,255,0.7)
-        &:hover
-          background: #fff
-
-.person
-  margin-top: 20px
-  display: flex
-  justify-content: center
-  align-items: center
+  display: grid
+  grid-template-columns: 1fr 2fr 1fr
   font-family: 'Fira Mono', sans-serif
-  font-weight: 900
-  font-size: 36px
-  &s
-    max-width: 100vw
+  z-index: 10
+  &Menu
     height: 100vh
-    display: flex
-    align-items: center
-    &Dots
-      left: 0 !important
-      height: 100vh !important
-      width: 160px !important
-      background: rgba(0, 0, 0, 0.6)
-      justify-content: center
-      align-items: center
-      column-gap: 40px
-      row-gap: 10px
-      li
-        width: 45px !important
-        height: 45px !important
-
+    background: rgba(0, 0, 0, 0.6)
+    z-index: 10
+    &__Stats
+      //border-top: 2px solid #282c34
+      background: rgba(248, 209, 187, 0.8)
+      &Cash
+        font-size: 18px
+        font-weight: 700
+      &Title
+        padding: 5px
+        font-weight: 900
+        font-size: 24px
+        background: #498c1e
+        color: #fff
+        text-transform: uppercase
+      &Block
+        margin: 7px
+        padding: 7px
+        display: flex
+        justify-content: space-between
+        border-bottom: 1px solid #282c34
+        font-size: 18px
+        font-weight: 700
+        &:last-child
+          border-bottom: none
+    &__Settings
+      padding: 30px
+      background: rgba(255,255,255,0.6)
+      display: flex
+      flex-direction: column
+      &Item
+        padding-bottom: 15px
+        margin-bottom: 15px
+        font-weight: 900
+        font-size: 20px
+        border-bottom: 1px solid #282c34
+    &__Button
+      padding: 20px
+      text-align: center
+      //border-bottom: 1px solid #fff
+      a
         button
-          width: 100% !important
-          height: 100% !important
-          border-radius: 50% !important
-  &Img
-    width: 500px
-    height: 700px
-  &Info
-    padding: 15px
+          height: auto
+          font-size: 28px
+          font-weight: 700
+  &Persons
+    z-index: 10
+    &__Title
+      background: rgba(0, 0, 0, 0.6)
+      font-size: 24px
+      font-weight: 700
+      text-align: center
+      color: #fff
+      padding: 15px
+    &__Button
+      text-align: center
+      padding-top: 10px
+      a
+        button
+          font-size: 24px
+          font-weight: 700
+          height: auto
+    &__Block
+      width: 100px
+      height: 100px
+      z-index: 10
+      &s
+        padding: 45px
+        display: flex
+        justify-content: center
+        flex-wrap: wrap
+        align-items: flex-start
+        row-gap: 15px
+        column-gap: 15px
+      &Img
+        border: none
+        background: transparent
+        span
+          border: 2px solid #282c34
+        &:hover
+          cursor: pointer
+  &Preview
+    text-align: center
+    background: rgba(0, 0, 0, 0.6)
     display: flex
     flex-direction: column
-    row-gap: 15px
-    background: rgba(255,255,255,0.5)
-    border-radius: 10px
-    &__preferences
-      &Block
-        width: 30px
-        height: 45px
-        border: 1px solid #282c34
-        background: #ff6f3c
-        &s
-          display: flex
-          column-gap: 5px
-      &Title
-        margin-bottom: 15px
-        border-bottom: 2px solid #282c34
-    &__name
-      text-align: center
-    &__salary, .personInfo__tax
-      position: relative
-      &::after
-        content: ''
-        position: absolute
-        width: 60px
-        height: 60px
-        top: -8px
-        background: url("./../img/gold.png") center no-repeat
-        background-size: cover
-
-.saveProfile
-  margin-top: 30px
-  margin-bottom: 30px
-  text-align: center
-  &Button
-    padding: 15px
-    font-size: 24px
-    border: 1px solid #fff0f4
-    &:hover
-      background: darken(#fff, 20%)
+    justify-content: space-between
+    height: 100vh
+    z-index: 10
+    &__Name
+      margin: 30px
+      padding-bottom: 30px
+      font-size: 30px
+      color: #fff
+      font-weight: 900
+      border-bottom: 1px solid #fff
+      &Work
+        color: darkgrey
+    &__Title
+      padding: 15px
+      font-size: 24px
+      font-weight: 700
+      color: rgba(255, 255, 255, 0.8)
+      border-bottom: 2px solid rgba(255, 255, 255, 0.6)
+      border-right: 2px solid rgba(255, 255, 255, 0.6)
+      z-index: 10
+    &__Img
+      padding: 5px
+      display: flex
+      align-items: end
+      z-index: 0
+      img
+        z-index: -1
