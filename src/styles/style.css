@@ -683,7 +683,7 @@
   background: rgba(255, 255, 255, 0.7);
 }
 .gameSpendBlock {
-  background: rgba(255, 255, 255, 0.9);
+  background: #f4d4bd;
   width: 350px;
   min-height: 300px;
   z-index: 10;
@@ -702,8 +702,10 @@
 .gameSpendBlock__Title {
   padding: 7px 15px;
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 900;
+  color: #fff;
   border-bottom: 1px solid #282c34;
+  background: #cc2a49;
 }
 .gameSpendBlock__Footer {
   padding: 7px 15px;
@@ -922,6 +924,9 @@
   border-bottom: 1px solid grey;
 }
 .gameBankContent__MenuPay__Input {
+  width: 100%;
+}
+.gameBankContent__MenuPay__Input input {
   width: 50%;
 }
 .gameBankContent__Title {

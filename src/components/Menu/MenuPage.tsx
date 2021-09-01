@@ -109,7 +109,7 @@ export const MenuPage = () => {
           </Modal>
           <div className="menuGameName">
             <span>#ЯИнвестор</span>
-            <div><small><i>Alpha 1.2.1</i></small></div>
+            <div><small><i>ALPHA 1.2.1</i></small></div>
           </div>
           <div className="menuContent">
             <div className="menuHeader">
