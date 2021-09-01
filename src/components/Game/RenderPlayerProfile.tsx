@@ -34,8 +34,10 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
 
   let expensesSummary = 0
 
-  expenses.forEach(expense => {
-    expensesSummary += expense.payment * expense.price / 100
+  expenses.forEach((expense, index) => {
+    if(profile.expenses[index].price !== 0) {
+      expensesSummary += expense.payment * expense.price / 100
+    }
   })
   // текущий доход персонажа
   const income = profile.salary - tax - expensesSummary

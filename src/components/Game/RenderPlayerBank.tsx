@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {getPersonSelector} from "../../redux/profile-selector";
-import {personType} from "../../redux/profile-reducer";
+import {payForExpensesThunk, personType, profileActions, takeCreditThunk} from "../../redux/profile-reducer";
 import {Button, Input, InputNumber, Select} from "antd";
 import {useEffect, useState} from "react";
 
@@ -20,7 +20,11 @@ export const RenderPlayerBank = () => {
     console.log(`selected ${value}`);
     setActiveExpense(value)
   }
-
+  
+  function onLoanPay(value: number) {
+    setExpenseAmount(value)
+  }
+  
   const [creditPercentage, setCreditPercentage] = useState(15) // процентная ставка по кредиту
   const [payoutPercentage, setPayoutPercentage] = useState(10) // процентная ставка на месячный платеж
 
@@ -29,12 +33,21 @@ export const RenderPlayerBank = () => {
   const [finalPayout, setFinalPayout] = useState(Math.round(creditAmount + creditAmount * creditPercentage / 100)) // размер суммы к выплате
   const [monthPayout, setMonthPayout] = useState(creditAmount / payoutPercentage) // размер месячной выплата
 
-  const [activeExpense, setActiveExpense] = useState(0)
+  const [activeExpense, setActiveExpense] = useState(0) // активный долг для погашения
+  const [expenseAmount, setExpenseAmount] = useState(1) // сумма для погашения долга
 
   useEffect(() => {
     setFinalPayout(Math.round(creditAmount + creditAmount * creditPercentage / 100))
     setMonthPayout(creditAmount / payoutPercentage)
   },[creditAmount])
+
+  const payForExpenses = () => {
+    dispatch(payForExpensesThunk(expenseAmount, profile.expenses[activeExpense].type))
+  }
+
+  const takeCredit = () => {
+    dispatch(takeCreditThunk(creditAmount, payoutPercentage, finalPayout))
+  }
 
   return (
     <>
@@ -84,7 +97,7 @@ export const RenderPlayerBank = () => {
                   <br/>
                 </div>
                 <div className="gameBankContent__Button">
-                  <Button size={'large'}>
+                  <Button size={'large'} onClick={() => takeCredit()}>
                     Взять кредит
                   </Button>
                 </div>
@@ -120,12 +133,13 @@ export const RenderPlayerBank = () => {
                   К оплате: <b>{profile.expenses[activeExpense].price}</b>
                 </div>
                 <div className="gameBankContent__MenuPay__Input">
-                  <Input value={1} prefix='$' max={profile.expenses[activeExpense].price} min={1}/>
+                  <Input value={expenseAmount} defaultValue={profile.expenses[activeExpense].price} prefix='$' max={profile.expenses[activeExpense].price} min={1} onChange={(e) => setExpenseAmount(Number(e.target.value))}/>
                 </div>
               </div>
             </div>
+            {/* TODO нельзя ставить больше, чем надо */}
             <div className="gameBankContent__Button">
-              <Button size={'large'}>
+              <Button size={'large'} onClick={() => payForExpenses()} disabled={expenseAmount > profile.expenses[activeExpense].price || expenseAmount < 1}>
                 Оплатить
               </Button>
             </div>

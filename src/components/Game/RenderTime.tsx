@@ -110,12 +110,19 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
 
       // налог за квартиру / машину / кредит / карту
       let expensesSummary = 0
-      expenses.forEach(expense => {
-        expensesSummary += expense.payment
+      expenses.forEach((expense, index) => {
+        if(profile.expenses[index].price !== 0) {
+          expensesSummary += expense.payment * expense.price / 100
+        }
       })
 
       // чистая прибыль персонажа в месяц
       let income = salary - tax - expensesSummary
+
+      console.log('salary ' + salary)
+      console.log('tax ' + tax)
+      console.log('expenses ' + expensesSummary)
+      console.log('income' + income)
 
       dispatch(actions.updateWallet(income))
 

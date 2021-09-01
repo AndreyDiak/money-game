@@ -1,7 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {FC, SetStateAction, useEffect} from "react";
 import {getDaySelector} from "../../redux/game-selector";
-import {CloseOutlined} from "@ant-design/icons";
 import {getExpensesSelector, getPersonSelector, getTaxSelector} from "../../redux/profile-selector";
 import {personType} from "../../redux/profile-reducer";
 
@@ -16,8 +15,10 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
   const tax = useSelector(getTaxSelector)
 
   let expensesSummary = 0
-  expenses.forEach(expense => {
-    expensesSummary += expense.price * expense.payment / 100
+  expenses.forEach((expense, index) => {
+    if (profile.expenses[index].price !== 0) {
+      expensesSummary += expense.price * expense.payment / 100
+    }
   })
 
   useEffect(() => {

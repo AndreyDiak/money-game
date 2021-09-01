@@ -1,4 +1,4 @@
-import {InferActionsType} from "./store"
+import {AppStateType, InferActionsType} from "./store"
 import person1Photo from "../img/characters/person-1.png"
 import person1Avatar from "../img/characters/person-1-avatar.png"
 import person2Photo from "../img/characters/person-2.png"
@@ -29,11 +29,15 @@ import person14Photo from "../img/characters/person-14.png"
 import person14Avatar from "../img/characters/person-14-avatar.png"
 import person15Photo from "../img/characters/person-15.png"
 import person15Avatar from "../img/characters/person-15-avatar.png"
+import {ThunkAction} from "redux-thunk";
+import {actions} from "./game-reducer";
 
 const SET_PROFILE = 'profilePage/SET_PROFILE'
 const SET_TAX = 'profilePage/SET_TAX'
 const SET_EXPENSES = 'profilePage/SET_EXPENSES'
-const UPDATE_EXPENSES = 'profile/UPDATE_EXPENSES'
+const UPDATE_EXPENSES = 'profilePage/UPDATE_EXPENSES'
+const PAY_FOR_EXPENSES = 'profilePage/PAY_FOR_EXPENSES'
+const SET_CREDIT = 'profilePage/SET_CREDIT'
 
 let initialState = {
   // список возможных персонажей . . .
@@ -277,25 +281,25 @@ export type InitialProfileStateType = typeof initialState
 
 export const profileReducer = (state = initialState, action: ProfileActionsType): InitialProfileStateType => {
   switch (action.type) {
-
+    // установка профиля игрока
     case SET_PROFILE:
       return {
         ...state,
         profile: action.profile
       }
-
+    // подоходный налог
     case SET_TAX:
       return {
         ...state,
         tax: action.tax
       }
-
+    // ставим константные значения долгов персонажа
     case SET_EXPENSES:
       return {
         ...state,
         initialExpenses: action.expenses
       }
-
+    // ежемесячные выплаты по долгам
     case UPDATE_EXPENSES:
 
       return {
@@ -305,12 +309,37 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
           expenses: state.profile?.expenses.map((expense, index) => {
             return {
               ...expense,
-              price: expense.price > 0 ? expense.price - state.initialExpenses[index].price * expense.payment / 100 : 0
+              // если долг > 0 то мы выплачиваем его
+              price: expense.price > 0
+                // если ежемесячная плата больше чем оставшийся долг, то мы выплачиваем тока нужную часть
+                ? expense.price < state.initialExpenses[index].price * expense.payment / 100
+                  ? expense.price === 0
+                  : expense.price -  state.initialExpenses[index].price * expense.payment / 100
+                : 0
             }
           }) as expenseType[]
         } as personType
       }
-
+    // пользователь выплачивает свой кредит
+    case PAY_FOR_EXPENSES:
+      return {
+        ...state,
+        profile: action.profile
+      }
+    case SET_CREDIT:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          expenses: action.expenses
+        } as personType,
+        initialExpenses: state.initialExpenses.map(expense => {
+          if (expense.type === 'credit') {
+            return action.expenses[3]
+          }
+          return expense
+        })
+      }
     default:
       return {
         ...state
@@ -322,18 +351,19 @@ export const profileActions = {
   setProfile: (profile: personType) => ({type: SET_PROFILE, profile} as const),
   setTax: (tax: number) => ({type: SET_TAX, tax} as const),
   setExpenses: (expenses: expenseType[]) => ({type: SET_EXPENSES, expenses} as const),
-  updateExpenses: () => ({type: UPDATE_EXPENSES} as const)
+  updateExpenses: () => ({type: UPDATE_EXPENSES} as const),
+  payForExpenses: (profile: personType) => ({type: PAY_FOR_EXPENSES, profile} as const),
+  setCredit: (expenses: expenseType[]) => ({type: SET_CREDIT, expenses} as const)
+
 }
 
 type ProfileActionsType = InferActionsType<typeof profileActions>
-
 export type expenseType = {
   type: string
   title: string
   price: number
   payment: number
 }
-
 export type personType = {
   name: string
   age: number
@@ -343,4 +373,40 @@ export type personType = {
   avatar: string
   work: string
   expenses: expenseType[]
+}
+type ProfileThunkType = ThunkAction<any, AppStateType, unknown, ProfileActionsType>
+
+export const payForExpensesThunk = (price: number, expenseType: string): ProfileThunkType => (dispatch, getState) => {
+  // price / сумма к погашению долга
+  // expenseType / долг, который гасит пользователь
+  let profileCopy = getState().profilePage.profile as personType
+  // находим нужный нам долг и режим его на сумму выплаты банку
+  profileCopy.expenses.forEach((expense, index) => {
+    if (expense.type === expenseType) {
+      profileCopy.expenses[index].price = expense.price - price
+    }
+  })
+  dispatch(profileActions.payForExpenses(profileCopy))
+  // @ts-ignore / уменошаем баланс пользователя
+  dispatch(actions.updateWalletFromSpends(price))
+}
+
+export const takeCreditThunk = (creditAmount: number, payoutPercentage: number, finalPayout: number): ProfileThunkType => (dispatch, getState) => {
+  // creditAmount / размер кредита
+  // payoutPercentage / месячный процент
+  // finalPayout / размер возврата
+  // @ts-ignore
+  let expensesCopy = [...getState().profilePage.profile?.expenses] as expenseType[]
+
+  expensesCopy[3] = {
+    ...expensesCopy[3],
+    price: finalPayout,
+    payment: payoutPercentage
+  }
+
+  dispatch(profileActions.setCredit(expensesCopy))
+
+  // @ts-ignore
+  dispatch(actions.updateWalletFromSpends(-creditAmount))
+
 }
