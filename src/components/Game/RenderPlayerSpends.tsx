@@ -27,11 +27,12 @@ export const RenderPlayerSpends: FC = (props) => {
         </Button>
         {!isHistoryShown
           ? <>
-            <div className="gameSpendBlock">
-              <div className="gameSpendBlock__Title">
-                <b>{months[month].name}</b>
-              </div>
-              <div className="gameSpendBlock__Items">
+            <div className="gameSpendBlock__Main">
+              <div className="gameSpendBlock">
+                <div className="gameSpendBlock__Title">
+                  <b>{months[month].name}</b>
+                </div>
+                <div className="gameSpendBlock__Items">
                   {currentMonthEvents.map((event: eventType, index: number) => {
                     return (
                       <>
@@ -39,15 +40,16 @@ export const RenderPlayerSpends: FC = (props) => {
                       </>
                     )
                   })}
-              </div>
-              <div className="gameSpendBlock__Footer">
-                <div className="gameSpendBlock__FooterTitle">
-                  Общая сумма:
                 </div>
-                <span className="gameSpendBlock__FooterPrice">
+                <div className="gameSpendBlock__Footer">
+                  <div className="gameSpendBlock__FooterTitle">
+                    Общая сумма:
+                  </div>
+                  <span className="gameSpendBlock__FooterPrice">
                 <b>${currentMonthPrice}</b>
               </span>
-              </div>
+                </div>
+            </div>
             </div>
            </>
           : <>

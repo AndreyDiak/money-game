@@ -1,61 +1,43 @@
-import {InferActionsType} from "./store";
+import {AppStateType, InferActionsType} from "./store";
+import {ThunkAction} from "redux-thunk";
+import {profileActions} from "./profile-reducer";
 
+const SET_DAYS_WORKED = 'workPage/SET_DAYS_WORKED'
+const UP_WORK = 'workPage/UP_WORK'
 
-const SET_WORK = 'work/SET_WORK'
-const SET_DAYS_WORKED = 'work/SET_DAYS_WORKED'
-const SET_WORK_LEVEL = 'work/SET_WORK_LEVEL'
 
 // уровень работы . . .
-export enum WorkLevel {
-  start = 'start',
-  middle = 'middle',
-  pro = 'pro',
-  senior = 'senior'
-}
+const workLevel = [0, 1, 2, 3]
 // кол-во дней до повышения . . .
-export enum DaysToUp {
-  start = 125,
-  middle = 200,
-  pro = 250
-}
+const daysToUp = [5, 5, 5]
 // увелечение зп
-export enum Income {
-  start = 0,
-  middle = 15,
-  pro = 20,
-  senior = 25
-}
+const workIncome = [0, 15, 20, 25]
 
 let initialState = {
   // текущая работа игрока . . .
-  currentWork: null as null | Work,
-
+  workedDays: 0,
+  daysToUp: daysToUp[0],
+  workLevel: workLevel[0],
+  workIncome: workIncome[0]
 }
 
 export type InitialWorkStateType = typeof initialState
 
 export const worksReducer = (state = initialState, action: WorksActionsType): InitialWorkStateType => {
   switch (action.type) {
-    case SET_WORK:
-      return {
-        ...state,
-        currentWork: action.work,
-      }
     case SET_DAYS_WORKED:
       return {
         ...state,
-        currentWork: {
-          ...state.currentWork,
-          daysWorked: action.days
-        } as Work
+        daysToUp: state.daysToUp - 1,
+        workedDays: state.workedDays + 1
       }
-    case SET_WORK_LEVEL:
+    case UP_WORK:
       return {
         ...state,
-        currentWork: {
-          ...state.currentWork,
-          level: action.level
-        } as Work
+        workedDays: 0,
+        workLevel: state.workLevel + 1,
+        daysToUp: daysToUp[state.workLevel + 1],
+        workIncome: workIncome[state.workLevel + 1]
       }
     default:
       return {
@@ -65,9 +47,8 @@ export const worksReducer = (state = initialState, action: WorksActionsType): In
 }
 
 export const worksActions = {
-  setWork: (work: Work) => ({type: SET_WORK, work} as const),
-  setDaysWorked: (days: number) => ({type: SET_DAYS_WORKED, days} as const),
-  setWorkLevel: (level: number) => ({type: SET_WORK_LEVEL, level} as const)
+  setWorkedDays: () => ({type: SET_DAYS_WORKED}),
+  upWork: () => ({type: UP_WORK})
 }
 
 export type WorkOptions = {
@@ -89,4 +70,19 @@ export type WorkIncomeType = 0 | 15 | 20 | 25
 export type WorkDaysToUpType = 125 | 200 | 250
 
 type WorksActionsType = InferActionsType<typeof worksActions>
+type WorkThunkType = ThunkAction<any, AppStateType, unknown, WorksActionsType>
+export const upWorkThunk = (): WorkThunkType => (dispatch, getState) => {
+  const salary = getState().profilePage.startSalary as number
+  const prevWorkLevel = getState().worksPage.workLevel
 
+  const newSalary = Math.round(salary + (salary * workIncome[prevWorkLevel + 1]) / 100)
+
+  const newTax = newSalary >= 500
+    ? Math.round(newSalary * 0.15)
+    : Math.round(newSalary * 0.10)
+
+  dispatch(worksActions.upWork())
+
+  dispatch(profileActions.setSalary(newSalary))
+  dispatch(profileActions.setTax(newTax))
+}

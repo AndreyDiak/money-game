@@ -12,7 +12,7 @@ import {setNewsThunk} from "../../redux/news-reducer";
 import {getMyBusinessesSelector} from "../../redux/business-selector";
 import {getRandomNumber} from "../../utils/getRandomNumber";
 import {spendsActions, weekSpendThunk} from "../../redux/spends-reducer";
-import {personType, profileActions} from "../../redux/profile-reducer";
+import {personType, profileActions, updateIncome} from "../../redux/profile-reducer";
 import {getExpensesSelector, getPersonSelector, getTaxSelector} from "../../redux/profile-selector";
 
 type RenderTimeType = {
@@ -121,11 +121,9 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
 
       dispatch(actions.updateWallet(income))
 
-      // уменьшаем необходимую выплату по долгу на месячную ставку . . .
-      // TODO включить
+      // уменьшаем необходимую выплату по долгу на месячную ставку
       dispatch(profileActions.updateExpenses())
-      dispatch(profileActions.updateIncome())
-
+      dispatch(updateIncome())
 
     }
   }, [day])

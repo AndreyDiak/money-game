@@ -1,12 +1,10 @@
-import {ReturnBackButton} from "../common/ReturnBackButton";
-import {FC, SetStateAction, useEffect, useState} from "react"
-import {Avatar, Button, Carousel} from "antd"
+import {FC, useEffect, useState} from "react"
+import {Avatar, Button} from "antd"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {personType, profileActions} from "../../redux/profile-reducer";
+import {profileActions, updateIncome} from "../../redux/profile-reducer";
 import {actions} from "../../redux/game-reducer";
 import {NavLink} from "react-router-dom";
-import {RightSquareOutlined} from "@ant-design/icons/lib/icons";
 import Radio from "antd/lib/radio";
 import {getDifficultySelector, getTimeSpeedSelector} from "../../redux/settings-selector";
 import {settingsActions} from "../../redux/settings-reducer";
@@ -46,7 +44,7 @@ export const ProfilePage: FC = () => {
     // стартовый баланс
     dispatch(actions.setWallet(profile.saving))
 
-    dispatch(profileActions.updateIncome())
+    dispatch(updateIncome())
     // dispatch(actions.setIncome(persons[activePerson].salary - taxesSummary))
   }
 

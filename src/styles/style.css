@@ -653,12 +653,12 @@
 }
 
 .gameSpend {
-  padding: 20px;
   display: flex;
   position: relative;
   align-items: center;
   justify-content: center;
   height: calc(100vh - 55px);
+  width: 100%;
   background: url("../img/banner-spends.jpg") center no-repeat;
   background-size: cover;
   z-index: 0;
@@ -675,8 +675,17 @@
 }
 .gameSpendBlock {
   padding: 20px;
-  background: rgba(234, 210, 172, 0.9);
-  min-width: 440px;
+  background: #ead2ac;
+  width: 500px;
+  z-index: 10;
+}
+.gameSpendBlock__Main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: inherit;
+  background: rgba(244, 212, 189, 0.6);
   z-index: 10;
 }
 .gameSpendBlock__Title {
@@ -684,7 +693,7 @@
   font-size: 28px;
   font-weight: 900;
   color: #fff;
-  background: #3e6787;
+  background: rgba(115, 193, 103, 0.9);
 }
 .gameSpendBlock__Footer {
   padding: 7px 15px;
@@ -790,6 +799,11 @@
   font-size: 18px;
   color: #414141;
   font-weight: 700;
+}
+.gameNewsBlock__NewsPriceBold {
+  font-weight: 900;
+  margin-left: 10px;
+  color: #000;
 }
 .gameNewsBlock__NewsCompany {
   margin: 10px auto;
@@ -1091,6 +1105,26 @@ input:checked, input:active, input:focus {
   width: 700px;
   background-color: #f1f1f1;
   z-index: 3;
+}
+.chartPopupBlock__Menu, .sellPopupBlock__Menu {
+  margin-top: 20px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-top: 1px solid grey;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chartPopupBlock__MenuInfo__Title, .sellPopupBlock__MenuInfo__Title {
+  padding: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  background: #439093;
+  color: #fff;
+}
+.chartPopupBlock__MenuInfo__Input, .sellPopupBlock__MenuInfo__Input {
+  margin-top: 10px;
+  margin-right: 10px;
 }
 .chartPopupBlock__Button, .sellPopupBlock__Button {
   margin-top: 15px;

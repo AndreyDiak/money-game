@@ -358,7 +358,7 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
     return null
   })
   // диспачим обновленные новости в state
-  newsCopy.push(news)
+  newsCopy = [news, ...newsCopy]
   dispatch(newsActions.addNews(newsCopy))
 }
 

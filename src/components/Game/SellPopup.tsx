@@ -1,4 +1,4 @@
-import {FC, SetStateAction, useState} from "react";
+import React, {FC, SetStateAction, useState} from "react";
 import {CloseOutlined} from "@ant-design/icons";
 import {Button, InputNumber} from "antd";
 import {actions} from "../../redux/game-reducer";
@@ -25,6 +25,18 @@ export const SellPopup: FC<SellPopupType> = (props) => {
     dispatch(settingsActions.setTimeSpeed(time))
   }
 
+  const setStocksCount = (count: number) => {
+    if(count <= 0) {
+      setStocksToSellCount(1)
+      return
+    }
+    if(count > props.stock.count) {
+      setStocksToSellCount(props.stock.count)
+      return
+    }
+    setStocksToSellCount(count)
+  }
+
   return (
     <>
       <div className="sellPopup">
@@ -39,36 +51,46 @@ export const SellPopup: FC<SellPopupType> = (props) => {
             <div>Вы хотите продать акции компании:</div>
             <b>{props.stock.title}</b>
           </div>
-          <hr/>
-          <div>
-            Кол-во акций в портфеле: <b>{props.stock.count}</b>
-          </div>
-          <div>
-            <label htmlFor="">
-              Сколько хотите продать <InputNumber min={1} max={props.stock.count} defaultValue={1} onChange={(value) => setStocksToSellCount(value)}/>
-            </label>
+          <div className="sellPopupBlock__Menu">
+            <div className="sellPopupBlock__MenuInfo">
+              <div className='sellPopupBlock__MenuInfo__Title' >
+                Кол-во акций в портфеле: <b>{props.stock.count}</b>
+              </div>
+              <div className='sellPopupBlock__MenuInfo__Input'>
+                <label htmlFor="">
+                  <InputNumber min={1} value={stocksToSellCount} max={props.stock.count} defaultValue={1} onChange={(value) => setStocksToSellCount(value)}/>
+                </label>
+                <button onClick={() => setStocksCount(1)}> min </button>
+                <button onClick={() => setStocksCount(stocksToSellCount - 5)}> -5 </button>
+                <button onClick={() => setStocksCount(stocksToSellCount - 10)}> -10 </button>
+                <button onClick={() => setStocksCount(stocksToSellCount + 10)}> +10 </button>
+                <button onClick={() => setStocksCount(stocksToSellCount + 5)}> +5 </button>
+                <button onClick={() => setStocksCount(props.stock.count)}> max </button>
+              </div>
+            </div>
             <div>
-              Вы получите:
-              <b style={props.stock.oldPrice <= props.stock.price ? {color: '#51ff3d'} : {color: "red"}}>
-                {stocksToSellCount * props.stock.price}
-              </b>
-              Выручка: ({stocksToSellCount * props.stock.price - stocksToSellCount * props.stock.oldPrice})
+              <Button onClick={() => {
+                props.setIsStockToSell(false)
+                console.log(props.activeStock)
+                // возвращаем скорость времени
+                onChangeTime(timeSpeed)
+                // уменьшаем количество акций в пакете . . .
+                dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount, props.activeStock))
+                // увеличиваем баланс пользователя . . .
+                dispatch(actions.setWallet(Math.round(wallet + stocksToSellCount * props.stock.price)))
+              }}>
+                Продать
+              </Button>
             </div>
           </div>
-          <hr/>
-          <div style={{textAlign: 'center'}}>
-            <Button onClick={() => {
-              props.setIsStockToSell(false)
-              console.log(props.activeStock)
-              // возвращаем скорость времени
-              onChangeTime(timeSpeed)
-              // уменьшаем количество акций в пакете . . .
-              dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount, props.activeStock))
-              // увеличиваем баланс пользователя . . .
-              dispatch(actions.setWallet(Math.round(wallet + stocksToSellCount * props.stock.price)))
-            }}>
-              Продать
-            </Button>
+          <div>
+            Вы получите : <b style={props.stock.oldPrice <= props.stock.price ? {color: 'rgb(115, 193, 103)'} : {color: "red"}}>
+              ${stocksToSellCount * props.stock.price}
+            </b>
+            <br/>
+            Выручка : <b style={props.stock.oldPrice <= props.stock.price ? {color: 'rgb(115, 193, 103)'} : {color: "red"}}>
+                ${(stocksToSellCount * props.stock.price - stocksToSellCount * props.stock.oldPrice).toFixed(2)}
+              </b>
           </div>
         </div>
       </div>

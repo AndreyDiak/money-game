@@ -98,18 +98,7 @@ export const RenderChart: FC<RenderChartType> = (props) => {
             <b>{props.stock.title}</b>
           </div>
           {/* рисуем график с ценой на акции . . . */}
-
           <Line data={data} options={options} title='цена акций' contextMenu={'Привет'} />
-
-          {/*<LineChart width={600} height={250} data={data}>*/}
-          {/*  <Line type="monotone" dataKey="price"/>*/}
-          {/*  /!*<CartesianGrid stroke="#ccc" strokeDasharray="10 10"/>*!/*/}
-          {/*  <XAxis dataKey="name"/>*/}
-          {/*  <YAxis/>*/}
-          {/*  <Tooltip/>*/}
-          {/*</LineChart>*/}
-
-          {/*<Line data={data} options={options} className='chartPopupBlock__Chart'/>*/}
           <RenderChartMenu stock={props.stock} setIsHistoryShown={props.setIsHistoryShown}/>
         </div>
       </div>
@@ -135,7 +124,6 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
   const filteredStocks = useSelector((state: AppStateType) => state.stocksPage.filteredStocks)
   // массив купленных акций . . .
   const myStocks = useSelector(getMyStocksSelector)
-  const [isFormShown, setIsFormShown] = useState(false)
   const [stocksToBuyCount, setStocksToBuyCount] = useState(1)
   const [stocksToBuyPrice, setStocksToBuyPrice] = useState(props.stock.price[props.stock.price.length - 1])
 
@@ -197,44 +185,60 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
     dispatch(settingsActions.setTimeSpeed(time))
   }
 
+  const setStocksCount = (count: number) => {
+    if(count <= 0) {
+      setStocksToBuyCount(1)
+      setStocksToBuyPrice(props.stock.price[props.stock.price.length - 1])
+      return
+    }
+    if(count > props.stock.count) {
+      setStocksCount(props.stock.count)
+      setStocksToBuyPrice(props.stock.count * props.stock.price[props.stock.price.length - 1])
+      return
+    }
+    setStocksToBuyCount(count)
+    setStocksToBuyPrice(count * props.stock.price[props.stock.price.length - 1])
+  }
+
   return (
     <>
       <div className='chartPopupBlock__Menu'>
-        <div>
-          <button className="chartPopupBlock__Button" onClick={() => setIsFormShown(true)}>
-            Купить акцию
-          </button>
-        </div>
-        <div style={isFormShown ? {display: "block"} : {display: "none"}}>
-          <hr/>
-          Доступных акций для покупки - <b>{props.stock.count}</b>
+        <div className="chartPopupBlock__MenuInfo">
+          <div className="chartPopupBlock__MenuInfo__Title">
+            Доступных акций :  <b>{props.stock.count}</b>
+          </div>
           <div>
-            <InputNumber min={0} max={props.stock.count} value={stocksToBuyCount} onChange={(value) => {
+            <InputNumber className='chartPopupBlock__MenuInfo__Input' min={0} max={props.stock.count} value={stocksToBuyCount} onChange={(value) => {
               setStocksToBuyCount(value)
               setStocksToBuyPrice(value * props.stock.price[props.stock.price.length - 1])
             }}/>
+            <button onClick={() => setStocksCount(1)}> min </button>
+            <button onClick={() => setStocksCount(stocksToBuyCount - 5)}> -5 </button>
+            <button onClick={() => setStocksCount(stocksToBuyCount - 10)}> -10 </button>
+            <button onClick={() => setStocksCount(stocksToBuyCount + 10)}> +10 </button>
+            <button onClick={() => setStocksCount(stocksToBuyCount + 5)}> +5 </button>
+            <button onClick={() => setStocksCount(props.stock.count)}> max </button>
           </div>
+        </div>
           <div>
-            Стоимость покупки акций: <b>{stocksToBuyPrice}</b>
-          </div>
-          <div
-            style={stocksToBuyCount > 0
-              ? {display: 'block', textAlign: 'center'}
-              : {display: 'none', textAlign: 'center'}
-            }>
-            <hr/>
-            <Button disabled={!(stocksToBuyPrice <= wallet) || props.stock.count <= 0} onClick={() => {
-
+            <Button
+              size='large'
+              disabled={!(stocksToBuyPrice <= wallet)
+                || props.stock.count <= 0
+                || stocksToBuyCount < 1
+                || stocksToBuyCount > props.stock.count}
+              onClick={() => {
               // возвращаем скорость времени
               onChangeTime(timeSpeed)
-
               buyStocks()
               props.setIsHistoryShown(false)
             }}>
               Купить
             </Button>
           </div>
-        </div>
+      </div>
+      <div>
+        Вы заплатите : <b>${stocksToBuyPrice}</b>
       </div>
     </>
   )

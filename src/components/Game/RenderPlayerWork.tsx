@@ -2,8 +2,9 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {FC, SetStateAction, useEffect} from "react";
 import {getDaySelector} from "../../redux/game-selector";
 import {getExpensesSelector, getPersonSelector, getTaxSelector} from "../../redux/profile-selector";
-import {expenseType, personType} from "../../redux/profile-reducer";
+import {expenseType, personType, updateIncome} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/store";
+import {upWorkThunk, worksActions} from "../../redux/work-reducer";
 
 export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> = (props) => {
 
@@ -15,17 +16,26 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
   const expenses = useSelector(getExpensesSelector) as expenseType[]
   const tax = useSelector(getTaxSelector)
   const income = useSelector((state: AppStateType) => state.profilePage.income)
-  // let expensesSummary = 0
-  // expenses.forEach((expense, index) => {
-  //   if (profile.expenses[index].price !== 0) {
-  //     expensesSummary += expense.price * expense.payment / 100
-  //   }
-  // })
 
+  const daysWorked = useSelector((state: AppStateType) => state.worksPage.workedDays)
+  const daysToUp = useSelector((state: AppStateType) => state.worksPage.daysToUp)
+  const workIncome = useSelector((state: AppStateType) => state.worksPage.workIncome)
+  const workLevel = useSelector((state: AppStateType) => state.worksPage.workLevel)
   useEffect(() => {
     console.log('мы поменялись')
     console.table(expenses)
   },[expenses])
+
+  useEffect(() => {
+
+    if (daysToUp === 0 && workLevel < 3) {
+      dispatch(upWorkThunk())
+      dispatch(updateIncome())
+      return
+    }
+
+    dispatch(worksActions.setWorkedDays())
+  }, [day])
 
   return (
     <>
@@ -146,7 +156,7 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
                 Прибавка к зарплате
               </div>
               <div className="gameWorkContent__blockPrice">
-                $0
+                {workIncome}%
               </div>
             </div>
             <div className="gameWorkContent__block">
@@ -154,17 +164,20 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
                 Вы проработали
               </div>
               <div className="gameWorkContent__blockPrice">
-                0 дней
+                {daysWorked} дней
               </div>
             </div>
-            <div className="gameWorkContent__block">
-              <div className="gameWorkContent__blockTitle">
-                До повышения
+            {workLevel < 3
+            ? <div className="gameWorkContent__block">
+                <div className="gameWorkContent__blockTitle">
+                  До повышения
+                </div>
+                <div className="gameWorkContent__blockPrice">
+                  {daysToUp} дней
+                </div>
               </div>
-              <div className="gameWorkContent__blockPrice">
-                0 дней
-              </div>
-            </div>
+            : ''
+            }
           </div>
         </div>
       </div>

@@ -149,8 +149,19 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
           {props.amount !== 0
             ? <div className="gameNewsBlock__NewsPrice">
               {props.amount > 0
-                ? `Вы заработали $${props.amount}`
-                : `Вы потратили $${-props.amount}`
+                ?
+                  <>
+                    Вы заработали
+                    <span className="gameNewsBlock__NewsPriceBold">
+                        ${props.amount}
+                    </span>
+                  </>
+                : <>
+                    Вы потратили
+                    <span className="gameNewsBlock__NewsPriceBold">
+                        ${-props.amount}
+                    </span>
+                  </>
               }
               </div>
             : ''}

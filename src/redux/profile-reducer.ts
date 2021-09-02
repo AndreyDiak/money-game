@@ -39,6 +39,7 @@ const UPDATE_EXPENSES = 'profilePage/UPDATE_EXPENSES'
 const PAY_FOR_EXPENSES = 'profilePage/PAY_FOR_EXPENSES'
 const SET_CREDIT = 'profilePage/SET_CREDIT'
 const UPDATE_INCOME = 'profilePage/UPDATE_INCOME'
+const SET_SALARY = 'profilePage/SET_SALARY'
 
 let initialState = {
   // список возможных персонажей . . .
@@ -158,10 +159,10 @@ let initialState = {
       salary: 550,
       work: 'Бухгалтер',
       expenses: [
-        {type: 'home', title: 'Дом', remainPrice: 1000, payment: 9},
-        {type: 'car', title: 'Машина', remainPrice: 1200, payment: 7},
-        {type: 'card', title: 'Кред. карта', remainPrice: 900, payment: 8},
-        {type: 'credit', title: 'Кредит', remainPrice: 0, payment: 0},
+        {type: 'home', title: 'Дом', remainPrice: 1000, startPrice: 1000, payment: 9},
+        {type: 'car', title: 'Машина', remainPrice: 1200, startPrice: 1200, payment: 7},
+        {type: 'card', title: 'Кред. карта', remainPrice: 900, startPrice: 900, payment: 8},
+        {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
       ],
       img: person8Photo,
       avatar: person8Avatar
@@ -274,6 +275,7 @@ let initialState = {
   ],
   // наш профиль . . .
   profile: null as null | personType, // профиль персонажа
+  startSalary: 0, // начальная зп
   tax: 0, // налог с зп
   // initialExpenses: [] as expenseType[],
   income: 0
@@ -287,7 +289,8 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
     case SET_PROFILE:
       return {
         ...state,
-        profile: action.profile
+        profile: action.profile,
+        startSalary: action.profile.salary
       }
     // подоходный налог
     case SET_TAX:
@@ -295,12 +298,6 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
         ...state,
         tax: action.tax
       }
-    // ставим константные значения долгов персонажа
-    // case SET_EXPENSES:
-    //   return {
-    //     ...state,
-    //     initialExpenses: action.expenses
-    //   }
     // ежемесячные выплаты по долгам
     case UPDATE_EXPENSES:
 
@@ -331,6 +328,7 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
           expenses: action.expenses
         } as personType,
       }
+    // добавляем кредитные данные в профиль персонажа
     case SET_CREDIT:
       return {
         ...state,
@@ -344,20 +342,22 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
           })
         } as personType
       }
+    // обновляем доход персонажа
     case UPDATE_INCOME:
-
       // здесь мы будем собирать все возможные пассивные доходы персонажа и суммировать
-      let expensesSummary = 0
-      state.profile?.expenses.map((expense, index) => {
-        if (state.profile?.expenses[index].remainPrice !== 0) {
-          expensesSummary += expense.startPrice * expense.payment / 100
-        }
-      })
-
       return {
         ...state,
         // @ts-ignore
-        income: state.profile?.salary - state.tax - expensesSummary
+        income: action.newIncome
+      }
+    // обновляем зарплату персонажа
+    case SET_SALARY:
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          salary: action.newSalary
+        } as personType
       }
     default:
       return {
@@ -373,7 +373,8 @@ export const profileActions = {
   updateExpenses: () => ({type: UPDATE_EXPENSES} as const),
   payForExpenses: (expenses: expenseType[]) => ({type: PAY_FOR_EXPENSES, expenses} as const),
   setCredit: (expenses: expenseType[]) => ({type: SET_CREDIT, expenses} as const),
-  updateIncome: () => ({type: UPDATE_INCOME} as const),
+  updateIncome: (newIncome: number) => ({type: UPDATE_INCOME, newIncome} as const),
+  setSalary: (newSalary: number) => ({type: SET_SALARY, newSalary} as const)
 }
 
 type ProfileActionsType = InferActionsType<typeof profileActions>
@@ -412,9 +413,8 @@ export const payForExpensesThunk = (price: number, expenseType: string): Profile
   // @ts-ignore / уменошаем баланс пользователя
   dispatch(actions.updateWalletFromSpends(price))
 
-  dispatch(profileActions.updateIncome())
+  dispatch(updateIncome())
 }
-
 export const takeCreditThunk = (creditAmount: number, payoutPercentage: number, finalPayout: number): ProfileThunkType => (dispatch, getState) => {
   // creditAmount / размер кредита
   // payoutPercentage / месячный процент
@@ -433,5 +433,25 @@ export const takeCreditThunk = (creditAmount: number, payoutPercentage: number, 
   // @ts-ignore
   dispatch(actions.updateWalletFromSpends(-creditAmount))
 
-  dispatch(profileActions.updateIncome())
+  dispatch(updateIncome())
+}
+export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
+
+  const profilePage = getState().profilePage
+  const tax = profilePage.tax
+  const salary = profilePage.profile?.salary as number
+
+  let expensesSummary = 0
+  profilePage.profile?.expenses.map((expense, index) => {
+    if (profilePage.profile?.expenses[index].remainPrice !== 0) {
+      expensesSummary += expense.startPrice * expense.payment / 100
+    }
+  })
+
+  // @ts-ignore
+  let NewIncome = Math.round(salary - tax - expensesSummary)
+
+  dispatch(profileActions.updateIncome(NewIncome))
+  // dispatch(profileActions.setSalary(salary + workAdd))
+  // dispatch(profileActions.setTax(newTax))
 }

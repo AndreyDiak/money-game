@@ -11,6 +11,7 @@ export const RenderPlayerBank = () => {
 
   const dispatch = useDispatch()
   const profile = useSelector(getPersonSelector) as personType
+  const income = useSelector((state: AppStateType) => state.profilePage.income)
 
   function onChange(value: any) {
     console.log('changed', value);
@@ -81,8 +82,8 @@ export const RenderPlayerBank = () => {
             {profile.expenses[3].remainPrice === 0
               ? <>
                 <div className="gameBankContent__Form">
-                  <small>
-                    <i>(нельзя брать кредит размером более <b>10</b> окладов)</i>
+                  <small style={{textAlign: 'center'}}>
+                    <i>нельзя брать кредит размером <br/> более <b>10</b> окладов: <b>${income * 10}</b></i>
                   </small>
                   <div className="gameBankContent__FormInput">
                     <Input size="large" prefix='$' value={creditAmount} onChange={onChange} />
@@ -98,7 +99,7 @@ export const RenderPlayerBank = () => {
                   <br/>
                 </div>
                 <div className="gameBankContent__Button">
-                  <Button size={'large'} onClick={() => takeCredit()}>
+                  <Button size={'large'} onClick={() => takeCredit()} disabled={creditAmount > income * 10}>
                     Взять кредит
                   </Button>
                 </div>

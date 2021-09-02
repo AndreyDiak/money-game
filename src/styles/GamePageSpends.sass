@@ -1,11 +1,11 @@
 .game
   &Spend
-    padding: 20px
     display: flex
     position: relative
     align-items: center
     justify-content: center
     height: calc(100vh - 55px)
+    width: 100%
     background: url('../img/banner-spends.jpg') center no-repeat
     background-size: cover
     z-index: 0
@@ -22,15 +22,23 @@
 
     &Block
       padding: 20px
-      background: rgba(234, 210, 172, 0.9)
-      min-width: 440px
+      background: rgba(234, 210, 172, 1)
+      width: 500px
       z-index: 10
+      &__Main
+        display: flex
+        justify-content: center
+        align-items: center
+        width: 100%
+        height: inherit
+        background: rgba(244, 212, 189, 0.6)
+        z-index: 10
       &__Title
         padding: 7px 15px
         font-size: 28px
         font-weight: 900
         color: #fff
-        background: #3e6787
+        background: rgba(115, 193, 103, 0.9)
       &__Footer
         padding: 7px 15px
         display: flex
