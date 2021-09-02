@@ -238,7 +238,7 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
           </div>
       </div>
       <div>
-        Вы заплатите : <b>${stocksToBuyPrice}</b>
+        Вы заплатите : <b>${(stocksToBuyPrice).toFixed(1)}</b>
       </div>
     </>
   )
