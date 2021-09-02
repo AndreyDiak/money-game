@@ -659,81 +659,83 @@
   align-items: center;
   justify-content: center;
   height: calc(100vh - 55px);
-  background: url("../img/banner-life.jpg") center no-repeat;
+  background: url("../img/banner-spends.jpg") center no-repeat;
   background-size: cover;
   z-index: 0;
   font-family: "Fira Mono", sans-serif;
-  color: #303030;
 }
 .gameSpendButton {
   position: absolute;
-  right: 20px;
-  top: 20px;
+  left: 50%;
+  bottom: 100px;
+  transform: translateX(-50%);
   z-index: 10;
   font-size: 24px;
   height: auto;
 }
-.gameSpendHeader {
-  padding: 7px 35px;
-  display: block;
-  font-size: 32px;
-  font-weight: 700;
-  color: #000000;
-  z-index: 100;
-  background: rgba(255, 255, 255, 0.7);
-}
 .gameSpendBlock {
-  background: #f4d4bd;
-  width: 350px;
-  min-height: 300px;
+  padding: 20px;
+  background: rgba(234, 210, 172, 0.9);
+  min-width: 440px;
   z-index: 10;
-}
-.gameSpendBlocks {
-  margin-top: 75px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  row-gap: 10px;
-  column-gap: 10px;
-}
-.gameSpendBlock__FooterPrice {
-  color: crimson;
 }
 .gameSpendBlock__Title {
   padding: 7px 15px;
   font-size: 28px;
   font-weight: 900;
   color: #fff;
-  border-bottom: 1px solid #282c34;
-  background: #cc2a49;
+  background: #3e6787;
 }
 .gameSpendBlock__Footer {
   padding: 7px 15px;
+  display: flex;
+  justify-content: space-between;
   font-size: 28px;
-  font-weight: 700;
   border-top: 1px solid #282c34;
+  color: #000;
+}
+.gameSpendBlock__FooterTitle {
+  font-weight: 500;
+}
+.gameSpendBlock__FooterPrice {
+  font-weight: 900;
 }
 .gameSpendBlock__Item {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 20px;
+  font-size: 22px;
+  border-bottom: 1px solid grey;
+}
+.gameSpendBlock__Item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 .gameSpendBlock__ItemTitle {
-  color: #414141;
+  font-weight: 700;
 }
 .gameSpendBlock__ItemPrice {
-  font-weight: 700;
-  color: crimson;
+  font-weight: 300;
 }
 .gameSpendBlock__Items {
-  padding: 10px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  row-gap: 5px;
-  height: 200px;
+  min-height: 200px;
   overflow: auto;
+}
+.gameSpendBlocks {
+  margin-top: 75px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: auto;
+  row-gap: 10px;
+  column-gap: 10px;
 }
 
 .gameNews {
@@ -747,6 +749,15 @@
   row-gap: 30px;
   font-family: "Fira Mono", sans-serif;
 }
+.gameNews::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
 .gameNewsContent {
   z-index: 10;
   overflow: auto;
@@ -757,34 +768,45 @@
   background: #282c34;
   color: #fff;
 }
-.gameNewsTitle {
-  font-size: 28px;
-  font-weight: 700;
-  color: #fff;
-  text-align: center;
-  z-index: 10;
-}
 .gameNewsBlock {
   padding: 20px;
+  width: 50%;
+  background: rgba(243, 243, 243, 0.9);
   z-index: 10;
-  background: #fff;
 }
 .gameNewsBlock__Title {
+  padding: 10px;
   margin-bottom: 10px;
-  padding-bottom: 10px;
   font-size: 24px;
-  border-bottom: 1px solid grey;
+  background: #439093;
+  z-index: 10;
+  color: #fff;
 }
 .gameNewsBlock__News {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-.gameNewsBlock__NewsTitle {
+.gameNewsBlock__NewsTitle, .gameNewsBlock__NewsPrice {
   font-size: 18px;
   color: #414141;
+  font-weight: 700;
 }
-.gameNewsBlock__NewsPrice {
-  font-size: 18px;
+.gameNewsBlock__NewsCompany {
+  margin: 10px auto;
+  padding: 10px;
+  text-align: center;
+  width: 50%;
+  background: #3e6787;
+  color: #fff;
+  font-weight: 700;
+}
+.gameNewsBlock__NewsButton {
+  text-align: center;
+}
+.gameNewsBlock__NewsButton button {
+  background: #3e6787;
+  color: #fff;
+  font-weight: 900;
 }
 .gameNewsBlock__Footer {
   margin-top: 10px;
@@ -812,6 +834,7 @@
   padding: 50px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   row-gap: 50px;
   overflow: auto;
   z-index: 10;

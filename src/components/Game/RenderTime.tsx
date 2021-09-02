@@ -42,9 +42,10 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   // текущая работа . . .
   const profile = useSelector(getPersonSelector) as personType
   //
-  const expenses = useSelector(getExpensesSelector)
+  const income = useSelector((state: AppStateType) => state.profilePage.income)
+  // const expenses = useSelector(getExpensesSelector)
   // подоходный налог на зп
-  const tax = useSelector(getTaxSelector)
+  // const tax = useSelector(getTaxSelector)
   // массив с днями . . .
   const Days = [
     'Воскресенье', 'Понедельник', 'Вторник',
@@ -109,26 +110,21 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
       let salary = profile.salary // зп без налога
 
       // налог за квартиру / машину / кредит / карту
-      let expensesSummary = 0
-      expenses.forEach((expense, index) => {
-        if(profile.expenses[index].price !== 0) {
-          expensesSummary += expense.payment * expense.price / 100
-        }
-      })
+      // let expensesSummary = 0
+      // expenses.forEach((expense, index) => {
+      //   if(profile.expenses[index].price !== 0) {
+      //     expensesSummary += expense.payment * expense.price / 100
+      //   }
+      // })
 
       // чистая прибыль персонажа в месяц
-      let income = salary - tax - expensesSummary
-
-      console.log('salary ' + salary)
-      console.log('tax ' + tax)
-      console.log('expenses ' + expensesSummary)
-      console.log('income' + income)
 
       dispatch(actions.updateWallet(income))
 
       // уменьшаем необходимую выплату по долгу на месячную ставку . . .
       // TODO включить
       dispatch(profileActions.updateExpenses())
+      dispatch(profileActions.updateIncome())
 
 
     }

@@ -32,7 +32,7 @@ export const ProfilePage: FC = () => {
   let taxesSummary = tax
 
   persons[activePerson].expenses.forEach(expense => {
-    taxesSummary += expense.price * expense.payment / 100
+    taxesSummary += expense.startPrice * expense.payment / 100
   })
 
   const setProfile = () => {
@@ -42,10 +42,11 @@ export const ProfilePage: FC = () => {
     // устанавливаем подоходный налог на зп
     dispatch(profileActions.setTax(tax))
     // устанавливаем долги персонажа
-    dispatch(profileActions.setExpenses(persons[activePerson].expenses))
+    // dispatch(profileActions.setExpenses(persons[activePerson].expenses))
     // стартовый баланс
     dispatch(actions.setWallet(profile.saving))
 
+    dispatch(profileActions.updateIncome())
     // dispatch(actions.setIncome(persons[activePerson].salary - taxesSummary))
   }
 
@@ -205,10 +206,10 @@ export const ProfilePage: FC = () => {
               {persons[activePerson].expenses.map((expense, index) => {
                 return (
                   <>
-                    {expense.price !== 0
+                    {expense.remainPrice !== 0
                       ? <div className='profileMenu__StatsBlock'>
                           <div className="profileMenu__StatsBlock__Title">{expense.title}:</div>
-                          <div className="profileMenu__StatsBlock__Price">${expense.price * expense.payment / 100}</div>
+                          <div className="profileMenu__StatsBlock__Price">${expense.remainPrice * expense.payment / 100}</div>
                         </div>
                       : ''}
                   </>

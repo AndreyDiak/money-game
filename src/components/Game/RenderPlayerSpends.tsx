@@ -5,7 +5,6 @@ import {getHappenedEventsSelector, getMonthSelector, getMonthsSelector} from "..
 import {Button, Tabs} from "antd";
 import {eventType} from "../../redux/spends-reducer";
 import {AppStateType} from "../../redux/store";
-import {actions} from "../../redux/game-reducer";
 
 const { TabPane } = Tabs
 
@@ -33,22 +32,20 @@ export const RenderPlayerSpends: FC = (props) => {
                 <b>{months[month].name}</b>
               </div>
               <div className="gameSpendBlock__Items">
-                <ol>
                   {currentMonthEvents.map((event: eventType, index: number) => {
                     return (
                       <>
-                        <li>
-                          <RenderPlayerSpend key={index} title={event.title} price={event.price} index={index}/>
-                        </li>
+                        <RenderPlayerSpend key={index} title={event.title} price={event.price} index={index}/>
                       </>
                     )
                   })}
-                </ol>
               </div>
               <div className="gameSpendBlock__Footer">
-                <b>Общая сумма:</b>
+                <div className="gameSpendBlock__FooterTitle">
+                  Общая сумма:
+                </div>
                 <span className="gameSpendBlock__FooterPrice">
-                <i>{currentMonthPrice}$</i>
+                <b>${currentMonthPrice}</b>
               </span>
               </div>
             </div>
@@ -82,30 +79,6 @@ export const RenderPlayerSpends: FC = (props) => {
             </div>
             </>
         }
-
-        {/*<Tabs defaultActiveKey='1' className='gameSpendMenu' centered>*/}
-        {/*  <TabPane key='1' tab='Текущие затраты'>*/}
-        {/*    <div className="gameSpendBlock__alone">*/}
-        {/*      <div className="gameSpendBlock">*/}
-        {/*        <div className="gameSpendBlock__Title">*/}
-        {/*          <b>{months[month].name}</b>*/}
-        {/*        </div>*/}
-        {/*        <div className="gameSpendBlock__Items">*/}
-        {/*          {happenedEvents[month].map((event: eventType, index: number) => {*/}
-        {/*            return (*/}
-        {/*              <>*/}
-        {/*                <RenderPlayerSpend key={index} title={event.title} price={event.price} index={index}/>*/}
-        {/*              </>*/}
-        {/*            )*/}
-        {/*          })}*/}
-        {/*        </div>*/}
-        {/*      </div>*/}
-        {/*    </div>*/}
-        {/*  </TabPane>*/}
-        {/*  <TabPane key='2' tab='Смотреть все'>*/}
-
-        {/*  </TabPane>*/}
-        {/*</Tabs>*/}
       </div>
     </>
   )

@@ -16,7 +16,7 @@ export const RenderPlayerNews:FC<{setIsHistoryShown: any, setActiveStock: any, s
 
   return (
     <>
-      <div className="gameNews bannerBack">
+      <div className="gameNews">
         <div className="gameNewsContent">
           <Tabs defaultActiveKey="1" centered className='gameNewsContent__Tabs'>
             <TabPane tab="Новости" key="1">
@@ -120,29 +120,38 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
       <div className="gameNewsBlock">
         <div className="gameNewsBlock__Title">
           <b>Новость!</b>
-          <span style={{color: 'darkgrey'}}> / <i>{props.month} {props.dayInMonth}</i></span>
+          <span style={{color: '#def4e4'}}> / {props.month} {props.dayInMonth}</span>
         </div>
         <div className="gameNewsBlock__News">
           <div className="gameNewsBlock__NewsTitle">
             <b>{props.title}</b>
           </div>
+
           {props.company !== ''
-            ? <div>
-              <i>{props.company}</i>
-          </div>
+            ? <div className='gameNewsBlock__NewsCompany'>
+                <i>{props.company}</i>
+              </div>
             : ''
           }
+
           {props.type === 'stock' && props.condition === 0
-            ? <Button onClick={() => buyStocks()}>Купить акцию</Button>
+            ? <div className="gameNewsBlock__NewsButton">
+                <Button onClick={() => buyStocks()}>Купить акцию</Button>
+              </div>
             : ''
           }
           {props.type === 'stock' && props.condition === 1 && myStocks.some(s => s.title === props.company)
-            ? <Button onClick={() => sellStocks()}>Продать акцию</Button>
+            ? <div className="gameNewsBlock__NewsButton">
+                <Button onClick={() => sellStocks()}>Продать акцию</Button>
+              </div>
             : ''
           }
           {props.amount !== 0
             ? <div className="gameNewsBlock__NewsPrice">
-                {props.amount}
+              {props.amount > 0
+                ? `Вы заработали $${props.amount}`
+                : `Вы потратили $${-props.amount}`
+              }
               </div>
             : ''}
         </div>

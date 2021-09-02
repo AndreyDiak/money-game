@@ -8,6 +8,7 @@ import {DoubleRightOutlined, PauseOutlined, RightOutlined} from "@ant-design/ico
 import {getLevelSelector, getVictoryBalance} from "../../redux/game-selector";
 import {settingsActions} from "../../redux/settings-reducer";
 import {getConstTimeSpeedSelector, getTimeSpeedSelector} from "../../redux/settings-selector";
+import {AppStateType} from "../../redux/store";
 
 type RenderPlayerProfileType = {
   wallet: number
@@ -31,16 +32,16 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
   // баланс необходимый для победы . . .
   const victoryBalance = useSelector(getVictoryBalance)
+  //
+  const income = useSelector((state: AppStateType) => state.profilePage.income)
 
-  let expensesSummary = 0
-
-  expenses.forEach((expense, index) => {
-    if(profile.expenses[index].price !== 0) {
-      expensesSummary += expense.payment * expense.price / 100
-    }
-  })
+  // expenses.forEach((expense, index) => {
+  //   if(profile.expenses[index].price !== 0) {
+  //     expensesSummary += expense.payment * expense.price / 100
+  //   }
+  // })
   // текущий доход персонажа
-  const income = profile.salary - tax - expensesSummary
+  // const income = profile.salary - tax - expensesSummary
 
   const info = () => {
     message.warning('Эта функция пока не доступна(')

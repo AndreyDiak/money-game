@@ -10,7 +10,7 @@ export const RenderPlayerSpend: FC<RenderPlayerSpendType> = (props) => {
     <>
       <div className="gameSpendBlock__Item">
         <div className="gameSpendBlock__ItemTitle"><b>{props.title}</b></div>
-        <div className="gameSpendBlock__ItemPrice">({props.price}$)</div>
+        <div className="gameSpendBlock__ItemPrice">${props.price}</div>
       </div>
     </>
   )

@@ -17,5 +17,5 @@ export const getTaxSelector = (state: AppStateType) => {
 }
 
 export const getExpensesSelector = (state: AppStateType) => {
-  return state.profilePage.initialExpenses
+  return state.profilePage.profile?.expenses
 }

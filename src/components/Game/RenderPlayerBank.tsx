@@ -3,6 +3,7 @@ import {getPersonSelector} from "../../redux/profile-selector";
 import {payForExpensesThunk, personType, profileActions, takeCreditThunk} from "../../redux/profile-reducer";
 import {Button, Input, InputNumber, Select} from "antd";
 import {useEffect, useState} from "react";
+import {AppStateType} from "../../redux/store";
 
 const { Option } = Select
 
@@ -20,11 +21,7 @@ export const RenderPlayerBank = () => {
     console.log(`selected ${value}`);
     setActiveExpense(value)
   }
-  
-  function onLoanPay(value: number) {
-    setExpenseAmount(value)
-  }
-  
+
   const [creditPercentage, setCreditPercentage] = useState(15) // процентная ставка по кредиту
   const [payoutPercentage, setPayoutPercentage] = useState(10) // процентная ставка на месячный платеж
 
@@ -34,7 +31,7 @@ export const RenderPlayerBank = () => {
   const [monthPayout, setMonthPayout] = useState(creditAmount / payoutPercentage) // размер месячной выплата
 
   const [activeExpense, setActiveExpense] = useState(0) // активный долг для погашения
-  const [expenseAmount, setExpenseAmount] = useState(1) // сумма для погашения долга
+  const [expenseAmount, setExpenseAmount] = useState(profile.expenses[activeExpense].remainPrice) // сумма для погашения долга
 
   useEffect(() => {
     setFinalPayout(Math.round(creditAmount + creditAmount * creditPercentage / 100))
@@ -49,6 +46,10 @@ export const RenderPlayerBank = () => {
     dispatch(takeCreditThunk(creditAmount, payoutPercentage, finalPayout))
   }
 
+  // const initialExpenses = useSelector((state: AppStateType) => state.profilePage.initialExpenses)
+
+  console.table(profile.expenses)
+
   return (
     <>
       <div className="gameBank bannerBack">
@@ -61,10 +62,10 @@ export const RenderPlayerBank = () => {
               {profile.expenses.map((expense, index) => {
                 return (
                   <>
-                    {expense.price !== 0
+                    {expense.remainPrice !== 0
                      ? <div className='gameBankContent__Block'>
                         <div className="gameBankContent__BlockTitle">{expense.title}</div>
-                        <div className="gameBankContent__BlockPrice"><b>{expense.price}</b></div>
+                        <div className="gameBankContent__BlockPrice"><b>{expense.remainPrice}</b></div>
                       </div>
                       : ''
                     }
@@ -77,7 +78,7 @@ export const RenderPlayerBank = () => {
             <div className="gameBankContent__Title">
               Взять кредит
             </div>
-            {profile.expenses[3].price === 0
+            {profile.expenses[3].remainPrice === 0
               ? <>
                 <div className="gameBankContent__Form">
                   <small>
@@ -117,7 +118,7 @@ export const RenderPlayerBank = () => {
                   {profile.expenses.map((expense, index) => {
                     return (
                       <>
-                        {expense.price !== 0
+                        {expense.remainPrice !== 0
                           ? <Option value={index}>
                               {expense.title}
                             </Option>
@@ -130,16 +131,16 @@ export const RenderPlayerBank = () => {
               </div>
               <div className="gameBankContent__MenuPay">
                 <div className="gameBankContent__MenuPay__Price">
-                  К оплате: <b>{profile.expenses[activeExpense].price}</b>
+                  К оплате: <b>{profile.expenses[activeExpense].remainPrice}</b>
                 </div>
                 <div className="gameBankContent__MenuPay__Input">
-                  <Input value={expenseAmount} defaultValue={profile.expenses[activeExpense].price} prefix='$' max={profile.expenses[activeExpense].price} min={1} onChange={(e) => setExpenseAmount(Number(e.target.value))}/>
+                  <Input value={expenseAmount} prefix='$' max={profile.expenses[activeExpense].remainPrice} min={1} onChange={(e) => setExpenseAmount(Number(e.target.value))}/>
                 </div>
               </div>
             </div>
             {/* TODO нельзя ставить больше, чем надо */}
             <div className="gameBankContent__Button">
-              <Button size={'large'} onClick={() => payForExpenses()} disabled={expenseAmount > profile.expenses[activeExpense].price || expenseAmount < 1}>
+              <Button size={'large'} onClick={() => payForExpenses()} disabled={expenseAmount > profile.expenses[activeExpense].remainPrice || expenseAmount < 1}>
                 Оплатить
               </Button>
             </div>
