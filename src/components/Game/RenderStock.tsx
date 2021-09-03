@@ -38,9 +38,16 @@ export const RenderStock: FC<RenderStockType> = (props) => {
           <div className="gameProfitStocks__OfferBlock__InfoPrice">
             {props.stock.price[props.stock.price.length - 1]}
           </div>
-          <div className="gameProfitStocks__OfferBlock__InfoRisk">
-            {props.stock.risk}
-          </div>
+          {/* TODO включать только при подписке */}
+          {/*<div className="gameProfitStocks__OfferBlock__InfoRisk">*/}
+          {/*  {props.stock.risk}*/}
+          {/*</div>*/}
+            {props.stock.dividendsPercentage === 0
+              ? ''
+              : <div className="gameProfitStocks__OfferBlock__InfoDividends">
+                  <span>Дивиденды : {props.stock.dividendsPercentage}%</span>
+                </div>
+              }
           <div className="gameProfitStocks__OfferBlock__InfoCondition" style={props.stock.condition === 'up' ? {color: '#51ff3d'} : {color: 'red'}}>
             {props.stock.condition === 'up'
               //@ts-ignore

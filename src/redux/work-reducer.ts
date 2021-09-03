@@ -9,7 +9,7 @@ const UP_WORK = 'workPage/UP_WORK'
 // уровень работы . . .
 const workLevel = [0, 1, 2, 3]
 // кол-во дней до повышения . . .
-const daysToUp = [5, 5, 5]
+const daysToUp = [125, 200, 250]
 // увелечение зп
 const workIncome = [0, 15, 20, 25]
 

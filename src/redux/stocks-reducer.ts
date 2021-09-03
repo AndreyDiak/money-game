@@ -35,7 +35,8 @@ let initialState = {
 
 export const stocksReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
-
+    // TODO в идеале должно быть несколько видов акций ( до $100 ; до $250 ; до $500
+    //  которые будут открываться с ростом доходов и портфеля игрока . . .
     // первое создание акций . . .
     case SET_STOCKS:
       // копия массива с акциями . . .
@@ -45,6 +46,12 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
         let risk = Number((Math.random() * 4 + 1).toFixed(0))
         // генерируем цену . . .
         let price = Number((Math.random() * 150 + 15).toFixed(1))
+
+        let dividendsPercentage = 0
+        // шанс того, что акция будет девидендной ~ 35%
+        if (Number((Math.random()).toFixed(2)) < 0.35) {
+          dividendsPercentage = Math.round(Math.random() * 4) + 2
+        }
 
         let stock: stockType = {
           // название фирмы . . .
@@ -59,6 +66,10 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
           condition: Math.random() * 10 >= (state.normalPriceChange - 1 + risk) ? 'up' : 'down',
           // должна ли рости акции всвязи с новостями . . .
           priceChangeInterval: 0,
+          // процент девидендов
+          dividendsPercentage: dividendsPercentage,
+          // выплата с девиденда
+          dividendsAmount: Number((dividendsPercentage * price / 100).toFixed(2)),
           // макс цена акции
           maxPrice: Number((price + Math.random() * state.normalPriceChange * (risk + 1)).toFixed(1)),
           // мин цена акции
@@ -138,7 +149,9 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
           price: [
             ...stocksCopy[index].price,
             indexPrice
-          ]
+          ],
+          // новые выплаты с девидендов . . .
+          dividendsAmount: Number((stocksCopy[index].dividendsPercentage * indexPrice / 100).toFixed(2))
         }
 
         // обновление цены в портфеле игрока . . .
@@ -147,8 +160,12 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
             let price = indexPrice
             myStocksCopy[i] = {
               ...myStocksCopy[i],
+              // new stock price
               price: price,
-              condition: price >= myStocksCopy[i].oldPrice ? 'up' : 'down'
+              // new stock condition / up / down
+              condition: price >= myStocksCopy[i].oldPrice ? 'up' : 'down',
+              // new dividend price
+              // dividendsAmount: stock.dividendsAmount,
             }
           }
         })
@@ -289,6 +306,8 @@ export type stockType = {
   price: number[]
   condition: 'up' | 'down'
   priceChangeInterval: number
+  dividendsPercentage: number
+  dividendsAmount: number
   maxPrice: number
   minPrice: number
 }
@@ -298,6 +317,7 @@ export type myStockType = {
   oldPrice: number
   count: number
   condition: 'up' | 'down'
+  dividendsAmount: number
 }
 // виды фильтров . . .
 export type filterType = 'price' | 'condition' | 'title' | 'count' | 'none' | 'risk'

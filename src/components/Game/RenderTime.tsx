@@ -107,16 +107,6 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
       dispatch(actions.setMonth(month + 1))
       dispatch(spendsActions.resetCurrentMonth())
 
-      let salary = profile.salary // зп без налога
-
-      // налог за квартиру / машину / кредит / карту
-      // let expensesSummary = 0
-      // expenses.forEach((expense, index) => {
-      //   if(profile.expenses[index].price !== 0) {
-      //     expensesSummary += expense.payment * expense.price / 100
-      //   }
-      // })
-
       // чистая прибыль персонажа в месяц
 
       dispatch(actions.updateWallet(income))

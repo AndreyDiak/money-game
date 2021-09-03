@@ -326,10 +326,11 @@
   display: flex;
   justify-content: center;
   position: relative;
+  width: 100%;
   flex-direction: column;
   background: url("../img/banner-market.jpg") center no-repeat;
   background-size: cover;
-  height: calc(100vh - 55px);
+  height: calc(100vh - 110px);
   grid-area: profit;
   color: #fff;
   z-index: 0;
@@ -677,6 +678,7 @@
   padding: 20px;
   background: #ead2ac;
   width: 500px;
+  min-height: 400px;
   z-index: 10;
 }
 .gameSpendBlock__Main {
@@ -1022,6 +1024,21 @@
   padding: 40px;
   font-size: 16px;
   text-align: center;
+}
+
+.gameMarket {
+  display: flex;
+  width: 100%;
+}
+.gameMarketContent {
+  width: 100%;
+  display: flex;
+  z-index: 10;
+}
+.gameMarketContent__Menu {
+  width: 100%;
+  background: #000;
+  color: #fff;
 }
 
 body {

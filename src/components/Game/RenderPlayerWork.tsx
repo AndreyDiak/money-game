@@ -5,6 +5,7 @@ import {getExpensesSelector, getPersonSelector, getTaxSelector} from "../../redu
 import {expenseType, personType, updateIncome} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/store";
 import {upWorkThunk, worksActions} from "../../redux/work-reducer";
+import {getMyStocksSelector} from "../../redux/stocks-selector";
 
 export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> = (props) => {
 
@@ -16,11 +17,14 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
   const expenses = useSelector(getExpensesSelector) as expenseType[]
   const tax = useSelector(getTaxSelector)
   const income = useSelector((state: AppStateType) => state.profilePage.income)
-
+  const myStocks = useSelector(getMyStocksSelector
+  )
+  // работа персонажа
   const daysWorked = useSelector((state: AppStateType) => state.worksPage.workedDays)
   const daysToUp = useSelector((state: AppStateType) => state.worksPage.daysToUp)
   const workIncome = useSelector((state: AppStateType) => state.worksPage.workIncome)
   const workLevel = useSelector((state: AppStateType) => state.worksPage.workLevel)
+
   useEffect(() => {
     console.log('мы поменялись')
     console.table(expenses)
@@ -36,6 +40,12 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
 
     dispatch(worksActions.setWorkedDays())
   }, [day])
+
+  let dividendsSummary = 0
+
+  myStocks.forEach(stock => {
+    dividendsSummary += stock.dividendsAmount * stock.count
+  })
 
   return (
     <>
@@ -57,17 +67,18 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
             {expenses.map((expense, index) => {
               return (
                 <>
-                     <div className="gameWorkContent__block">
+                  {expense.remainPrice !== 0
+                    ? <div className="gameWorkContent__block">
                         <div className="gameWorkContent__blockTitle">
                           {expense.title}
                         </div>
                         <div className="gameWorkContent__blockPrice">
-                          ${profile.expenses[index].remainPrice !== 0
-                          ? `${expense.startPrice * expense.payment / 100} `
-                          : '0'
-                          }
+                           ${expense.startPrice * expense.payment / 100}
                         </div>
-                     </div>
+                      </div>
+                    : ''
+                  }
+
                 </>
               )
             })}
@@ -89,7 +100,7 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
                 Акции
               </div>
               <div className="gameWorkContent__blockPrice">
-                $0
+                ${dividendsSummary.toFixed(1)}
               </div>
             </div>
             <div className="gameWorkContent__block">

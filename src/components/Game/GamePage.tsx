@@ -2,17 +2,11 @@ import React, {FC, useEffect, useState} from "react";
 import {RenderPlayerSpends} from "./RenderPlayerSpends";
 import {RenderChart} from "./RenderChart";
 import {RenderPlayerProfile} from "./RenderPlayerProfile";
-import {Badge, Button, message, Modal, notification, Spin, Tabs} from "antd";
+import {Badge, Button, Modal, notification, Spin, Tabs} from "antd";
 import {SellPopup} from "./SellPopup";
 import {useDispatch, useSelector} from "react-redux"
 import {actions} from "../../redux/game-reducer";
-import {
-  getDaySelector,
-  getIncomeSelector,
-  getLoseBalance,
-  getVictoryBalance,
-  getWalletSelector
-} from "../../redux/game-selector";
+import {getDaySelector, getLoseBalance, getVictoryBalance, getWalletSelector} from "../../redux/game-selector";
 import {getTimeSpeedSelector} from "../../redux/settings-selector";
 import {AppStateType} from "../../redux/store";
 import {RenderPlayerWork} from "./RenderPlayerWork";
@@ -21,14 +15,13 @@ import {RenderPlayerNews} from "./RenderPlayerNews";
 import {stocksActions, stockType} from "../../redux/stocks-reducer";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {newsActions} from "../../redux/news-reducer";
-import {RenderPlayerBusiness} from "./RenderPlayerBusiness";
 import {getBusinessesSelector, getMyBusinessesSelector} from "../../redux/business-selector";
 import {businessActions} from "../../redux/business-reducer";
 import {settingsActions} from "../../redux/settings-reducer";
 import {NavLink} from "react-router-dom";
-import {spendsActions} from "../../redux/spends-reducer";
 import {getPersonSelector} from "../../redux/profile-selector";
 import {RenderPlayerBank} from "./RenderPlayerBank";
+import {RenderPlayerMarket} from "./RenderPlayerMarket";
 
 const { TabPane } = Tabs
 
@@ -75,7 +68,7 @@ export const GamePage: FC = () => {
   const [activeStock, setActiveStock] = useState(null as null | stockType)
   // проверка на конец игры . . .
   const [isEndOfGame, setIsEndOfGame] = useState(false)
-  //
+  // показать окно при конце игры
   const [showExitModal, setShowExitModal] = useState(false)
   // функция проверка на победу/поражение
   const balanceCheck = () => {
@@ -189,7 +182,7 @@ export const GamePage: FC = () => {
                   </TabPane>
                   {/*wallet <= 500 && myStocks.length === 0 || isEndOfGame*/}
                   <TabPane tab="Рынок" key="4" disabled={false} >
-                    <RenderPlayerStocks
+                    <RenderPlayerMarket
                       setIsHistoryShown={setIsHistoryShown}
                       setMyActiveStock={setMyActiveStock}
                       setActiveStock={setActiveStock}

@@ -10,6 +10,7 @@ import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selecto
 import {settingsActions} from "../../redux/settings-reducer";
 import {getConstTimeSpeedSelector} from "../../redux/settings-selector";
 import {AppStateType} from "../../redux/store";
+import {profileActions, updateIncome} from "../../redux/profile-reducer";
 
 export type RenderChartType = {
   setIsHistoryShown: SetStateAction<any>
@@ -165,7 +166,8 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
       price: stock.price[stock.price.length - 1],
       count: stocksToBuyCount,
       oldPrice: stock.price[stock.price.length - 1],
-      condition: stock.condition
+      condition: stock.condition,
+      dividendsAmount: stock.dividendsAmount
     }
 
     myStocksCopy = [...myStocksCopy, newStock]
@@ -179,6 +181,7 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
     setStocksToBuyPrice(0)
     updateStocksCount()
     addStocks(props.stock)
+    dispatch(updateIncome())
   }
 
   const onChangeTime = (time: number) => {
@@ -213,10 +216,12 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
               setStocksToBuyPrice(value * props.stock.price[props.stock.price.length - 1])
             }}/>
             <button onClick={() => setStocksCount(1)}> min </button>
+            <button onClick={() => setStocksCount(stocksToBuyCount - 1)}> -1 </button>
             <button onClick={() => setStocksCount(stocksToBuyCount - 5)}> -5 </button>
             <button onClick={() => setStocksCount(stocksToBuyCount - 10)}> -10 </button>
             <button onClick={() => setStocksCount(stocksToBuyCount + 10)}> +10 </button>
             <button onClick={() => setStocksCount(stocksToBuyCount + 5)}> +5 </button>
+            <button onClick={() => setStocksCount(stocksToBuyCount + 1)}> +1 </button>
             <button onClick={() => setStocksCount(props.stock.count)}> max </button>
           </div>
         </div>
@@ -239,6 +244,9 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
       </div>
       <div>
         Вы заплатите : <b>${(stocksToBuyPrice).toFixed(1)}</b>
+      </div>
+      <div>
+        Девиденды : <b>${(props.stock.dividendsAmount * stocksToBuyCount).toFixed(2)} / мес.</b>
       </div>
     </>
   )

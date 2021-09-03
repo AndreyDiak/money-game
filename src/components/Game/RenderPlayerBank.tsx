@@ -39,6 +39,10 @@ export const RenderPlayerBank = () => {
     setMonthPayout(creditAmount / payoutPercentage)
   },[creditAmount])
 
+  useEffect(() => {
+    setExpenseAmount(profile.expenses[activeExpense].remainPrice)
+  }, [activeExpense])
+
   const payForExpenses = () => {
     dispatch(payForExpensesThunk(expenseAmount, profile.expenses[activeExpense].type))
   }
@@ -135,7 +139,7 @@ export const RenderPlayerBank = () => {
                   К оплате: <b>{profile.expenses[activeExpense].remainPrice}</b>
                 </div>
                 <div className="gameBankContent__MenuPay__Input">
-                  <Input value={expenseAmount} prefix='$' max={profile.expenses[activeExpense].remainPrice} min={1} onChange={(e) => setExpenseAmount(Number(e.target.value))}/>
+                  <Input value={expenseAmount} prefix='$' onChange={(e) => setExpenseAmount(Number(e.target.value))}/>
                 </div>
               </div>
             </div>

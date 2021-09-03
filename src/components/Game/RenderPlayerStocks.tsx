@@ -33,7 +33,8 @@ export const RenderPlayerStocks: FC<RenderPlayerStocksType> = (props) => {
           <Radio value={'price'}>По цене</Radio>
           <Radio value={'condition'}>По росту</Radio>
           <Radio value={'count'}>По количеству</Radio>
-          <Radio value={'risk'}>По риску</Radio>
+          {/* TODO после покупки подписки */}
+          {/*<Radio value={'risk'}>По риску</Radio>*/}
           <Radio value={'none'}>Без фильтра</Radio>
         </Space>
       </Radio.Group>

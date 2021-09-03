@@ -31,6 +31,7 @@ import person15Photo from "../img/characters/person-15.png"
 import person15Avatar from "../img/characters/person-15-avatar.png"
 import {ThunkAction} from "redux-thunk";
 import {actions} from "./game-reducer";
+import {myStockType} from "./stocks-reducer";
 
 const SET_PROFILE = 'profilePage/SET_PROFILE'
 const SET_TAX = 'profilePage/SET_TAX'
@@ -441,6 +442,14 @@ export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
   const tax = profilePage.tax
   const salary = profilePage.profile?.salary as number
 
+  // начисления с девидендов
+  const myStocks = getState().stocksPage.myStocks as myStockType[]
+  let dividendsSummary = 0
+
+  myStocks.forEach(stock => {
+    dividendsSummary += stock.dividendsAmount * stock.count
+  })
+
   let expensesSummary = 0
   profilePage.profile?.expenses.map((expense, index) => {
     if (profilePage.profile?.expenses[index].remainPrice !== 0) {
@@ -449,7 +458,7 @@ export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
   })
 
   // @ts-ignore
-  let NewIncome = Math.round(salary - tax - expensesSummary)
+  let NewIncome = Math.round(salary - tax - expensesSummary + dividendsSummary)
 
   dispatch(profileActions.updateIncome(NewIncome))
   // dispatch(profileActions.setSalary(salary + workAdd))
