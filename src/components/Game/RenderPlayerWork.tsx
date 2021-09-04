@@ -17,8 +17,8 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
   const expenses = useSelector(getExpensesSelector) as expenseType[]
   const tax = useSelector(getTaxSelector)
   const income = useSelector((state: AppStateType) => state.profilePage.income)
-  const myStocks = useSelector(getMyStocksSelector
-  )
+  const myStocks = useSelector(getMyStocksSelector)
+  const myRealty = useSelector((state: AppStateType) => state.realtyPage.myRealty)
   // работа персонажа
   const daysWorked = useSelector((state: AppStateType) => state.worksPage.workedDays)
   const daysToUp = useSelector((state: AppStateType) => state.worksPage.daysToUp)
@@ -41,10 +41,16 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
     dispatch(worksActions.setWorkedDays())
   }, [day])
 
-  let dividendsSummary = 0
 
+  // пассивный доход с дивидендов
+  let dividendsSummary = 0
   myStocks.forEach(stock => {
     dividendsSummary += stock.dividendsAmount * stock.count
+  })
+  // пассивный доход с недвижимости
+  let realtySummary = 0
+  myRealty.forEach(realty => {
+    realtySummary += realty.payment
   })
 
   return (
@@ -54,7 +60,7 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
         <div className="gameWorkContent">
           <div className="gameWorkContent__blocks gameWorkContent__expenses">
             <div className="gameWorkContent__blocksTitle">
-              Затраты
+              Расходы
             </div>
             <div className="gameWorkContent__block">
               <div className="gameWorkContent__blockTitle">
@@ -108,12 +114,12 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
                 Недвижимость
               </div>
               <div className="gameWorkContent__blockPrice">
-                $0
+                ${realtySummary}
               </div>
             </div>
             <div className="gameWorkContent__block">
               <div className="gameWorkContent__blockTitle">
-                Бизнесс
+                Бизнес
               </div>
               <div className="gameWorkContent__blockPrice">
                 $0
@@ -130,7 +136,7 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
           </div>
           <div className="gameWorkContent__blocks gameWorkContent__liabilities">
             <div className="gameWorkContent__blocksTitle">
-              Обязанности
+              Обязательства
             </div>
             {profile.expenses.map(expense => {
               return (

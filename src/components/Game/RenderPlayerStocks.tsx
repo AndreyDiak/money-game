@@ -1,11 +1,12 @@
 import {RenderMyStock, RenderStock} from "./RenderStock";
 import React, {FC, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { getMyStocksSelector, getStocksSelector } from "../../redux/stocks-selector";
+import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {Button, Input, Popover, Radio, Select, Space} from "antd";
 import {AppStateType} from "../../redux/store";
-import {filterType, stocksActions, stocksReducer} from "../../redux/stocks-reducer";
-import {ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined } from "@ant-design/icons";
+import {filterType, stocksActions} from "../../redux/stocks-reducer";
+import {ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined} from "@ant-design/icons";
+
 const {Option} = Select
 
 export type RenderPlayerStocksType = {
@@ -32,6 +33,7 @@ export const RenderPlayerStocks: FC<RenderPlayerStocksType> = (props) => {
         <Space direction='vertical'>
           <Radio value={'price'}>По цене</Radio>
           <Radio value={'condition'}>По росту</Radio>
+          <Radio value={'dividends'}>Дивиденды</Radio>
           <Radio value={'count'}>По количеству</Radio>
           {/* TODO после покупки подписки */}
           {/*<Radio value={'risk'}>По риску</Radio>*/}

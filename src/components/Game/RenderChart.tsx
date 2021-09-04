@@ -147,10 +147,6 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
             }
           }
         })
-        // filteredStocksCopy[index] = {
-        //   ...filteredStocksCopy[index],
-        //   count: filteredStocksCopy[index].count - stocksToBuyCount
-        // }
       }
     })
     // обновляем данные по количеству акций . . .
@@ -245,9 +241,13 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
       <div>
         Вы заплатите : <b>${(stocksToBuyPrice).toFixed(1)}</b>
       </div>
-      <div>
-        Девиденды : <b>${(props.stock.dividendsAmount * stocksToBuyCount).toFixed(2)} / мес.</b>
-      </div>
+      {props.stock.dividendsPercentage !== 0
+        ? <div>
+            Дивиденды : <b>${(props.stock.dividendsAmount * stocksToBuyCount).toFixed(2)} / мес.</b>
+          </div>
+        : ''
+      }
+
     </>
   )
 }

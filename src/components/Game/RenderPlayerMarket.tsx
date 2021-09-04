@@ -4,6 +4,7 @@ import {Route, Switch} from "react-router-dom";
 import {RenderPlayerStocks} from "./RenderPlayerStocks";
 import {FC} from "react";
 import {NavLink} from "react-router-dom";
+import {RealtyPage} from "./RealtyPage";
 
 const {TabPane} = Tabs
 
@@ -29,7 +30,7 @@ export const RenderPlayerMarket: FC<MarketType> = (props) => {
               />
             </TabPane>
             <TabPane key={'2'} tab={'Рынок недвижимости'}>
-              Недвижимость
+              <RealtyPage />
             </TabPane>
             <TabPane key={'3'} tab={'Рынок бизнесса'}>
               Бизнесс

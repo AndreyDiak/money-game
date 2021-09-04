@@ -9,6 +9,7 @@ import {stocksReducer} from "./stocks-reducer";
 import {businessReducer} from "./business-reducer";
 import {appReducer} from "./app-reducer";
 import {spendsReducer} from "./spends-reducer";
+import {realtyReducer} from "./realty-reducer";
 
 
 let rootReducer = combineReducers({
@@ -20,6 +21,7 @@ let rootReducer = combineReducers({
   stocksPage: stocksReducer,
   businessPage: businessReducer,
   spendsPage: spendsReducer,
+  realtyPage: realtyReducer,
   app: appReducer
 })
 

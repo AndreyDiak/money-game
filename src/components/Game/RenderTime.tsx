@@ -14,6 +14,7 @@ import {getRandomNumber} from "../../utils/getRandomNumber";
 import {spendsActions, weekSpendThunk} from "../../redux/spends-reducer";
 import {personType, profileActions, updateIncome} from "../../redux/profile-reducer";
 import {getExpensesSelector, getPersonSelector, getTaxSelector} from "../../redux/profile-selector";
+import {realtyActions} from "../../redux/realty-reducer";
 
 type RenderTimeType = {
   wallet: number
@@ -40,7 +41,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   // массив ваших бизнессов . . .
   const myBusinesses = useSelector(getMyBusinessesSelector)
   // текущая работа . . .
-  const profile = useSelector(getPersonSelector) as personType
+  // const profile = useSelector(getPersonSelector) as personType
   //
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   // const expenses = useSelector(getExpensesSelector)
@@ -102,19 +103,8 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
 
     // если сегодня последний день месяца, то обновляем месяц и выдаём зарплату игроку . . .
     if(dayInMonth === months[month].duration) {
-
-      dispatch(actions.setDayInMonth(1))
       dispatch(actions.setMonth(month + 1))
-      dispatch(spendsActions.resetCurrentMonth())
-
-      // чистая прибыль персонажа в месяц
-
-      dispatch(actions.updateWallet(income))
-
-      // уменьшаем необходимую выплату по долгу на месячную ставку
-      dispatch(profileActions.updateExpenses())
-      dispatch(updateIncome())
-
+      doAllThings()
     }
   }, [day])
 
@@ -122,10 +112,25 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   useEffect(() => {
     if (month === 11 && dayInMonth === 31) {
       dispatch(actions.setMonth(0))
-      dispatch(spendsActions.resetCurrentMonth())
-      dispatch(actions.setDayInMonth(1))
+      doAllThings()
     }
   }, [month, dayInMonth])
+
+  // делает всё необходимое при наступлении нового месяца
+  const doAllThings = () => {
+    // ставим первый день в месяце
+    dispatch(actions.setDayInMonth(1))
+    // зануляем траты прошлого месяца
+    dispatch(spendsActions.resetCurrentMonth())
+    // чистая прибыль персонажа в месяц
+    dispatch(actions.updateWallet(income))
+    // создаем предложение по недвижимости
+    dispatch(realtyActions.generateActiveRealty())
+    // уменьшаем необходимую выплату по долгу на месячную ставку
+    dispatch(profileActions.updateExpenses())
+    // если мы выплатили целиком какой либо долг, то у нас растет ЗП
+    dispatch(updateIncome())
+  }
 
   return (
     <>

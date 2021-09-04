@@ -50,7 +50,7 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
         let dividendsPercentage = 0
         // шанс того, что акция будет девидендной ~ 35%
         if (Number((Math.random()).toFixed(2)) < 0.35) {
-          dividendsPercentage = Math.round(Math.random() * 4) + 2
+          dividendsPercentage = Math.round(Math.random() * 3) + 1
         }
 
         let stock: stockType = {
@@ -262,6 +262,10 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
           filteredStocksCopy = state.stocks.sort((prev, next) => prev.risk - next.risk)
           break
 
+        case "dividends":
+          filteredStocksCopy = state.stocks.sort((prev, next) => next.dividendsPercentage - prev.dividendsPercentage)
+          break
+
         case "none":
           filteredStocksCopy = [...state.stocks]
           break
@@ -320,5 +324,5 @@ export type myStockType = {
   dividendsAmount: number
 }
 // виды фильтров . . .
-export type filterType = 'price' | 'condition' | 'title' | 'count' | 'none' | 'risk'
+export type filterType = 'price' | 'condition' | 'title' | 'count' | 'none' | 'risk' | 'dividends'
 type ActionType = InferActionsType<typeof stocksActions>

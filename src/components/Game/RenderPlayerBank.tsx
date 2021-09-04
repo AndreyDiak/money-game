@@ -14,12 +14,10 @@ export const RenderPlayerBank = () => {
   const income = useSelector((state: AppStateType) => state.profilePage.income)
 
   function onChange(value: any) {
-    console.log('changed', value);
     setCreditAmount(() => Number(value.target.value))
   }
 
   function handleChange(value: any) {
-    console.log(`selected ${value}`);
     setActiveExpense(value)
   }
 
@@ -143,13 +141,48 @@ export const RenderPlayerBank = () => {
                 </div>
               </div>
             </div>
-            {/* TODO нельзя ставить больше, чем надо */}
             <div className="gameBankContent__Button">
               <Button size={'large'} onClick={() => payForExpenses()} disabled={expenseAmount > profile.expenses[activeExpense].remainPrice || expenseAmount < 1}>
                 Оплатить
               </Button>
             </div>
           </div>
+          {/*<div className="gameBankContent__deposit">*/}
+          {/*  <div className="gameBankContent__Title">*/}
+          {/*    Оформить вклад*/}
+          {/*  </div>*/}
+          {/*  <div className="gameBankContent__Menu">*/}
+          {/*    <div className="gameBankContent__MenuSelect">*/}
+          {/*      <Select defaultValue={profile.expenses[activeExpense].title} onChange={handleChange}>*/}
+          {/*        {profile.expenses.map((expense, index) => {*/}
+          {/*          return (*/}
+          {/*            <>*/}
+          {/*              {expense.remainPrice !== 0*/}
+          {/*                ? <Option value={index}>*/}
+          {/*                    {expense.title}*/}
+          {/*                  </Option>*/}
+          {/*                : ''*/}
+          {/*              }*/}
+          {/*            </>*/}
+          {/*          )*/}
+          {/*        })}*/}
+          {/*      </Select>*/}
+          {/*    </div>*/}
+          {/*    <div className="gameBankContent__MenuPay">*/}
+          {/*      <div className="gameBankContent__MenuPay__Price">*/}
+          {/*        К оплате: <b>{profile.expenses[activeExpense].remainPrice}</b>*/}
+          {/*      </div>*/}
+          {/*      <div className="gameBankContent__MenuPay__Input">*/}
+          {/*        <Input value={expenseAmount} prefix='$' onChange={(e) => setExpenseAmount(Number(e.target.value))}/>*/}
+          {/*      </div>*/}
+          {/*    </div>*/}
+          {/*  </div>*/}
+          {/*  <div className="gameBankContent__Button">*/}
+          {/*    <Button size={'large'} onClick={() => payForExpenses()} disabled={expenseAmount > profile.expenses[activeExpense].remainPrice || expenseAmount < 1}>*/}
+          {/*      Оформить*/}
+          {/*    </Button>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
       </div>
     </>

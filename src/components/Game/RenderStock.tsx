@@ -45,7 +45,7 @@ export const RenderStock: FC<RenderStockType> = (props) => {
             {props.stock.dividendsPercentage === 0
               ? ''
               : <div className="gameProfitStocks__OfferBlock__InfoDividends">
-                  <span>Дивиденды : {props.stock.dividendsPercentage}%</span>
+                  <span><b>Дивиденды : {props.stock.dividendsPercentage}%</b></span>
                 </div>
               }
           <div className="gameProfitStocks__OfferBlock__InfoCondition" style={props.stock.condition === 'up' ? {color: '#51ff3d'} : {color: 'red'}}>

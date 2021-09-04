@@ -216,7 +216,7 @@ export const ProfilePage: FC = () => {
             </div>
             <div className="profileMenu__StatsCash">
               <div className="profileMenu__StatsTitle">
-                Наличность:
+                Наличные:
               </div>
               <div className="profileMenu__StatsBlock">
                 ${persons[activePerson].salary - taxesSummary}
