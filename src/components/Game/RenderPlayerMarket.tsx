@@ -1,9 +1,6 @@
-import {Button} from "antd"
-import {Tabs} from "antd";
-import {Route, Switch} from "react-router-dom";
+import {Tabs} from "antd"
 import {RenderPlayerStocks} from "./RenderPlayerStocks";
 import {FC} from "react";
-import {NavLink} from "react-router-dom";
 import {RealtyPage} from "./RealtyPage";
 
 const {TabPane} = Tabs

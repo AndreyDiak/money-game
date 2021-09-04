@@ -10,6 +10,9 @@ import {settingsActions} from "../../redux/settings-reducer";
 import {getConstTimeSpeedSelector, getTimeSpeedSelector} from "../../redux/settings-selector";
 import {AppStateType} from "../../redux/store";
 
+import childrenTrue from "../../img/children.png"
+import childrenFalse from "../../img/children-none.png"
+
 type RenderPlayerProfileType = {
   wallet: number
   isEndOfGame: boolean
@@ -34,14 +37,8 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
   const victoryBalance = useSelector(getVictoryBalance)
   //
   const income = useSelector((state: AppStateType) => state.profilePage.income)
-
-  // expenses.forEach((expense, index) => {
-  //   if(profile.expenses[index].price !== 0) {
-  //     expensesSummary += expense.payment * expense.price / 100
-  //   }
-  // })
-  // текущий доход персонажа
-  // const income = profile.salary - tax - expensesSummary
+  //
+  const children = useSelector((state: AppStateType) => state.profilePage.children)
 
   const info = () => {
     message.warning('Эта функция пока не доступна(')
@@ -111,6 +108,17 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
         </div>
         <div className="gameProfileContent__Img">
           <img src={profile.img} alt=""/>
+          <div className="gameProfileContent__Children">
+            {children.map(child => {
+              return (
+                <>
+                  <div>
+                    <img src={child === 0 ? childrenFalse : childrenTrue} alt=""/>
+                  </div>
+                </>
+              )
+            })}
+          </div>
         </div>
       </div>
       <div className="gameProfileProgress">

@@ -278,8 +278,8 @@ let initialState = {
   profile: null as null | personType, // профиль персонажа
   startSalary: 0, // начальная зп
   tax: 0, // налог с зп
-  // initialExpenses: [] as expenseType[],
-  income: 0
+  income: 0, // доход персонажа
+  children: [0, 0, 0] // дети персонажа / 0 ребенка нет / 1 ребенок есть / максимум 3 ребенка
 }
 
 export type InitialProfileStateType = typeof initialState

@@ -547,6 +547,16 @@
   font-size: 30px;
   text-transform: uppercase;
 }
+.gameProfileContent__Children {
+  display: flex;
+  align-items: flex-end;
+}
+.gameProfileContent__Children div {
+  height: 200px;
+}
+.gameProfileContent__Children div img {
+  height: 100%;
+}
 .gameProfileContent__Img {
   margin-top: 50px;
   display: flex;
