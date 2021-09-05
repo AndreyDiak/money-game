@@ -458,6 +458,13 @@ export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
     realtySummary += realty.payment
   })
 
+  // начисления с бизнесса
+  const myBusiness = getState().businessPage.myBusinesses
+  let businessSummary = 0
+  myBusiness.forEach(business => {
+    businessSummary += business.income
+  })
+
   let expensesSummary = 0
   profilePage.profile?.expenses.map((expense, index) => {
     if (profilePage.profile?.expenses[index].remainPrice !== 0) {
@@ -466,7 +473,7 @@ export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
   })
 
   // @ts-ignore
-  let NewIncome = Math.round(salary - tax - expensesSummary + dividendsSummary + realtySummary)
+  let NewIncome = Math.round(salary - tax - expensesSummary + dividendsSummary + realtySummary + businessSummary)
 
   dispatch(profileActions.updateIncome(NewIncome))
   // dispatch(profileActions.setSalary(salary + workAdd))

@@ -870,66 +870,58 @@
 }
 
 .gameBusiness {
-  padding: 0 20px;
   display: flex;
-  flex-direction: column;
-  height: calc(100vh - 55px);
-  background: url("../img/banner-bank.jpg") center no-repeat;
+  justify-content: center;
+  height: calc(100vh - 110px);
+  background: url("../img/banner-business.jpg") center no-repeat;
   background-size: cover;
   z-index: 3;
+  font-family: "Fira Mono", sans-serif;
 }
-.gameBusinessTabs {
+.gameBusinessContent {
   z-index: 10;
 }
-.gameBusinessBlock {
-  padding: 20px;
-  z-index: 10;
-  background: rgba(255, 255, 255, 0.8);
+.gameBusinessContent__block {
+  padding: 25px;
+  text-align: center;
+  border: 2px solid #fff;
+  background: rgba(32, 68, 98, 0.7);
 }
-.gameBusinessBlock__Bought {
-  position: relative;
+.gameBusinessContent__blockTitle {
+  padding-bottom: 20px;
+  margin: 0 auto 20px;
+  font-weight: 900;
+  font-size: 28px;
+  max-width: 40%;
+  border-bottom: 2px solid #fff;
 }
-.gameBusinessBlock__Bought::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
+.gameBusinessContent__blockImg {
+  margin: 0 auto 20px;
+  max-width: 300px;
+  text-align: center;
+}
+.gameBusinessContent__blockImg img {
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.2);
 }
-.gameBusinessBlock__Stats {
-  padding-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid grey;
-}
-.gameBusinessBlock__Title {
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  font-size: 20px;
+.gameBusinessContent__blockIncome, .gameBusinessContent__blockPrice {
+  font-size: 24px;
   font-weight: 700;
-  border-bottom: 1px solid grey;
 }
-.gameBusinessBlock__Img {
-  margin-bottom: 10px;
-  width: 400px;
-  height: 230px;
-  border: 1px solid #282c34;
+.gameBusinessContent__blockButton {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px dashed #fff;
 }
-.gameBusinessBlock__Img img {
-  width: 100%;
-  height: 100%;
-}
-.gameBusinessBlocks {
-  margin-top: 30px;
+.gameBusinessContent__blocks {
+  margin: 50px;
+  padding: 50px;
+  width: 60%;
   display: flex;
-  column-gap: 30px;
-  row-gap: 30px;
-  justify-content: center;
-  flex-wrap: wrap;
   z-index: 10;
+  flex-direction: column;
+  row-gap: 30px;
+  background: rgba(53, 92, 125, 0.9);
+  overflow: auto;
 }
 
 .gameBank {

@@ -6,6 +6,7 @@ import {expenseType, personType, updateIncome} from "../../redux/profile-reducer
 import {AppStateType} from "../../redux/store";
 import {upWorkThunk, worksActions} from "../../redux/work-reducer";
 import {getMyStocksSelector} from "../../redux/stocks-selector";
+import {getMyBusinessesSelector} from "../../redux/business-selector";
 
 export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> = (props) => {
 
@@ -19,6 +20,7 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   const myStocks = useSelector(getMyStocksSelector)
   const myRealty = useSelector((state: AppStateType) => state.realtyPage.myRealty)
+  const myBusiness = useSelector(getMyBusinessesSelector)
   // работа персонажа
   const daysWorked = useSelector((state: AppStateType) => state.worksPage.workedDays)
   const daysToUp = useSelector((state: AppStateType) => state.worksPage.daysToUp)
@@ -52,7 +54,11 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
   myRealty.forEach(realty => {
     realtySummary += realty.payment
   })
-
+  // пассивный доход с бизнеса
+  let businessSummary = 0
+  myBusiness.forEach(business => {
+    businessSummary += business.income
+  })
   return (
     <>
       <div className="gameWork bannerBack">
@@ -122,7 +128,7 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
                 Бизнес
               </div>
               <div className="gameWorkContent__blockPrice">
-                $0
+                ${businessSummary}
               </div>
             </div>
             <div className="gameWorkContent__block">

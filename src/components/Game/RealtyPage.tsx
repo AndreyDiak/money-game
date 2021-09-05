@@ -71,13 +71,22 @@ export const RealtyPage = () => {
                   <div className="gameRealtyContent__blockInfo">
                     <div className='gameRealtyContent__blockInfo__price'>
                       <div className='gameRealtyContent__blockInfo__priceItem'>
-                        <div>ЦЕНА:</div> ${activeRealty.price}
+                        <div>ЦЕНА:</div>
+                        <b style={{color: '#f67280'}}>
+                          ${activeRealty.price}
+                        </b>
                       </div>
                       <div className='gameRealtyContent__blockInfo__priceItem'>
-                        <div>ПЕРВЫЙ ДЕПОЗИТ:</div> ${activeRealty.deposit}
+                        <div>ПЕРВЫЙ ДЕПОЗИТ:</div>
+                        <b style={{color: '#f36f38'}}>
+                          ${activeRealty.deposit}
+                        </b>
                       </div>
                       <div className='gameRealtyContent__blockInfo__priceItem'>
-                        <div>МЕСЯЧНЫЙ ДОХОД:</div> ${activeRealty.payment}
+                        <div>МЕСЯЧНЫЙ ДОХОД:</div>
+                        <b style={{color: '#57895b'}}>
+                          ${activeRealty.payment}
+                        </b>
                       </div>
                     </div>
                     <div className="gameRealtyContent__blockImg">

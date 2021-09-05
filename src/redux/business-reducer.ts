@@ -1,7 +1,11 @@
-import businessImg1 from './../img/businesses/cafe.jpg'
-import businessImg2 from './../img/businesses/garage.jpg'
-import businessImg3 from './../img/businesses/service.jpg'
-import businessImg4 from './../img/businesses/hotel.jpg'
+import b1 from '../img/businesses/garage-service.png'
+import b2 from '../img/businesses/food-point.png'
+import b3 from '../img/businesses/hotel.png'
+import b4 from '../img/businesses/restaraunt.png'
+import b5 from '../img/businesses/mall.png'
+import b6 from '../img/businesses/factory.png'
+import b7 from '../img/businesses/club.png'
+
 import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
 import {actions} from "./game-reducer";
@@ -15,38 +19,54 @@ const RESET_MY_BUSINESSES = 'businessPage/RESET_MY_BUSINESSES'
 let initialState = {
   myBusinesses: [] as BusinessType[],
   // список компаний для бизнесса . . .
-  businesses: [] as BusinessType[],
-  companiesForBusiness: [
-    {name: 'Ресторан', img: businessImg1},
-    {name: 'Сдача гаража', img: businessImg2},
-    {name: 'Сервис', img: businessImg3},
-    {name: 'Мотель', img: businessImg4},
-  ]
+  businesses: [
+    {
+      name: 'АвтоСервис',
+      price: 12000,
+      income: 550,
+      img: b1
+    },
+    {
+      name: 'Фуд-Корт',
+      price: 10000,
+      income: 500,
+      img: b2
+    },
+    {
+      name: 'Отель',
+      price: 105000,
+      income: 8200,
+      img: b3
+    },
+    {
+      name: 'Ресторан',
+      price: 20000,
+      income: 1100,
+      img: b4
+    },
+    {
+      name: 'Торговый Центр',
+      price: 85000,
+      income: 6700,
+      img: b5
+    },
+    {
+      name: 'Фабрика',
+      price: 235000,
+      income: 20000,
+      img: b6
+    },
+    {
+      name: 'Ночной Клуб',
+      price: 35000,
+      income: 2800,
+      img: b7
+    }
+  ] as BusinessType[],
 }
-
-
 
 export const businessReducer = (state = initialState, action: BusinessActionType): InitialBusinessStateType => {
   switch (action.type) {
-    // первое создание компаний для бизнесса
-    case SET_BUSINESSES:
-      let businessesCopy = [...state.businesses]
-      state.companiesForBusiness.map(business => {
-        let price = Number((Math.random() * 1000 + 500).toFixed(0))
-        let income = Number((price / 10 + Number((Math.random() * 49 + 1).toFixed(1))).toFixed(1))
-
-        let deal = {
-          name: business.name,
-          img: business.img,
-          price: price,
-          income: income
-        }
-        businessesCopy = [...businessesCopy, deal]
-      })
-      return {
-        ...state,
-        businesses: businessesCopy
-      }
     // покупка бизнесса
     case ADD_TO_MY_BUSINESSES:
       return {

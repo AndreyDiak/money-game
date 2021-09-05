@@ -2,6 +2,7 @@ import {Tabs} from "antd"
 import {RenderPlayerStocks} from "./RenderPlayerStocks";
 import {FC} from "react";
 import {RealtyPage} from "./RealtyPage";
+import {BusinessPage} from "./BusinessPage";
 
 const {TabPane} = Tabs
 
@@ -17,7 +18,7 @@ export const RenderPlayerMarket: FC<MarketType> = (props) => {
     <>
       <div className="gameMarket bannerBack">
         <div className="gameMarketContent">
-          <Tabs className='gameMarketContent__Menu' defaultActiveKey={'4'}>
+          <Tabs className='gameMarketContent__Menu' defaultActiveKey={'1'}>
             <TabPane key={'1'} tab={'Рынок акций'}>
               <RenderPlayerStocks
                 setIsHistoryShown={props.setIsHistoryShown}
@@ -29,11 +30,8 @@ export const RenderPlayerMarket: FC<MarketType> = (props) => {
             <TabPane key={'2'} tab={'Рынок недвижимости'}>
               <RealtyPage />
             </TabPane>
-            <TabPane key={'3'} tab={'Рынок бизнесса'}>
-              Бизнесс
-            </TabPane>
-            <TabPane key={'4'} tab={'Магазин'}>
-              Магазин
+            <TabPane key={'3'} tab={'Бизнес'}>
+              <BusinessPage />
             </TabPane>
           </Tabs>
           </div>
