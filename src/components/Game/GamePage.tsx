@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from "react";
 import {RenderPlayerSpends} from "./RenderPlayerSpends";
 import {RenderChart} from "./RenderChart";
 import {RenderPlayerProfile} from "./RenderPlayerProfile";
-import {Badge, Button, Modal, notification, Spin, Tabs} from "antd";
+import {Badge, Button, Modal, notification, Popover, Spin, Tabs} from "antd";
 import {SellPopup} from "./SellPopup";
 import {useDispatch, useSelector} from "react-redux"
 import {actions} from "../../redux/game-reducer";
@@ -36,9 +36,9 @@ export const GamePage: FC = () => {
   // кошелёк игрока . . .
   const wallet = useSelector(getWalletSelector)
   // доход в месяц игрока . . .
-  // const income = useSelector(getIncomeSelector)
-  // стартовый доход . . .
-  // const startIncome = useSelector((state: AppStateType) => state.worksPage.currentWork?.startSalary) as number
+  const income = useSelector((state: AppStateType) => state.profilePage.income)
+  // уровень трат . . .
+  const spendsLevel = useSelector((state: AppStateType) => state.spendsPage.spendsLevel)
   const profile = useSelector(getPersonSelector)
   // баланс необходимый для победы . . .
   const victoryBalance = useSelector(getVictoryBalance)
@@ -72,7 +72,7 @@ export const GamePage: FC = () => {
   const [showExitModal, setShowExitModal] = useState(false)
   // функция проверка на победу/поражение
   const balanceCheck = () => {
-    if (wallet >= victoryBalance) {
+    if (income >= victoryBalance) {
       console.log('победа!')
       // зануление игры . . .
       if(!isEndOfGame) {
@@ -109,29 +109,26 @@ export const GamePage: FC = () => {
   liveProcess()
   balanceCheck()
 
-  // useEffect(() => {
-  //   dispatch(actions.setIncome(startIncome))
-  // },[])
-
   // заполнение массива акциями . . .
   useEffect(() => {
     // создаём акции
-    if (wallet >= 500 && stocks.length === 0) {
+    if (income >= 250 && stocks.length === 0) {
       // создаём акции
       dispatch(stocksActions.setStocks())
       // // // новости про акции
       dispatch(newsActions.setAbleToShow('stocksNews'))
-      openNotification('Вам стали доступны акции!')
+      openNotification('Вам стала доступна покупка акций!')
       }
     // создаём бизнесс
-    if (wallet >= 3000 && businesses.length === 0) {
-      // создаем бизнесс
-      dispatch(businessActions.setBusinesses())
-      // новости про бизнесс
-      dispatch(newsActions.setAbleToShow('businessNews'))
-      openNotification('Вам стал доступен бизнесс')
-      }
-    },[wallet])
+    if (income >= 1000 && businesses.length === 0) {
+      // новости про недвижимость
+      // dispatch(newsActions.setAbleToShow('businessNews'))
+      openNotification('Вам стала доступна покупка недвижимости')
+    }
+    if (income >= 4500 && businesses.length === 0) {
+      openNotification('Вам стала доступна покупка своего бизнеса!')
+    }
+    },[income])
 
   const openNotification = (text: string) => {
     notification.open({
@@ -139,6 +136,14 @@ export const GamePage: FC = () => {
       description: text,
     });
   }
+
+  const stocksContent = (
+    <div>
+      <p>
+        Сначала начните зарабатывать <b>$250 / мес.</b>
+      </p>
+    </div>
+  )
 
   return (
     <>
@@ -181,7 +186,16 @@ export const GamePage: FC = () => {
                     <RenderPlayerSpends/>
                   </TabPane>
                   {/*wallet <= 500 && myStocks.length === 0 || isEndOfGame*/}
-                  <TabPane tab="Рынок" key="4" disabled={false} >
+                  <TabPane tab={
+                    <>
+                      {income > 250
+                       ? <span>Рынок</span>
+                       : <Popover trigger="hover" title='Внимание' content={stocksContent}>
+                          Рынок
+                        </Popover>
+                      }
+                    </>
+                  } key="4" disabled={income < 250} >
                     <RenderPlayerMarket
                       setIsHistoryShown={setIsHistoryShown}
                       setMyActiveStock={setMyActiveStock}

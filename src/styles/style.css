@@ -64,7 +64,7 @@
   z-index: 10;
 }
 .profileMenu__Stats {
-  background: rgba(248, 209, 187, 0.8);
+  background: #f4d4bd;
 }
 .profileMenu__StatsCash {
   font-size: 18px;
@@ -74,7 +74,7 @@
   padding: 5px;
   font-weight: 900;
   font-size: 24px;
-  background: #498c1e;
+  background: #73c167;
   color: #fff;
   text-transform: uppercase;
 }
@@ -114,6 +114,13 @@
 }
 .profilePersons {
   z-index: 10;
+}
+.profilePersons__Filter {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  column-gap: 30px;
 }
 .profilePersons__Title {
   background: rgba(0, 0, 0, 0.6);

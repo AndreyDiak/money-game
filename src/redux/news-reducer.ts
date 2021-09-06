@@ -4,87 +4,92 @@ import {actions} from "./game-reducer";
 import {stocksActions} from "./stocks-reducer";
 import {businessActions} from "./business-reducer";
 import {getRandomNumber} from "../utils/getRandomNumber";
+import {profileActions, updateIncome} from "./profile-reducer";
 
 const ADD_NEWS = 'newsPage/ADD_NEWS'
 const ABLE_TO_SHOW = 'newsPage/ABLE_TO_SHOW'
 const SET_TO_ARCHIVE = 'newsPage/SET_TO_ARCHIVE'
 const RESET_NEWS = 'newsPage/RESET_NEWS'
+const ADD_NEWS_INCOME = 'newsPage/ADD_NEWS_INCOME'
+const ADD_NEWS_EXPENSES = 'newsPage/ADD_NEWS_EXPENSES'
+const MAX_CHILDREN = 'newsPage/MAX_CHILDREN'
 
 let initialState = {
   // массив с произошедшими новостями . . .
   news: [] as newsArrayType[],
   archive: [] as newsArrayType[],
   newsTypes: [
+    // {
+    //   type: 'businessNews' as NewsTypes,
+    //   ableToShow: false,
+    //   variants: [
+    //     {
+    //       variantType: 'positive' as VariantType,
+    //       events: [
+    //         {
+    //           type: 'restaurant',
+    //           titles: [
+    //             'Ваш ресторан становится популярнее, доходы растут!',
+    //             'Критики написали хороший отзыв, ждите прилив гостей!',
+    //             'Начался сезон, ждите гостей!'
+    //           ]
+    //         }, {
+    //           type: 'garage',
+    //           titles: [
+    //             'Начался сезон, плата за гараж увеличена'
+    //           ]
+    //         }, {
+    //           type: 'service',
+    //           titles: [
+    //             'Друзья рассказали о вашем сервисе другим, доход растёт!',
+    //             'Начался сезон, вы нужны автолюбителям!'
+    //           ]
+    //         }, {
+    //           type: 'hotel',
+    //           titles: [
+    //             'Популярность отеля растёт! Доход растёт',
+    //             'Критики довольны сервисом, их отзыв хорошо влияет на выручку'
+    //           ]
+    //         },
+    //       ]
+    //     }, {
+    //       variantType: 'negative' as VariantType,
+    //       events: [
+    //       {
+    //         type: 'restaurant',
+    //         titles: [
+    //           'Критики не довольны вашим обслуживанием, выручка падает',
+    //           'Сезон подошёл к концу, скоро доход будет падать'
+    //         ]
+    //       }, {
+    //         type: 'garage',
+    //         titles: [
+    //           'Сезон подходит к концу, доход падает'
+    //         ]
+    //       }, {
+    //         type: 'service',
+    //         titles: [
+    //           'Сезон подходит к концу, доход уменьшается',
+    //           'Друзья остались недовольны сервисом!'
+    //         ]
+    //       }, {
+    //         type: 'hotel',
+    //         titles: [
+    //           'Популярность отеля падает! Это плохо сказывается на доходах',
+    //           'Критикам не понравился ваш отель, их отзывы неутешительные!'
+    //         ]
+    //       }
+    //     ]
+    //     }, {
+    //       variantType: 'neutral' as VariantType,
+    //       events: [
+    //         'С вашим бизнесом всё в порядке! Так держать!',
+    //         'Иметь бизнесс всегда хорошо, продолжайте в том же духе!'
+    //       ]
+    //     }
+    //   ]
+    // },
     {
-      type: 'businessNews' as NewsTypes,
-      ableToShow: false,
-      variants: [
-        {
-          variantType: 'positive' as VariantType,
-          events: [
-            {
-              type: 'restaurant',
-              titles: [
-                'Ваш ресторан становится популярнее, доходы растут!',
-                'Критики написали хороший отзыв, ждите прилив гостей!',
-                'Начался сезон, ждите гостей!'
-              ]
-            }, {
-              type: 'garage',
-              titles: [
-                'Начался сезон, плата за гараж увеличена'
-              ]
-            }, {
-              type: 'service',
-              titles: [
-                'Друзья рассказали о вашем сервисе другим, доход растёт!',
-                'Начался сезон, вы нужны автолюбителям!'
-              ]
-            }, {
-              type: 'hotel',
-              titles: [
-                'Популярность отеля растёт! Доход растёт',
-                'Критики довольны сервисом, их отзыв хорошо влияет на выручку'
-              ]
-            },
-          ]
-        }, {
-          variantType: 'negative' as VariantType,
-          events: [
-          {
-            type: 'restaurant',
-            titles: [
-              'Критики не довольны вашим обслуживанием, выручка падает',
-              'Сезон подошёл к концу, скоро доход будет падать'
-            ]
-          }, {
-            type: 'garage',
-            titles: [
-              'Сезон подходит к концу, доход падает'
-            ]
-          }, {
-            type: 'service',
-            titles: [
-              'Сезон подходит к концу, доход уменьшается',
-              'Друзья остались недовольны сервисом!'
-            ]
-          }, {
-            type: 'hotel',
-            titles: [
-              'Популярность отеля падает! Это плохо сказывается на доходах',
-              'Критикам не понравился ваш отель, их отзывы неутешительные!'
-            ]
-          }
-        ]
-        }, {
-          variantType: 'neutral' as VariantType,
-          events: [
-            'С вашим бизнесом всё в порядке! Так держать!',
-            'Иметь бизнесс всегда хорошо, продолжайте в том же духе!'
-          ]
-        }
-      ]
-    }, {
       type: 'stocksNews' as NewsTypes,
       ableToShow: false,
       variants: [
@@ -117,7 +122,8 @@ let initialState = {
           ]
         }
       ]
-    }, {
+    },
+    {
       type: 'personNews' as NewsTypes,
       ableToShow: true,
       variants: [
@@ -132,20 +138,23 @@ let initialState = {
                 {title: 'Разовая выплата от правительства', amount: 150},
                 {title: 'Вы победели в лотерее, поздравляем!', amount: 300},
                 {title: 'Вам досталось наследство семьи! Потратьте его с умом', amount: 500},
-                {title: 'Продажа недвижимости', amount: 1000},
-                {title: 'Вы закрыли проект на работе и получили свою долю', amount: 250}
+                {title: 'Продажа квартиры родственников!', amount: 1000},
+                {title: 'Вы закрыли проект на работе и получили свою долю', amount: 250},
+                {title: 'Кэшбэк по карте', amount: 200},
+                {title: 'У вашего босса хорошее настроение, вы получили премию', amount: 220}
               ]
             }, {
               // новости, которые будут довать буст к зарплате
               type: 'regular',
               titles: [
                 {title: 'Вы помогаете по работе коллеге, прибавка к зарплате!', amount: 70},
-                {title: 'Старый гараж перемонтирован под автомастерскую, ваша доля', amount: 120},
-                {title: 'Вы сдаёте комнату, месячная плата', amount: 300}
+                {title: 'Друг попросил отдать ему гараж под сервис, ваша доля в месяц: ', amount: 120},
+                // {title: 'Вы сдаёте комнату, месячная плата', amount: 300}
               ]
             }
           ]
-        }, {
+        },
+        {
           variantType: 'negative' as VariantType,
           events: [
             {
@@ -153,18 +162,26 @@ let initialState = {
               titles: [
                 {title: 'Вы проиграли в лотерее', amount: -200},
                 {title: 'Онлайн казино дело такое!', amount: -100},
-                {title: 'От цен на бензин хочется плакать!', amount: -80}
+                {title: 'От цен на бензин хочется плакать!', amount: -80},
+                {title: 'На вас напали в переулке!', amount: -150},
+                {title: 'Случайный прохожий попросил у вас денег', amount: -50},
+                {title: 'По пути на работу вы зашли за чашечкой кофе', amount: -75},
+                {title: 'На выходных вы решили себя побаловать!', amount: -120},
+                {title: 'Выписка с штрафа', amount: -175}
               ]
-            }, {
+            },
+            {
               type: 'regular',
               titles: [
                 {title: 'У вас родился ребёнок! Поздравляем!', amount: -125},
                 // {title: 'Стройка на даче занимает слишком много сил, и не только', amount: -70},
-                {title: 'Обеспечение родителей, вещь важная!', amount: -25}
+                {title: 'Обеспечение родителей, вещь важная!', amount: -25},
+
               ]
             }
           ]
-        }, {
+        },
+        {
           variantType: 'neutral' as VariantType,
           events: [
             'Хочешь сбежать от повседневности — не останавливайся в развитии.',
@@ -179,6 +196,12 @@ let initialState = {
       ]
     }
   ],
+  newsIncome: [
+
+  ] as {title: string, amount: number}[],
+  newsExpenses: [
+
+  ] as {title: string, amount: number}[],
 }
 
 export type InitialNewsStateType = typeof initialState
@@ -225,6 +248,31 @@ export const newsReducer = (state = initialState, action: NewsActionsType): Init
         ...state,
         news: [] as newsArrayType[]
       }
+    case ADD_NEWS_INCOME:
+      return {
+        ...state,
+        newsIncome: [
+          ...state.newsIncome,
+          action.news
+        ]
+      }
+    case ADD_NEWS_EXPENSES:
+      return {
+        ...state,
+        newsExpenses: [
+          ...state.newsExpenses,
+          action.news
+        ]
+      }
+    case MAX_CHILDREN:
+
+      let newsTypeCopy = [...state.newsTypes]
+      // @ts-ignore
+      newsTypeCopy[1].variants[1].events[1].titles.splice(1, 1)
+      return {
+        ...state,
+        newsTypes: newsTypeCopy
+      }
     default:
       return {
         ...state
@@ -236,13 +284,17 @@ export const newsActions = {
   addNews: (news: newsArrayType[]) => ({type: ADD_NEWS, news} as const),
   setAbleToShow: (types: NewsTypes) => ({type: ABLE_TO_SHOW, types} as const),
   setToArchive: (index: number) => ({type: SET_TO_ARCHIVE, index} as const),
-  resetNews: () => ({type: RESET_NEWS} as const)
+  resetNews: () => ({type: RESET_NEWS} as const),
+  addNewsIncome: (news: any) => ({type: ADD_NEWS_INCOME, news} as const),
+  addNewsExpenses: (news: any) => ({type: ADD_NEWS_EXPENSES, news} as const),
+  maxChildren: () => ({type: MAX_CHILDREN} as const)
 }
 
 export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkType => (dispatch, getState) => {
   const state = getState().newsPage
   const dayInMonth = getState().gamePage.daysInMonth
   const month = getState().gamePage.months[getState().gamePage.month].name
+  const children = getState().profilePage.children
   let newsCopy = [...state.news]
   // создание шаблона новости
   let news = {
@@ -271,6 +323,21 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
             // @ts-ignore / выбираем новость
             let titleIndex = getRandomNumber(typeOfNews.events[typeOfPayout].titles.length)
 
+            // @ts-ignore | если рождается ребёнок
+            if(typeOfNews.events[typeOfPayout].titles[titleIndex].title === 'У вас родился ребёнок! Поздравляем!') {
+              // @ts-ignore / добавляем ребенка в профиль
+              dispatch(profileActions.newChild())
+
+              let childrenCount = 0
+              children.forEach(child => {
+                childrenCount += child
+              })
+              // считаем кол-во детей, если их 3 то больше детей быть не может
+              if (childrenCount === 3) {
+                dispatch(newsActions.maxChildren())
+              }
+            }
+
             // @ts-ignore/ заголовок новости
             news.title = typeOfNews.events[typeOfPayout].titles[titleIndex].title
             // @ts-ignore/ цена
@@ -278,6 +345,14 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
             // @ts-ignore / обновляем баланс или доход игрока
             dispatch(actions.getNewsPayout(typeOfNews.events[typeOfPayout].type, news.amount))
 
+            // если новость влияет на доходы или расходы то мы добовляем ее в доход профиля
+            if (typeOfPayout === 1) {
+              condition === 0
+                ? dispatch(newsActions.addNewsIncome({title: news.title, amount: news.amount}))
+                : dispatch(newsActions.addNewsExpenses({title: news.title, amount: news.amount}))
+
+              dispatch(updateIncome())
+            }
           } else {
             // если новость нейтральная . . .
             // @ts-ignore

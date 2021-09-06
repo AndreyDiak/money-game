@@ -41,6 +41,7 @@ const PAY_FOR_EXPENSES = 'profilePage/PAY_FOR_EXPENSES'
 const SET_CREDIT = 'profilePage/SET_CREDIT'
 const UPDATE_INCOME = 'profilePage/UPDATE_INCOME'
 const SET_SALARY = 'profilePage/SET_SALARY'
+const NEW_CHILD = 'profilePage/NEW_CHILD'
 
 let initialState = {
   // список возможных персонажей . . .
@@ -51,7 +52,7 @@ let initialState = {
     {
       name: 'Эдди',
       age: 28,
-      saving: 320,
+      saving: 520,
       salary: 700,
       work: 'Маркетолог',
       expenses: [
@@ -60,13 +61,14 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 800, startPrice: 800, payment: 7},
         {type: 'credit', title: 'Кредит', remainPrice: 1200, startPrice: 1200, payment: 5},
       ],
+      difficulty: "easy",
       img: person1Photo,
       avatar: person1Avatar,
     } as personType,
     {
       name: 'Макс',
       age: 24,
-      saving: 360,
+      saving: 500,
       salary: 650,
       work: 'Менеджер',
       expenses: [
@@ -75,13 +77,14 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 1000, startPrice: 1000, payment: 5},
         {type: 'credit', title: 'Кредит', remainPrice: 1700, startPrice: 1700, payment: 7},
       ],
+      difficulty: 'easy',
       img: person2Photo,
       avatar: person2Avatar
     } as personType,
     {
       name: 'Билл',
       age: 19,
-      saving: 295,
+      saving: 450,
       salary: 420,
       work: 'Разработчик',
       expenses: [
@@ -90,6 +93,7 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 600, startPrice: 600, payment: 8},
         {type: 'credit', title: 'Кредит', remainPrice: 1000, startPrice: 1000, payment: 6},
       ],
+      difficulty: 'normal',
       img: person3Photo,
       avatar: person3Avatar
     } as personType,
@@ -105,6 +109,7 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 600, startPrice: 600, payment: 8},
         {type: 'credit', title: 'Кредит', remainPrice: 600, startPrice: 600, payment: 8},
       ],
+      difficulty: 'normal',
       img: person4Photo,
       avatar: person4Avatar
     } as personType,
@@ -112,14 +117,15 @@ let initialState = {
       name: 'Фред',
       age: 21,
       saving: 400,
-      salary: 290,
-      work: 'Кабельщик',
+      salary: 370,
+      work: 'Официант',
       expenses: [
         {type: 'home', title: 'Дом', remainPrice: 0, startPrice: 0, payment: 0},
         {type: 'car', title: 'Машина', remainPrice: 0, startPrice: 0, payment: 0},
         {type: 'card', title: 'Кред. карта', remainPrice: 1500, startPrice: 1500, payment: 3},
         {type: 'credit', title: 'Кредит', remainPrice: 1000, startPrice: 1000, payment: 3},
       ],
+      difficulty: 'hard',
       img: person5Photo,
       avatar: person5Avatar
     } as personType,
@@ -135,6 +141,7 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 700, startPrice: 700, payment: 10},
         {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 5},
       ],
+      difficulty: 'easy',
       img: person6Photo,
       avatar: person6Avatar
     } as personType,
@@ -150,13 +157,14 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 1000, startPrice: 1000, payment: 8},
         {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
       ],
+      difficulty: 'easy',
       img: person7Photo,
       avatar: person7Avatar
     } as personType,
     {
       name: 'Лизи',
       age: 26,
-      saving: 510,
+      saving: 480,
       salary: 550,
       work: 'Бухгалтер',
       expenses: [
@@ -165,6 +173,7 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 900, startPrice: 900, payment: 8},
         {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
       ],
+      difficulty: 'normal',
       img: person8Photo,
       avatar: person8Avatar
     } as personType,
@@ -180,13 +189,14 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 500, startPrice: 500, payment: 10},
         {type: 'credit', title: 'Кредит', remainPrice: 1000, startPrice: 1000, payment: 10},
       ],
+      difficulty: 'easy',
       img: person9Photo,
       avatar: person9Avatar
     } as personType,
     {
       name: 'Фрэнк',
       age: 29,
-      saving: 330,
+      saving: 420,
       salary: 620,
       work: 'Продюсер',
       expenses: [
@@ -195,13 +205,14 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 0, startPrice: 0, payment: 0},
         {type: 'credit', title: 'Кредит', remainPrice: 700, startPrice: 700, payment: 5},
       ],
+      difficulty: 'normal',
       img: person10Photo,
       avatar: person10Avatar
     } as personType,
     {
       name: 'Алекс',
       age: 28,
-      saving: 330,
+      saving: 350,
       salary: 300,
       work: 'Журналист',
       expenses: [
@@ -210,13 +221,14 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 550, startPrice: 550, payment: 8},
         {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
       ],
+      difficulty: 'hard',
       img: person11Photo,
       avatar: person11Avatar
     } as personType,
     {
       name: 'Адам',
       age: 28,
-      saving: 330,
+      saving: 470,
       salary: 580,
       work: 'Имиджмейкер',
       expenses: [
@@ -225,6 +237,7 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 0, startPrice: 0, payment: 0},
         {type: 'credit', title: 'Кредит', remainPrice: 800, startPrice: 800, payment: 10},
       ],
+      difficulty: 'normal',
       img: person12Photo,
       avatar: person12Avatar
     } as personType,
@@ -240,13 +253,14 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 1000, startPrice: 1000, payment: 8},
         {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
       ],
+      difficulty: 'hard',
       img: person13Photo,
       avatar: person13Avatar
     } as personType,
     {
       name: 'Лили',
       age: 26,
-      saving: 330,
+      saving: 360,
       salary: 370,
       work: 'Врач',
       expenses: [
@@ -255,13 +269,14 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 1000, startPrice: 1000, payment: 4},
         {type: 'credit', title: 'Кредит', remainPrice: 600, startPrice: 600, payment: 8},
       ],
+      difficulty: 'hard',
       img: person14Photo,
       avatar: person14Avatar
     } as personType,
     {
       name: 'Боб',
       age: 23,
-      saving: 330,
+      saving: 540,
       salary: 590,
       work: 'Инженер',
       expenses: [
@@ -270,6 +285,7 @@ let initialState = {
         {type: 'card', title: 'Кред. карта', remainPrice: 1000, startPrice: 1000, payment: 7},
         {type: 'credit', title: 'Кредит', remainPrice: 200, startPrice: 200, payment: 10},
       ],
+      difficulty: 'easy',
       img: person15Photo,
       avatar: person15Avatar
     } as personType,
@@ -279,7 +295,9 @@ let initialState = {
   startSalary: 0, // начальная зп
   tax: 0, // налог с зп
   income: 0, // доход персонажа
-  children: [0, 0, 0] // дети персонажа / 0 ребенка нет / 1 ребенок есть / максимум 3 ребенка
+  children: [0, 0, 0], // дети персонажа / 0 ребенка нет / 1 ребенок есть / максимум 3 ребенка
+  childrenCount: 0,
+
 }
 
 export type InitialProfileStateType = typeof initialState
@@ -360,6 +378,18 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
           salary: action.newSalary
         } as personType
       }
+    case NEW_CHILD:
+      let childrenCopy = state.children
+      let childrenCountCopy = state.childrenCount
+      childrenCopy[childrenCountCopy] = 1
+      childrenCountCopy += 1
+
+      return {
+        ...state,
+        children: childrenCopy,
+        childrenCount: childrenCountCopy
+      }
+
     default:
       return {
         ...state
@@ -375,7 +405,8 @@ export const profileActions = {
   payForExpenses: (expenses: expenseType[]) => ({type: PAY_FOR_EXPENSES, expenses} as const),
   setCredit: (expenses: expenseType[]) => ({type: SET_CREDIT, expenses} as const),
   updateIncome: (newIncome: number) => ({type: UPDATE_INCOME, newIncome} as const),
-  setSalary: (newSalary: number) => ({type: SET_SALARY, newSalary} as const)
+  setSalary: (newSalary: number) => ({type: SET_SALARY, newSalary} as const),
+  newChild: () => ({type: NEW_CHILD} as const)
 }
 
 type ProfileActionsType = InferActionsType<typeof profileActions>
@@ -394,6 +425,7 @@ export type personType = {
   img: string
   avatar: string
   work: string
+  difficulty: 'easy' | 'normal' | 'hard'
   expenses: expenseType[]
 }
 type ProfileThunkType = ThunkAction<any, AppStateType, unknown, ProfileActionsType>
@@ -472,8 +504,26 @@ export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
     }
   })
 
+  const newsExpenses = getState().newsPage.newsExpenses
+  // расходы с новостей
+  let newsExpensesPrice = 0
+  if (newsExpenses.length !== 0) {
+    newsExpenses.forEach(expenses => {
+      newsExpensesPrice -= expenses.amount
+    })
+  }
+
+  const newsIncome = getState().newsPage.newsIncome
+  // доходы с новостей
+  let newsIncomesPrice = 0
+  if (newsIncome.length !== 0) {
+    newsIncome.forEach(income => {
+      newsIncomesPrice += income.amount
+    })
+  }
+
   // @ts-ignore
-  let NewIncome = Math.round(salary - tax - expensesSummary + dividendsSummary + realtySummary + businessSummary)
+  let NewIncome = Math.round(salary - tax - expensesSummary - newsExpensesPrice + newsIncomesPrice + dividendsSummary + realtySummary + businessSummary)
 
   dispatch(profileActions.updateIncome(NewIncome))
   // dispatch(profileActions.setSalary(salary + workAdd))

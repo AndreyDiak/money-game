@@ -21,6 +21,8 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
   const myStocks = useSelector(getMyStocksSelector)
   const myRealty = useSelector((state: AppStateType) => state.realtyPage.myRealty)
   const myBusiness = useSelector(getMyBusinessesSelector)
+  const newsIncome = useSelector((state: AppStateType) => state.newsPage.newsIncome)
+  const newsExpenses = useSelector((state: AppStateType) => state.newsPage.newsExpenses)
   // работа персонажа
   const daysWorked = useSelector((state: AppStateType) => state.worksPage.workedDays)
   const daysToUp = useSelector((state: AppStateType) => state.worksPage.daysToUp)
@@ -59,6 +61,20 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
   myBusiness.forEach(business => {
     businessSummary += business.income
   })
+  // расходы с новостей
+  let newsExpensesPrice = 0
+  if (newsExpenses.length !== 0) {
+    newsExpenses.forEach(expenses => {
+      newsExpensesPrice -= expenses.amount
+    })
+  }
+  // доходы с новостей
+  let newsIncomesPrice = 0
+  if (newsIncome.length !== 0) {
+    newsIncome.forEach(income => {
+      newsIncomesPrice += income.amount
+    })
+  }
   return (
     <>
       <div className="gameWork bannerBack">
@@ -90,10 +106,17 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
                       </div>
                     : ''
                   }
-
                 </>
               )
             })}
+            <div className="gameWorkContent__block">
+              <div className="gameWorkContent__blockTitle">
+                Другое
+              </div>
+              <div className="gameWorkContent__blockPrice">
+                ${newsExpensesPrice}
+              </div>
+            </div>
           </div>
           <div className="gameWorkContent__blocks gameWorkContent__incomes">
             <div className="gameWorkContent__blocksTitle">
@@ -129,6 +152,14 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
               </div>
               <div className="gameWorkContent__blockPrice">
                 ${businessSummary}
+              </div>
+            </div>
+            <div className="gameWorkContent__block">
+              <div className="gameWorkContent__blockTitle">
+                Другое
+              </div>
+              <div className="gameWorkContent__blockPrice">
+                ${newsIncomesPrice}
               </div>
             </div>
             <div className="gameWorkContent__block">

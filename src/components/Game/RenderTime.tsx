@@ -27,7 +27,6 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   const companies = useSelector((state: AppStateType) => state.stocksPage.companiesForStocks)
   // день месяца . . .
   const dayInMonth = useSelector(getDayInMonthSelector)
-  const difficulty = useSelector(getDifficultySelector)
 
   const dispatch = useDispatch()
   // текущий день . . .
@@ -43,6 +42,8 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   // текущая работа . . .
   // const profile = useSelector(getPersonSelector) as personType
   //
+  const spendsLevel = useSelector((state: AppStateType) => state.spendsPage.spendsLevel)
+
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   // const expenses = useSelector(getExpensesSelector)
   // подоходный налог на зп
@@ -67,7 +68,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
     if (day % 7 === 0 && day !== 0) {
       const generateNews = (): any => {
         // stocksNews / businessNews / personNews . . .
-        let newsType = getRandomNumber(3)
+        let newsType = getRandomNumber(2)
         if (newsTypeArray[newsType].ableToShow) {
           let company = ''
           if(newsTypeArray[newsType].type === 'stocksNews') {
@@ -92,7 +93,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
       }
       // еженедельная трата . . .
       // dispatch(actions.weekSpend(difficulty))
-      dispatch(weekSpendThunk(difficulty))
+      dispatch(weekSpendThunk())
 
       // обновление акций . . .
       if(stocks.length !== 0) {
@@ -130,6 +131,18 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
     dispatch(profileActions.updateExpenses())
     // если мы выплатили целиком какой либо долг, то у нас растет ЗП
     dispatch(updateIncome())
+
+    // если наш доход перевалил за $1000 или $2500 в месяц, то мы увеличиваем траты
+    if ((income >= 1000 && spendsLevel === 1) || (income >= 4500 && spendsLevel === 2)) {
+      dispatch(spendsActions.setSpendsLevel())
+      dispatch(spendsActions.setEventsPrice())
+    }
+
+    if ((income < 1000 && spendsLevel === 2) || (income < 4500 && spendsLevel === 3)) {
+      dispatch(spendsActions.decreaseSpendsLevel())
+      dispatch(spendsActions.setEventsPrice())
+    }
+
   }
 
   return (

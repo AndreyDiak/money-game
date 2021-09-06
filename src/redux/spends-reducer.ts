@@ -7,60 +7,139 @@ import {actions} from "./game-reducer";
 const WEEK_SPEND = 'gamePage/WEEK_SPEND'
 const INDEX_PRICE = 'gamePage/INDEX_PRICE'
 const RESET_CURRENT_MONTHS = 'gamePage/RESET_CURRENT_MONTHS'
-
+const SET_SPENDS_LEVEL = 'gamePage/SET_SPENDS_LEVEL'
+const DECREASE_SPENDS_LEVEL = 'gamePage/DECREASE_SPENDS_LEVEL'
 let initialState = {
   //
   initialEvents: [
-    {
-      title: 'кинотеатр',
-      price: 75
-    }, {
-      title: 'ресторан',
-      price: 120
-    }, {
-      title: 'покупка продуктов',
-      price: 65
-    }, {
-      title: 'новая одежда',
-      price: 90
-    }, {
-      title: 'прогулка',
-      price: 30
-    }, {
-      title: 'ремонт машины',
-      price: 220
-    }, {
-      title: 'покупка мебели',
-      price: 75
-    }, {
-      title: 'одолжил другу',
-      price: 30
-    }, {
-      title: 'благотворительность',
-      price: 40
-    }, {
-      title: 'подох в ТЦ',
-      price: 80
-    }, {
-      title: 'оплата подписки',
-      price: 45
-    }, {
-      title: 'сходить на футбол',
-      price: 120
-    }, {
-      title: 'встреча с друзьями',
-      price: 70
-    }, {
-      title: 'помог родителям',
-      price: 100
-    }, {
-      title: 'улучшение рабочего места',
-      price: 110
-    }
+    [
+      {
+        title: 'кинотеатр',
+        price: 75
+      }, {
+        title: 'ресторан',
+        price: 120
+      }, {
+        title: 'покупка продуктов',
+        price: 65
+      }, {
+        title: 'новая одежда',
+        price: 90
+      }, {
+        title: 'прогулка',
+        price: 30
+      }, {
+        title: 'ремонт машины',
+        price: 220
+      }, {
+        title: 'покупка мебели',
+        price: 75
+      }, {
+        title: 'одолжил другу',
+        price: 30
+      }, {
+        title: 'благотворительность',
+        price: 40
+      }, {
+        title: 'поход в ТЦ',
+        price: 80
+      }, {
+        title: 'оплата подписки',
+        price: 45
+      }, {
+        title: 'игра любимой команды',
+        price: 120
+      }, {
+        title: 'встреча с друзьями',
+        price: 70
+      }, {
+        title: 'помощь родителям',
+        price: 100
+      }, {
+        title: 'улучшение рабочего места',
+        price: 110
+      }
+    ], // начальный траты
+    [
+      {
+        title: 'благотворительность',
+        price: 250
+      }, {
+        title: 'оплата подписок',
+        price: 370
+      }, {
+        title: 'помощь родителям',
+        price: 320
+      }, {
+        title: 'новая одежда',
+        price: 410
+      }, {
+        title: 'ремонт машины',
+        price: 500
+      }, {
+        title: 'ресторан',
+        price: 400
+      }, {
+        title: 'кинотеатр',
+        price: 350
+      }, {
+        title: 'подох в ТЦ',
+        price: 380
+      }, {
+        title: 'одолжил другу',
+        price: 200
+      }, {
+        title: 'покупка продуктов',
+        price: 230
+      }, {
+        title: 'прогулка',
+        price: 280
+      }, {
+        title: 'поход в музей',
+        price: 300
+      }, {
+        title: 'поход на аукцион',
+        price: 315
+      }
+    ], // средние траты
+    [
+      {
+        title: 'благотворительность',
+        price: 1000
+      }, {
+        title: 'оплата подписок',
+        price: 1200
+      }, {
+        title: 'помощь родителям',
+        price: 1500
+      }, {
+        title: 'новая одежда',
+        price: 1300
+      }, {
+        title: 'ресторан',
+        price: 1700
+      }, {
+        title: 'кинотеатр',
+        price: 1100
+      }, {
+        title: 'подох в ТЦ',
+        price: 1600
+      }, {
+        title: 'одолжил другу',
+        price: 950
+      }, {
+        title: 'покупка продуктов',
+        price: 800
+      }, {
+        title: 'прогулка',
+        price: 1150
+      }
+    ] // большие траты
   ],
   // вероятные события . . .
-  events: [
-  ] as eventType[],
+  events: [] as eventType[], // массив откуда берутся различный события . . .
+  // уровень трат
+  spendsLevel: 1, // 1 - начальные траты / 2 - средние траты / 3 - максимальные траты ( под конец игры )
   // траты в текущий месяц . . .
   currentMonthEvents: [] as eventType[],
   // сумма трат за месяц . . .
@@ -89,12 +168,23 @@ export const spendsReducer = (state = initialState, action: SpendsActionType): I
     case INDEX_PRICE:
       return {
         ...state,
-        events: state.initialEvents.map(event => {
+        events: state.initialEvents[state.spendsLevel - 1].map(event => {
           return {
             ...event,
-            price: event.price + action.indexPrice
+            price: event.price
+              // + action.indexPrice
           }
         })
+      }
+    case SET_SPENDS_LEVEL:
+      return {
+        ...state,
+        spendsLevel: state.spendsLevel + 1
+      }
+    case DECREASE_SPENDS_LEVEL:
+      return {
+        ...state,
+        spendsLevel: state.spendsLevel - 1
       }
     default:
       return state
@@ -102,9 +192,11 @@ export const spendsReducer = (state = initialState, action: SpendsActionType): I
 }
 
 export const spendsActions = {
-  setEventsPrice: (indexPrice: number) => ({type: INDEX_PRICE, indexPrice} as const),
+  setEventsPrice: () => ({type: INDEX_PRICE} as const),
   weekSpend: (events: eventType[], currentMonthEvents: eventType[], currentMonthPrice: number) => ({type: WEEK_SPEND, events, currentMonthEvents, currentMonthPrice} as const),
-  resetCurrentMonth: () => ({type: RESET_CURRENT_MONTHS} as const)
+  resetCurrentMonth: () => ({type: RESET_CURRENT_MONTHS} as const),
+  setSpendsLevel: () => ({type: SET_SPENDS_LEVEL} as const),
+  decreaseSpendsLevel: () => ({type: DECREASE_SPENDS_LEVEL} as const)
 }
 
 export type eventType = {
@@ -115,7 +207,7 @@ export type InitialSpendsStateType = typeof initialState
 type SpendsActionType = InferActionsType<typeof spendsActions>
 type SpendsThunkType = ThunkAction<any, AppStateType, unknown, SpendsActionType>
 
-export const weekSpendThunk = (difficulty: DifficultyType): SpendsThunkType => (dispatch, getState) => {
+export const weekSpendThunk = (): SpendsThunkType => (dispatch, getState) => {
   // возможные события
   let events = getState().spendsPage.events
   // копия массива с событиями

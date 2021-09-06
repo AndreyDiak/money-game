@@ -2,7 +2,7 @@ import {FC, useEffect, useState} from "react"
 import {Avatar, Button} from "antd"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {profileActions, updateIncome} from "../../redux/profile-reducer";
+import {personType, profileActions, updateIncome} from "../../redux/profile-reducer";
 import {actions} from "../../redux/game-reducer";
 import {NavLink} from "react-router-dom";
 import Radio from "antd/lib/radio";
@@ -19,22 +19,24 @@ export const ProfilePage: FC = () => {
   const persons = useSelector((state: AppStateType) => state.profilePage.persons)
   const [activePerson, setActivePerson] = useState(0)
 
+  const [filteredPersons, setFilteredPersons] = useState(persons.filter(f => f.difficulty === 'easy'))
+
   // выбор скорости игры
   const timesSpeed = [8, 4, 2]
 
   // расчёт подоходного налога / зависит на прямую от зп
-  const tax = persons[activePerson].salary >= 500
-    ? persons[activePerson].salary * 0.15
-    : persons[activePerson].salary * 0.10
+  const tax = filteredPersons[activePerson].salary >= 500
+    ? filteredPersons[activePerson].salary * 0.15
+    : filteredPersons[activePerson].salary * 0.10
 
   let taxesSummary = tax
 
-  persons[activePerson].expenses.forEach(expense => {
+  filteredPersons[activePerson].expenses.forEach(expense => {
     taxesSummary += expense.startPrice * expense.payment / 100
   })
 
   const setProfile = () => {
-    const profile = persons[activePerson]
+    const profile = filteredPersons[activePerson]
 
     dispatch(profileActions.setProfile(profile))
     // устанавливаем подоходный налог на зп
@@ -53,11 +55,11 @@ export const ProfilePage: FC = () => {
     { label: 'день/2сек', value: timesSpeed[1] },
     { label: 'день/1сек', value: timesSpeed[2] },
   ]
-  const optionsDifficulty = [
-    { label: 'Легко', value: 'легко' },
-    { label: 'Средне', value: 'средне' },
-    { label: 'Сложно', value: 'сложно' },
-  ]
+  // const optionsDifficulty = [
+  //   { label: 'Легко', value: 'легко' },
+  //   { label: 'Средне', value: 'средне' },
+  //   { label: 'Сложно', value: 'сложно' },
+  // ]
   const optionsVictoryBalance = [
     { label: '5.000$', value: 5000 },
     { label: '15.000$', value: 15000 },
@@ -69,29 +71,17 @@ export const ProfilePage: FC = () => {
     dispatch(settingsActions.setConstTimeSpeed(e.target.value))
   }
 
-  const onChangeDifficulty = (e: any) => {
-    dispatch(settingsActions.setDifficulty(e.target.value))
-  }
-
   const onChangeVictoryBalance = (e: any) => {
     dispatch(actions.setVictoryBalance(e.target.value))
   }
 
   useEffect(() => {
-    let difficultPrice = 0
-    switch (difficulty) {
-      case "легко":
-        difficultPrice = -15
-        break
-      case "сложно":
-        difficultPrice = 15
-        break
-      default:
-        break
-    }
-    dispatch(spendsActions.setEventsPrice(difficultPrice))
-  },[, difficulty])
+    dispatch(spendsActions.setEventsPrice())
+    // filteredPersons = persons.filter(f => f.difficulty === 'easy')
+  },[, persons])
 
+  console.log(filteredPersons)
+  console.log(persons)
   return (
     <>
       <div className="profile bannerBack">
@@ -100,31 +90,50 @@ export const ProfilePage: FC = () => {
             <b>Ваш персонаж</b>
           </div>
           <div className="profilePreview__Name">
-            {persons[activePerson].name}
-            <span className="profilePreview__NameWork">
-              <i>({persons[activePerson].work})</i>
-            </span>
+            {filteredPersons[activePerson].name}
+            <div className="profilePreview__NameWork">
+              ({filteredPersons[activePerson].work})
+            </div>
           </div>
           <div className="profilePreview__Img">
-            <img src={persons[activePerson].img} alt=""/>
+            <img src={filteredPersons[activePerson].img} alt=""/>
           </div>
         </div>
         <div className="profilePersons">
           <div className="profilePersons__Title">
             Доступные персонажи
           </div>
+          <div className="profilePersons__Filter">
+            <Button size={'large'} onClick={() => {
+              setActivePerson(0)
+              setFilteredPersons(persons.filter(f => f.difficulty === 'easy'))
+            }}>Легкие</Button>
+            <Button size={'large'} onClick={() => {
+              setActivePerson(0)
+              setFilteredPersons(persons.filter(f => f.difficulty === 'normal'))
+            }}>Нормальные</Button>
+            <Button size={'large'} onClick={() => {
+              setActivePerson(0)
+              setFilteredPersons(persons.filter(f => f.difficulty === 'hard'))
+            }}>Сложные</Button>
+          </div>
           <div className="profilePersons__Blocks">
-            {persons.map((person, index) => {
-              return (
-                <>
-                  <div className="profilePersons__Block">
-                    <button onClick={() => setActivePerson(index)} className='profilePersons__BlockImg' >
-                      <Avatar src={person.avatar} size={100} style={activePerson === index ? {border: '2px solid crimson'} : {}}/>
-                    </button>
-                  </div>
-                </>
-              )
-            })}
+            {filteredPersons.length === 0
+            ? 'загрузка'
+            : <>
+                {filteredPersons.map((person, index) => {
+                  return (
+                    <>
+                      <div className="profilePersons__Block">
+                        <button onClick={() => setActivePerson(index)} className='profilePersons__BlockImg' >
+                          <Avatar src={person.avatar} size={100} style={activePerson === index ? {border: '2px solid crimson'} : {}}/>
+                        </button>
+                      </div>
+                    </>
+                  )
+                })}
+              </>
+            }
           </div>
           <div className="profilePersons__Button">
             <NavLink to='/game'>
@@ -156,17 +165,17 @@ export const ProfilePage: FC = () => {
                 className='settingsListItem__Radio'
               />
             </div>
-            <div className="profileMenu__SettingsItem">
-              Сложность игры
-              <br/>
-              <Radio.Group
-                options={optionsDifficulty}
-                onChange={onChangeDifficulty}
-                value={difficulty}
-                optionType="button"
-                className='settingsListItem__Radio'
-              />
-            </div>
+            {/*<div className="profileMenu__SettingsItem">*/}
+            {/*  Сложность игры*/}
+            {/*  <br/>*/}
+            {/*  <Radio.Group*/}
+            {/*    options={optionsDifficulty}*/}
+            {/*    onChange={onChangeDifficulty}*/}
+            {/*    value={difficulty}*/}
+            {/*    optionType="button"*/}
+            {/*    className='settingsListItem__Radio'*/}
+            {/*  />*/}
+            {/*</div>*/}
             <div className="profileMenu__SettingsItem">
               Победный баланс
               <br/>
@@ -186,11 +195,11 @@ export const ProfilePage: FC = () => {
               </div>
               <div className="profileMenu__StatsBlock">
                 <div className="profileMenu__StatsBlock__Title">Зарплата:</div>
-                <div className="profileMenu__StatsBlock__Price">${persons[activePerson].salary}</div>
+                <div className="profileMenu__StatsBlock__Price">${filteredPersons[activePerson].salary}</div>
               </div>
               <div className="profileMenu__StatsBlock">
                 <div className="profileMenu__StatsBlock__Title">Сбережения:</div>
-                <div className="profileMenu__StatsBlock__Price">${persons[activePerson].saving}</div>
+                <div className="profileMenu__StatsBlock__Price">${filteredPersons[activePerson].saving}</div>
               </div>
             </div>
             <div className='profileMenu__StatsExpenses'>
@@ -201,7 +210,7 @@ export const ProfilePage: FC = () => {
                 <div className="profileMenu__StatsBlock__Title">Налог:</div>
                 <div className="profileMenu__StatsBlock__Price">${tax}</div>
               </div>
-              {persons[activePerson].expenses.map((expense, index) => {
+              {filteredPersons[activePerson].expenses.map((expense, index) => {
                 return (
                   <>
                     {expense.remainPrice !== 0
@@ -219,7 +228,7 @@ export const ProfilePage: FC = () => {
                 Наличные:
               </div>
               <div className="profileMenu__StatsBlock">
-                ${persons[activePerson].salary - taxesSummary}
+                ${filteredPersons[activePerson].salary - taxesSummary}
               </div>
             </div>
           </div>

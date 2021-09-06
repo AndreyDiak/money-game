@@ -10,18 +10,7 @@ import {spendsActions} from "../../redux/spends-reducer";
 export const WorkPage = () => {
 
   useEffect(() => {
-    let difficultPrice = 0
-    switch (difficulty) {
-      case "легко":
-        difficultPrice = -15
-        break
-      case "сложно":
-        difficultPrice = 15
-        break
-      default:
-        break
-    }
-    dispatch(spendsActions.setEventsPrice(difficultPrice))
+    dispatch(spendsActions.setEventsPrice())
   },[])
 
   const dispatch = useDispatch()
