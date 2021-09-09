@@ -46,56 +46,58 @@ export const RenderPlayerStocks: FC<RenderPlayerStocksType> = (props) => {
   return (
     <>
       <div className="gameProfit bannerBack">
-        <div className="gameProfitStocks">
-          <div className="gameProfitStocks__Me">
-            <div className="gameProfitStocks__Header">
-              Ваши акции
-            </div>
-            <div className="gameProfitStocks__OfferBlocks">
-              <div className="gameProfitStocks__OfferBlocks__stocks">
-                {myStocks.map((stock, index) =>
-                  <RenderMyStock
-                    stock={stock}
-                    index={index}
-                    setIsHistoryShown={props.setIsHistoryShown}
-                    setActiveStock={props.setActiveStock}
-                    setMyActiveStock={props.setMyActiveStock}
-                    setIsStockToSell={props.setIsStockToSell}
-                  />
-                )}
+          <div className="gameProfitStocks">
+            <div className="container">
+            <div className="gameProfitStocks__Me">
+              <div className="gameProfitStocks__Header">
+                Ваши акции
               </div>
+              <div className="gameProfitStocks__OfferBlocks">
+                <div className="gameProfitStocks__OfferBlocks__stocks">
+                  {myStocks.map((stock, index) =>
+                    <RenderMyStock
+                      stock={stock}
+                      index={index}
+                      setIsHistoryShown={props.setIsHistoryShown}
+                      setActiveStock={props.setActiveStock}
+                      setMyActiveStock={props.setMyActiveStock}
+                      setIsStockToSell={props.setIsStockToSell}
+                    />
+                  )}
+                </div>
 
-            </div>
-          </div>
-          <div className="gameProfitStocks__Offer">
-            <div className="gameProfitStocks__Header">
-              Акции на рынке
-            </div>
-            <div className="gameProfitStocks__OfferBlocks">
-              <div className="gameProfitStocks__OfferBlocks__menu">
-                <Input placeholder='Название акции...' className='gameProfitStocks__OfferBlocks__menuInput' onChange={(e) => filterStocks('title',e.target.value)}/>
-                <Popover content={content} trigger="click" title='Фильтр акций'>
-                  <Button style={{display: 'flex', alignItems: 'center'}}>Фильтры<SlidersOutlined style={{fontSize: '16px', fontWeight: 'normal'}}/></Button>
-                </Popover>
-                <Button onClick={() => {
-                  setIsReverse(!isReverse)
-                  dispatch(stocksActions.reverseFilteredStocks())
-                }}>
-                  {!isReverse
-                   ? <ArrowUpOutlined />
-                   : <ArrowDownOutlined />
-                  }
-                </Button>
               </div>
-              <div className="gameProfitStocks__OfferBlocks__stocks">
-                {filteredStocks.map((stock, index) =>
-                  <RenderStock
-                    stock={stock}
-                    index={index}
-                    setIsHistoryShown={props.setIsHistoryShown}
-                    setActiveStock={props.setActiveStock}
-                  />
-                )}
+            </div>
+            <div className="gameProfitStocks__Offer">
+              <div className="gameProfitStocks__Header">
+                Акции на рынке
+              </div>
+              <div className="gameProfitStocks__OfferBlocks">
+                <div className="gameProfitStocks__OfferBlocks__menu">
+                  <Input placeholder='Название акции...' className='gameProfitStocks__OfferBlocks__menuInput' onChange={(e) => filterStocks('title',e.target.value)}/>
+                  <Popover content={content} trigger="click" title='Фильтр акций'>
+                    <Button style={{display: 'flex', alignItems: 'center'}}>Фильтры<SlidersOutlined style={{fontSize: '16px', fontWeight: 'normal'}}/></Button>
+                  </Popover>
+                  <Button onClick={() => {
+                    setIsReverse(!isReverse)
+                    dispatch(stocksActions.reverseFilteredStocks())
+                  }}>
+                    {!isReverse
+                      ? <ArrowUpOutlined />
+                      : <ArrowDownOutlined />
+                    }
+                  </Button>
+                </div>
+                <div className="gameProfitStocks__OfferBlocks__stocks">
+                  {filteredStocks.map((stock, index) =>
+                    <RenderStock
+                      stock={stock}
+                      index={index}
+                      setIsHistoryShown={props.setIsHistoryShown}
+                      setActiveStock={props.setActiveStock}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>

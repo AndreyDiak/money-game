@@ -4,17 +4,15 @@
     justify-content: center
     position: relative
     width: 100%
+    height: inherit
     flex-direction: column
     background: url("../img/banner-market.jpg") center no-repeat
     background-size: cover
-    height: calc(100vh - 110px)
-    grid-area: profit
     color: #fff
     z-index: 0
     &::after
       background: rgba(0, 0, 0, 0.6) !important
     &Header
-      margin-bottom: 50px
       display: flex
       text-transform: lowercase
       z-index: 2
@@ -22,15 +20,15 @@
         font-size: 20px
         font-family: 'Fira Mono', sans-serif
         font-weight: 500
-        color: #999999
+        color: #eeeeee
     &Stocks
-      padding-top: 5%
-      padding-bottom: 5%
-      display: grid
+      padding: 30px
       height: 100%
-      grid-template-columns: 1fr 1fr
       z-index: 2
       background: rgba(255, 255, 255, 0.1)
+      .container
+        display: grid
+        grid-template-columns: 1fr 1fr
       &__Me
         padding: 15px
         border-right: 2px dashed #f1f1f1

@@ -177,7 +177,7 @@ export const ProfilePage: FC = () => {
             {/*  />*/}
             {/*</div>*/}
             <div className="profileMenu__SettingsItem">
-              Победный баланс
+              Доход / мес
               <br/>
               <Radio.Group
                 options={optionsVictoryBalance}

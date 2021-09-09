@@ -18,46 +18,48 @@ export const RenderPlayerNews:FC<{setIsHistoryShown: any, setActiveStock: any, s
     <>
       <div className="gameNews">
         <div className="gameNewsContent">
-          <Tabs defaultActiveKey="1" centered className='gameNewsContent__Tabs'>
-            <TabPane tab="Новости" key="1">
-              <div className="gameNewsBlocks">
-                {news.map((newsBlock, index) =>
-                  <RenderNewsBlock
-                    key={index}
-                    title={newsBlock.title}
-                    company={newsBlock.company}
-                    amount={newsBlock.amount}
-                    index={index}
-                    isArchive={false}
-                    month={newsBlock.month}
-                    dayInMonth={newsBlock.dayInMonth}
-                    type={newsBlock.type}
-                    condition={newsBlock.condition}
-                    setIsHistoryShown={props.setIsHistoryShown}
-                    setActiveStock={props.setActiveStock}
-                    setMyActiveStock={props.setMyActiveStock}
-                    setIsStockToSell={props.setIsStockToSell}
-                  />
-                )}
-              </div>
-            </TabPane>
-            <TabPane tab="Архив" key="2">
-              <div className="gameNewsBlocks gameNewsBlocks__reverse">
-                {archive.map((newsBlock, index) =>
-                  <RenderNewsBlock
-                    key={index}
-                    title={newsBlock.title}
-                    company={newsBlock.company}
-                    amount={newsBlock.amount}
-                    index={index}
-                    isArchive={true}
-                    month={newsBlock.month}
-                    dayInMonth={newsBlock.dayInMonth}
-                  />
-                )}
-              </div>
-            </TabPane>
-          </Tabs>
+          <div className="container">
+            <Tabs defaultActiveKey="1" centered className='gameNewsContent__Tabs'>
+              <TabPane tab="Новости" key="1">
+                <div className="gameNewsBlocks">
+                  {news.map((newsBlock, index) =>
+                    <RenderNewsBlock
+                      key={index}
+                      title={newsBlock.title}
+                      company={newsBlock.company}
+                      amount={newsBlock.amount}
+                      index={index}
+                      isArchive={false}
+                      month={newsBlock.month}
+                      dayInMonth={newsBlock.dayInMonth}
+                      type={newsBlock.type}
+                      condition={newsBlock.condition}
+                      setIsHistoryShown={props.setIsHistoryShown}
+                      setActiveStock={props.setActiveStock}
+                      setMyActiveStock={props.setMyActiveStock}
+                      setIsStockToSell={props.setIsStockToSell}
+                    />
+                  )}
+                </div>
+              </TabPane>
+              <TabPane tab="Архив" key="2">
+                <div className="gameNewsBlocks gameNewsBlocks__reverse">
+                  {archive.map((newsBlock, index) =>
+                    <RenderNewsBlock
+                      key={index}
+                      title={newsBlock.title}
+                      company={newsBlock.company}
+                      amount={newsBlock.amount}
+                      index={index}
+                      isArchive={true}
+                      month={newsBlock.month}
+                      dayInMonth={newsBlock.dayInMonth}
+                    />
+                  )}
+                </div>
+              </TabPane>
+            </Tabs>
+          </div>
         </div>
       </div>
     </>

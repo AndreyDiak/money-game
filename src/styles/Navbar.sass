@@ -1,0 +1,47 @@
+.nav
+  &Wrapper
+    display: flex
+    align-items: center
+    justify-content: space-between
+    background: #673c74
+    font-family: 'Fira Mono', sans-serif
+    font-size: 20px
+    font-weight: 700
+    color: #fff
+  &Item
+    display: flex
+    justify-content: center
+    height: 100%
+    width: 33%
+    align-items: center
+    column-gap: 25px
+    &:last-child
+      justify-content: space-between
+      height: 78px
+    &:first-child
+      justify-content: flex-start
+    &Profile
+      padding: 10px
+      display: flex
+      column-gap: 30px
+      align-items: center
+      font-weight: 900
+    &Menu
+      margin-left: 250px
+      display: flex
+      column-gap: 25px
+      &__block
+        border: none
+        background: transparent
+        color: #212121
+    &Balance
+      height: 100%
+      display: flex
+      align-items: center
+      padding: 0 30px
+      font-size: 36px
+      background: rgba(68, 39, 76, 0.8)
+    &__link
+      text-transform: uppercase
+      a
+        color: #fff

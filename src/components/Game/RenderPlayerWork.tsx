@@ -78,160 +78,160 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
   return (
     <>
       <div className="gameWork bannerBack">
-
-        <div className="gameWorkContent">
-          <div className="gameWorkContent__blocks gameWorkContent__expenses">
-            <div className="gameWorkContent__blocksTitle">
-              Расходы
-            </div>
-            <div className="gameWorkContent__block">
-              <div className="gameWorkContent__blockTitle">
-                Налог
+          <div className="gameWorkContent">
+            <div className="container">
+            <div className="gameWorkContent__blocks gameWorkContent__expenses">
+              <div className="gameWorkContent__blocksTitle">
+                Расходы
               </div>
-              <div className="gameWorkContent__blockPrice">
-                ${tax}
+              <div className="gameWorkContent__block">
+                <div className="gameWorkContent__blockTitle">
+                  Налог
+                </div>
+                <div className="gameWorkContent__blockPrice">
+                  ${tax}
+                </div>
               </div>
-            </div>
-            {expenses.map((expense, index) => {
-              return (
-                <>
-                  {expense.remainPrice !== 0
-                    ? <div className="gameWorkContent__block">
+              {expenses.map((expense, index) => {
+                return (
+                  <>
+                    {expense.remainPrice !== 0
+                      ? <div className="gameWorkContent__block">
                         <div className="gameWorkContent__blockTitle">
                           {expense.title}
                         </div>
                         <div className="gameWorkContent__blockPrice">
-                           ${expense.startPrice * expense.payment / 100}
+                          ${expense.startPrice * expense.payment / 100}
                         </div>
                       </div>
-                    : ''
-                  }
-                </>
-              )
-            })}
-            <div className="gameWorkContent__block">
-              <div className="gameWorkContent__blockTitle">
-                Другое
-              </div>
-              <div className="gameWorkContent__blockPrice">
-                ${newsExpensesPrice}
-              </div>
-            </div>
-          </div>
-          <div className="gameWorkContent__blocks gameWorkContent__incomes">
-            <div className="gameWorkContent__blocksTitle">
-              Доходы
-            </div>
-            <div className="gameWorkContent__block">
-              <div className="gameWorkContent__blockTitle">
-                Зарплата
-              </div>
-              <div className="gameWorkContent__blockPrice">
-                ${profile.salary}
-              </div>
-            </div>
-            <div className="gameWorkContent__block">
-              <div className="gameWorkContent__blockTitle">
-                Акции
-              </div>
-              <div className="gameWorkContent__blockPrice">
-                ${dividendsSummary.toFixed(1)}
-              </div>
-            </div>
-            <div className="gameWorkContent__block">
-              <div className="gameWorkContent__blockTitle">
-                Недвижимость
-              </div>
-              <div className="gameWorkContent__blockPrice">
-                ${realtySummary}
-              </div>
-            </div>
-            <div className="gameWorkContent__block">
-              <div className="gameWorkContent__blockTitle">
-                Бизнес
-              </div>
-              <div className="gameWorkContent__blockPrice">
-                ${businessSummary}
-              </div>
-            </div>
-            <div className="gameWorkContent__block">
-              <div className="gameWorkContent__blockTitle">
-                Другое
-              </div>
-              <div className="gameWorkContent__blockPrice">
-                ${newsIncomesPrice}
-              </div>
-            </div>
-            <div className="gameWorkContent__block">
-              <div className="gameWorkContent__blockTitle" style={{fontWeight: 400, textTransform: 'uppercase'}}>
-                Доход
-              </div>
-              <div className="gameWorkContent__blockPrice">
-                <b>${income}</b>
-              </div>
-            </div>
-          </div>
-          <div className="gameWorkContent__blocks gameWorkContent__liabilities">
-            <div className="gameWorkContent__blocksTitle">
-              Обязательства
-            </div>
-            {profile.expenses.map(expense => {
-              return (
-                <>
-                  {expense.remainPrice
-                   ? <div className="gameWorkContent__block">
-                      <div className="gameWorkContent__blockTitle">
-                        {expense.title}
-                      </div>
-                      <div className="gameWorkContent__blockPrice">
-                        ${expense.remainPrice} <i>({expense.payment}%)</i>
-                      </div>
-                    </div>
-                  : ''}
-
-                </>
-              )
-            })}
-          </div>
-          <div className="gameWorkContent__blocks gameWorkContent__work">
-            <div className="gameWorkContent__blocksTitle">
-              Работа
-            </div>
-            <div className="gameWorkContent__block">
-              <div className="gameWorkContent__blockTitle">
-                Ваша работа
-              </div>
-              <div className="gameWorkContent__blockPrice">
-                {profile.work}
-              </div>
-            </div>
-            <div className="gameWorkContent__block">
-              <div className="gameWorkContent__blockTitle">
-                Прибавка к зарплате
-              </div>
-              <div className="gameWorkContent__blockPrice">
-                {workIncome}%
-              </div>
-            </div>
-            <div className="gameWorkContent__block">
-              <div className="gameWorkContent__blockTitle">
-                Вы проработали
-              </div>
-              <div className="gameWorkContent__blockPrice">
-                {daysWorked} дней
-              </div>
-            </div>
-            {workLevel < 3
-            ? <div className="gameWorkContent__block">
+                      : ''
+                    }
+                  </>
+                )
+              })}
+              <div className="gameWorkContent__block">
                 <div className="gameWorkContent__blockTitle">
-                  До повышения
+                  Другое
                 </div>
                 <div className="gameWorkContent__blockPrice">
-                  {daysToUp} дней
+                  ${newsExpensesPrice}
                 </div>
               </div>
-            : ''
-            }
+            </div>
+            <div className="gameWorkContent__blocks gameWorkContent__incomes">
+              <div className="gameWorkContent__blocksTitle">
+                Доходы
+              </div>
+              <div className="gameWorkContent__block">
+                <div className="gameWorkContent__blockTitle">
+                  Зарплата
+                </div>
+                <div className="gameWorkContent__blockPrice">
+                  ${profile.salary}
+                </div>
+              </div>
+              <div className="gameWorkContent__block">
+                <div className="gameWorkContent__blockTitle">
+                  Акции
+                </div>
+                <div className="gameWorkContent__blockPrice">
+                  ${dividendsSummary.toFixed(1)}
+                </div>
+              </div>
+              <div className="gameWorkContent__block">
+                <div className="gameWorkContent__blockTitle">
+                  Недвижимость
+                </div>
+                <div className="gameWorkContent__blockPrice">
+                  ${realtySummary}
+                </div>
+              </div>
+              <div className="gameWorkContent__block">
+                <div className="gameWorkContent__blockTitle">
+                  Бизнес
+                </div>
+                <div className="gameWorkContent__blockPrice">
+                  ${businessSummary}
+                </div>
+              </div>
+              <div className="gameWorkContent__block">
+                <div className="gameWorkContent__blockTitle">
+                  Другое
+                </div>
+                <div className="gameWorkContent__blockPrice">
+                  ${newsIncomesPrice}
+                </div>
+              </div>
+              <div className="gameWorkContent__block">
+                <div className="gameWorkContent__blockTitle" style={{fontWeight: 400, textTransform: 'uppercase'}}>
+                  Доход
+                </div>
+                <div className="gameWorkContent__blockPrice">
+                  <b>${income}</b>
+                </div>
+              </div>
+            </div>
+            <div className="gameWorkContent__blocks gameWorkContent__liabilities">
+              <div className="gameWorkContent__blocksTitle">
+                Обязательства
+              </div>
+              {profile.expenses.map(expense => {
+                return (
+                  <>
+                    {expense.remainPrice
+                      ? <div className="gameWorkContent__block">
+                        <div className="gameWorkContent__blockTitle">
+                          {expense.title}
+                        </div>
+                        <div className="gameWorkContent__blockPrice">
+                          ${expense.remainPrice} <i>({expense.payment}%)</i>
+                        </div>
+                      </div>
+                      : ''}
+                  </>
+                )
+              })}
+            </div>
+            <div className="gameWorkContent__blocks gameWorkContent__work">
+              <div className="gameWorkContent__blocksTitle">
+                Работа
+              </div>
+              <div className="gameWorkContent__block">
+                <div className="gameWorkContent__blockTitle">
+                  Ваша работа
+                </div>
+                <div className="gameWorkContent__blockPrice">
+                  {profile.work}
+                </div>
+              </div>
+              <div className="gameWorkContent__block">
+                <div className="gameWorkContent__blockTitle">
+                  Прибавка к зарплате
+                </div>
+                <div className="gameWorkContent__blockPrice">
+                  {workIncome}%
+                </div>
+              </div>
+              <div className="gameWorkContent__block">
+                <div className="gameWorkContent__blockTitle">
+                  Вы проработали
+                </div>
+                <div className="gameWorkContent__blockPrice">
+                  {daysWorked} дней
+                </div>
+              </div>
+              {workLevel < 3
+                ? <div className="gameWorkContent__block">
+                  <div className="gameWorkContent__blockTitle">
+                    До повышения
+                  </div>
+                  <div className="gameWorkContent__blockPrice">
+                    {daysToUp} дней
+                  </div>
+                </div>
+                : ''
+              }
+            </div>
           </div>
         </div>
       </div>

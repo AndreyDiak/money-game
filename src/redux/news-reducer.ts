@@ -268,7 +268,7 @@ export const newsReducer = (state = initialState, action: NewsActionsType): Init
 
       let newsTypeCopy = [...state.newsTypes]
       // @ts-ignore
-      newsTypeCopy[1].variants[1].events[1].titles.splice(1, 1)
+      newsTypeCopy[1].variants[1].events[1].titles.splice(0, 1)
       return {
         ...state,
         newsTypes: newsTypeCopy

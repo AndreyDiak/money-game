@@ -55,43 +55,43 @@ export const RenderPlayerProfile: FC<RenderPlayerProfileType> = (props) => {
 
   return (
     <>
-      <div className="gameProfileStats">
-        <div className="gameProfileStats__Avatar">
-          <div className="gameProfileStats__AvatarImg">
-            <div className="gameProfileStats__AvatarImgPhoto">
-              <Progress
-                width={58}
-                strokeWidth={7}
-                type="circle"
-                percent={20}
-                strokeColor={'rgb(16, 153, 209'}
-                trailColor={'#282c34'}
-                format={() => <Avatar src={profile.avatar} size={50}/> }
-              />
-              <div className="gameProfileStats__AvatarImgLevel" onClick={info} onMouseOver={() => console.log('Сделать всплавашку про уровень')}>
-                <b>{level}</b>
-              </div>
-            </div>
-            <div className="gameProfileStats__AvatarImg__Name">
-              {profile.name}
-            </div>
-          </div>
-        </div>
-        <div className="gameProfileStats__Menu">
-          <button className="gameProfileStats__MenuItem" style={time === 0 ? {color: '#fff'} : {}} onClick={() => onChangeTime(0)} disabled={props.isEndOfGame}>
-            <PauseOutlined />
-          </button>
-          <button className="gameProfileStats__MenuItem" style={time === timeSpeed ? {color: '#fff'} : {}} onClick={() => onChangeTime(timeSpeed)} disabled={props.isEndOfGame}>
-            <RightOutlined />
-          </button>
-          <button className="gameProfileStats__MenuItem" style={time === timeSpeed / 2 ? {color: '#fff'} : {}} onClick={() => onChangeTime(timeSpeed / 2)} disabled={props.isEndOfGame}>
-            <DoubleRightOutlined />
-          </button>
-        </div>
-        <div className="gameProfileStats__Wallet">
-          <b className='gold'>{props.wallet}</b>
-        </div>
-      </div>
+      {/*<div className="gameProfileStats">*/}
+      {/*  <div className="gameProfileStats__Avatar">*/}
+      {/*    <div className="gameProfileStats__AvatarImg">*/}
+      {/*      <div className="gameProfileStats__AvatarImgPhoto">*/}
+      {/*        <Progress*/}
+      {/*          width={58}*/}
+      {/*          strokeWidth={7}*/}
+      {/*          type="circle"*/}
+      {/*          percent={20}*/}
+      {/*          strokeColor={'rgb(16, 153, 209'}*/}
+      {/*          trailColor={'#282c34'}*/}
+      {/*          format={() => <Avatar src={profile.avatar} size={50}/> }*/}
+      {/*        />*/}
+      {/*        <div className="gameProfileStats__AvatarImgLevel" onClick={info} onMouseOver={() => console.log('Сделать всплавашку про уровень')}>*/}
+      {/*          <b>{level}</b>*/}
+      {/*        </div>*/}
+      {/*      </div>*/}
+      {/*      <div className="gameProfileStats__AvatarImg__Name">*/}
+      {/*        {profile.name}*/}
+      {/*      </div>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*  <div className="gameProfileStats__Menu">*/}
+      {/*    <button className="gameProfileStats__MenuItem" style={time === 0 ? {color: '#fff'} : {}} onClick={() => onChangeTime(0)} disabled={props.isEndOfGame}>*/}
+      {/*      <PauseOutlined />*/}
+      {/*    </button>*/}
+      {/*    <button className="gameProfileStats__MenuItem" style={time === timeSpeed ? {color: '#fff'} : {}} onClick={() => onChangeTime(timeSpeed)} disabled={props.isEndOfGame}>*/}
+      {/*      <RightOutlined />*/}
+      {/*    </button>*/}
+      {/*    <button className="gameProfileStats__MenuItem" style={time === timeSpeed / 2 ? {color: '#fff'} : {}} onClick={() => onChangeTime(timeSpeed / 2)} disabled={props.isEndOfGame}>*/}
+      {/*      <DoubleRightOutlined />*/}
+      {/*    </button>*/}
+      {/*  </div>*/}
+      {/*  <div className="gameProfileStats__Wallet">*/}
+      {/*    <b className='gold'>{props.wallet}</b>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
       <div className={'gameProfileContent bannerBack ' + styleName}>
         <div className="gameProfileContent__Work">
           <div className="gameProfileContent__WorkStats">

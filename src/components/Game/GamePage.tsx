@@ -10,7 +10,6 @@ import {getDaySelector, getLoseBalance, getVictoryBalance, getWalletSelector} fr
 import {getTimeSpeedSelector} from "../../redux/settings-selector";
 import {AppStateType} from "../../redux/store";
 import {RenderPlayerWork} from "./RenderPlayerWork";
-import {RenderPlayerStocks} from "./RenderPlayerStocks";
 import {RenderPlayerNews} from "./RenderPlayerNews";
 import {stocksActions, stockType} from "../../redux/stocks-reducer";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
@@ -18,10 +17,14 @@ import {newsActions} from "../../redux/news-reducer";
 import {getBusinessesSelector, getMyBusinessesSelector} from "../../redux/business-selector";
 import {businessActions} from "../../redux/business-reducer";
 import {settingsActions} from "../../redux/settings-reducer";
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect, Route, Switch} from "react-router-dom";
 import {getPersonSelector} from "../../redux/profile-selector";
 import {RenderPlayerBank} from "./RenderPlayerBank";
 import {RenderPlayerMarket} from "./RenderPlayerMarket";
+import {Navbar} from "../Navbar";
+import {RenderPlayerStocks} from "./RenderPlayerStocks";
+import {RealtyPage} from "./RealtyPage";
+import {BusinessPage} from "./BusinessPage";
 
 const { TabPane } = Tabs
 
@@ -51,6 +54,8 @@ export const GamePage: FC = () => {
   const myStocks = useSelector(getMyStocksSelector)
   // массив ваших бизнессов . . .
   const myBusinesses = useSelector(getMyBusinessesSelector)
+  //
+  const myRealty = useSelector((state: AppStateType) => state.realtyPage.myRealty)
   // будущий массив с предложением по бизнессу . . .
   const businesses = useSelector(getBusinessesSelector)
   // количество новостей . . .
@@ -147,72 +152,35 @@ export const GamePage: FC = () => {
 
   return (
     <>
-      {profile
-        ?
-          <div>
-            <Modal title="Конец?" onCancel={() => setShowExitModal(false)}  visible={showExitModal} footer={[
-              <>
-                <NavLink to='/'>
-                  <Button type='primary' onClick={() => dispatch(actions.initGame())}>
-                    Выйти в меню
-                  </Button>
-                </NavLink>
-              </>
-            ]}>
-              <p>Это окно появляется при окончании игры!</p>
-            </Modal>
-            {isStockToSell ? <SellPopup stock={myStocks[myActiveStock]} setIsStockToSell={setIsStockToSell} activeStock={myActiveStock}/> : ''}
-            {isHistoryShown ? <RenderChart setIsHistoryShown={setIsHistoryShown} stock={activeStock as stockType} /> : ''}
-            <div className="game">
-              <div className='gameProfile'>
-                <RenderPlayerProfile wallet={wallet} isEndOfGame={isEndOfGame}/>
-              </div>
-              <div className="gameActions">
-                <Tabs defaultActiveKey="2">
-                  <TabPane tab={
-                    <Badge count={news.length} overflowCount={10}>Новости</Badge>
-                  } key="1">
-                    <RenderPlayerNews
-                      setIsHistoryShown={setIsHistoryShown}
-                      setMyActiveStock={setMyActiveStock}
-                      setActiveStock={setActiveStock}
-                      setIsStockToSell={setIsStockToSell}
-                    />
-                  </TabPane>
-                  <TabPane tab="Профиль" key="2" active>
-                    <RenderPlayerWork setIsChangeWorkShown={setIsChangeWorkShown}/>
-                  </TabPane>
-                  <TabPane tab="Покупки" key="3">
-                    <RenderPlayerSpends/>
-                  </TabPane>
-                  {/*wallet <= 500 && myStocks.length === 0 || isEndOfGame*/}
-                  <TabPane tab={
-                    <>
-                      {income > 250
-                       ? <span>Рынок</span>
-                       : <Popover trigger="hover" title='Внимание' content={stocksContent}>
-                          Рынок
-                        </Popover>
-                      }
-                    </>
-                  } key="4" disabled={income < 250} >
-                    <RenderPlayerMarket
-                      setIsHistoryShown={setIsHistoryShown}
-                      setMyActiveStock={setMyActiveStock}
-                      setActiveStock={setActiveStock}
-                      setIsStockToSell={setIsStockToSell}
-                    />
-                  </TabPane >
-                  {/*wallet <= 3000 && myBusinesses.length === 0 || isEndOfGame*/}
-                  <TabPane tab="Банк" key="5" disabled={false}>
-                    <RenderPlayerBank />
-                  </TabPane>
-                </Tabs>
-              </div>
-            </div>
-          </div>
-        : <Spin style={{position: 'absolute', top: 'calc(50% - 13px)', left: 'calc(50% - 10px)'}}/>
-      }
+      <Navbar isEndOfGame={isEndOfGame}/>
+      <div style={{height: 'calc(100vh - 78px)'}}>
+        <Switch>
+          <Route path='/game/news' render={() =>
+            <RenderPlayerNews
+              setIsHistoryShown={setIsHistoryShown}
+              setMyActiveStock={setMyActiveStock}
+              setActiveStock={setActiveStock}
+              setIsStockToSell={setIsStockToSell}
+            />
+          }/>
+          <Route path='/game/spends' render={() =>
+            <RenderPlayerSpends/>
+          }/>
+          <Route path='/game/profile' render={() =>
+            <RenderPlayerWork setIsChangeWorkShown={setIsChangeWorkShown}/>
+          }/>
+          <Route path='/game/market' render={() =>
+            <RenderPlayerMarket
+              setIsHistoryShown={setIsHistoryShown}
+              setMyActiveStock={setMyActiveStock}
+              setActiveStock={setActiveStock}
+              setIsStockToSell={setIsStockToSell}
+            />}/>
+          <Route path='/game/bank' render={() => <RenderPlayerBank />}/>
+          {/*<Redirect exact from='/game/market' to='/game/stocks />*/}
+          <Redirect exact from='/game' to='/game/profile' />
+        </Switch>
+      </div>
     </>
   )
 }

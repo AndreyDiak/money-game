@@ -313,6 +313,63 @@
   cursor: pointer;
 }
 
+.navWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #673c74;
+  font-family: "Fira Mono", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+.navItem {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 33%;
+  align-items: center;
+  column-gap: 25px;
+}
+.navItem:last-child {
+  justify-content: space-between;
+  height: 78px;
+}
+.navItem:first-child {
+  justify-content: flex-start;
+}
+.navItemProfile {
+  padding: 10px;
+  display: flex;
+  column-gap: 30px;
+  align-items: center;
+  font-weight: 900;
+}
+.navItemMenu {
+  margin-left: 250px;
+  display: flex;
+  column-gap: 25px;
+}
+.navItemMenu__block {
+  border: none;
+  background: transparent;
+  color: #212121;
+}
+.navItemBalance {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  font-size: 36px;
+  background: rgba(68, 39, 76, 0.8);
+}
+.navItem__link {
+  text-transform: uppercase;
+}
+.navItem__link a {
+  color: #fff;
+}
+
 .game {
   display: grid;
   grid-template-areas: "profile actions";
@@ -334,11 +391,10 @@
   justify-content: center;
   position: relative;
   width: 100%;
+  height: inherit;
   flex-direction: column;
   background: url("../img/banner-market.jpg") center no-repeat;
   background-size: cover;
-  height: calc(100vh - 110px);
-  grid-area: profit;
   color: #fff;
   z-index: 0;
 }
@@ -346,7 +402,6 @@
   background: rgba(0, 0, 0, 0.6) !important;
 }
 .gameProfitHeader {
-  margin-bottom: 50px;
   display: flex;
   text-transform: lowercase;
   z-index: 2;
@@ -355,16 +410,17 @@
   font-size: 20px;
   font-family: "Fira Mono", sans-serif;
   font-weight: 500;
-  color: #999999;
+  color: #eeeeee;
 }
 .gameProfitStocks {
-  padding-top: 5%;
-  padding-bottom: 5%;
-  display: grid;
+  padding: 30px;
   height: 100%;
-  grid-template-columns: 1fr 1fr;
   z-index: 2;
   background: rgba(255, 255, 255, 0.1);
+}
+.gameProfitStocks .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 .gameProfitStocks__Me {
   padding: 15px;
@@ -549,6 +605,9 @@
 .gameProfileContent {
   position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: calc(100% - 171px);
   background-size: cover;
   font-size: 30px;
@@ -616,20 +675,22 @@
 
 .gameWork {
   width: 100%;
+  height: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: calc(100vh - 55px);
   background: url("../img/banner-work.jpg") no-repeat;
   background-size: cover;
-  z-index: 0;
   font-family: "Fira Mono", sans-serif;
 }
 .gameWorkContent {
   padding: 30px;
+  height: inherit;
   background: rgba(244, 212, 189, 0.6);
   z-index: 10;
+}
+.gameWorkContent .container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -1190,6 +1251,12 @@ input:checked, input:active, input:focus {
   z-index: 100;
 }
 
+.container {
+  width: 70%;
+  margin: 0 auto;
+  z-index: 100;
+}
+
 .buttonNav {
   font-size: 35px;
   background: transparent;
@@ -1210,15 +1277,6 @@ input:checked, input:active, input:focus {
 .gold {
   position: relative;
   color: goldenrod;
-}
-.gold::after {
-  content: "";
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  top: 2px;
-  background: url("./../img/gold.png") center no-repeat;
-  background-size: cover;
 }
 
 .chartPopup, .sellPopup {
