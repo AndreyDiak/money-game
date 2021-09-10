@@ -329,7 +329,7 @@
   height: 100%;
   width: 33%;
   align-items: center;
-  column-gap: 25px;
+  column-gap: 15px;
 }
 .navItem:last-child {
   justify-content: space-between;
@@ -346,7 +346,7 @@
   font-weight: 900;
 }
 .navItemMenu {
-  margin-left: 250px;
+  margin-left: 50px;
   display: flex;
   column-gap: 25px;
 }
@@ -364,10 +364,15 @@
   background: rgba(68, 39, 76, 0.8);
 }
 .navItem__link {
+  font-size: 18px;
+  width: 75px;
   text-transform: uppercase;
 }
 .navItem__link a {
   color: #fff;
+}
+.navItem__link a:hover {
+  color: #29b6f6;
 }
 
 .game {

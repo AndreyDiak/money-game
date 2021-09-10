@@ -1,4 +1,4 @@
-import {Popover, Tabs} from "antd"
+import {Tabs} from "antd"
 import {RenderPlayerStocks} from "./RenderPlayerStocks";
 import React, {FC} from "react";
 import {RealtyPage} from "./RealtyPage";
@@ -48,51 +48,8 @@ export const RenderPlayerMarket: FC<MarketType> = (props) => {
         }/>
         <Route path='/game/market/realty' render={() => <RealtyPage />}/>
         <Route path='/game/market/business' render={() => <BusinessPage />}/>
-
         <Redirect to='/game/market/stocks'/>
       </Switch>
-
-      {/*<div className="gameMarket bannerBack">*/}
-      {/*  <div className="container">*/}
-
-      {/*    <div className="gameMarketContent">*/}
-      {/*      <Tabs className='gameMarketContent__Menu' defaultActiveKey={'1'}>*/}
-      {/*        <TabPane key={'1'} tab={'Рынок акций'}>*/}
-      {/*          <RenderPlayerStocks*/}
-      {/*            setIsHistoryShown={props.setIsHistoryShown}*/}
-      {/*            setMyActiveStock={props.setMyActiveStock}*/}
-      {/*            setActiveStock={props.setActiveStock}*/}
-      {/*            setIsStockToSell={props.setIsStockToSell}*/}
-      {/*          />*/}
-      {/*        </TabPane>*/}
-      {/*        <TabPane key={'2'} tab={*/}
-      {/*          <>*/}
-      {/*            {income >= 1000*/}
-      {/*              ? <span>Рынок недвижимости</span>*/}
-      {/*              : <Popover trigger="hover" title='Внимание' content={realtyContent}>*/}
-      {/*                Рынок недвижимости*/}
-      {/*              </Popover>*/}
-      {/*            }*/}
-      {/*          </>*/}
-      {/*        } disabled={income < 1000}>*/}
-      {/*          <RealtyPage />*/}
-      {/*        </TabPane>*/}
-      {/*        <TabPane key={'3'} tab={*/}
-      {/*          <>*/}
-      {/*            {income >= 2500*/}
-      {/*              ? <span>Бизнес</span>*/}
-      {/*              : <Popover trigger="hover" title='Внимание' content={businessContent}>*/}
-      {/*                Бизнес*/}
-      {/*              </Popover>}*/}
-      {/*          </>*/}
-      {/*        } disabled={income < 2500}>*/}
-      {/*          <BusinessPage />*/}
-      {/*        </TabPane>*/}
-      {/*      </Tabs>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-
-      {/*</div>*/}
     </>
   )
 }

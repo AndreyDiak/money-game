@@ -6,6 +6,7 @@ import {Button, Tabs} from "antd";
 import {newsActions} from "../../redux/news-reducer";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {settingsActions} from "../../redux/settings-reducer";
+import {Route, Switch} from "react-router-dom";
 
 const { TabPane } = Tabs
 
@@ -19,8 +20,25 @@ export const RenderPlayerNews:FC<{setIsHistoryShown: any, setActiveStock: any, s
       <div className="gameNews">
         <div className="gameNewsContent">
           <div className="container">
-            <Tabs defaultActiveKey="1" centered className='gameNewsContent__Tabs'>
-              <TabPane tab="Новости" key="1">
+            <Switch>
+              <Route path='/game/archive' render={() =>
+                <div className="gameNewsBlocks gameNewsBlocks__reverse">
+                  {archive.map((newsBlock, index) =>
+                    <RenderNewsBlock
+                      key={index}
+                      title={newsBlock.title}
+                      company={newsBlock.company}
+                      amount={newsBlock.amount}
+                      index={index}
+                      isArchive={true}
+                      month={newsBlock.month}
+                      dayInMonth={newsBlock.dayInMonth}
+                    />
+                  )}
+                </div>
+              }
+              />
+              <Route path='/game/news' render={() =>
                 <div className="gameNewsBlocks">
                   {news.map((newsBlock, index) =>
                     <RenderNewsBlock
@@ -40,25 +58,36 @@ export const RenderPlayerNews:FC<{setIsHistoryShown: any, setActiveStock: any, s
                       setIsStockToSell={props.setIsStockToSell}
                     />
                   )}
-                </div>
-              </TabPane>
-              <TabPane tab="Архив" key="2">
-                <div className="gameNewsBlocks gameNewsBlocks__reverse">
-                  {archive.map((newsBlock, index) =>
-                    <RenderNewsBlock
-                      key={index}
-                      title={newsBlock.title}
-                      company={newsBlock.company}
-                      amount={newsBlock.amount}
-                      index={index}
-                      isArchive={true}
-                      month={newsBlock.month}
-                      dayInMonth={newsBlock.dayInMonth}
-                    />
-                  )}
-                </div>
-              </TabPane>
-            </Tabs>
+                </div>}
+              />
+            </Switch>
+            {/*<Tabs defaultActiveKey="1" centered className='gameNewsContent__Tabs'>*/}
+            {/*  <TabPane tab="Новости" key="1">*/}
+            {/*    <div className="gameNewsBlocks">*/}
+            {/*      {news.map((newsBlock, index) =>*/}
+            {/*        <RenderNewsBlock*/}
+            {/*          key={index}*/}
+            {/*          title={newsBlock.title}*/}
+            {/*          company={newsBlock.company}*/}
+            {/*          amount={newsBlock.amount}*/}
+            {/*          index={index}*/}
+            {/*          isArchive={false}*/}
+            {/*          month={newsBlock.month}*/}
+            {/*          dayInMonth={newsBlock.dayInMonth}*/}
+            {/*          type={newsBlock.type}*/}
+            {/*          condition={newsBlock.condition}*/}
+            {/*          setIsHistoryShown={props.setIsHistoryShown}*/}
+            {/*          setActiveStock={props.setActiveStock}*/}
+            {/*          setMyActiveStock={props.setMyActiveStock}*/}
+            {/*          setIsStockToSell={props.setIsStockToSell}*/}
+            {/*        />*/}
+            {/*      )}*/}
+            {/*    </div>*/}
+            {/*  </TabPane>*/}
+            {/*  <TabPane tab="Архив" key="2">*/}
+
+            {/*  </TabPane>*/}
+            {/*</Tabs>*/}
           </div>
         </div>
       </div>

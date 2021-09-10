@@ -26,7 +26,7 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
     dispatch(settingsActions.setTimeSpeed(time))
   }
 
-  const menu = (
+  const market = (
     <Menu>
       <Menu.Item>
         <NavLink to='/game/market/stocks'>
@@ -44,7 +44,21 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
         </NavLink>
       </Menu.Item>
     </Menu>
-  );
+  )
+  const news = (
+    <Menu>
+      <Menu.Item>
+        <NavLink to='/game/news'>
+          Новости
+        </NavLink>
+      </Menu.Item>
+      <Menu.Item>
+        <NavLink to='/game/archive'>
+          Архив
+        </NavLink>
+      </Menu.Item>
+    </Menu>
+  )
 
   return (
     <>
@@ -61,39 +75,7 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
               format={() => <Avatar src={profile.avatar} size={50}/> }
             />
             {profile.name}
-            <RenderTime wallet={wallet}/>
           </div>
-        </div>
-        <div className="navItem">
-          <div className="navItem__link">
-            <NavLink to='/game/news'>
-              Новости
-            </NavLink>
-          </div>
-          <div className="navItem__link">
-            <NavLink to='/game/spends'>
-              Траты
-            </NavLink>
-          </div>
-          <div className="navItem__link">
-            <NavLink to='/game/profile'>
-              Профиль
-            </NavLink>
-          </div>
-          <div className="navItem__link">
-            <Dropdown overlay={menu}>
-              <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                Рынок
-              </a>
-            </Dropdown>
-          </div>
-          <div className="navItem__link">
-            <NavLink to='/game/bank'>
-              Банк
-            </NavLink>
-          </div>
-        </div>
-        <div className="navItem">
           <div className="navItemMenu">
             <button
               className="navItemMenu__block"
@@ -117,6 +99,50 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
               <DoubleRightOutlined />
             </button>
           </div>
+        </div>
+        <div className="navItem">
+          <div className="navItem__link" >
+            <Dropdown overlay={news}>
+              <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                Почта
+              </a>
+            </Dropdown>
+          </div>
+          <div className="navItem__link">
+            <NavLink to='/game/spends' activeStyle={{color: '#29b6f6'}}>
+              Всячина
+            </NavLink>
+          </div>
+          <div className="navItem__link">
+            <NavLink to='/game/spends' activeStyle={{color: '#29b6f6'}}>
+              Расходы
+            </NavLink>
+          </div>
+          <div className="navItem__link">
+            <NavLink to='/game/profile' activeStyle={{color: '#29b6f6'}}>
+              Профиль
+            </NavLink>
+          </div>
+          <div className="navItem__link">
+            <NavLink to='/game/spends' activeStyle={{color: '#29b6f6'}}>
+              Доходы
+            </NavLink>
+          </div>
+          <div className="navItem__link">
+            <Dropdown overlay={market}>
+              <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                Рынок
+              </a>
+            </Dropdown>
+          </div>
+          <div className="navItem__link">
+            <NavLink to='/game/bank' activeStyle={{color: '#29b6f6'}}>
+              Банк
+            </NavLink>
+          </div>
+        </div>
+        <div className="navItem">
+          <RenderTime wallet={wallet}/>
           <div className="navItemBalance">
             <span className="gold">
               ${wallet}
