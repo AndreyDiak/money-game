@@ -1,4 +1,4 @@
-import {Avatar, Dropdown, Menu, Progress} from 'antd'
+import {Avatar, Button, Dropdown, Menu, Popover, Progress} from 'antd'
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getPersonSelector} from "../redux/profile-selector";
@@ -9,6 +9,8 @@ import {DoubleRightOutlined, PauseOutlined, RightOutlined} from "@ant-design/ico
 import {getConstTimeSpeedSelector, getTimeSpeedSelector} from "../redux/settings-selector";
 import {getWalletSelector} from "../redux/game-selector";
 import {RenderTime} from "./Game/RenderTime";
+import {AppStateType} from "../redux/store";
+import {getStocksSelector} from "../redux/stocks-selector";
 const { SubMenu } = Menu
 
 export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
@@ -22,41 +24,47 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
   //
   const wallet = useSelector(getWalletSelector)
+  //
+  const income = useSelector((state: AppStateType) => state.profilePage.income)
+  //
+  const stocks = useSelector(getStocksSelector)
+  //
   const onChangeTime = (time: number) => {
     dispatch(settingsActions.setTimeSpeed(time))
   }
 
   const market = (
-    <Menu>
-      <Menu.Item>
-        <NavLink to='/game/market/stocks'>
-          Акции
-        </NavLink>
-      </Menu.Item>
-      <Menu.Item>
-        <NavLink to='/game/market/realty'>
-          Недвижимость
-        </NavLink>
-      </Menu.Item>
-      <Menu.Item>
-        <NavLink to='/game/market/business'>
-          Бизнес
-        </NavLink>
-      </Menu.Item>
-    </Menu>
-  )
-  const news = (
-    <Menu>
-      <Menu.Item>
-        <NavLink to='/game/news'>
-          Новости
-        </NavLink>
-      </Menu.Item>
-      <Menu.Item>
-        <NavLink to='/game/archive'>
-          Архив
-        </NavLink>
-      </Menu.Item>
+    <Menu style={{padding: '10px'}}>
+      {income < 250 && stocks.length === 0
+        ? <p>
+            Доход более $250 / мес
+          </p>
+        : <Menu.Item>
+            <NavLink to='/game/market/stocks'>
+              <Button>Акции</Button>
+            </NavLink>
+          </Menu.Item>
+      }
+      {income < 1000
+        ? <p>
+          Доход более <b>$1000</b> / мес
+        </p>
+        : <Menu.Item>
+          <NavLink to='/game/market/realty'>
+            <Button>Недвижимость</Button>
+          </NavLink>
+        </Menu.Item>
+      }
+      {income < 1000
+        ? <p>
+          Доход более <b>$3000</b> / мес
+        </p>
+        : <Menu.Item>
+          <NavLink to='/game/market/business'>
+            <Button>Бизнес</Button>
+          </NavLink>
+        </Menu.Item>
+      }
     </Menu>
   )
 
@@ -102,15 +110,8 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
         </div>
         <div className="navItem">
           <div className="navItem__link" >
-            <Dropdown overlay={news}>
-              <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                Почта
-              </a>
-            </Dropdown>
-          </div>
-          <div className="navItem__link">
-            <NavLink to='/game/spends' activeStyle={{color: '#29b6f6'}}>
-              Всячина
+            <NavLink to='/game/news' activeStyle={{color: '#29b6f6'}}>
+              Новости
             </NavLink>
           </div>
           <div className="navItem__link">
@@ -121,11 +122,6 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
           <div className="navItem__link">
             <NavLink to='/game/profile' activeStyle={{color: '#29b6f6'}}>
               Профиль
-            </NavLink>
-          </div>
-          <div className="navItem__link">
-            <NavLink to='/game/spends' activeStyle={{color: '#29b6f6'}}>
-              Доходы
             </NavLink>
           </div>
           <div className="navItem__link">

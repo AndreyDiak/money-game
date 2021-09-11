@@ -1,4 +1,3 @@
-import {RenderMyStock, RenderStock} from "./RenderStock";
 import React, {FC, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
@@ -6,6 +5,7 @@ import {Button, Input, Popover, Radio, Select, Space} from "antd";
 import {AppStateType} from "../../redux/store";
 import {filterType, stocksActions} from "../../redux/stocks-reducer";
 import {ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined} from "@ant-design/icons";
+import { RenderMyStock, StockCard } from "./StockCard";
 
 const {Option} = Select
 
@@ -16,7 +16,7 @@ export type RenderPlayerStocksType = {
   setIsStockToSell: any
 }
 
-export const RenderPlayerStocks: FC<RenderPlayerStocksType> = (props) => {
+export const StocksPage: FC<RenderPlayerStocksType> = (props) => {
   const dispatch = useDispatch()
   const myStocks = useSelector(getMyStocksSelector)
   const stocks = useSelector(getStocksSelector)
@@ -90,7 +90,7 @@ export const RenderPlayerStocks: FC<RenderPlayerStocksType> = (props) => {
                 </div>
                 <div className="gameProfitStocks__OfferBlocks__stocks">
                   {filteredStocks.map((stock, index) =>
-                    <RenderStock
+                    <StockCard
                       stock={stock}
                       index={index}
                       setIsHistoryShown={props.setIsHistoryShown}

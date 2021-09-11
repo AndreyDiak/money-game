@@ -4,36 +4,24 @@
     position: relative
     align-items: center
     justify-content: center
-    height: calc(100vh - 55px)
+    height: inherit
     width: 100%
     background: url('../img/banner-spends.jpg') center no-repeat
     background-size: cover
     z-index: 0
     font-family: 'Fira Mono', sans-serif
-    // кнопка для открытия истории
-    &Button
-      position: absolute
-      left: 50%
-      bottom: 100px
-      transform: translateX(-50%)
-      z-index: 10
-      font-size: 24px
-      height: auto
-
-    &Block
+    &Content
       padding: 20px
-      background: rgba(234, 210, 172, 1)
-      width: 500px
-      min-height: 400px
+      width: 100%
+      height: inherit
       z-index: 10
-      &__Main
+      background: rgba(244, 212, 189, 0.6)
+      .container
         display: flex
+        flex-wrap: wrap
+        column-gap: 30px
+        row-gap: 30px
         justify-content: center
-        align-items: center
-        width: 100%
-        height: inherit
-        background: rgba(244, 212, 189, 0.6)
-        z-index: 10
       &__Title
         padding: 7px 15px
         font-size: 28px

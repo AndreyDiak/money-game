@@ -20,7 +20,7 @@ export type RenderMyStockType = {
   setIsStockToSell: SetStateAction<any>
 }
 
-export const RenderStock: FC<RenderStockType> = (props) => {
+export const StockCard: FC<RenderStockType> = (props) => {
 
   const dispatch = useDispatch()
 

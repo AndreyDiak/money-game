@@ -132,7 +132,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
     // если мы выплатили целиком какой либо долг, то у нас растет ЗП
     dispatch(updateIncome())
 
-    // если наш доход перевалил за $1000 или $2500 в месяц, то мы увеличиваем траты
+    // если наш доход перевалил за $1000 или $4500 в месяц, то мы увеличиваем траты
     if ((income >= 1000 && spendsLevel === 1) || (income >= 4500 && spendsLevel === 2)) {
       dispatch(spendsActions.setSpendsLevel())
       dispatch(spendsActions.setEventsPrice())

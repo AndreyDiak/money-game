@@ -1,32 +1,26 @@
 import React, {FC, useEffect, useState} from "react";
-import {RenderPlayerSpends} from "./RenderPlayerSpends";
-import {RenderChart} from "./RenderChart";
-import {RenderPlayerProfile} from "./RenderPlayerProfile";
-import {Badge, Button, Modal, notification, Popover, Spin, Tabs} from "antd";
-import {SellPopup} from "./SellPopup";
+import {notification, Spin} from "antd";
 import {useDispatch, useSelector} from "react-redux"
 import {actions} from "../../redux/game-reducer";
 import {getDaySelector, getLoseBalance, getVictoryBalance, getWalletSelector} from "../../redux/game-selector";
 import {getTimeSpeedSelector} from "../../redux/settings-selector";
 import {AppStateType} from "../../redux/store";
 import {RenderPlayerWork} from "./RenderPlayerWork";
-import {RenderPlayerNews} from "./RenderPlayerNews";
 import {stocksActions, stockType} from "../../redux/stocks-reducer";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {newsActions} from "../../redux/news-reducer";
 import {getBusinessesSelector, getMyBusinessesSelector} from "../../redux/business-selector";
 import {businessActions} from "../../redux/business-reducer";
 import {settingsActions} from "../../redux/settings-reducer";
-import {NavLink, Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {getPersonSelector} from "../../redux/profile-selector";
-import {RenderPlayerBank} from "./RenderPlayerBank";
-import {RenderPlayerMarket} from "./RenderPlayerMarket";
 import {Navbar} from "../Navbar";
-import {RenderPlayerStocks} from "./RenderPlayerStocks";
-import {RealtyPage} from "./RealtyPage";
-import {BusinessPage} from "./BusinessPage";
-
-const { TabPane } = Tabs
+import { SpendsPage } from "./SpendsPage";
+import { NewsPage } from "./NewsPage";
+import { BankPage } from "./BankPage";
+import { MarketPage } from "./MarketPage";
+import {NavLink} from "react-router-dom";
+import {Popups} from "../Popups";
 
 export const GamePage: FC = () => {
 
@@ -126,8 +120,6 @@ export const GamePage: FC = () => {
       }
     // создаём бизнесс
     if (income >= 1000 && businesses.length === 0) {
-      // новости про недвижимость
-      // dispatch(newsActions.setAbleToShow('businessNews'))
       openNotification('Вам стала доступна покупка недвижимости')
     }
     if (income >= 4500 && businesses.length === 0) {
@@ -142,21 +134,36 @@ export const GamePage: FC = () => {
     });
   }
 
-  const stocksContent = (
-    <div>
-      <p>
-        Сначала начните зарабатывать <b>$250 / мес.</b>
-      </p>
-    </div>
-  )
+  if (!profile) {
+    return (
+      <>
+        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center'}}>
+          <Spin size={'large'}/> <br/>
+          <NavLink to={'/'}>
+            Выйдите в меню и перезгрузите страницу
+          </NavLink>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
       <Navbar isEndOfGame={isEndOfGame}/>
+      <Popups
+        myStock={myStocks[myActiveStock]}
+        setIsStockToSell={setIsStockToSell}
+        activeStock={myActiveStock}
+        setIsHistoryShown={setIsHistoryShown}
+        stock={activeStock as stockType}
+        isHistoryShown={isHistoryShown}
+        isStockToSell={isStockToSell}
+        showExitModal={showExitModal}
+      />
       <div style={{height: 'calc(100vh - 78px)'}}>
         <Switch>
           <Route path='/game/news' render={() =>
-            <RenderPlayerNews
+            <NewsPage
               setIsHistoryShown={setIsHistoryShown}
               setMyActiveStock={setMyActiveStock}
               setActiveStock={setActiveStock}
@@ -164,19 +171,19 @@ export const GamePage: FC = () => {
             />
           }/>
           <Route path='/game/spends' render={() =>
-            <RenderPlayerSpends/>
+            <SpendsPage/>
           }/>
           <Route path='/game/profile' render={() =>
-            <RenderPlayerWork setIsChangeWorkShown={setIsChangeWorkShown}/>
+            <RenderPlayerWork />
           }/>
           <Route path='/game/market' render={() =>
-            <RenderPlayerMarket
+            <MarketPage
               setIsHistoryShown={setIsHistoryShown}
               setMyActiveStock={setMyActiveStock}
               setActiveStock={setActiveStock}
               setIsStockToSell={setIsStockToSell}
             />}/>
-          <Route path='/game/bank' render={() => <RenderPlayerBank />}/>
+          <Route path='/game/bank' render={() => <BankPage />}/>
           {/*<Redirect exact from='/game/market' to='/game/stocks />*/}
           <Redirect exact from='/game' to='/game/profile' />
         </Switch>

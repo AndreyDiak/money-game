@@ -9,6 +9,7 @@ import {profileActions, updateIncome} from "./profile-reducer";
 const ADD_NEWS = 'newsPage/ADD_NEWS'
 const ABLE_TO_SHOW = 'newsPage/ABLE_TO_SHOW'
 const SET_TO_ARCHIVE = 'newsPage/SET_TO_ARCHIVE'
+const SET_ALL_TO_ARCHIVE = 'newsPage/SET_ALL_TO_ARCHIVE'
 const RESET_NEWS = 'newsPage/RESET_NEWS'
 const ADD_NEWS_INCOME = 'newsPage/ADD_NEWS_INCOME'
 const ADD_NEWS_EXPENSES = 'newsPage/ADD_NEWS_EXPENSES'
@@ -242,6 +243,20 @@ export const newsReducer = (state = initialState, action: NewsActionsType): Init
         news: newsCopy,
         archive: archiveCopy
       }
+    case SET_ALL_TO_ARCHIVE:
+
+      let allNewsCopy = [...state.news]
+      let allArchiveCopy = [...state.archive]
+
+      allNewsCopy.forEach(news => {
+        allArchiveCopy.push(news)
+      })
+
+      return {
+        ...state,
+        archive: allArchiveCopy,
+        news: [] as newsArrayType[]
+      }
     // зануление новостей
     case RESET_NEWS:
       return {
@@ -284,6 +299,7 @@ export const newsActions = {
   addNews: (news: newsArrayType[]) => ({type: ADD_NEWS, news} as const),
   setAbleToShow: (types: NewsTypes) => ({type: ABLE_TO_SHOW, types} as const),
   setToArchive: (index: number) => ({type: SET_TO_ARCHIVE, index} as const),
+  setAllToArchive: () => ({type: SET_ALL_TO_ARCHIVE} as const),
   resetNews: () => ({type: RESET_NEWS} as const),
   addNewsIncome: (news: any) => ({type: ADD_NEWS_INCOME, news} as const),
   addNewsExpenses: (news: any) => ({type: ADD_NEWS_EXPENSES, news} as const),

@@ -82,10 +82,13 @@ export const ProfilePage: FC = () => {
 
   console.log(filteredPersons)
   console.log(persons)
+
+  let screenWidth = window.screen.width
+
   return (
     <>
       <div className="profile bannerBack">
-        <div className="profilePreview">
+        {screenWidth > 1200 && <div className="profilePreview">
           <div className="profilePreview__Title">
             <b>Ваш персонаж</b>
           </div>
@@ -98,7 +101,7 @@ export const ProfilePage: FC = () => {
           <div className="profilePreview__Img">
             <img src={filteredPersons[activePerson].img} alt=""/>
           </div>
-        </div>
+        </div>}
         <div className="profilePersons">
           <div className="profilePersons__Title">
             Доступные персонажи

@@ -297,7 +297,6 @@ let initialState = {
   income: 0, // доход персонажа
   children: [0, 0, 0], // дети персонажа / 0 ребенка нет / 1 ребенок есть / максимум 3 ребенка
   childrenCount: 0,
-
 }
 
 export type InitialProfileStateType = typeof initialState

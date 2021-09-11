@@ -14,13 +14,37 @@
       height: inherit
       background: rgba(244, 212, 189, 0.6)
       z-index: 10
-      .container
+      &__profile
+        grid-area: profile
         display: flex
-        justify-content: center
-        flex-wrap: wrap
-        height: inherit
-        column-gap: 50px
-        row-gap: 50px
+        align-items: center
+        flex-direction: column
+        &Child
+          display: flex
+          div
+            height: 200px
+            img
+              height: 100%
+        &Img
+          padding-bottom: 30px
+          margin-bottom: 30px
+          height: 550px
+          border-bottom: 2px dashed #fff
+          img
+            height: 100%
+      &__incomes
+        grid-area: incomes
+        width: 90% !important
+      &__work
+        grid-area: works
+        width: 90% !important
+      .container
+        display: grid
+        align-items: flex-end
+        grid-template-columns: 1fr 1fr
+        grid-template-areas: 'profile incomes ' 'profile works'
+        row-gap: 20px
+        column-gap: 20px
       &__block
         text-align: center
         margin-bottom: 7px

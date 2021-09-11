@@ -1,13 +1,24 @@
 .gameBusiness
   display: flex
   justify-content: center
-  height: calc(100vh - 110px)
+  height: inherit
   background: url('../img/banner-business.jpg') center no-repeat
   background-size: cover
   z-index: 3
   font-family: 'Fira Mono', sans-serif
+  color: #fff
   &Content
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
     z-index: 10
+    overflow: auto
+    &__menu
+      padding: 20px
+      text-align: center
+      width: 60%
+      background: rgba(0,0,0,0.4)
     &__block
       padding: 25px
       text-align: center
@@ -23,11 +34,12 @@
         border-bottom: 2px solid #fff
       &Img
         margin: 0 auto 20px
-        max-width: 300px
+        max-width: 350px
         text-align: center
         img
           width: 100%
       &Income, &Price
+        text-transform: uppercase
         font-size: 24px
         font-weight: 700
       &Button
@@ -35,9 +47,9 @@
         padding-top: 20px
         border-top: 2px dashed #fff
       &s
-        margin: 50px
         padding: 50px
         width: 60%
+        height: 850px
         display: flex
         z-index: 10
         flex-direction: column

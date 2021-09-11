@@ -7,32 +7,37 @@ import {AppStateType} from "../../redux/store";
 import {upWorkThunk, worksActions} from "../../redux/work-reducer";
 import {getMyStocksSelector} from "../../redux/stocks-selector";
 import {getMyBusinessesSelector} from "../../redux/business-selector";
+import childrenFalse from "../../img/children-none.png";
+import childrenTrue from "../../img/children.png";
 
-export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> = (props) => {
+export const RenderPlayerWork = () => {
 
   const dispatch = useDispatch()
 
   // текущий день . . .
   const day = useSelector(getDaySelector)
+  //
   const profile = useSelector(getPersonSelector) as personType
-  const expenses = useSelector(getExpensesSelector) as expenseType[]
-  const tax = useSelector(getTaxSelector)
+  //
   const income = useSelector((state: AppStateType) => state.profilePage.income)
+  //
   const myStocks = useSelector(getMyStocksSelector)
+  //
   const myRealty = useSelector((state: AppStateType) => state.realtyPage.myRealty)
+  //
   const myBusiness = useSelector(getMyBusinessesSelector)
+  //
   const newsIncome = useSelector((state: AppStateType) => state.newsPage.newsIncome)
-  const newsExpenses = useSelector((state: AppStateType) => state.newsPage.newsExpenses)
+  //
+  const children = useSelector((state: AppStateType) => state.profilePage.children)
   // работа персонажа
   const daysWorked = useSelector((state: AppStateType) => state.worksPage.workedDays)
+  //
   const daysToUp = useSelector((state: AppStateType) => state.worksPage.daysToUp)
+  //
   const workIncome = useSelector((state: AppStateType) => state.worksPage.workIncome)
+  //
   const workLevel = useSelector((state: AppStateType) => state.worksPage.workLevel)
-
-  useEffect(() => {
-    console.log('мы поменялись')
-    console.table(expenses)
-  },[expenses])
 
   useEffect(() => {
 
@@ -61,13 +66,6 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
   myBusiness.forEach(business => {
     businessSummary += business.income
   })
-  // расходы с новостей
-  let newsExpensesPrice = 0
-  if (newsExpenses.length !== 0) {
-    newsExpenses.forEach(expenses => {
-      newsExpensesPrice -= expenses.amount
-    })
-  }
   // доходы с новостей
   let newsIncomesPrice = 0
   if (newsIncome.length !== 0) {
@@ -80,45 +78,23 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
       <div className="gameWork bannerBack">
           <div className="gameWorkContent">
             <div className="container">
-            <div className="gameWorkContent__blocks gameWorkContent__expenses">
-              <div className="gameWorkContent__blocksTitle">
-                Расходы
-              </div>
-              <div className="gameWorkContent__block">
-                <div className="gameWorkContent__blockTitle">
-                  Налог
+              <div className="gameWorkContent__profile gameWorkContent__profile">
+                <div className='gameWorkContent__profileImg'>
+                  <img src={profile.img} alt=""/> <br/>
                 </div>
-                <div className="gameWorkContent__blockPrice">
-                  ${tax}
-                </div>
-              </div>
-              {expenses.map((expense, index) => {
-                return (
-                  <>
-                    {expense.remainPrice !== 0
-                      ? <div className="gameWorkContent__block">
-                        <div className="gameWorkContent__blockTitle">
-                          {expense.title}
+                <div className="gameWorkContent__profileChild">
+                  {children.map(child => {
+                    return (
+                      <>
+                        <div>
+                          <img src={child === 0 ? childrenFalse : childrenTrue} alt=""/>
                         </div>
-                        <div className="gameWorkContent__blockPrice">
-                          ${expense.startPrice * expense.payment / 100}
-                        </div>
-                      </div>
-                      : ''
-                    }
-                  </>
-                )
-              })}
-              <div className="gameWorkContent__block">
-                <div className="gameWorkContent__blockTitle">
-                  Другое
-                </div>
-                <div className="gameWorkContent__blockPrice">
-                  ${newsExpensesPrice}
+                      </>
+                    )
+                  })}
                 </div>
               </div>
-            </div>
-            <div className="gameWorkContent__blocks gameWorkContent__incomes">
+              <div className="gameWorkContent__blocks gameWorkContent__incomes">
               <div className="gameWorkContent__blocksTitle">
                 Доходы
               </div>
@@ -171,28 +147,7 @@ export const RenderPlayerWork: FC<{setIsChangeWorkShown: SetStateAction<any>}> =
                 </div>
               </div>
             </div>
-            <div className="gameWorkContent__blocks gameWorkContent__liabilities">
-              <div className="gameWorkContent__blocksTitle">
-                Обязательства
-              </div>
-              {profile.expenses.map(expense => {
-                return (
-                  <>
-                    {expense.remainPrice
-                      ? <div className="gameWorkContent__block">
-                        <div className="gameWorkContent__blockTitle">
-                          {expense.title}
-                        </div>
-                        <div className="gameWorkContent__blockPrice">
-                          ${expense.remainPrice} <i>({expense.payment}%)</i>
-                        </div>
-                      </div>
-                      : ''}
-                  </>
-                )
-              })}
-            </div>
-            <div className="gameWorkContent__blocks gameWorkContent__work">
+              <div className="gameWorkContent__blocks gameWorkContent__work">
               <div className="gameWorkContent__blocksTitle">
                 Работа
               </div>

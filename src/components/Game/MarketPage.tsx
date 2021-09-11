@@ -1,11 +1,11 @@
 import {Tabs} from "antd"
-import {RenderPlayerStocks} from "./RenderPlayerStocks";
 import React, {FC} from "react";
 import {RealtyPage} from "./RealtyPage";
 import {BusinessPage} from "./BusinessPage";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {Redirect, Route, Switch} from "react-router-dom";
+import { StocksPage } from "./StocksPage";
 
 const {TabPane} = Tabs
 
@@ -16,7 +16,7 @@ export type MarketType = {
   setIsStockToSell: any
 }
 
-export const RenderPlayerMarket: FC<MarketType> = (props) => {
+export const MarketPage: FC<MarketType> = (props) => {
 
   const income = useSelector((state: AppStateType) => state.profilePage.income)
 
@@ -39,7 +39,7 @@ export const RenderPlayerMarket: FC<MarketType> = (props) => {
     <>
       <Switch>
         <Route path='/game/market/stocks' render={() =>
-          <RenderPlayerStocks
+          <StocksPage
             setIsHistoryShown={props.setIsHistoryShown}
             setMyActiveStock={props.setMyActiveStock}
             setActiveStock={props.setActiveStock}

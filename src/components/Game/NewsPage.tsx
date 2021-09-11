@@ -1,93 +1,73 @@
-import {CheckSquareOutlined} from "@ant-design/icons/lib/icons";
-import {FC} from "react";
+import {CheckSquareOutlined, InboxOutlined, MenuOutlined} from "@ant-design/icons/lib/icons";
+import {FC, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {Button, Tabs} from "antd";
+import {Button} from "antd";
 import {newsActions} from "../../redux/news-reducer";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {settingsActions} from "../../redux/settings-reducer";
-import {Route, Switch} from "react-router-dom";
 
-const { TabPane } = Tabs
 
-export const RenderPlayerNews:FC<{setIsHistoryShown: any, setActiveStock: any, setMyActiveStock: any, setIsStockToSell: any}> = (props) => {
+export const NewsPage:FC<{setIsHistoryShown: any, setActiveStock: any, setMyActiveStock: any, setIsStockToSell: any}> = (props) => {
 
+  const dispatch = useDispatch()
   const news = useSelector((state: AppStateType) => state.newsPage.news)
   const archive = useSelector((state: AppStateType) => state.newsPage.archive)
+  const [isArchiveShown, setIsArchiveShown] = useState(false)
+
+  const readAllNews = () => {
+    dispatch(newsActions.setAllToArchive())
+  }
 
   return (
     <>
       <div className="gameNews">
         <div className="gameNewsContent">
           <div className="container">
-            <Switch>
-              <Route path='/game/archive' render={() =>
-                <div className="gameNewsBlocks gameNewsBlocks__reverse">
-                  {archive.map((newsBlock, index) =>
-                    <RenderNewsBlock
-                      key={index}
-                      title={newsBlock.title}
-                      company={newsBlock.company}
-                      amount={newsBlock.amount}
-                      index={index}
-                      isArchive={true}
-                      month={newsBlock.month}
-                      dayInMonth={newsBlock.dayInMonth}
-                    />
-                  )}
-                </div>
+            <div className="gameNewsMenu">
+              {isArchiveShown
+                ? <Button onClick={() => setIsArchiveShown(false)}>Новости</Button>
+                : <>
+                  <Button onClick={() => setIsArchiveShown(true)} >Архив <InboxOutlined /></Button>
+                  <Button onClick={() => readAllNews()}>Прочитать всё </Button>
+                </>
               }
-              />
-              <Route path='/game/news' render={() =>
-                <div className="gameNewsBlocks">
-                  {news.map((newsBlock, index) =>
-                    <RenderNewsBlock
-                      key={index}
-                      title={newsBlock.title}
-                      company={newsBlock.company}
-                      amount={newsBlock.amount}
-                      index={index}
-                      isArchive={false}
-                      month={newsBlock.month}
-                      dayInMonth={newsBlock.dayInMonth}
-                      type={newsBlock.type}
-                      condition={newsBlock.condition}
-                      setIsHistoryShown={props.setIsHistoryShown}
-                      setActiveStock={props.setActiveStock}
-                      setMyActiveStock={props.setMyActiveStock}
-                      setIsStockToSell={props.setIsStockToSell}
-                    />
-                  )}
-                </div>}
-              />
-            </Switch>
-            {/*<Tabs defaultActiveKey="1" centered className='gameNewsContent__Tabs'>*/}
-            {/*  <TabPane tab="Новости" key="1">*/}
-            {/*    <div className="gameNewsBlocks">*/}
-            {/*      {news.map((newsBlock, index) =>*/}
-            {/*        <RenderNewsBlock*/}
-            {/*          key={index}*/}
-            {/*          title={newsBlock.title}*/}
-            {/*          company={newsBlock.company}*/}
-            {/*          amount={newsBlock.amount}*/}
-            {/*          index={index}*/}
-            {/*          isArchive={false}*/}
-            {/*          month={newsBlock.month}*/}
-            {/*          dayInMonth={newsBlock.dayInMonth}*/}
-            {/*          type={newsBlock.type}*/}
-            {/*          condition={newsBlock.condition}*/}
-            {/*          setIsHistoryShown={props.setIsHistoryShown}*/}
-            {/*          setActiveStock={props.setActiveStock}*/}
-            {/*          setMyActiveStock={props.setMyActiveStock}*/}
-            {/*          setIsStockToSell={props.setIsStockToSell}*/}
-            {/*        />*/}
-            {/*      )}*/}
-            {/*    </div>*/}
-            {/*  </TabPane>*/}
-            {/*  <TabPane tab="Архив" key="2">*/}
-
-            {/*  </TabPane>*/}
-            {/*</Tabs>*/}
+            </div>
+            {isArchiveShown
+             ? <div className="gameNewsBlocks gameNewsBlocks__reverse">
+                {archive.map((newsBlock, index) =>
+                  <RenderNewsBlock
+                    key={index}
+                    title={newsBlock.title}
+                    company={newsBlock.company}
+                    amount={newsBlock.amount}
+                    index={index}
+                    isArchive={true}
+                    month={newsBlock.month}
+                    dayInMonth={newsBlock.dayInMonth}
+                  />
+                )}
+              </div>
+              : <div className="gameNewsBlocks">
+                {news.map((newsBlock, index) =>
+                  <RenderNewsBlock
+                    key={index}
+                    title={newsBlock.title}
+                    company={newsBlock.company}
+                    amount={newsBlock.amount}
+                    index={index}
+                    isArchive={false}
+                    month={newsBlock.month}
+                    dayInMonth={newsBlock.dayInMonth}
+                    type={newsBlock.type}
+                    condition={newsBlock.condition}
+                    setIsHistoryShown={props.setIsHistoryShown}
+                    setActiveStock={props.setActiveStock}
+                    setMyActiveStock={props.setMyActiveStock}
+                    setIsStockToSell={props.setIsStockToSell}
+                  />
+                )}
+              </div>}
           </div>
         </div>
       </div>
