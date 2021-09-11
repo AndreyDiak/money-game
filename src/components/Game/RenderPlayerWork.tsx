@@ -1,8 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
-import React, {FC, SetStateAction, useEffect} from "react";
+import React, {useEffect} from "react";
 import {getDaySelector} from "../../redux/game-selector";
-import {getExpensesSelector, getPersonSelector, getTaxSelector} from "../../redux/profile-selector";
-import {expenseType, personType, updateIncome} from "../../redux/profile-reducer";
+import {getPersonSelector} from "../../redux/profile-selector";
+import {personType, updateIncome} from "../../redux/profile-reducer";
 import {AppStateType} from "../../redux/store";
 import {upWorkThunk, worksActions} from "../../redux/work-reducer";
 import {getMyStocksSelector} from "../../redux/stocks-selector";

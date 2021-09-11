@@ -21,6 +21,7 @@ export const ProfilePage: FC = () => {
 
   const [filteredPersons, setFilteredPersons] = useState(persons.filter(f => f.difficulty === 'easy'))
 
+  const [screenWidth, setScreenWidth] = useState(window.screen.width)
   // выбор скорости игры
   const timesSpeed = [8, 4, 2]
 
@@ -80,15 +81,13 @@ export const ProfilePage: FC = () => {
     // filteredPersons = persons.filter(f => f.difficulty === 'easy')
   },[, persons])
 
-  console.log(filteredPersons)
-  console.log(persons)
-
-  let screenWidth = window.screen.width
-
+  useEffect(() => {
+    setScreenWidth(window.screen.width)
+  }, [window.screen.width])
   return (
     <>
       <div className="profile bannerBack">
-        {screenWidth > 1200 && <div className="profilePreview">
+        <div className="profilePreview">
           <div className="profilePreview__Title">
             <b>Ваш персонаж</b>
           </div>
@@ -101,7 +100,7 @@ export const ProfilePage: FC = () => {
           <div className="profilePreview__Img">
             <img src={filteredPersons[activePerson].img} alt=""/>
           </div>
-        </div>}
+        </div>
         <div className="profilePersons">
           <div className="profilePersons__Title">
             Доступные персонажи
@@ -138,13 +137,13 @@ export const ProfilePage: FC = () => {
               </>
             }
           </div>
-          <div className="profilePersons__Button">
+          {screenWidth > 769 && <div className="profilePersons__Button">
             <NavLink to='/game'>
               <Button onClick={() => setProfile()}>
                 Начать игру
               </Button>
             </NavLink>
-          </div>
+          </div>}
         </div>
         <div className="profileMenu">
           <div className="profileMenu__Buttons">
@@ -168,17 +167,6 @@ export const ProfilePage: FC = () => {
                 className='settingsListItem__Radio'
               />
             </div>
-            {/*<div className="profileMenu__SettingsItem">*/}
-            {/*  Сложность игры*/}
-            {/*  <br/>*/}
-            {/*  <Radio.Group*/}
-            {/*    options={optionsDifficulty}*/}
-            {/*    onChange={onChangeDifficulty}*/}
-            {/*    value={difficulty}*/}
-            {/*    optionType="button"*/}
-            {/*    className='settingsListItem__Radio'*/}
-            {/*  />*/}
-            {/*</div>*/}
             <div className="profileMenu__SettingsItem">
               Доход / мес
               <br/>
@@ -234,6 +222,14 @@ export const ProfilePage: FC = () => {
                 ${filteredPersons[activePerson].salary - taxesSummary}
               </div>
             </div>
+          </div>
+          <div className="profilePersons__Button">
+            {screenWidth < 769 && <NavLink to='/game'>
+                <Button onClick={() => setProfile()}>
+                  Начать игру
+                </Button>
+              </NavLink>
+            }
           </div>
         </div>
       </div>

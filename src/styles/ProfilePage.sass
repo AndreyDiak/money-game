@@ -5,12 +5,14 @@
   background-size: cover
   display: grid
   grid-template-columns: 1fr 2fr 1fr
+  grid-template-areas: 'preview persons menu'
   font-family: 'Fira Mono', sans-serif
   z-index: 10
   &Menu
     height: 100vh
     background: rgba(0, 0, 0, 0.6)
     z-index: 10
+    grid-area: menu
     &__Stats
       //border-top: 2px solid #282c34
       background: #f4d4bd
@@ -56,6 +58,7 @@
           font-weight: 700
   &Persons
     z-index: 10
+    grid-area: persons
     &__Filter
       margin-top: 30px
       margin-bottom: 30px
@@ -104,6 +107,7 @@
     justify-content: space-between
     height: 100vh
     z-index: 10
+    grid-area: preview
     &__Name
       margin: 30px
       padding-bottom: 30px
@@ -123,8 +127,125 @@
       z-index: 10
     &__Img
       padding: 5px
+      margin: 0 auto
       display: flex
       align-items: end
       z-index: 0
+      max-height: 700px
       img
         z-index: -1
+        height: 100%
+
+@media screen and (max-width: 1600px)
+  .profile
+    grid-template-columns: 1fr 2fr 2fr
+    &Preview
+      &__Img
+        max-height: 600px
+    &Persons
+      &__Filter
+        margin: 20px
+      &__Block
+        &s
+          padding: 30px
+    &Menu
+      &__Stats
+        &Title
+          font-size: 20px
+        &Block
+          margin: 5px
+          padding: 5px
+          &__Title
+            font-size: 16px
+          &__Price
+            font-size: 16px
+      &__Settings
+        padding: 20px
+        &Item
+          padding-bottom: 10px
+          margin-bottom: 10px
+          font-size: 16px
+          text-align: center
+          label
+            width: 60%
+            margin-bottom: 5px
+      &__Button
+        padding: 13px
+        a
+          button
+            font-size: 20px
+
+@media screen and (max-width: 1200px)
+  .profile
+    grid-template-columns: 1fr 2fr 2fr
+    &Preview
+      max-width: 350px
+      &__Img
+        max-height: 400px
+
+@media screen and (max-width: 1024px)
+  .profile
+    grid-template-columns: 1fr 1fr
+    grid-template-areas: 'persons menu'
+    &Persons
+      &__Block
+        &Img
+          max-width: 70px
+    &Preview
+      display: none !important
+
+@media screen and (max-width: 768px)
+  .profile
+    padding-bottom: 30px
+    grid-template-columns: 1fr
+    grid-template-areas: 'persons' 'menu'
+    &Persons
+      &__Button
+        padding-bottom: 10px
+      &__Block
+        width: 70px
+        height: 70px
+        &s
+          row-gap: 10px
+          column-gap: 10px
+        &Img
+          span
+            height: 70px !important
+            width: 70px !important
+            img
+              width: 100%
+    &Preview
+      display: none !important
+    &Menu
+      &__Buttons
+        display: none
+      &__Settings
+        &Item
+          label
+            width: auto
+
+@media screen and (max-width: 480px)
+  .profile
+    &Persons
+      &__Filter
+        flex-direction: column
+        align-items: center
+        row-gap: 10px
+        button
+          width: 60%
+    &Menu
+      &__Stats
+        &Title
+          font-size: 18px
+        &Block
+          &__Title
+            font-size: 14px
+          &__Price
+            font-size: 14px
+      &__Settings
+        &Item
+          label
+            width: 60%
+
+
+

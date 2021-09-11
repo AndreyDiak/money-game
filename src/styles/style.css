@@ -3,6 +3,7 @@
   background: url("../img/background.jpg") center no-repeat;
   background-size: cover;
   position: relative;
+  height: 100vh;
 }
 .menuContent {
   display: flex;
@@ -48,6 +49,51 @@
   background: rgba(255, 255, 255, 0.65);
 }
 
+@media screen and (max-width: 1024px) {
+  .menuGameName {
+    font-size: 40px;
+  }
+  .menuHeader {
+    font-size: 50px;
+  }
+  .menuListItem__Button {
+    padding: 5px 10px;
+    width: 280px;
+    font-size: 24px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .menuGameName {
+    font-size: 32px;
+  }
+  .menuHeader {
+    font-size: 40px;
+  }
+  .menuList {
+    row-gap: 15px;
+  }
+  .menuListItem__Button {
+    padding: 5px 7px;
+    width: 240px;
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .menuGameName {
+    font-size: 28px;
+  }
+  .menuHeader {
+    font-size: 32px;
+  }
+  .menuList {
+    row-gap: 10px;
+  }
+  .menuListItem__Button {
+    padding: 5px 7px;
+    width: 200px;
+    font-size: 16px;
+  }
+}
 .profile {
   width: 100vw;
   height: 100vh;
@@ -55,6 +101,7 @@
   background-size: cover;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
+  grid-template-areas: "preview persons menu";
   font-family: "Fira Mono", sans-serif;
   z-index: 10;
 }
@@ -62,6 +109,7 @@
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
   z-index: 10;
+  grid-area: menu;
 }
 .profileMenu__Stats {
   background: #f4d4bd;
@@ -114,6 +162,7 @@
 }
 .profilePersons {
   z-index: 10;
+  grid-area: persons;
 }
 .profilePersons__Filter {
   margin-top: 30px;
@@ -171,6 +220,7 @@
   justify-content: space-between;
   height: 100vh;
   z-index: 10;
+  grid-area: preview;
 }
 .profilePreview__Name {
   margin: 30px;
@@ -194,14 +244,142 @@
 }
 .profilePreview__Img {
   padding: 5px;
+  margin: 0 auto;
   display: flex;
   align-items: end;
   z-index: 0;
+  max-height: 700px;
 }
 .profilePreview__Img img {
   z-index: -1;
+  height: 100%;
 }
 
+@media screen and (max-width: 1600px) {
+  .profile {
+    grid-template-columns: 1fr 2fr 2fr;
+  }
+  .profilePreview__Img {
+    max-height: 600px;
+  }
+  .profilePersons__Filter {
+    margin: 20px;
+  }
+  .profilePersons__Blocks {
+    padding: 30px;
+  }
+  .profileMenu__StatsTitle {
+    font-size: 20px;
+  }
+  .profileMenu__StatsBlock {
+    margin: 5px;
+    padding: 5px;
+  }
+  .profileMenu__StatsBlock__Title {
+    font-size: 16px;
+  }
+  .profileMenu__StatsBlock__Price {
+    font-size: 16px;
+  }
+  .profileMenu__Settings {
+    padding: 20px;
+  }
+  .profileMenu__SettingsItem {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-align: center;
+  }
+  .profileMenu__SettingsItem label {
+    width: 60%;
+    margin-bottom: 5px;
+  }
+  .profileMenu__Button {
+    padding: 13px;
+  }
+  .profileMenu__Button a button {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .profile {
+    grid-template-columns: 1fr 2fr 2fr;
+  }
+  .profilePreview {
+    max-width: 350px;
+  }
+  .profilePreview__Img {
+    max-height: 400px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .profile {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "persons menu";
+  }
+  .profilePersons__BlockImg {
+    max-width: 70px;
+  }
+  .profilePreview {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .profile {
+    padding-bottom: 30px;
+    grid-template-columns: 1fr;
+    grid-template-areas: "persons" "menu";
+  }
+  .profilePersons__Button {
+    padding-bottom: 10px;
+  }
+  .profilePersons__Block {
+    width: 70px;
+    height: 70px;
+  }
+  .profilePersons__Blocks {
+    row-gap: 10px;
+    column-gap: 10px;
+  }
+  .profilePersons__BlockImg span {
+    height: 70px !important;
+    width: 70px !important;
+  }
+  .profilePersons__BlockImg span img {
+    width: 100%;
+  }
+  .profilePreview {
+    display: none !important;
+  }
+  .profileMenu__Buttons {
+    display: none;
+  }
+  .profileMenu__SettingsItem label {
+    width: auto;
+  }
+}
+@media screen and (max-width: 480px) {
+  .profilePersons__Filter {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+  }
+  .profilePersons__Filter button {
+    width: 60%;
+  }
+  .profileMenu__StatsTitle {
+    font-size: 18px;
+  }
+  .profileMenu__StatsBlock__Title {
+    font-size: 14px;
+  }
+  .profileMenu__StatsBlock__Price {
+    font-size: 14px;
+  }
+  .profileMenu__SettingsItem label {
+    width: 60%;
+  }
+}
 .settings {
   width: 100vw;
   height: 100vh;
