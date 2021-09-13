@@ -21,6 +21,11 @@ import { BankPage } from "./BankPage";
 import { MarketPage } from "./MarketPage";
 import {NavLink} from "react-router-dom";
 import {Popups} from "../Popups";
+import menuIconNews from "../../img/menu/news.svg"
+import menuIconSpends from "../../img/menu/spends.svg"
+import menuIconProfile from "../../img/menu/profile.svg"
+import menuIconMarket from "../../img/menu/market.svg"
+import menuIconBank from "../../img/menu/bank.svg"
 
 export const GamePage: FC = () => {
 
@@ -69,7 +74,12 @@ export const GamePage: FC = () => {
   const [isEndOfGame, setIsEndOfGame] = useState(false)
   // показать окно при конце игры
   const [showExitModal, setShowExitModal] = useState(false)
+  //
+  const [isMarketOpen, setIsMarketOpen] = useState(false)
+  //
+  const [screenWidth, setScreenWidth] = useState(window.screen.width)
   // функция проверка на победу/поражение
+
   const balanceCheck = () => {
     if (income >= victoryBalance) {
       console.log('победа!')
@@ -134,6 +144,8 @@ export const GamePage: FC = () => {
     });
   }
 
+
+
   if (!profile) {
     return (
       <>
@@ -159,8 +171,13 @@ export const GamePage: FC = () => {
         isHistoryShown={isHistoryShown}
         isStockToSell={isStockToSell}
         showExitModal={showExitModal}
+        setIsMarketOpen={setIsMarketOpen}
+        isMarketOpen={isMarketOpen}
       />
-      <div style={{height: 'calc(100vh - 78px)'}}>
+      <div style={screenWidth > 768
+        ? {height: 'calc(100vh - 78px)'}
+        : {height: 'calc(100vh - 50px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}
+      }>
         <Switch>
           <Route path='/game/news' render={() =>
             <NewsPage
@@ -187,6 +204,41 @@ export const GamePage: FC = () => {
           {/*<Redirect exact from='/game/market' to='/game/stocks />*/}
           <Redirect exact from='/game' to='/game/profile' />
         </Switch>
+        <div className="bottomNav">
+          <div className="bottomNavItem">
+            <NavLink to='/game/news'>
+              <button className="">
+                <img src={menuIconNews} alt=""/>
+              </button>
+            </NavLink>
+          </div>
+          <div className="bottomNavItem">
+            <NavLink to='/game/spends'>
+              <button className="">
+                <img src={menuIconSpends} alt=""/>
+              </button>
+            </NavLink>
+          </div>
+          <div className="bottomNavItem">
+            <NavLink to='/game/profile'>
+              <button className="">
+                <img src={menuIconProfile} alt=""/>
+              </button>
+            </NavLink>
+          </div>
+          <div className="bottomNavItem">
+            <button className="" onClick={() => setIsMarketOpen(true)}>
+              <img src={menuIconMarket} alt=""/>
+            </button>
+          </div>
+          <div className="bottomNavItem">
+            <NavLink to='/game/bank'>
+              <button className="">
+                <img src={menuIconBank} alt=""/>
+              </button>
+            </NavLink>
+          </div>
+        </div>
       </div>
     </>
   )

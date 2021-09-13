@@ -49,3 +49,112 @@
         color: #fff
         &:hover
           color: #29b6f6
+
+.bottomNav
+  //margin-top: -41px
+  position: fixed
+  width: 100%
+  left: 0
+  bottom: 0
+  display: none
+  padding: 7px
+  background: rgba(255, 255, 255, 1)
+  justify-content: center
+  column-gap: 15px
+  z-index: 15
+  &Item
+    z-index: 15
+    color: #fff
+    button
+      background: transparent
+      border: none
+      outline: none
+      color: #fff
+      img
+        width: 25px
+        height: 25px
+    a
+      color: #fff
+      button
+        background: transparent
+        border: none
+        outline: none
+        color: #fff
+        img
+          width: 25px
+          height: 25px
+@media screen and (max-width: 1200px)
+  .nav
+    &Item
+      &Menu
+        margin-left: 10px
+        column-gap: 15px
+      &__link
+        width: 60px
+        font-size: 16px
+      &Balance
+        font-size: 28px
+
+@media screen and (max-width: 1024px)
+  .nav
+    &Item
+      column-gap: 10px
+      &Balance
+        font-size: 24px
+      &Profile
+        padding: 5px
+        column-gap: 10px
+        font-size: 16px
+      width: auto
+      &__link
+        font-size: 14px
+        width: auto
+      &Menu
+        margin-left: 0
+        button
+          font-size: 14px
+
+@media screen and (max-width: 768px)
+  .bottomNav
+    display: flex
+  .nav
+    &Item
+      &:last-child
+        height: 50px
+      &Profile
+        div
+          width: 40px
+          height: 40px
+          div
+            width: 40px !important
+            height: 40px !important
+      &Balance
+        padding: 0 10px
+        font-size: 18px
+      &__link
+        display: none
+  .ant-menu
+    text-align: center
+    p
+      margin-bottom: 20px
+
+@media screen and (max-width: 480px)
+  .ant-modal
+    width: 80% !important
+  .nav
+    &Item
+      &Menu
+        column-gap: 5px
+      &Balance
+        font-size: 14px
+      &Profile
+        font-size: 14px
+        div
+          width: 30px
+          height: 30px
+          div
+            width: 30px !important
+            height: 30px !important
+
+
+

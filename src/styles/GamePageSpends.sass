@@ -71,3 +71,44 @@
         overflow: auto
         row-gap: 10px
         column-gap: 10px
+
+@media screen and (max-width: 1200px)
+  .gameSpend
+    &Content
+      &__Footer
+        padding: 5px 10px
+        font-size: 22px
+      &__Item
+        margin-bottom: 5px
+        padding-bottom: 5px
+        font-size: 18px
+        &s
+          padding: 15px
+
+      &__Title
+        padding: 5px 15px
+        font-size: 22px
+      .container
+        column-gap: 10px
+        row-gap: 10px
+
+@media screen and (max-width: 1024px)
+  .gameSpend
+    &Content
+      &__Item
+        font-size: 16px
+
+@media screen and (max-width: 768px)
+  .gameSpend
+    height: auto
+
+@media screen and (max-width: 480px)
+  .gameSpend
+    &Content
+      &__Title
+        text-align: center
+        font-size: 16px
+      &__Items
+        padding: 7px
+      &__Footer
+        font-size: 16px

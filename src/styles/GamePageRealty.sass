@@ -85,3 +85,32 @@
         text-align: center
         border-bottom: 1px solid #fff
 
+@media screen and (max-width: 768px)
+  .gameRealty
+    &Content
+      &__realty, &__block
+        width: inherit
+        &Title
+          padding-bottom: 5px
+          margin: 0 auto 15px
+          width: 70%
+          font-size: 18px
+        &Info
+          flex-direction: column-reverse
+          row-gap: 10px
+
+@media screen and (max-width: 480px)
+  .gameRealty
+    &Content
+      &__realty
+        &Item
+          text-align: center
+          font-size: 14px
+      &__block
+        &Title
+          margin: 0 auto 10px
+          font-size: 16px
+        &Info
+          &__price
+            font-size: 14px
+            &Item

@@ -12,10 +12,13 @@
     display: flex
     justify-content: center
     width: 100%
+    height: inherit
     column-gap: 50px
     flex-wrap: wrap
     row-gap: 50px
     z-index: 10
+    .container
+      width: inherit
     &__liabilities, &__credit, &__payout, &__deposit
       background: rgba(249, 235, 217, 0.9)
       width: 40%
@@ -83,3 +86,72 @@
   padding: 40px
   font-size: 16px
   text-align: center
+
+@media screen and (max-width: 1200px)
+  .gameBank
+    &Content
+      column-gap: 35px
+      row-gap: 35px
+      &__liabilities, &__credit, &__payout, &__deposit
+        width: 46%
+
+@media screen and (max-width: 1024px)
+  .gameBank
+    padding: 30px
+    &Content
+      column-gap: 20px
+      row-gap: 20px
+      &__Block
+        &s
+          padding: 15px
+          row-gap: 10px
+          font-size: 18px
+      &__Title
+        padding: 10px
+        font-size: 24px
+      &__Menu
+        padding: 15px
+      &__liabilities, &__credit, &__payout, &__deposit
+        width: 70%
+  .warning
+    padding: 15px
+    font-size: 14px
+
+@media screen and (max-width: 768px)
+  .gameBank
+    padding-bottom: 50px
+    //height:
+    &Content
+      &__Form
+        margin-top: 5px
+        font-size: 14px
+        &Payload
+          padding-bottom: 5px
+          margin-bottom: 5px
+      &__Button
+        margin-bottom: 20px
+        button
+          padding: 5px 10px
+          font-size: 14px
+      &__Menu
+        padding: 10px
+        &Pay
+          &__Price
+            margin-bottom: 5px
+            padding-bottom: 5px
+            font-size: 14px
+          &__Input
+            width: 80%
+        &Select
+          width: 80%
+      &__Block
+        padding-bottom: 5px
+        &s
+          font-size: 14px
+      &__Title
+        padding: 5px
+        font-size: 18px
+      &__liabilities, &__credit, &__payout, &__deposit
+        width: 90%
+
+

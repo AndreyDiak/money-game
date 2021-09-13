@@ -152,34 +152,33 @@ export const BankPage = () => {
                 </Button>
               </div>
             </div>
-            <div className="gameBankContent__deposit bannerBack">
-              <div className="gameBankContent__Title">
-                Вклад
-              </div>
-              <div className="gameBankContent__Form">
-                <small style={{textAlign: 'center', borderBottom: '1px solid grey'}}>
-                  <i>тут отображаются ваши вклады...</i>
-                </small>
-                <div className="gameBankContent__FormInput">
-                  Размер вклада: <Input size="large" prefix='$' value={0} onChange={(e) => console.log(e.target.value)} />
-                </div>
-                <div className='gameBankContent__FormPayloads'>
-                  <div className='gameBankContent__FormPayload'>
-                    Вы получите: <b>$0</b>
-                  </div>
-                  <div className='gameBankContent__FormPayload'>
-                    Ежемесячные выплаты: <b>$0</b>
-                  </div>
-                </div>
-                <br/>
-              </div>
-              <div className="gameBankContent__Menu"></div>
-              <div className="gameBankContent__Button">
-                <Button size={'large'} onClick={() => payForExpenses()} disabled={expenseAmount > profile.expenses[activeExpense].remainPrice || expenseAmount < 1}>
-                  Оформить
-                </Button>
-              </div>
-            </div>
+            {/*<div className="gameBankContent__deposit bannerBack">*/}
+            {/*  <div className="gameBankContent__Title">*/}
+            {/*    Вклад*/}
+            {/*  </div>*/}
+            {/*  <div className="gameBankContent__Form">*/}
+            {/*    <small style={{textAlign: 'center', borderBottom: '1px solid grey'}}>*/}
+            {/*      <i>тут отображаются ваши вклады...</i>*/}
+            {/*    </small>*/}
+            {/*    <div className="gameBankContent__FormInput">*/}
+            {/*      Размер вклада: <Input size="large" prefix='$' value={0} onChange={(e) => console.log(e.target.value)} />*/}
+            {/*    </div>*/}
+            {/*    <div className='gameBankContent__FormPayloads'>*/}
+            {/*      <div className='gameBankContent__FormPayload'>*/}
+            {/*        Вы получите: <b>$0</b>*/}
+            {/*      </div>*/}
+            {/*      <div className='gameBankContent__FormPayload'>*/}
+            {/*        Ежемесячные выплаты: <b>$0</b>*/}
+            {/*      </div>*/}
+            {/*    </div>*/}
+            {/*    <br/>*/}
+            {/*  </div>*/}
+            {/*  <div className="gameBankContent__Button">*/}
+            {/*    <Button size={'large'} onClick={() => payForExpenses()} disabled={expenseAmount > profile.expenses[activeExpense].remainPrice || expenseAmount < 1}>*/}
+            {/*      Оформить*/}
+            {/*    </Button>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
           </div>
         </div>
       </div>

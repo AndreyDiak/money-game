@@ -23,6 +23,7 @@
       justify-content: flex-end
       column-gap: 30px
     &Content
+      height: inherit
       z-index: 10
       overflow: auto
       &__Tabs
@@ -97,3 +98,78 @@
         z-index: 10
         &__reverse
           flex-direction: column-reverse
+
+@media screen and (max-width: 1200px)
+  .gameNews
+    &Block
+      padding: 15px
+      width: 70%
+
+@media screen and (max-width: 1024px)
+  .gameNews
+    &Block
+      padding: 10px
+      width: 80%
+
+@media screen and (max-width: 768px)
+  .gameNews
+    &Menu
+      margin-top: 20px
+      column-gap: 10px
+    &Block
+      width: 85%
+      &__Title
+        margin-bottom: 5px
+        padding: 5px
+        font-size: 18px
+      &__News
+        &Company
+          margin: 5px auto
+          padding: 5px
+          width: 70%
+          font-size: 14px
+        &Title
+          font-size: 14px
+        &Price
+          font-size: 14px
+      &__Footer
+        margin-top: 5px
+        padding-top: 5px
+        &Button
+          width: 30px
+          height: 30px
+          font-size: 18px
+        &Text
+          font-size: 14px
+      &s
+        padding: 20px
+        row-gap: 20px
+
+@media screen and (max-width: 480px)
+  .gameNews
+    &Block
+      width: 100%
+      &__Title
+        margin-bottom: 3px
+        padding: 3px
+        font-size: 14px
+      &__News
+        &Company
+          width: 80%
+          font-size: 12px
+        &Title
+          font-size: 10px
+        &Price
+          font-size: 10px
+      &__Footer
+        margin-top: 3px
+        padding-top: 3px
+        &Button
+          width: 20px
+          height: 20px
+          font-size: 14px
+        &Text
+          font-size: 10px
+      &s
+        padding: 10px
+        row-gap: 10px

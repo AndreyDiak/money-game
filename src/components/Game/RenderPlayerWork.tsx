@@ -78,10 +78,11 @@ export const RenderPlayerWork = () => {
       <div className="gameWork bannerBack">
           <div className="gameWorkContent">
             <div className="container">
-              <div className="gameWorkContent__profile gameWorkContent__profile">
+              <div className="gameWorkContent__profile">
                 <div className='gameWorkContent__profileImg'>
                   <img src={profile.img} alt=""/> <br/>
                 </div>
+                <h3><b>Количество детей</b></h3>
                 <div className="gameWorkContent__profileChild">
                   {children.map(child => {
                     return (

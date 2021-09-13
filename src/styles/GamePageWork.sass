@@ -12,6 +12,8 @@
     &Content
       padding: 30px
       height: inherit
+      //display: flex
+      //align-items: flex-end
       background: rgba(244, 212, 189, 0.6)
       z-index: 10
       &__profile
@@ -74,3 +76,53 @@
       font-size: 26px
       margin-top: 20px
       border-bottom: none
+
+@media screen and (max-width: 1200px)
+  .gameWork
+    &Content
+      &__profile
+        &Img
+          padding-bottom: 15px
+          margin-bottom: 15px
+          height: 450px
+        &Child
+          div
+            height: 180px
+      &__block
+        font-size: 18px
+        &s
+          width: 100% !important
+          padding: 15px
+          &Title
+            margin-bottom: 20px
+            padding: 5px 15px
+
+@media screen and (max-width: 1024px)
+  .gameWork
+    &Content
+      padding: 20px 0
+      .container
+        grid-template-columns: 1fr 2fr
+      &__block
+        padding: 5px
+        margin-bottom: 5px
+        font-size: 16px
+        &s
+          padding: 10px
+          &Title
+            margin-bottom: 15px
+            padding: 3px 10px
+
+@media screen and (max-width: 768px)
+  .gameWork
+    height: auto
+    &Content
+      &__profile
+        &Img
+          display: none
+        &Child
+          div
+            height: 150px
+      .container
+        grid-template-areas: 'incomes' 'works' 'profile'
+        grid-template-columns: 1fr

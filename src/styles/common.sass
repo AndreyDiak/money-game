@@ -157,3 +157,57 @@
   padding: 0 4px
   font-size: 10px !important
   right: -10px !important
+
+@media screen and (max-width: 1200px)
+  .container
+    width: 75%
+
+@media screen and (max-width: 1024px)
+  .container
+    width: 80%
+
+@media screen and (max-width: 768px)
+  .container
+    width: 85%
+  .chartPopup, .sellPopup
+    &Block
+      padding: 10px 20px
+      width: 90%
+      &__Title
+        margin-bottom: 10px
+        font-size: 22px
+      &__Close
+        font-size: 22px
+      &__Menu
+        margin-top: 10px
+        padding-bottom: 10px
+        padding-top: 10px
+        flex-direction: column
+        row-gap: 10px
+
+@media screen and (max-width: 480px)
+  .container
+    width: 90%
+  .chartPopup, .sellPopup
+    &Block
+      padding: 5px 10px
+      width: 95%
+      &__Title
+        margin-bottom: 5px
+        font-size: 16px
+      &__Close
+        font-size: 16px
+      &__Menu
+        margin-top: 5px
+        padding-bottom: 5px
+        padding-top: 5px
+        row-gap: 5px
+        div
+          button
+            padding: 2px 10px
+            font-size: 14px
+        &Info
+          text-align: center
+          div
+            button
+              display: none

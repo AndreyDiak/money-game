@@ -2,7 +2,7 @@ import {Avatar, Button, Dropdown, Menu, Popover, Progress} from 'antd'
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getPersonSelector} from "../redux/profile-selector";
-import React, { FC } from "react";
+import React, {FC, useState} from "react";
 import {personType} from "../redux/profile-reducer";
 import {settingsActions} from "../redux/settings-reducer";
 import {DoubleRightOutlined, PauseOutlined, RightOutlined} from "@ant-design/icons/lib/icons";
@@ -28,6 +28,8 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   //
   const stocks = useSelector(getStocksSelector)
+  //
+  const [screenWidth, setScreenWidth] = useState(window.screen.width)
   //
   const onChangeTime = (time: number) => {
     dispatch(settingsActions.setTimeSpeed(time))
@@ -55,7 +57,7 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
           </NavLink>
         </Menu.Item>
       }
-      {income < 1000
+      {income < 3000
         ? <p>
           Доход более <b>$3000</b> / мес
         </p>

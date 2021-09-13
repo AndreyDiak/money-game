@@ -26,44 +26,45 @@ export const RealtyPage = () => {
   return (
     <>
       <div className="gameRealty bannerBack">
-        <div className="gameRealtyContent">
-          <div className="gameRealtyContent__realty">
-            <div className="gameRealtyContent__realtyTitle">
-              Ваша недвижимость
-            </div>
-            {myRealty.length !== 0
-              // ? <div className="gameRealtyContent__realtyItems">
-                ? <Carousel className="gameRealtyContent__realtyItems">
-                {myRealty.map(realty => {
-                  return (
-                    <>
-                      <div className="gameRealtyContent__realtyItem">
-                        <div className="gameRealtyContent__realtyItem__img">
-                          <img src={realty.photo} alt=""/>
-                        </div>
-                        <div className="gameRealtyContent__realtyItem__title">
-                          {realty.title}
-                        </div>
-                        <div className="gameRealtyContent__realtyItem__income">
-                          ДОХОД : ${realty.payment}
-                        </div>
-                        <div className="gameRealtyContent__realtyItem__price">
-                          ЦЕНА : ${realty.price}
-                        </div>
-                      </div>
-                    </>
-                  )
-                })}
-              </Carousel>
-              // </div>
-             : <div style={{textAlign: 'center'}}>
-                <b>У вас нет недвижимости!</b>
+        <div className="container">
+          <div className="gameRealtyContent">
+            <div className="gameRealtyContent__realty">
+              <div className="gameRealtyContent__realtyTitle">
+                Ваша недвижимость
               </div>
-            }
-          </div>
-          <div className='gameRealtyContent__block'>
-            {activeRealty
-              ?
+              {myRealty.length !== 0
+                // ? <div className="gameRealtyContent__realtyItems">
+                ? <Carousel className="gameRealtyContent__realtyItems">
+                  {myRealty.map(realty => {
+                    return (
+                      <>
+                        <div className="gameRealtyContent__realtyItem">
+                          <div className="gameRealtyContent__realtyItem__img">
+                            <img src={realty.photo} alt=""/>
+                          </div>
+                          <div className="gameRealtyContent__realtyItem__title">
+                            {realty.title}
+                          </div>
+                          <div className="gameRealtyContent__realtyItem__income">
+                            ДОХОД : ${realty.payment}
+                          </div>
+                          <div className="gameRealtyContent__realtyItem__price">
+                            ЦЕНА : ${realty.price}
+                          </div>
+                        </div>
+                      </>
+                    )
+                  })}
+                </Carousel>
+                // </div>
+                : <div style={{textAlign: 'center'}}>
+                  <b>У вас нет недвижимости!</b>
+                </div>
+              }
+            </div>
+            <div className='gameRealtyContent__block'>
+              {activeRealty
+                ?
                 <>
                   <div className="gameRealtyContent__realtyTitle">
                     Дом на продажу
@@ -99,11 +100,12 @@ export const RealtyPage = () => {
                     </Button>
                   </div>
                 </>
-              : <div style={{textAlign: 'center'}}>
+                : <div style={{textAlign: 'center'}}>
                   <b>Ждите новое предложение!</b>
                 </div>
-            }
+              }
             </div>
+          </div>
         </div>
       </div>
     </>

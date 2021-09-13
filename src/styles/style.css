@@ -96,7 +96,6 @@
 }
 .profile {
   width: 100vw;
-  height: 100vh;
   background: url("../img/characters/banner.jpg") center no-repeat;
   background-size: cover;
   display: grid;
@@ -351,6 +350,11 @@
   .profilePreview {
     display: none !important;
   }
+  .profileMenu {
+    margin: 0 auto;
+    height: auto;
+    width: 60%;
+  }
   .profileMenu__Buttons {
     display: none;
   }
@@ -366,6 +370,9 @@
   }
   .profilePersons__Filter button {
     width: 60%;
+  }
+  .profileMenu {
+    width: 90%;
   }
   .profileMenu__StatsTitle {
     font-size: 18px;
@@ -553,6 +560,137 @@
   color: #29b6f6;
 }
 
+.bottomNav {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  display: none;
+  padding: 7px;
+  background: white;
+  justify-content: center;
+  column-gap: 15px;
+  z-index: 15;
+}
+.bottomNavItem {
+  z-index: 15;
+  color: #fff;
+}
+.bottomNavItem button {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+.bottomNavItem button img {
+  width: 25px;
+  height: 25px;
+}
+.bottomNavItem a {
+  color: #fff;
+}
+.bottomNavItem a button {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+.bottomNavItem a button img {
+  width: 25px;
+  height: 25px;
+}
+
+@media screen and (max-width: 1200px) {
+  .navItemMenu {
+    margin-left: 10px;
+    column-gap: 15px;
+  }
+  .navItem__link {
+    width: 60px;
+    font-size: 16px;
+  }
+  .navItemBalance {
+    font-size: 28px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .navItem {
+    column-gap: 10px;
+    width: auto;
+  }
+  .navItemBalance {
+    font-size: 24px;
+  }
+  .navItemProfile {
+    padding: 5px;
+    column-gap: 10px;
+    font-size: 16px;
+  }
+  .navItem__link {
+    font-size: 14px;
+    width: auto;
+  }
+  .navItemMenu {
+    margin-left: 0;
+  }
+  .navItemMenu button {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .bottomNav {
+    display: flex;
+  }
+
+  .navItem:last-child {
+    height: 50px;
+  }
+  .navItemProfile div {
+    width: 40px;
+    height: 40px;
+  }
+  .navItemProfile div div {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .navItemBalance {
+    padding: 0 10px;
+    font-size: 18px;
+  }
+  .navItem__link {
+    display: none;
+  }
+
+  .ant-menu {
+    text-align: center;
+  }
+  .ant-menu p {
+    margin-bottom: 20px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .ant-modal {
+    width: 80% !important;
+  }
+
+  .navItemMenu {
+    column-gap: 5px;
+  }
+  .navItemBalance {
+    font-size: 14px;
+  }
+  .navItemProfile {
+    font-size: 14px;
+  }
+  .navItemProfile div {
+    width: 30px;
+    height: 30px;
+  }
+  .navItemProfile div div {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}
 .game {
   display: grid;
   grid-template-areas: "profile actions";
@@ -590,7 +728,7 @@
   z-index: 2;
 }
 .gameProfitHeader span {
-  font-size: 20px;
+  font-size: 18px;
   font-family: "Fira Mono", sans-serif;
   font-weight: 500;
   color: #eeeeee;
@@ -691,6 +829,66 @@
   row-gap: 30px;
 }
 
+@media screen and (max-width: 1600px) {
+  .gameProfitHeader span {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .gameProfitStocks__OfferBlock {
+    width: 90%;
+  }
+  .gameProfitStocks__OfferBlock__Title {
+    font-size: 18px;
+  }
+  .gameProfitStocks__OfferBlock__Info {
+    column-gap: 10px;
+  }
+  .gameProfitStocks__OfferBlock__Button {
+    margin-top: 5px;
+    padding: 3px 7px;
+    font-size: 16px;
+  }
+  .gameProfitStocks__OfferBlock::after {
+    bottom: -7.5px;
+  }
+  .gameProfitStocks__OfferBlocks__menu {
+    margin-top: 10px;
+  }
+  .gameProfitStocks__OfferBlocks__stocks {
+    margin-top: 15px;
+    row-gap: 15px;
+  }
+  .gameProfitStocks__Me, .gameProfitStocks__Offer {
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .gameProfitStocks__OfferBlock {
+    width: 100%;
+  }
+  .gameProfitStocks__OfferBlock__Title {
+    font-size: 16px;
+  }
+  .gameProfitStocks__OfferBlock__Info {
+    column-gap: 7px;
+  }
+  .gameProfitStocks__OfferBlock__Button {
+    padding: 3px 5px;
+    font-size: 14px;
+  }
+  .gameProfitHeader span {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .gameProfitStocks__Me {
+    border-right: none;
+  }
+  .gameProfitStocks .container {
+    grid-template-columns: 1fr;
+  }
+}
 .gameProfile {
   grid-area: profile;
   display: flex;
@@ -960,6 +1158,62 @@
   border-bottom: none;
 }
 
+@media screen and (max-width: 1200px) {
+  .gameWorkContent__profileImg {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    height: 450px;
+  }
+  .gameWorkContent__profileChild div {
+    height: 180px;
+  }
+  .gameWorkContent__block {
+    font-size: 18px;
+  }
+  .gameWorkContent__blocks {
+    width: 100% !important;
+    padding: 15px;
+  }
+  .gameWorkContent__blocksTitle {
+    margin-bottom: 20px;
+    padding: 5px 15px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .gameWorkContent {
+    padding: 20px 0;
+  }
+  .gameWorkContent .container {
+    grid-template-columns: 1fr 2fr;
+  }
+  .gameWorkContent__block {
+    padding: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  .gameWorkContent__blocks {
+    padding: 10px;
+  }
+  .gameWorkContent__blocksTitle {
+    margin-bottom: 15px;
+    padding: 3px 10px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .gameWork {
+    height: auto;
+  }
+  .gameWorkContent__profileImg {
+    display: none;
+  }
+  .gameWorkContent__profileChild div {
+    height: 150px;
+  }
+  .gameWorkContent .container {
+    grid-template-areas: "incomes" "works" "profile";
+    grid-template-columns: 1fr;
+  }
+}
 .gameSpend {
   display: flex;
   position: relative;
@@ -1045,6 +1299,50 @@
   column-gap: 10px;
 }
 
+@media screen and (max-width: 1200px) {
+  .gameSpendContent__Footer {
+    padding: 5px 10px;
+    font-size: 22px;
+  }
+  .gameSpendContent__Item {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    font-size: 18px;
+  }
+  .gameSpendContent__Items {
+    padding: 15px;
+  }
+  .gameSpendContent__Title {
+    padding: 5px 15px;
+    font-size: 22px;
+  }
+  .gameSpendContent .container {
+    column-gap: 10px;
+    row-gap: 10px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .gameSpendContent__Item {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .gameSpend {
+    height: auto;
+  }
+}
+@media screen and (max-width: 480px) {
+  .gameSpendContent__Title {
+    text-align: center;
+    font-size: 16px;
+  }
+  .gameSpendContent__Items {
+    padding: 7px;
+  }
+  .gameSpendContent__Footer {
+    font-size: 16px;
+  }
+}
 .gameNews {
   position: relative;
   height: inherit;
@@ -1072,6 +1370,7 @@
   column-gap: 30px;
 }
 .gameNewsContent {
+  height: inherit;
   z-index: 10;
   overflow: auto;
 }
@@ -1161,6 +1460,96 @@
   flex-direction: column-reverse;
 }
 
+@media screen and (max-width: 1200px) {
+  .gameNewsBlock {
+    padding: 15px;
+    width: 70%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .gameNewsBlock {
+    padding: 10px;
+    width: 80%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .gameNewsMenu {
+    margin-top: 20px;
+    column-gap: 10px;
+  }
+  .gameNewsBlock {
+    width: 85%;
+  }
+  .gameNewsBlock__Title {
+    margin-bottom: 5px;
+    padding: 5px;
+    font-size: 18px;
+  }
+  .gameNewsBlock__NewsCompany {
+    margin: 5px auto;
+    padding: 5px;
+    width: 70%;
+    font-size: 14px;
+  }
+  .gameNewsBlock__NewsTitle {
+    font-size: 14px;
+  }
+  .gameNewsBlock__NewsPrice {
+    font-size: 14px;
+  }
+  .gameNewsBlock__Footer {
+    margin-top: 5px;
+    padding-top: 5px;
+  }
+  .gameNewsBlock__FooterButton {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+  .gameNewsBlock__FooterText {
+    font-size: 14px;
+  }
+  .gameNewsBlocks {
+    padding: 20px;
+    row-gap: 20px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .gameNewsBlock {
+    width: 100%;
+  }
+  .gameNewsBlock__Title {
+    margin-bottom: 3px;
+    padding: 3px;
+    font-size: 14px;
+  }
+  .gameNewsBlock__NewsCompany {
+    width: 80%;
+    font-size: 12px;
+  }
+  .gameNewsBlock__NewsTitle {
+    font-size: 10px;
+  }
+  .gameNewsBlock__NewsPrice {
+    font-size: 10px;
+  }
+  .gameNewsBlock__Footer {
+    margin-top: 3px;
+    padding-top: 3px;
+  }
+  .gameNewsBlock__FooterButton {
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+  }
+  .gameNewsBlock__FooterText {
+    font-size: 10px;
+  }
+  .gameNewsBlocks {
+    padding: 10px;
+    row-gap: 10px;
+  }
+}
 .gameBusiness {
   display: flex;
   justify-content: center;
@@ -1229,6 +1618,60 @@
   overflow: auto;
 }
 
+@media screen and (max-width: 1200px) {
+  .gameBusinessContent__menu {
+    width: 80%;
+  }
+  .gameBusinessContent__blocks {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .gameBusinessContent__menu {
+    width: 90%;
+  }
+  .gameBusinessContent__block {
+    padding: 15px;
+  }
+  .gameBusinessContent__blockIncome, .gameBusinessContent__blockPrice {
+    font-size: 18px;
+  }
+  .gameBusinessContent__blockTitle {
+    padding-bottom: 10px;
+    font-size: 22px;
+  }
+  .gameBusinessContent__blocks {
+    padding: 30px;
+    width: 90%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .gameBusiness {
+    padding-bottom: 50px;
+    height: auto;
+  }
+  .gameBusinessContent__menu {
+    width: 100%;
+  }
+  .gameBusinessContent__block {
+    padding: 10px;
+  }
+  .gameBusinessContent__blockIncome, .gameBusinessContent__blockPrice {
+    font-size: 16px;
+  }
+  .gameBusinessContent__blockTitle {
+    padding-bottom: 10px;
+    font-size: 18px;
+  }
+  .gameBusinessContent__blockButton {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+  .gameBusinessContent__blocks {
+    padding: 15px;
+    width: 100%;
+  }
+}
 .gameBank {
   padding: 0 20px;
   display: flex;
@@ -1244,10 +1687,14 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  height: inherit;
   column-gap: 50px;
   flex-wrap: wrap;
   row-gap: 50px;
   z-index: 10;
+}
+.gameBankContent .container {
+  width: inherit;
 }
 .gameBankContent__liabilities, .gameBankContent__credit, .gameBankContent__payout, .gameBankContent__deposit {
   background: rgba(249, 235, 217, 0.9);
@@ -1333,6 +1780,91 @@
   text-align: center;
 }
 
+@media screen and (max-width: 1200px) {
+  .gameBankContent {
+    column-gap: 35px;
+    row-gap: 35px;
+  }
+  .gameBankContent__liabilities, .gameBankContent__credit, .gameBankContent__payout, .gameBankContent__deposit {
+    width: 46%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .gameBank {
+    padding: 30px;
+  }
+  .gameBankContent {
+    column-gap: 20px;
+    row-gap: 20px;
+  }
+  .gameBankContent__Blocks {
+    padding: 15px;
+    row-gap: 10px;
+    font-size: 18px;
+  }
+  .gameBankContent__Title {
+    padding: 10px;
+    font-size: 24px;
+  }
+  .gameBankContent__Menu {
+    padding: 15px;
+  }
+  .gameBankContent__liabilities, .gameBankContent__credit, .gameBankContent__payout, .gameBankContent__deposit {
+    width: 70%;
+  }
+
+  .warning {
+    padding: 15px;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .gameBank {
+    padding-bottom: 50px;
+  }
+  .gameBankContent__Form {
+    margin-top: 5px;
+    font-size: 14px;
+  }
+  .gameBankContent__FormPayload {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+  }
+  .gameBankContent__Button {
+    margin-bottom: 20px;
+  }
+  .gameBankContent__Button button {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+  .gameBankContent__Menu {
+    padding: 10px;
+  }
+  .gameBankContent__MenuPay__Price {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    font-size: 14px;
+  }
+  .gameBankContent__MenuPay__Input {
+    width: 80%;
+  }
+  .gameBankContent__MenuSelect {
+    width: 80%;
+  }
+  .gameBankContent__Block {
+    padding-bottom: 5px;
+  }
+  .gameBankContent__Blocks {
+    font-size: 14px;
+  }
+  .gameBankContent__Title {
+    padding: 5px;
+    font-size: 18px;
+  }
+  .gameBankContent__liabilities, .gameBankContent__credit, .gameBankContent__payout, .gameBankContent__deposit {
+    width: 90%;
+  }
+}
 .gameMarket {
   display: flex;
   width: 100%;
@@ -1453,6 +1985,34 @@
   border-bottom: 1px solid #fff;
 }
 
+@media screen and (max-width: 768px) {
+  .gameRealtyContent__realty, .gameRealtyContent__block {
+    width: inherit;
+  }
+  .gameRealtyContent__realtyTitle, .gameRealtyContent__blockTitle {
+    padding-bottom: 5px;
+    margin: 0 auto 15px;
+    width: 70%;
+    font-size: 18px;
+  }
+  .gameRealtyContent__realtyInfo, .gameRealtyContent__blockInfo {
+    flex-direction: column-reverse;
+    row-gap: 10px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .gameRealtyContent__realtyItem {
+    text-align: center;
+    font-size: 14px;
+  }
+  .gameRealtyContent__blockTitle {
+    margin: 0 auto 10px;
+    font-size: 16px;
+  }
+  .gameRealtyContent__blockInfo__price {
+    font-size: 14px;
+  }
+}
 body {
   margin: 0;
   padding: 0;
@@ -1664,6 +2224,74 @@ input:checked, input:active, input:focus {
   padding: 0 4px;
   font-size: 10px !important;
   right: -10px !important;
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    width: 75%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .container {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    width: 85%;
+  }
+
+  .chartPopupBlock, .sellPopupBlock {
+    padding: 10px 20px;
+    width: 90%;
+  }
+  .chartPopupBlock__Title, .sellPopupBlock__Title {
+    margin-bottom: 10px;
+    font-size: 22px;
+  }
+  .chartPopupBlock__Close, .sellPopupBlock__Close {
+    font-size: 22px;
+  }
+  .chartPopupBlock__Menu, .sellPopupBlock__Menu {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .container {
+    width: 90%;
+  }
+
+  .chartPopupBlock, .sellPopupBlock {
+    padding: 5px 10px;
+    width: 95%;
+  }
+  .chartPopupBlock__Title, .sellPopupBlock__Title {
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  .chartPopupBlock__Close, .sellPopupBlock__Close {
+    font-size: 16px;
+  }
+  .chartPopupBlock__Menu, .sellPopupBlock__Menu {
+    margin-top: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    row-gap: 5px;
+  }
+  .chartPopupBlock__Menu div button, .sellPopupBlock__Menu div button {
+    padding: 2px 10px;
+    font-size: 14px;
+  }
+  .chartPopupBlock__MenuInfo, .sellPopupBlock__MenuInfo {
+    text-align: center;
+  }
+  .chartPopupBlock__MenuInfo div button, .sellPopupBlock__MenuInfo div button {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

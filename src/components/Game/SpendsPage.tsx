@@ -34,6 +34,10 @@ export const SpendsPage: FC = (props) => {
       newsExpensesPrice -= expenses.amount
     })
   }
+  let expensesSummary = 0
+  expenses.map(expense => {
+    expensesSummary += expense.remainPrice
+  })
 
   return (
     <>
@@ -78,7 +82,7 @@ export const SpendsPage: FC = (props) => {
                   </div>
                 </div>
               </div>
-            <div className="gameWorkContent__blocks gameWorkContent__liabilities">
+            {expensesSummary > 0 && <div className="gameWorkContent__blocks gameWorkContent__liabilities">
                 <div className="gameWorkContent__blocksTitle">
                   Обязательства
                 </div>
@@ -98,7 +102,7 @@ export const SpendsPage: FC = (props) => {
                     </>
                   )
                 })}
-              </div>
+              </div>}
             <div className="gameWorkContent__blocks">
               <div className="gameSpendContent__Title">
                 <b>Месячные траты / {months[month].name}</b>

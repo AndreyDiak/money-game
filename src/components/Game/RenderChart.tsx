@@ -21,7 +21,7 @@ export type RenderChartType = {
 export const RenderChart: FC<RenderChartType> = (props) => {
   const dispatch = useDispatch()
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
-
+  const [screenWidth, setScreenWidth] = useState(window.screen.width)
   const Months = [
     'Январь', '', '', '', 'Февраль', '', '', '', 'Март', '', '', '',
     'Апрель', '', '', '', 'Май', '', '', '', 'Июнь', '', '', '',
@@ -53,7 +53,7 @@ export const RenderChart: FC<RenderChartType> = (props) => {
         // сглаживание . . .
         lineTension: 0.4,
         // цвета . . .
-        backgroundColor: 'rgb(255, 99, 132)',
+        // backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgba(255, 99, 132, 0.8)',
         borderCapStyle: 'butt',
         borderDash: [],
@@ -70,13 +70,35 @@ export const RenderChart: FC<RenderChartType> = (props) => {
 
   const options = {
     scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-      ],
+      x: {
+        grid: {
+          // @ts-ignore
+          display: true,
+        }
+      },
+      y: {
+        grid: {
+          // @ts-ignore
+          display: true,
+        }
+      },
+    },
+  };
+
+  const optionsSmall = {
+    scales: {
+      x: {
+        grid: {
+          // @ts-ignore
+          display: false,
+        }
+      },
+      y: {
+        grid: {
+          // @ts-ignore
+          display: false,
+        }
+      },
     },
   };
 
@@ -99,7 +121,7 @@ export const RenderChart: FC<RenderChartType> = (props) => {
             <b>{props.stock.title}</b>
           </div>
           {/* рисуем график с ценой на акции . . . */}
-          <Line data={data} options={options} title='цена акций' contextMenu={'Привет'} />
+          <Line data={data} options={screenWidth > 768 ? options : optionsSmall} title='цена акций' contextMenu={'Привет'}  />
           <RenderChartMenu stock={props.stock} setIsHistoryShown={props.setIsHistoryShown}/>
         </div>
       </div>

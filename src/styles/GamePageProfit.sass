@@ -17,7 +17,7 @@
       text-transform: lowercase
       z-index: 2
       span
-        font-size: 20px
+        font-size: 18px
         font-family: 'Fira Mono', sans-serif
         font-weight: 500
         color: #eeeeee
@@ -102,3 +102,61 @@
               max-height: 70vh
               flex-direction: column
               row-gap: 30px
+
+@media screen and (max-width: 1600px)
+  .gameProfit
+    &Header
+      span
+        font-size: 16px
+
+@media screen and (max-width: 1200px)
+  .gameProfit
+    &Stocks
+      &__Offer
+        &Block
+          width: 90%
+          &__Title
+            font-size: 18px
+          &__Info
+            column-gap: 10px
+          &__Button
+            margin-top: 5px
+            padding: 3px 7px
+            font-size: 16px
+          &::after
+            bottom: - 7.5px
+          &s
+            &__menu
+              margin-top: 10px
+            &__stocks
+              margin-top: 15px
+              row-gap: 15px
+
+
+      &__Me, &__Offer
+        padding: 10px
+
+@media screen and (max-width: 1024px)
+  .gameProfit
+    &Stocks
+      &__Offer
+        &Block
+          width: 100%
+          &__Title
+            font-size: 16px
+          &__Info
+            column-gap: 7px
+          &__Button
+            padding: 3px 5px
+            font-size: 14px
+    &Header
+      span
+        font-size: 14px
+
+@media screen and (max-width: 768px)
+  .gameProfit
+    &Stocks
+      &__Me
+        border-right: none
+      .container
+        grid-template-columns: 1fr

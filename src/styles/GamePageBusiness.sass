@@ -56,3 +56,49 @@
         row-gap: 30px
         background: rgba(53, 92, 125, 0.9)
         overflow: auto
+
+@media screen and (max-width: 1200px)
+  .gameBusiness
+    &Content
+      &__menu
+        width: 80%
+      &__block
+        &s
+          width: 80%
+
+@media screen and (max-width: 1024px)
+  .gameBusiness
+    &Content
+      &__menu
+        width: 90%
+      &__block
+        padding: 15px
+        &Income, &Price
+          font-size: 18px
+        &Title
+          padding-bottom: 10px
+          font-size: 22px
+        &s
+          padding: 30px
+          width: 90%
+
+@media screen and (max-width: 768px)
+  .gameBusiness
+    padding-bottom: 50px
+    height: auto
+    &Content
+      &__menu
+        width: 100%
+      &__block
+        padding: 10px
+        &Income, &Price
+          font-size: 16px
+        &Title
+          padding-bottom: 10px
+          font-size: 18px
+        &Button
+          margin-top: 10px
+          padding-top: 10px
+        &s
+          padding: 15px
+          width: 100%

@@ -40,8 +40,8 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   // массив ваших бизнессов . . .
   const myBusinesses = useSelector(getMyBusinessesSelector)
   // текущая работа . . .
-  // const profile = useSelector(getPersonSelector) as personType
-  //
+  const [screenWidth, setScreenWidth] = useState(window.screen.width)
+
   const spendsLevel = useSelector((state: AppStateType) => state.spendsPage.spendsLevel)
 
   const income = useSelector((state: AppStateType) => state.profilePage.income)
@@ -131,7 +131,6 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
     dispatch(profileActions.updateExpenses())
     // если мы выплатили целиком какой либо долг, то у нас растет ЗП
     dispatch(updateIncome())
-
     // если наш доход перевалил за $1000 или $4500 в месяц, то мы увеличиваем траты
     if ((income >= 1000 && spendsLevel === 1) || (income >= 4500 && spendsLevel === 2)) {
       dispatch(spendsActions.setSpendsLevel())
@@ -148,15 +147,21 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   return (
     <>
         <Breadcrumb className='gameProfitHeader'>
-          <Breadcrumb.Item className='gameProfitHeader__Day'>
-            {activeDay}
-          </Breadcrumb.Item>
+          {screenWidth > 1024
+          && <Breadcrumb.Item className='gameProfitHeader__Day'>
+              {activeDay}
+            </Breadcrumb.Item>}
           <Breadcrumb.Item className='gameProfitHeader__Month'>
-            {dayInMonth} {activeMonth}
+            {dayInMonth}
+            {screenWidth > 480
+              ? ` ${activeMonth}`
+              : `.${month < 9 ? '0' : ''}${month+1}`}
           </Breadcrumb.Item>
-          <Breadcrumb.Item className="gameProfitHeader__Day">
+          {screenWidth > 1024
+          && <Breadcrumb.Item className="gameProfitHeader__Day">
             <b>{day}</b> день
-          </Breadcrumb.Item>
+          </Breadcrumb.Item>}
+
         </Breadcrumb>
     </>
   )

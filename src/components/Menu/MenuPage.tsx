@@ -117,16 +117,21 @@ export const MenuPage = () => {
             </div>
             <div className="menuList">
               <div className="menuListItem">
-                {isInstructionCompleted
-                  ? <NavLink to='/profile'>
-                      <button className='menuListItem__Button'>
-                        Начать игру
-                      </button>
-                    </NavLink>
-                  : <button className="menuListItem__Button" onClick={showModal} >
-                      Начать игру
-                    </button>
-                }
+                <NavLink to='/profile'>
+                  <button className='menuListItem__Button'>
+                    Начать игру
+                  </button>
+                </NavLink>
+                {/*{isInstructionCompleted*/}
+                {/*  ? <NavLink to='/profile'>*/}
+                {/*      <button className='menuListItem__Button'>*/}
+                {/*        Начать игру*/}
+                {/*      </button>*/}
+                {/*    </NavLink>*/}
+                {/*  : <button className="menuListItem__Button" onClick={showModal} >*/}
+                {/*      Начать игру*/}
+                {/*    </button>*/}
+                {/*}*/}
               </div>
               <div className="menuListItem">
                 <button className="menuListItem__Button" onClick={showChangesModal}>
