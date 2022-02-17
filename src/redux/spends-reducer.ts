@@ -3,12 +3,15 @@ import {DifficultyType} from "./settings-reducer";
 import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
 import {actions} from "./game-reducer";
+import {getRandomNumber} from "../utils/getRandomNumber";
 
 const WEEK_SPEND = 'gamePage/WEEK_SPEND'
 const INDEX_PRICE = 'gamePage/INDEX_PRICE'
 const RESET_CURRENT_MONTHS = 'gamePage/RESET_CURRENT_MONTHS'
 const SET_SPENDS_LEVEL = 'gamePage/SET_SPENDS_LEVEL'
 const DECREASE_SPENDS_LEVEL = 'gamePage/DECREASE_SPENDS_LEVEL'
+const SET_NEW_SPENDS = 'spendsPage/SET_NEW_SPENDS'
+
 let initialState = {
   //
   initialEvents: [
@@ -186,6 +189,15 @@ export const spendsReducer = (state = initialState, action: SpendsActionType): I
         ...state,
         spendsLevel: state.spendsLevel - 1
       }
+    case SET_NEW_SPENDS:
+      return {
+        ...state,
+        spendsLevel: action.sLevel,
+        events: action.spends,
+        currentMonthPrice: action.sPrice,
+        currentMonthEvents: action.monthSpends,
+        happenedEvents: action.happenedEvents
+      }
     default:
       return state
   }
@@ -196,7 +208,8 @@ export const spendsActions = {
   weekSpend: (events: eventType[], currentMonthEvents: eventType[], currentMonthPrice: number) => ({type: WEEK_SPEND, events, currentMonthEvents, currentMonthPrice} as const),
   resetCurrentMonth: () => ({type: RESET_CURRENT_MONTHS} as const),
   setSpendsLevel: () => ({type: SET_SPENDS_LEVEL} as const),
-  decreaseSpendsLevel: () => ({type: DECREASE_SPENDS_LEVEL} as const)
+  decreaseSpendsLevel: () => ({type: DECREASE_SPENDS_LEVEL} as const),
+  setNewsSpends: (sLevel: number, spends: eventType[], sPrice: number, monthSpends: eventType[], happenedEvents: []) => ({type: SET_NEW_SPENDS, sLevel, spends, sPrice, monthSpends, happenedEvents} as const)
 }
 
 export type eventType = {
@@ -220,7 +233,7 @@ export const weekSpendThunk = (): SpendsThunkType => (dispatch, getState) => {
   let currentMonthPriceCopy = getState().spendsPage.currentMonthPrice
 
   // берем случайное событие . . .
-  let event = Number((Math.random() * (events.length - 1)).toFixed(0))
+  let event = getRandomNumber(events.length-1)
 
   // копия массива с текущими событиями . . .
   // let happenedEventsCopy = [...happenedEvents]

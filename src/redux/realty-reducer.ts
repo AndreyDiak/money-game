@@ -13,6 +13,7 @@ import {InferActionsType} from "./store";
 const GENERATE_ACTIVE_REALTY = 'realtyPage/GENERATE_ACTIVE_REALTY'
 const RESET_ACTIVE_REALTY = 'realtyPage/RESET_ACTIVE_REALTY'
 const BUY_REALTY = 'realtyPage/BUY_REALTY'
+const SET_MY_REALTY = 'realtyPage/SET_MY_REALTY'
 
 let initialState = {
   activeRealty: null as null | realtyType,
@@ -112,16 +113,21 @@ export const realtyReducer = (state = initialState, action: RealtyActionsType): 
         myRealty: [...state.myRealty, state.activeRealty] as realtyType[],
         activeRealty: null
       }
+    case SET_MY_REALTY:
+      return {
+        ...state,
+        myRealty: action.myRealty
+      }
     default:
       return state
   }
 }
 
 export const realtyActions = {
-  generateActiveRealty: () => ({type: GENERATE_ACTIVE_REALTY}),
-  resetActiveRealty: () => ({type: RESET_ACTIVE_REALTY}),
-  buyRealty: () => ({type: BUY_REALTY})
-
+  generateActiveRealty: () => ({type: GENERATE_ACTIVE_REALTY} as const),
+  resetActiveRealty: () => ({type: RESET_ACTIVE_REALTY} as const),
+  buyRealty: () => ({type: BUY_REALTY} as const),
+  setMyRealty: (myRealty: realtyType[]) => ({type: SET_MY_REALTY, myRealty} as const)
 }
 
 export type InitialRealtyStateType = typeof initialState

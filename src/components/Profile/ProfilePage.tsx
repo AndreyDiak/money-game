@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react"
+import {FC, useCallback, useEffect, useState} from "react"
 import {Avatar, Button} from "antd"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
@@ -9,8 +9,12 @@ import Radio from "antd/lib/radio";
 import {getDifficultySelector, getTimeSpeedSelector} from "../../redux/settings-selector";
 import {settingsActions} from "../../redux/settings-reducer";
 import {spendsActions} from "../../redux/spends-reducer";
+import {useHttp} from "../../hooks/http.hook";
 
 export const ProfilePage: FC = () => {
+
+  const {request} = useHttp()
+  const token = useSelector((state: AppStateType) => state.app.token)
 
   const dispatch = useDispatch()
   const timeSpeed = useSelector(getTimeSpeedSelector)
@@ -36,8 +40,20 @@ export const ProfilePage: FC = () => {
     taxesSummary += expense.startPrice * expense.payment / 100
   })
 
-  const setProfile = () => {
+  const updateStats = async (profile: any) => {
+    try {
+      const data = await request('/api/profile/new', 'POST', {profile},{
+        Authorization: `Bearer ${token}`
+      })
+
+    } catch (e) {}
+  }
+
+  const setProfile = async () => {
+
     const profile = filteredPersons[activePerson]
+
+    await updateStats(profile)
 
     dispatch(profileActions.setProfile(profile))
     // устанавливаем подоходный налог на зп
@@ -126,7 +142,7 @@ export const ProfilePage: FC = () => {
                 {filteredPersons.map((person, index) => {
                   return (
                     <>
-                      <div className="profilePersons__Block">
+                      <div className="profilePersons__Block" key={index}>
                         <button onClick={() => setActivePerson(index)} className='profilePersons__BlockImg' >
                           <Avatar src={person.avatar} size={100} style={activePerson === index ? {border: '2px solid crimson'} : {}}/>
                         </button>
@@ -203,14 +219,14 @@ export const ProfilePage: FC = () => {
               </div>
               {filteredPersons[activePerson].expenses.map((expense, index) => {
                 return (
-                  <>
+                  <span key={index}>
                     {expense.remainPrice !== 0
                       ? <div className='profileMenu__StatsBlock'>
                           <div className="profileMenu__StatsBlock__Title">{expense.title}:</div>
                           <div className="profileMenu__StatsBlock__Price">${expense.remainPrice * expense.payment / 100}</div>
                         </div>
                       : ''}
-                  </>
+                  </span>
                 )
               })}
             </div>

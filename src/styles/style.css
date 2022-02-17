@@ -566,7 +566,7 @@
   left: 0;
   bottom: 0;
   display: none;
-  padding: 7px;
+  padding: 10px;
   background: white;
   justify-content: center;
   column-gap: 15px;
@@ -583,8 +583,8 @@
   color: #fff;
 }
 .bottomNavItem button img {
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
 }
 .bottomNavItem a {
   color: #fff;
@@ -596,8 +596,8 @@
   color: #fff;
 }
 .bottomNavItem a button img {
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -2055,6 +2055,168 @@
   left: calc(50% - 25px);
   background: #2a363b;
   border-radius: 50%;
+}
+
+.userPopup {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+.userPopupButtom {
+  margin-top: 30px;
+}
+.userPopupBlock button {
+  border: none;
+  background: transparent;
+}
+.userPopupBlock button img {
+  border: 2px solid #282c34;
+  width: 130px;
+}
+.userPopupBlocks {
+  z-index: 1000;
+  width: 50%;
+  padding: 25px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  align-items: center;
+}
+.userPopupBlocks span {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 10px;
+}
+.userPopup::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+@media screen and (max-width: 1024px) {
+  .authForm {
+    width: 500px;
+    padding: 10px;
+  }
+  .authFormInput {
+    max-width: 80%;
+  }
+  .authFormBlock {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  .authFormButton {
+    margin-top: 15px;
+  }
+  .authFormHeader {
+    margin-bottom: 15px;
+  }
+  .authFormHeader::after {
+    bottom: -5px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .authForm {
+    width: 100%;
+  }
+}
+.userPage {
+  width: 100%;
+  height: 100vh;
+  padding: 100px 0;
+  background: url("../img/auth-banner.jpeg") center no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Fira Mono", sans-serif;
+}
+.userPageContent {
+  padding: 50px;
+  background: rgba(255, 255, 255, 0.6);
+}
+.userPageContent__button {
+  text-align: center;
+}
+.userPageContent__profile {
+  width: 90%;
+  margin: 0 auto 50px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-areas: "img info" "stats stats";
+  row-gap: 50px;
+  column-gap: 50px;
+}
+.userPageContent__profileImg {
+  background: #fff;
+  width: 350px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  grid-area: img;
+}
+.userPageContent__profileImg img {
+  border: 2px solid #282c34;
+}
+.userPageContent__profileInfo {
+  background: #fff;
+  padding: 25px;
+  font-size: 20px;
+  font-weight: 300;
+  grid-area: info;
+}
+.userPageContent__profileInfo__name {
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 900;
+}
+.userPageContent__profileInfo__mail {
+  margin-bottom: 15px;
+}
+.userPageContent__profileInfo__mail b {
+  font-weight: 700;
+}
+.userPageContent__profileStats {
+  background: #fff;
+  padding: 25px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "title title" "favorite info";
+  row-gap: 30px;
+  grid-area: stats;
+}
+.userPageContent__profileStats__title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  grid-area: title;
+}
+.userPageContent__profileStats__favorite {
+  padding-right: 15px;
+  margin-right: 15px;
+  border-right: 2px dashed #282c34;
+  grid-area: favorite;
+}
+.userPageContent__profileStats__favorite b {
+  font-size: 20px;
+}
+.userPageContent__profileStats__info {
+  display: flex;
+  grid-area: info;
+  column-gap: 15px;
 }
 
 body {

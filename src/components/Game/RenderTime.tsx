@@ -1,20 +1,23 @@
 import React, {Dispatch, FC, SetStateAction, useEffect, useState} from "react";
-import {Breadcrumb} from "antd";
+import {Breadcrumb, message} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {getDayInMonthSelector, getDaySelector, getMonthSelector, getMonthsSelector} from "../../redux/game-selector";
 import {actions} from "../../redux/game-reducer";
 import {AppStateType} from "../../redux/store";
 import {Work} from "../../redux/work-reducer";
-import {stocksActions} from "../../redux/stocks-reducer";
-import { getStocksSelector } from "../../redux/stocks-selector";
+import {myStockType, stocksActions, stockType} from "../../redux/stocks-reducer";
+import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {getDifficultySelector} from "../../redux/settings-selector";
-import {setNewsThunk} from "../../redux/news-reducer";
+import {newsArrayType, setNewsThunk} from "../../redux/news-reducer";
 import {getMyBusinessesSelector} from "../../redux/business-selector";
 import {getRandomNumber} from "../../utils/getRandomNumber";
 import {spendsActions, weekSpendThunk} from "../../redux/spends-reducer";
 import {personType, profileActions, updateIncome} from "../../redux/profile-reducer";
 import {getExpensesSelector, getPersonSelector, getTaxSelector} from "../../redux/profile-selector";
-import {realtyActions} from "../../redux/realty-reducer";
+import {realtyActions, realtyType} from "../../redux/realty-reducer";
+import {useHttp} from "../../hooks/http.hook";
+import {CombineData} from "../../utils/combineData";
+import {BusinessType} from "../../redux/business-reducer";
 
 type RenderTimeType = {
   wallet: number
@@ -23,11 +26,14 @@ type RenderTimeType = {
 export const RenderTime: FC<RenderTimeType> = (props) => {
 
   const newsTypeArray = useSelector((state: AppStateType) => state.newsPage.newsTypes)
-
   const companies = useSelector((state: AppStateType) => state.stocksPage.companiesForStocks)
   // день месяца . . .
   const dayInMonth = useSelector(getDayInMonthSelector)
-
+  //
+  const {request, isLoading, error} = useHttp()
+  //
+  const token = useSelector((state: AppStateType) => state.app.token)
+  //
   const dispatch = useDispatch()
   // текущий день . . .
   const day = useSelector(getDaySelector)
@@ -41,7 +47,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   const myBusinesses = useSelector(getMyBusinessesSelector)
   // текущая работа . . .
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
-
+  //
   const spendsLevel = useSelector((state: AppStateType) => state.spendsPage.spendsLevel)
 
   const income = useSelector((state: AppStateType) => state.profilePage.income)
@@ -60,6 +66,52 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   const activeMonth = month === 2 || month === 7
     ? months[month].name + 'a'
     : months[month].name.replace('ь','я')
+
+  // TODO return back...
+  // const saveGame = async (data: any) => {
+  //   try {
+  //     const fetchedData = await request('/api/game/save', 'POST', {data}, {
+  //       Authorization: `Bearer ${token}`
+  //     })
+  //     // message.success('Игра успешно сохранена')
+  //   } catch (e) {
+  //     message.error('Не удалось сохранить игру, ' + e)
+  //   }
+
+  //   // @ts-ignore
+  // }
+
+  // const dataForSave = {
+  //   myBusinesses: myBusinesses,
+  //   myRealty: useSelector((state: AppStateType) => state.realtyPage.myRealty),
+  //   stocks: stocks,
+  //   myStocks: useSelector(getMyStocksSelector),
+  //   workedDays: useSelector((state: AppStateType) => state.worksPage.workedDays),
+  //   daysToUp: useSelector((state: AppStateType) => state.worksPage.daysToUp),
+  //   workLevel: useSelector((state: AppStateType) => state.worksPage.workLevel),
+  //   workIncome: useSelector((state: AppStateType) => state.worksPage.workIncome),
+  //   news: useSelector((state: AppStateType) => state.newsPage.news),
+  //   newsIncome: useSelector((state: AppStateType) => state.newsPage.newsIncome),
+  //   newsExpenses: useSelector((state: AppStateType) => state.newsPage.newsExpenses),
+  //   startSalary: useSelector((state: AppStateType) => state.profilePage.startSalary),
+  //   income: income,
+  //   children: useSelector((state: AppStateType) => state.profilePage.children),
+  //   childrenCount: useSelector((state: AppStateType) => state.profilePage.childrenCount),
+  //   day: day,
+  //   level: 0,
+  //   dayInMonth: dayInMonth,
+  //   month: month,
+  //   wallet: useSelector((state: AppStateType) => state.gamePage.wallet),
+  //   victoryBalance: useSelector((state: AppStateType) => state.gamePage.victoryBalance),
+
+  //   spendsLevel: useSelector((state: AppStateType) => state.spendsPage.spendsLevel),
+  //   events: useSelector((state: AppStateType) => state.spendsPage.events),
+  //   currentMonthEvents: useSelector((state: AppStateType) => state.spendsPage.currentMonthEvents),
+  //   currentMonthPrice: useSelector((state: AppStateType) => state.spendsPage.currentMonthPrice),
+  //   happenedEvents: useSelector((state: AppStateType) => state.spendsPage.happenedEvents),
+
+  //   profile: useSelector((state: AppStateType) => state.profilePage.profile)
+  // }
 
   // обновляем счётчик недель . . .
   useEffect(() => {
@@ -88,8 +140,10 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
         }
       }
       // создаем новости каждые две недели
-      if (day % 14 === 0 && day !== 0) {
-          generateNews()
+      if(day % 14 === 0 && day !== 0) {
+        generateNews()
+        // отправляем данные для сохранения игры . . .
+        // saveGame(dataForSave)
       }
       // еженедельная трата . . .
       // dispatch(actions.weekSpend(difficulty))
@@ -101,7 +155,6 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
         dispatch(stocksActions.indexingStocks())
       }
     }
-
     // если сегодня последний день месяца, то обновляем месяц и выдаём зарплату игроку . . .
     if(dayInMonth === months[month].duration) {
       dispatch(actions.setMonth(month + 1))

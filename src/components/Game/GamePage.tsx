@@ -1,5 +1,5 @@
-import React, {FC, useEffect, useState} from "react";
-import {notification, Spin} from "antd";
+import React, {FC, useCallback, useEffect, useState} from "react";
+import {message, notification, Spin} from "antd";
 import {useDispatch, useSelector} from "react-redux"
 import {actions} from "../../redux/game-reducer";
 import {getDaySelector, getLoseBalance, getVictoryBalance, getWalletSelector} from "../../redux/game-selector";
@@ -26,13 +26,17 @@ import menuIconSpends from "../../img/menu/spends.svg"
 import menuIconProfile from "../../img/menu/profile.svg"
 import menuIconMarket from "../../img/menu/market.svg"
 import menuIconBank from "../../img/menu/bank.svg"
+import {useHttp} from "../../hooks/http.hook";
 
 export const GamePage: FC = () => {
 
   const dispatch = useDispatch()
   // переменная для скорости времени . . .
   const timeSpeed = useSelector(getTimeSpeedSelector)
-
+  // роутер для запросов на сервер
+  const {request, isLoading, error} = useHttp()
+  // токен авторизации . . .
+  const token = useSelector((state: AppStateType) => state.app.token)
   // счётчик дней . . .
   const day = useSelector(getDaySelector)
   // кошелёк игрока . . .
@@ -80,31 +84,56 @@ export const GamePage: FC = () => {
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
   // функция проверка на победу/поражение
 
-  const balanceCheck = () => {
+  const resetGame = () => {
+    setIsEndOfGame(true)
+    dispatch(settingsActions.setTimeSpeed(0))
+    dispatch(stocksActions.resetMyStocks())
+    dispatch(businessActions.resetMyBusinesses())
+    dispatch(newsActions.resetNews())
+  }
+
+  const balanceCheck = async () => {
     if (income >= victoryBalance) {
-      console.log('победа!')
+      console.log('u win!')
       // зануление игры . . .
       if(!isEndOfGame) {
-        setIsEndOfGame(true)
-        setShowExitModal(true)
-        dispatch(settingsActions.setTimeSpeed(0))
-        dispatch(stocksActions.resetMyStocks())
-        dispatch(businessActions.resetMyBusinesses())
-        dispatch(newsActions.resetNews())
+        // обновление статистики игры
+          try {
+            await request('/api/profile/win', 'POST',{},{
+              Authorization: `Bearer ${token}`
+            })
+            await request('/api/game/delete', 'POST', {}, {
+              Authorization: `Bearer ${token}`
+            })
+            // зануление данных чтобы юзер не мог вернуться к данной игре из меню после победы...
+            //
+            setShowExitModal(true)
+            resetGame()
+            // message.success('Данные по игре обновлены...')
+          } catch (e) {
+            // message.error('Ну удалось обновить данные по игре..')
+          }
       }
     }
     if(wallet < loseBalance) {
       // зануление игры . . .
       if(!isEndOfGame) {
+        console.log('u lose!')
         setIsEndOfGame(true)
-        setShowExitModal(true)
-        dispatch(settingsActions.setTimeSpeed(0))
-        dispatch(stocksActions.resetMyStocks())
-        dispatch(businessActions.resetMyBusinesses())
-        dispatch(newsActions.resetNews())
+          try {
+            await request('/api/game/delete', 'POST', {}, {
+              Authorization: `Bearer ${token}`
+            })
+            message.success('Данные по игре обновлены...')
+            setShowExitModal(true)
+            resetGame()
+          } catch (e) {
+            message.error('Ну удалось обновить данные по игре..')
+          }
       }
     }
   }
+
   // функция которая ведёт подсчёт дней . . .
   const liveProcess = () => {
     if(timeSpeed !== 0) {
@@ -114,6 +143,7 @@ export const GamePage: FC = () => {
       }, timeSpeed * 500)
     }
   }
+
   // запуск функций
   liveProcess()
   balanceCheck()
@@ -143,8 +173,6 @@ export const GamePage: FC = () => {
       description: text,
     });
   }
-
-
 
   if (!profile) {
     return (

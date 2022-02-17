@@ -1,0 +1,73 @@
+.userPage
+  width: 100%
+  height: 100vh
+  padding: 100px 0
+  background: url('../img/auth-banner.jpeg') center no-repeat
+  background-size: cover
+  display: flex
+  justify-content: center
+  align-items: center
+  font-family: "Fira Mono", sans-serif
+  &Content
+    padding: 50px
+    //height: 100%
+    background: rgba(255, 255, 255, 0.6)
+    &__button
+      text-align: center
+    &__profile
+      width: 90%
+      margin: 0 auto 50px
+      display: grid
+      grid-template-columns: 1fr 3fr
+      grid-template-areas: 'img info' 'stats stats'
+      row-gap: 50px
+      column-gap: 50px
+      &Img
+        background: #fff
+        width: 350px
+        height: 400px
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-direction: column
+        grid-area: img
+        img
+          border: 2px solid #282c34
+      &Info
+        background: #fff
+        padding: 25px
+        font-size: 20px
+        font-weight: 300
+        grid-area: info
+        &__name
+          margin-bottom: 30px
+          font-size: 28px
+          font-weight: 900
+        &__mail
+          margin-bottom: 15px
+          b
+            font-weight: 700
+      &Stats
+        background: #fff
+        padding: 25px
+        display: grid
+        grid-template-columns: 1fr 2fr
+        grid-template-areas: 'title title' 'favorite info'
+        row-gap: 30px
+        grid-area: stats
+        &__title
+          text-align: center
+          font-size: 24px
+          font-weight: 700
+          grid-area: title
+        &__favorite
+          padding-right: 15px
+          margin-right: 15px
+          border-right: 2px dashed #282c34
+          b
+            font-size: 20px
+          grid-area: favorite
+        &__info
+          display: flex
+          grid-area: info
+          column-gap: 15px

@@ -42,6 +42,7 @@ const SET_CREDIT = 'profilePage/SET_CREDIT'
 const UPDATE_INCOME = 'profilePage/UPDATE_INCOME'
 const SET_SALARY = 'profilePage/SET_SALARY'
 const NEW_CHILD = 'profilePage/NEW_CHILD'
+const SET_NEW_PROFILE = 'profilePage/SET_NEW_PROFILE'
 
 let initialState = {
   // список возможных персонажей . . .
@@ -388,7 +389,16 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
         children: childrenCopy,
         childrenCount: childrenCountCopy
       }
-
+    case SET_NEW_PROFILE:
+      return {
+        ...state,
+        profile: action.profile,
+        startSalary: action.startSalary,
+        income: action.income,
+        children: action.children,
+        childrenCount: action.childrenCount,
+        tax: action.tax
+      }
     default:
       return {
         ...state
@@ -405,7 +415,8 @@ export const profileActions = {
   setCredit: (expenses: expenseType[]) => ({type: SET_CREDIT, expenses} as const),
   updateIncome: (newIncome: number) => ({type: UPDATE_INCOME, newIncome} as const),
   setSalary: (newSalary: number) => ({type: SET_SALARY, newSalary} as const),
-  newChild: () => ({type: NEW_CHILD} as const)
+  newChild: () => ({type: NEW_CHILD} as const),
+  setNewProfile: (startSalary: number, income: number, children: number[], childrenCount: number, profile: personType, tax: number) => ({type: SET_NEW_PROFILE, startSalary, income, childrenCount, children, profile, tax} as const )
 }
 
 type ProfileActionsType = InferActionsType<typeof profileActions>

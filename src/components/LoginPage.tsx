@@ -2,9 +2,12 @@ import {Button, Input, message} from "antd";
 import {NavLink} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useHttp} from "../hooks/http.hook";
+import {useDispatch} from "react-redux";
+import {loginThunk} from "../redux/app-reducer";
 
 export const LoginPage = () => {
 
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState({email: '', password: ''})
   const {isLoading, error, clearError, request} = useHttp()
 
@@ -23,6 +26,8 @@ export const LoginPage = () => {
     try {
       const data = await request('/api/auth/login', 'POST', {...formData})
       // auth.login(data.token , data.userId)
+
+      dispatch(loginThunk(data.token, data.userId))
     } catch (e) {}
   }
 

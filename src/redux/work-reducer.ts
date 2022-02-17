@@ -4,7 +4,7 @@ import {profileActions} from "./profile-reducer";
 
 const SET_DAYS_WORKED = 'workPage/SET_DAYS_WORKED'
 const UP_WORK = 'workPage/UP_WORK'
-
+const SET_NEW_WORK = 'workPage/SET_NEW_WORK'
 
 // уровень работы . . .
 const workLevel = [0, 1, 2, 3]
@@ -39,6 +39,14 @@ export const worksReducer = (state = initialState, action: WorksActionsType): In
         daysToUp: daysToUp[state.workLevel + 1],
         workIncome: workIncome[state.workLevel + 1]
       }
+    case SET_NEW_WORK:
+      return {
+        ...state,
+        workedDays: action.wDays,
+        daysToUp: action.wDaysToUp,
+        workLevel: action.wLevel,
+        workIncome: action.wIncome
+      }
     default:
       return {
         ...state
@@ -47,8 +55,9 @@ export const worksReducer = (state = initialState, action: WorksActionsType): In
 }
 
 export const worksActions = {
-  setWorkedDays: () => ({type: SET_DAYS_WORKED}),
-  upWork: () => ({type: UP_WORK})
+  setWorkedDays: () => ({type: SET_DAYS_WORKED} as const),
+  upWork: () => ({type: UP_WORK} as const),
+  setNewWork: (wDays: number, wDaysToUp: number, wLevel: number, wIncome: number) => ({type: SET_NEW_WORK, wDays, wDaysToUp, wLevel, wIncome} as const)
 }
 
 export type WorkOptions = {
@@ -64,13 +73,12 @@ export type Work = {
   avatar: string
   options: WorkOptions[]
 }
-
 export type WorkLevelType = 'start' | 'middle' | 'pro' | 'senior'
 export type WorkIncomeType = 0 | 15 | 20 | 25
 export type WorkDaysToUpType = 125 | 200 | 250
-
 type WorksActionsType = InferActionsType<typeof worksActions>
 type WorkThunkType = ThunkAction<any, AppStateType, unknown, WorksActionsType>
+
 export const upWorkThunk = (): WorkThunkType => (dispatch, getState) => {
   const salary = getState().profilePage.startSalary as number
   const prevWorkLevel = getState().worksPage.workLevel
@@ -83,6 +91,8 @@ export const upWorkThunk = (): WorkThunkType => (dispatch, getState) => {
 
   dispatch(worksActions.upWork())
 
+  // @ts-ignore
   dispatch(profileActions.setSalary(newSalary))
+  // @ts-ignore
   dispatch(profileActions.setTax(newTax))
 }

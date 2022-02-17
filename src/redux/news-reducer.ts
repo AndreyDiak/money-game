@@ -14,6 +14,7 @@ const RESET_NEWS = 'newsPage/RESET_NEWS'
 const ADD_NEWS_INCOME = 'newsPage/ADD_NEWS_INCOME'
 const ADD_NEWS_EXPENSES = 'newsPage/ADD_NEWS_EXPENSES'
 const MAX_CHILDREN = 'newsPage/MAX_CHILDREN'
+const SET_NEWS = 'newsPage/SET_NEWS'
 
 let initialState = {
   // массив с произошедшими новостями . . .
@@ -197,12 +198,8 @@ let initialState = {
       ]
     }
   ],
-  newsIncome: [
-
-  ] as {title: string, amount: number}[],
-  newsExpenses: [
-
-  ] as {title: string, amount: number}[],
+  newsIncome: [] as newsExInType[],
+  newsExpenses: [] as newsExInType[],
 }
 
 export type InitialNewsStateType = typeof initialState
@@ -288,6 +285,13 @@ export const newsReducer = (state = initialState, action: NewsActionsType): Init
         ...state,
         newsTypes: newsTypeCopy
       }
+    case SET_NEWS:
+      return {
+        ...state,
+        news: action.news,
+        newsIncome: action.newsIncome,
+        newsExpenses: action.newsExpenses
+      }
     default:
       return {
         ...state
@@ -303,7 +307,8 @@ export const newsActions = {
   resetNews: () => ({type: RESET_NEWS} as const),
   addNewsIncome: (news: any) => ({type: ADD_NEWS_INCOME, news} as const),
   addNewsExpenses: (news: any) => ({type: ADD_NEWS_EXPENSES, news} as const),
-  maxChildren: () => ({type: MAX_CHILDREN} as const)
+  maxChildren: () => ({type: MAX_CHILDREN} as const),
+  setNewNews: (news: newsArrayType[], newsIncome: newsExInType[], newsExpenses: newsExInType[]) => ({type: SET_NEWS, news, newsIncome, newsExpenses} as const)
 }
 
 export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkType => (dispatch, getState) => {
@@ -463,6 +468,10 @@ export type newsArrayType = {
   dayInMonth: number
   type: string
   condition: string | number
+}
+export type newsExInType = {
+  title: string
+  amount: number
 }
 type NewsActionsType = InferActionsType<typeof newsActions>
 

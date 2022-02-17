@@ -24,6 +24,8 @@ const UPDATE_BUSINESS_INCOME = 'gamePage/UPDATE_BUSINESS_INCOME'
 
 const SET_VICTORY_BALANCE = 'gamePage/SET_VICTORY_BALANCE'
 
+const SET_NEW_GAME = 'gamePage/SET_NEW_GAME'
+
 let initialState = {
   // счётчик дней . . .
   day: 1,
@@ -154,6 +156,16 @@ export const gameReducer = (state = initialState, action: ActionsType): InitialG
         income: 0,
         // happenedEvents: Array(12).fill([] as eventType[])
       }
+
+    case SET_NEW_GAME:
+      return {
+        ...state,
+        day: action.day,
+        daysInMonth: action.dayInMonth,
+        month: action.month,
+        wallet: action.wallet,
+        victoryBalance: action.victoryBalance
+      }
     default:
       return state
   }
@@ -177,6 +189,8 @@ export const actions = {
   sellBusiness: (price: number, income: number) => ({type: SELL_BUSINESS, price, income} as const),
   updateBusinessIncome: (income: number) => ({type: UPDATE_BUSINESS_INCOME, income} as const),
   initGame: () => ({type: INIT_GAME} as const),
+
+  setNewGame: (day: number, dayInMonth: number, month: number, wallet: number, victoryBalance: number) => ({type: SET_NEW_GAME, day, dayInMonth, month, wallet, victoryBalance} as const)
 }
 
 type ActionsType = InferActionsType<typeof actions>

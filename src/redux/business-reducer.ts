@@ -11,6 +11,7 @@ import {ThunkAction} from "redux-thunk";
 import {actions} from "./game-reducer";
 
 const SET_BUSINESSES = 'businessPage/SET_BUSINESSES'
+const SET_MY_BUSINESSES = 'businessPage/SET_MY_BUSINESSES'
 const ADD_TO_MY_BUSINESSES = 'businessPage/ADD_TO_MY_BUSINESSES'
 const REMOVE_FROM_MY_BUSINESSES = 'businessPage/REMOVE_FROM_MY_BUSINESSES'
 const UPDATE_BUSINESS_INCOME = 'businessPage/UPDATE_BUSINESS_INCOME'
@@ -103,6 +104,11 @@ export const businessReducer = (state = initialState, action: BusinessActionType
         ...state,
         myBusinesses: [] as BusinessType[]
       }
+    case SET_MY_BUSINESSES:
+      return {
+        ...state,
+        myBusinesses: action.myBusiness as BusinessType[]
+      }
     default:
       return {
         ...state
@@ -112,6 +118,7 @@ export const businessReducer = (state = initialState, action: BusinessActionType
 
 export const businessActions = {
   setBusinesses: () => ({type: SET_BUSINESSES} as const),
+  setMyBusinesses: (myBusiness: BusinessType[]) => ({type: SET_MY_BUSINESSES, myBusiness} as const),
   addToMyBusinesses: (business: BusinessType) => ({type: ADD_TO_MY_BUSINESSES, business} as const),
   removeFromMyBusiness: (business: BusinessType) => ({type: REMOVE_FROM_MY_BUSINESSES, business } as const),
   updateBusinessIncome: (title: string, income: number) => ({type: UPDATE_BUSINESS_INCOME, title, income} as const),

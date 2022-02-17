@@ -9,6 +9,7 @@ const SET_PRICE_CHANGE_INTERVAL = 'gamePage/SET_PRICE_CHANGE_INTERVAL'
 const RESET_MY_STOCKS = 'gamePage/RESET_MY_STOCKS'
 const FILTER_STOCKS = 'gamePage/FILTER_STOCKS'
 const REVERSE_FILTERED_STOCKS = 'gamePage/REVERSE_FILTERED_STOCKS'
+const SET_NEW_STOCKS = 'gamePage/SET_NEW_STOCKS'
 let initialState = {
   // изменение цены . . .
   normalPriceChange: 3,
@@ -284,6 +285,12 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
         ...state,
         filteredStocks: [...state.filteredStocks.reverse()]
       }
+    case SET_NEW_STOCKS:
+      return {
+        ...state,
+        stocks: action.newStocks,
+        myStocks: action.newMyStocks
+      }
     default:
       return state
   }
@@ -299,7 +306,8 @@ export const stocksActions = {
   setPriceChangeInterval: (company: string, timeInterval: number, condition: 'up' | 'down') => ({type: SET_PRICE_CHANGE_INTERVAL, company, timeInterval, condition} as const),
   resetMyStocks: () => ({type: RESET_MY_STOCKS} as const),
   filterStocks: (filter: filterType, value: string) => ({type: FILTER_STOCKS, filter, value} as const),
-  reverseFilteredStocks: () => ({type: REVERSE_FILTERED_STOCKS} as const)
+  reverseFilteredStocks: () => ({type: REVERSE_FILTERED_STOCKS} as const),
+  setNewStocks: (newStocks: stockType[], newMyStocks: myStockType[]) => ({type: SET_NEW_STOCKS, newStocks, newMyStocks} as const)
 
 }
 

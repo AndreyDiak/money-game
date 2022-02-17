@@ -34,3 +34,66 @@
         left: calc(50% - 25px)
         background: #2a363b
         border-radius: 50%
+
+.userPopup
+  position: absolute
+  width: 100%
+  height: 100%
+  display: flex
+  justify-content: center
+  align-items: center
+  z-index: 100
+  &Buttom
+    margin-top: 30px
+  &Block
+    button
+      border: none
+      background: transparent
+      img
+        border: 2px solid #282c34
+        width: 130px
+    &s
+      z-index: 1000
+      width: 50%
+      padding: 25px
+      background: #fff
+      display: flex
+      flex-direction: column
+      row-gap: 15px
+      align-items: center
+      span
+        display: flex
+        justify-content: center
+        flex-wrap: wrap
+        column-gap: 10px
+        row-gap: 10px
+  &::after
+    content: ''
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 0
+    left: 0
+    background: rgba(0, 0, 0, 0.8)
+
+@media screen and (max-width: 1024px)
+  .auth
+    &Form
+      width: 500px
+      padding: 10px
+      &Input
+        max-width: 80%
+      &Block
+        margin-bottom: 10px
+        font-size: 18px
+      &Button
+        margin-top: 15px
+      &Header
+        margin-bottom: 15px
+        &::after
+          bottom: -5px
+
+@media screen and (max-width: 768px)
+  .auth
+    &Form
+      width: 100%
