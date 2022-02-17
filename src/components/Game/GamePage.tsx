@@ -154,6 +154,7 @@ export const GamePage: FC = () => {
     if (income >= 250 && stocks.length === 0) {
       // создаём акции
       dispatch(stocksActions.setStocks())
+      dispatch(stocksActions.setBrokers())
       // // // новости про акции
       dispatch(newsActions.setAbleToShow('stocksNews'))
       openNotification('Вам стала доступна покупка акций!')

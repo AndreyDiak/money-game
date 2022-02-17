@@ -1,3 +1,4 @@
+import { getRandomNumber } from './../utils/getRandomNumber';
 import {InferActionsType} from "./store";
 
 const SET_STOCKS = 'gamePage/SET_STOCKS'
@@ -10,6 +11,10 @@ const RESET_MY_STOCKS = 'gamePage/RESET_MY_STOCKS'
 const FILTER_STOCKS = 'gamePage/FILTER_STOCKS'
 const REVERSE_FILTERED_STOCKS = 'gamePage/REVERSE_FILTERED_STOCKS'
 const SET_NEW_STOCKS = 'gamePage/SET_NEW_STOCKS'
+
+const SET_BROKERS = 'gamePage/SET_BROKERS'
+const INDEX_STOCKS_SUMMARY_PRICE = 'gamePage/INDEX_STOCKS_SUMMARY_PRICE'
+
 let initialState = {
   // изменение цены . . .
   normalPriceChange: 3,
@@ -26,12 +31,26 @@ let initialState = {
     'ОАО ЭкмоСеть', 'ОАО БыстраяДоставка', 'АэроТехнологии',
     'ОАО НаСвязи',
   ],
+  // список названий под облигаци...
+  companiesForBonds: [
+    '','','','','',''
+  ],
   // акции в портфеле . . .
   myStocks: [] as myStockType[],
+  // общая цена портфеля игрока...
+  stocksSummaryPrice: 0,
   // акции на рынке . . .
   stocks: [] as stockType[],
   // отфильтрованнае акции . . .
   filteredStocks: [] as stockType[],
+  // брокеры для маржинальной торговли...
+  brokersNames: [
+    'Bill Nadsman', 
+    'George Williams', 
+    'Neil Dragsman', 
+    'Ed Paulson'
+  ],
+  brokers: [ ] as brokerType[]
 }
 
 export const stocksReducer = (state = initialState, action: ActionType) => {
@@ -46,12 +65,13 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
         // генерируем риск . . .
         let risk = Number((Math.random() * 4 + 1).toFixed(0))
         // генерируем цену . . .
-        let price = Number((Math.random() * 150 + 15).toFixed(1))
+        let price = Number((Math.random() * 230 + 15).toFixed(1))
 
         let dividendsPercentage = 0
         // шанс того, что акция будет девидендной ~ 35%
         if (Number((Math.random()).toFixed(2)) < 0.35) {
-          dividendsPercentage = Math.round(Math.random() * 3) + 1
+          // выплата девидендов = 1 - 4% стоимости акции...
+          dividendsPercentage = Math.round(Math.random() * state.normalPriceChange) + 2
         }
 
         let stock: stockType = {
@@ -291,6 +311,43 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
         stocks: action.newStocks,
         myStocks: action.newMyStocks
       }
+
+    case SET_BROKERS:
+
+      let brokersCopy = [...state.brokers]
+
+      state.brokersNames.map(name => {
+        let broker = {
+          name: name,
+          age: 20 + getRandomNumber(20),
+          // коммиссия которую выплачивает игрок, после расчета прибыли / убыдка...
+          commision: (10 + getRandomNumber(15) ) / 100,
+          // минимальое кредитное плечо
+          leverAgeMin: 0.5,
+          // максимальное кредитное плечо
+          leverAgeMax: Number((0.5 - getRandomNumber(49) / 100).toFixed(2)),
+          // минимальный срок выдачи ...
+          timeMin: 1,
+          // максимальный срок выдачи...
+          timeMax: 2 + getRandomNumber(4)
+        }
+        //@ts-ignore
+        brokersCopy.push(broker)
+      })
+
+      return {
+        ...state,
+        brokers: brokersCopy
+      } 
+      
+    case INDEX_STOCKS_SUMMARY_PRICE:
+      return {
+        ...state,
+        stocksSummaryPrice: state.myStocks.reduce((total, stock) => {
+          total += stock.price
+          return total
+        }, 0 )
+      }  
     default:
       return state
   }
@@ -307,8 +364,10 @@ export const stocksActions = {
   resetMyStocks: () => ({type: RESET_MY_STOCKS} as const),
   filterStocks: (filter: filterType, value: string) => ({type: FILTER_STOCKS, filter, value} as const),
   reverseFilteredStocks: () => ({type: REVERSE_FILTERED_STOCKS} as const),
-  setNewStocks: (newStocks: stockType[], newMyStocks: myStockType[]) => ({type: SET_NEW_STOCKS, newStocks, newMyStocks} as const)
+  setNewStocks: (newStocks: stockType[], newMyStocks: myStockType[]) => ({type: SET_NEW_STOCKS, newStocks, newMyStocks} as const),
 
+  setBrokers: () => ({type: SET_BROKERS} as const),
+  indexStocksSummaryPrice: () => ({ type: INDEX_STOCKS_SUMMARY_PRICE } as const)
 }
 
 export type stockType = {
@@ -330,6 +389,15 @@ export type myStockType = {
   count: number
   condition: 'up' | 'down'
   dividendsAmount: number
+}
+export type brokerType = {
+  name: string
+  age: number
+  comission: number
+  leverAgeMin: number
+  leverAgeMAx: number
+  timeMin: number
+  timeMax: number
 }
 // виды фильтров . . .
 export type filterType = 'price' | 'condition' | 'title' | 'count' | 'none' | 'risk' | 'dividends'

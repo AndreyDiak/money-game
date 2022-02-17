@@ -191,6 +191,7 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
     myStocksCopy = [...myStocksCopy, newStock]
 
     dispatch(stocksActions.updateMyStocks(myStocksCopy))
+    dispatch(stocksActions.indexStocksSummaryPrice())
   }
 
   const buyStocks = () => {

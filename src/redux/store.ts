@@ -33,9 +33,9 @@ export type InferActionsType<T extends {[key: string]: (...args: any[]) => any}>
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-// const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleWare)))
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleWare)))
 // тестовый билд без разрешения
-const store = createStore(rootReducer, compose(applyMiddleware(thunkMiddleWare)))
+// const store = createStore(rootReducer, compose(applyMiddleware(thunkMiddleWare)))
 
 // @ts-ignore
 window.store = store

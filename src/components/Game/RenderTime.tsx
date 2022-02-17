@@ -153,6 +153,8 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
       if(stocks.length !== 0) {
         // обновление цен на акции . . .
         dispatch(stocksActions.indexingStocks())
+        // обновление цены всего портфеля игрока...
+        dispatch(stocksActions.indexStocksSummaryPrice())
       }
     }
     // если сегодня последний день месяца, то обновляем месяц и выдаём зарплату игроку . . .

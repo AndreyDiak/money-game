@@ -81,7 +81,8 @@ export const SellPopup: FC<SellPopupType> = (props) => {
                 dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount, props.activeStock))
                 // увеличиваем баланс пользователя . . .
                 dispatch(actions.setWallet(Math.round(wallet + stocksToSellCount * props.stock.price)))
-
+                // обновление общей цены портфеля...
+                dispatch(stocksActions.indexStocksSummaryPrice())
                 dispatch(updateIncome())
               }}>
                 Продать
