@@ -40,26 +40,25 @@ export const Main = () => {
   return (
     <>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        {!isAuth
-         ? <Switch>
-            <Redirect exact from='/' to='/menu'/>
-            <Redirect exact from='/money-game' to='/menu'/>
-            <Redirect exact from='/money-game-demo' to='/menu'/>
-            <Route path='/menu' render={() => <MenuPage /> }/>
-            <Route path='/work' render={() => <WorkPage /> }/>
-            <Route path='/game' render={() => <GamePage /> }/>
-            <Route path='/user' render={() => <UserPage /> }/>
-            <Route path='/profile' render={() => <ProfilePage /> }/>
-            <Route path='/settings' render={() => <SettingsPage/> }/>
-            <Route path='/rofl' render={() => <RoflPage/> }/>
-            <Redirect to='/'/>
-          </Switch>
-         : <Switch>
-            <Route path='/register' render={() => <AuthPage/>}/>
-            <Route path='/login' render={() =>  <LoginPage/>}/>
-            <Redirect to='/login'/>
-          </Switch>
-        }
+        <Switch>
+          <Redirect exact from='/' to='/menu'/>
+          <Redirect exact from='/money-game' to='/menu'/>
+          <Redirect exact from='/money-game-demo' to='/menu'/>
+          <Route path='/menu' render={() => <MenuPage /> }/>
+          <Route path='/work' render={() => <WorkPage /> }/>
+          <Route path='/game' render={() => <GamePage /> }/>
+          <Route path='/user' render={() => <UserPage /> }/>
+          <Route path='/profile' render={() => <ProfilePage /> }/>
+          <Route path='/settings' render={() => <SettingsPage/> }/>
+          <Route path='/rofl' render={() => <RoflPage/> }/>
+          <Redirect to='/'/>
+        </Switch>
+        {/* //  : <Switch>
+        //     <Route path='/register' render={() => <AuthPage/>}/>
+        //     <Route path='/login' render={() =>  <LoginPage/>}/>
+        //     <Redirect to='/login'/>
+        //   </Switch> */}
+        
       </BrowserRouter>
     </>
   )
