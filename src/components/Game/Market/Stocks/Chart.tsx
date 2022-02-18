@@ -1,16 +1,16 @@
 import React, {FC, SetStateAction, useState} from "react";
 import {Button, InputNumber} from "antd";
 import {CloseOutlined} from "@ant-design/icons";
-import {actions} from "../../redux/game-reducer";
+import {actions} from "../../../../redux/game-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {getWalletSelector} from "../../redux/game-selector";
-import {myStockType, stocksActions, stockType} from "../../redux/stocks-reducer";
+import {getWalletSelector} from "../../../../redux/game-selector";
+import {myStockType, stocksActions, stockType} from "../../../../redux/stocks-reducer";
 import { Line } from "react-chartjs-2";
-import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
-import {settingsActions} from "../../redux/settings-reducer";
-import {getConstTimeSpeedSelector} from "../../redux/settings-selector";
-import {AppStateType} from "../../redux/store";
-import {profileActions, updateIncome} from "../../redux/profile-reducer";
+import {getMyStocksSelector, getStocksSelector} from "../../../../redux/stocks-selector";
+import {settingsActions} from "../../../../redux/settings-reducer";
+import {getConstTimeSpeedSelector} from "../../../../redux/settings-selector";
+import {AppStateType} from "../../../../redux/store";
+import {profileActions, updateIncome} from "../../../../redux/profile-reducer";
 
 export type RenderChartType = {
   setIsHistoryShown: SetStateAction<any>
@@ -18,7 +18,7 @@ export type RenderChartType = {
 }
 
 
-export const RenderChart: FC<RenderChartType> = (props) => {
+export const Chart: FC<RenderChartType> = (props) => {
   const dispatch = useDispatch()
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
@@ -67,7 +67,6 @@ export const RenderChart: FC<RenderChartType> = (props) => {
       },
     ],
   };
-
   const options = {
     scales: {
       x: {
@@ -84,7 +83,6 @@ export const RenderChart: FC<RenderChartType> = (props) => {
       },
     },
   };
-
   const optionsSmall = {
     scales: {
       x: {

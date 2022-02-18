@@ -6,7 +6,7 @@ import {getDaySelector, getLoseBalance, getVictoryBalance, getWalletSelector} fr
 import {getTimeSpeedSelector} from "../../redux/settings-selector";
 import {AppStateType} from "../../redux/store";
 import {RenderPlayerWork} from "./RenderPlayerWork";
-import {stocksActions, stockType} from "../../redux/stocks-reducer";
+import {brokerType, stocksActions, stockType} from "../../redux/stocks-reducer";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {newsActions} from "../../redux/news-reducer";
 import {getBusinessesSelector, getMyBusinessesSelector} from "../../redux/business-selector";
@@ -15,10 +15,10 @@ import {settingsActions} from "../../redux/settings-reducer";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {getPersonSelector} from "../../redux/profile-selector";
 import {Navbar} from "../Navbar";
-import { SpendsPage } from "./SpendsPage";
 import { NewsPage } from "./NewsPage";
 import { BankPage } from "./BankPage";
-import { MarketPage } from "./MarketPage";
+import { MarketPage } from "./Market/MarketPage";
+import { SpendsPage } from "./Spends/SpendsPage";
 import {NavLink} from "react-router-dom";
 import {Popups} from "../Popups";
 import menuIconNews from "../../img/menu/news.svg"
@@ -27,6 +27,7 @@ import menuIconProfile from "../../img/menu/profile.svg"
 import menuIconMarket from "../../img/menu/market.svg"
 import menuIconBank from "../../img/menu/bank.svg"
 import {useHttp} from "../../hooks/http.hook";
+
 
 export const GamePage: FC = () => {
 
@@ -70,10 +71,14 @@ export const GamePage: FC = () => {
   const [isHistoryShown, setIsHistoryShown] = useState(false)
   // переменная для продажи акций . . .
   const [isStockToSell, setIsStockToSell] = useState(false)
-  // смена работы . . .
-  const [isChangeWorkShown, setIsChangeWorkShown] = useState(false)
+  // // смена работы . . .
+  // const [isChangeWorkShown, setIsChangeWorkShown] = useState(false)
   // активная акция пользователя . . .
   const [activeStock, setActiveStock] = useState(null as null | stockType)
+  //
+  const [activeBroker, setActiveBroker] = useState({} as brokerType)
+  const [isMarginShown, setIsMarginShown] = useState(false)
+
   // проверка на конец игры . . .
   const [isEndOfGame, setIsEndOfGame] = useState(false)
   // показать окно при конце игры
@@ -133,7 +138,6 @@ export const GamePage: FC = () => {
       }
     }
   }
-
   // функция которая ведёт подсчёт дней . . .
   const liveProcess = () => {
     if(timeSpeed !== 0) {
@@ -202,6 +206,8 @@ export const GamePage: FC = () => {
         showExitModal={showExitModal}
         setIsMarketOpen={setIsMarketOpen}
         isMarketOpen={isMarketOpen}
+        activeBroker={activeBroker}
+        isMarginShown={isMarginShown}
       />
       <div style={screenWidth > 768
         ? {height: 'calc(100vh - 78px)'}

@@ -330,7 +330,7 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
           name: name,
           age: 20 + getRandomNumber(30),
           // коммиссия которую выплачивает игрок, после расчета прибыли / убыдка...
-          commision: (10 + getRandomNumber(15) ) / 100,
+          commission: (10 + getRandomNumber(15) ) / 100,
           // минимальое кредитное плечо
           leverAgeMin: 0.5,
           // максимальное кредитное плечо
@@ -404,7 +404,7 @@ export type myStockType = {
 export type brokerType = {
   name: string
   age: number
-  comission: number
+  commission: number
   leverAgeMin: number
   leverAgeMax: number
   timeMin: number

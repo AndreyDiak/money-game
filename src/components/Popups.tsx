@@ -1,15 +1,17 @@
-import {SellPopup} from "./Game/SellPopup";
-import {RenderChart} from "./Game/RenderChart";
-import {myStockType, stockType} from "../redux/stocks-reducer";
+import {SellPopup} from "./Game/Market/Stocks/SellPopup";
+import {Chart} from "./Game/Market/Stocks/Chart";
+import {brokerType, myStockType, stockType} from "../redux/stocks-reducer";
 import React, {FC, SetStateAction} from "react";
 import {Button, Menu, Modal} from "antd";
 import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../redux/store";
 import {getStocksSelector} from "../redux/stocks-selector";
+import {MarginPopup} from "./Game/Market/Stocks/MarginPopup";
 
 export type PopupsType = {
   myStock: myStockType
+  activeBroker: brokerType
   setIsStockToSell: SetStateAction<any>
   activeStock: number
   setIsHistoryShown: SetStateAction<any>
@@ -19,6 +21,7 @@ export type PopupsType = {
   isStockToSell: boolean
   showExitModal: boolean
   isMarketOpen: boolean
+  isMarginShown: boolean
 }
 
 export const Popups:FC<PopupsType> = (props) => {
@@ -29,10 +32,11 @@ export const Popups:FC<PopupsType> = (props) => {
   return (
     <>
       {props.isStockToSell && <SellPopup stock={props.myStock} setIsStockToSell={props.setIsStockToSell} activeStock={props.activeStock}/>}
-      {props.isHistoryShown && <RenderChart setIsHistoryShown={props.setIsHistoryShown} stock={props.stock}/>}
+      {props.isHistoryShown && <Chart setIsHistoryShown={props.setIsHistoryShown} stock={props.stock}/>}
+      {true && <MarginPopup/> }
+
       <Modal style={{width: '90%', textAlign: 'center'}} onCancel={() => props.setIsMarketOpen(false)} visible={props.isMarketOpen} title={'Рынок'} footer={[
         <>
-
         </>
       ]}>
         <Menu style={{padding: '10px'}}>
@@ -67,8 +71,7 @@ export const Popups:FC<PopupsType> = (props) => {
             </Menu.Item>
           }
         </Menu>
-        </Modal>
-
+      </Modal>
     </>
   )
 }

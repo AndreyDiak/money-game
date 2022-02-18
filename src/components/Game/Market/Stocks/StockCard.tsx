@@ -1,7 +1,7 @@
 import React, { FC, SetStateAction} from "react"
 import {ArrowDownOutlined, ArrowUpOutlined, FallOutlined, RiseOutlined } from "@ant-design/icons"
-import {myStockType, stockType } from "../../redux/stocks-reducer"
-import {settingsActions} from "../../redux/settings-reducer";
+import {myStockType, stockType } from "../../../../redux/stocks-reducer"
+import {settingsActions} from "../../../../redux/settings-reducer";
 import {useDispatch} from "react-redux";
 
 export type RenderStockType = {
@@ -20,7 +20,7 @@ export type RenderMyStockType = {
   setIsStockToSell: SetStateAction<any>
 }
 
-export const RenderStock: FC<RenderStockType> = (props) => {
+export const StockCard: FC<RenderStockType> = (props) => {
 
   const dispatch = useDispatch()
 

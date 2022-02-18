@@ -1,14 +1,14 @@
 import React, {FC, SetStateAction, useState} from "react";
 import {CloseOutlined} from "@ant-design/icons";
 import {Button, InputNumber} from "antd";
-import {actions} from "../../redux/game-reducer";
+import {actions} from "../../../../redux/game-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {myStockType, stocksActions} from "../../redux/stocks-reducer";
-import {getWalletSelector} from "../../redux/game-selector";
-import {getMyStocksSelector} from "../../redux/stocks-selector";
-import {settingsActions} from "../../redux/settings-reducer";
-import {getConstTimeSpeedSelector} from "../../redux/settings-selector";
-import {updateIncome} from "../../redux/profile-reducer";
+import {myStockType, stocksActions} from "../../../../redux/stocks-reducer";
+import {getWalletSelector} from "../../../../redux/game-selector";
+import {getMyStocksSelector} from "../../../../redux/stocks-selector";
+import {settingsActions} from "../../../../redux/settings-reducer";
+import {getConstTimeSpeedSelector} from "../../../../redux/settings-selector";
+import {updateIncome} from "../../../../redux/profile-reducer";
 
 export type SellPopupType = {
   stock: myStockType

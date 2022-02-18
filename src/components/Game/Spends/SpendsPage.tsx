@@ -1,12 +1,12 @@
 import React, {FC, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getHappenedEventsSelector, getMonthSelector, getMonthsSelector} from "../../redux/game-selector";
+import {getHappenedEventsSelector, getMonthSelector, getMonthsSelector} from "../../../redux/game-selector";
 import {Button, Tabs} from "antd";
-import {eventType} from "../../redux/spends-reducer";
-import {AppStateType} from "../../redux/store";
+import {eventType} from "../../../redux/spends-reducer";
+import {AppStateType} from "../../../redux/store";
 import { SpendsCard } from "./SpendsCard";
-import {getExpensesSelector, getPersonSelector, getTaxSelector} from "../../redux/profile-selector";
-import {expenseType, personType} from "../../redux/profile-reducer";
+import {getExpensesSelector, getPersonSelector, getTaxSelector} from "../../../redux/profile-selector";
+import {expenseType, personType} from "../../../redux/profile-reducer";
 
 const { TabPane } = Tabs
 

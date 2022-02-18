@@ -722,6 +722,85 @@
 .gameProfit::after {
   background: rgba(0, 0, 0, 0.6) !important;
 }
+.gameProfitMargin {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  column-gap: 30px;
+  row-gap: 30px;
+}
+.gameProfitMargin__popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.gameProfitMargin__block {
+  position: relative;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  max-width: 80%;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+}
+.gameProfitMargin__block::after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  border-radius: 1px;
+  bottom: -15.5px;
+  left: 0;
+  background: rgba(255, 255, 255, 0.6);
+}
+.gameProfitMargin__block:last-child::after {
+  content: none;
+}
+.gameProfitMargin__blockButton {
+  margin-top: 15px;
+}
+.gameProfitMargin__blockButton button {
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+}
+.gameProfitMargin__blockAbout {
+  font-weight: 700;
+}
+.gameProfitMargin__blockAbout__name {
+  font-size: 24px;
+}
+.gameProfitMargin__blockAbout__age {
+  font-size: 18px;
+}
+.gameProfitMargin__blockStats {
+  font-size: 18px;
+}
+.gameProfitMargin__blockStats__help {
+  background: #fff;
+  text-align: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color: #000;
+  cursor: pointer;
+}
+.gameProfitMargin__blockStats__commission, .gameProfitMargin__blockStats__leverAge {
+  display: flex;
+  justify-content: space-between;
+}
+.gameProfitMenu {
+  grid-area: menu;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  column-gap: 15px;
+  row-gap: 15px;
+}
+.gameProfitMenu__item button {
+  font-weight: 900;
+  outline: none;
+}
 .gameProfitHeader {
   display: flex;
   text-transform: lowercase;
@@ -742,8 +821,10 @@
 .gameProfitStocks .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-areas: "menu menu" "myStocks stocks";
 }
 .gameProfitStocks__Me {
+  grid-area: myStocks;
   padding: 15px;
   border-right: 2px dashed #f1f1f1;
 }
@@ -772,6 +853,7 @@
   display: flex;
 }
 .gameProfitStocks__Offer {
+  grid-area: stocks;
   padding: 15px;
 }
 .gameProfitStocks__OfferBlock {
@@ -882,6 +964,16 @@
   }
 }
 @media screen and (max-width: 768px) {
+  .gameProfitMenu {
+    flex-direction: column;
+    align-items: center;
+  }
+  .gameProfitMenu__item {
+    width: 100%;
+  }
+  .gameProfitMenu__item button {
+    width: 100%;
+  }
   .gameProfitStocks__Me {
     border-right: none;
   }

@@ -12,6 +12,74 @@
     z-index: 0
     &::after
       background: rgba(0, 0, 0, 0.6) !important
+    &Margin
+      padding: 15px
+      display: flex
+      flex-direction: column
+      column-gap: 30px
+      row-gap: 30px
+      &__popup
+        position: absolute
+        top: 0
+        left: 0
+      &__block
+        position: relative
+        padding: 10px
+        background: rgba(0, 0, 0, 0.2)
+        border-radius: 5px
+        max-width: 80%
+        display: grid
+        grid-template-columns: 1fr 1.5fr
+
+        &::after
+          content: ''
+          width: 100%
+          height: 2px
+          position: absolute
+          border-radius: 1px
+          bottom: -15.5px
+          left: 0
+          background: rgba(255,255,255,0.6)
+        &:last-child
+          &::after
+            content: none
+        &Button
+          margin-top: 15px
+          button
+            font-weight: 700
+            outline: none
+            cursor: pointer
+        &About
+          font-weight: 700
+          &__name
+            font-size: 24px
+          &__age
+            font-size: 18px
+        &Stats
+          font-size: 18px
+          &__help
+            background: #fff
+            text-align: center
+            width: 25px
+            height: 25px
+            border-radius: 50%
+            color: #000
+            cursor: pointer
+          &__commission, &__leverAge
+            display: flex
+            justify-content: space-between
+
+    &Menu
+      grid-area: menu
+      margin-bottom: 30px
+      display: flex
+      justify-content: center
+      column-gap: 15px
+      row-gap: 15px
+      &__item
+        button
+          font-weight: 900
+          outline: none
     &Header
       display: flex
       text-transform: lowercase
@@ -29,7 +97,9 @@
       .container
         display: grid
         grid-template-columns: 1fr 1fr
+        grid-template-areas: 'menu menu' 'myStocks stocks'
       &__Me
+        grid-area: myStocks
         padding: 15px
         border-right: 2px dashed #f1f1f1
       &__Header
@@ -52,6 +122,7 @@
           &s
             display: flex
       &__Offer
+        grid-area: stocks
         padding: 15px
         &Block
           position: relative
@@ -155,6 +226,13 @@
 
 @media screen and (max-width: 768px)
   .gameProfit
+    &Menu
+      flex-direction: column
+      align-items: center
+      &__item
+        width: 100%
+        button
+          width: 100%
     &Stocks
       &__Me
         border-right: none

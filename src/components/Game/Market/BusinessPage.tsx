@@ -1,10 +1,10 @@
 import Button from "antd/lib/button";
 import {useDispatch, useSelector} from "react-redux";
-import {getBusinessesSelector, getMyBusinessesSelector} from "../../redux/business-selector";
-import {businessActions, BusinessType, buyBusinessThunk, sellBusinessThunk} from "../../redux/business-reducer";
+import {getBusinessesSelector, getMyBusinessesSelector} from "../../../redux/business-selector";
+import {businessActions, BusinessType, buyBusinessThunk, sellBusinessThunk} from "../../../redux/business-reducer";
 import {FC, useState} from "react";
-import {getWalletSelector} from "../../redux/game-selector";
-import {updateIncome} from "../../redux/profile-reducer";
+import {getWalletSelector} from "../../../redux/game-selector";
+import {updateIncome} from "../../../redux/profile-reducer";
 
 
 

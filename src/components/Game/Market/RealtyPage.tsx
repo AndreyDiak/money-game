@@ -1,11 +1,11 @@
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store";
+import {AppStateType} from "../../../redux/store";
 import {Button, Carousel} from "antd";
-import {realtyActions, realtyType} from "../../redux/realty-reducer";
-import {profileActions, updateIncome} from "../../redux/profile-reducer";
-import {getIncomeSelector} from "../../redux/profile-selector";
-import {getWalletSelector} from "../../redux/game-selector";
-import {actions} from "../../redux/game-reducer";
+import {realtyActions, realtyType} from "../../../redux/realty-reducer";
+import {profileActions, updateIncome} from "../../../redux/profile-reducer";
+import {getIncomeSelector} from "../../../redux/profile-selector";
+import {getWalletSelector} from "../../../redux/game-selector";
+import {actions} from "../../../redux/game-reducer";
 
 export const RealtyPage = () => {
 
