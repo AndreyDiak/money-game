@@ -39,6 +39,8 @@ let initialState = {
   myStocks: [] as myStockType[],
   // общая цена портфеля игрока...
   stocksSummaryPrice: 0,
+  // подписка, благодаяря которой можно видеть риски акций...
+  isSubscriptionBought: false,
   // акции на рынке . . .
   stocks: [] as stockType[],
   // отфильтрованнае акции . . .
@@ -50,6 +52,7 @@ let initialState = {
     'Neil Dragsman', 
     'Ed Paulson'
   ],
+  // массив брокеров, которые могут предложить маржинальную торговлю...
   brokers: [ ] as brokerType[]
 }
 
@@ -305,6 +308,7 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
         ...state,
         filteredStocks: [...state.filteredStocks.reverse()]
       }
+
     case SET_NEW_STOCKS:
       return {
         ...state,
@@ -317,9 +321,14 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
       let brokersCopy = [...state.brokers]
 
       state.brokersNames.map(name => {
+
+        let stockInCase = 
+        // TODO доработать
+        Array.from(Array(getRandomNumber(state.normalPriceChange) + 2).fill(''), (s,i) => {return i})
+
         let broker = {
           name: name,
-          age: 20 + getRandomNumber(20),
+          age: 20 + getRandomNumber(30),
           // коммиссия которую выплачивает игрок, после расчета прибыли / убыдка...
           commision: (10 + getRandomNumber(15) ) / 100,
           // минимальое кредитное плечо
@@ -329,7 +338,8 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
           // минимальный срок выдачи ...
           timeMin: 1,
           // максимальный срок выдачи...
-          timeMax: 2 + getRandomNumber(4)
+          timeMax: 2 + getRandomNumber(4),
+          
         }
         //@ts-ignore
         brokersCopy.push(broker)
@@ -348,6 +358,7 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
           return total
         }, 0 )
       }  
+
     default:
       return state
   }
@@ -395,9 +406,16 @@ export type brokerType = {
   age: number
   comission: number
   leverAgeMin: number
-  leverAgeMAx: number
+  leverAgeMax: number
   timeMin: number
   timeMax: number
+  stocks: stockType[]
+}
+
+export type marginStockType = {
+  expiresIn: number
+  count: number
+  startPrice: number
 }
 // виды фильтров . . .
 export type filterType = 'price' | 'condition' | 'title' | 'count' | 'none' | 'risk' | 'dividends'

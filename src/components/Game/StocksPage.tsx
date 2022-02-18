@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {Button, Input, Popover, Radio, Select, Space} from "antd";
 import {AppStateType} from "../../redux/store";
-import {filterType, stocksActions} from "../../redux/stocks-reducer";
+import {filterType, myStockType, stocksActions, stockType} from "../../redux/stocks-reducer";
 import {ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined} from "@ant-design/icons";
 import { RenderMyStock, StockCard } from "./StockCard";
 
@@ -18,14 +18,18 @@ export type RenderPlayerStocksType = {
 
 export const StocksPage: FC<RenderPlayerStocksType> = (props) => {
   const dispatch = useDispatch()
-  const myStocks = useSelector(getMyStocksSelector)
-  const stocks = useSelector(getStocksSelector)
-  const filteredStocks = useSelector((state: AppStateType) => state.stocksPage.filteredStocks)
+  const myStocks: myStockType[] = useSelector(getMyStocksSelector)
+  // const stocks: stockType[] = useSelector(getStocksSelector)
+  const filteredStocks: stockType[] = useSelector((state: AppStateType) => state.stocksPage.filteredStocks)
   const [isReverse, setIsReverse] = useState(false)
 
+  // хук нужен только для размера под телефон...
   const [isMyStocksShown, setIsMyStocksShown] = useState(true)
+  const [isBrokerPopupShown, setIsBrokerPopupShown] = useState(false)
+  
+  // разрешение экрана...
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
-
+  // применяем активнй фильтр к акциям на рынке...
   const filterStocks = (title: filterType ,value: string) => {
     dispatch(stocksActions.filterStocks(title, value))
   }
@@ -49,7 +53,8 @@ export const StocksPage: FC<RenderPlayerStocksType> = (props) => {
   return (
     <>
       <div className="gameProfit bannerBack">
-          <div className="gameProfitStocks">
+      
+        <div className="gameProfitStocks">
             <div className="container">
               {screenWidth > 768
                 ? <>
