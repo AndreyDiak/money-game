@@ -42,7 +42,7 @@ export const Stocks: FC<StocksType> = ({setIsHistoryShown, setActiveStock}) => {
     <>
       <div className="gameProfitStocks__Offer">
         <div className="gameProfitStocks__Header">
-          Акции на рынке
+          Акции
         </div>
         <div className="gameProfitStocks__OfferBlocks">
           <div className="gameProfitStocks__OfferBlocks__menu">

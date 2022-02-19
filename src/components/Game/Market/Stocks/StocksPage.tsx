@@ -1,9 +1,9 @@
 import React, {FC, useState} from "react";
 import {Button, Select} from "antd";
 import {MyPortfolio} from "./MyPortfolio";
-import {Stocks} from "./Stocks";
-import {Bonds} from "./Bonds";
-import {Margin} from "../Margin/Margin";
+import { Stocks } from "./Stocks";
+import { Bonds } from "../Bonds/Bonds";
+import { Margin } from "../Margin/Margin";
 import { brokerType } from "../../../../redux/stocks-reducer";
 
 export type RenderPlayerStocksType = {

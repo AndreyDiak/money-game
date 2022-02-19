@@ -36,7 +36,7 @@ export const StockCard: FC<RenderStockType> = (props) => {
         </div>
         <div className="gameProfitStocks__OfferBlock__Info">
           <div className="gameProfitStocks__OfferBlock__InfoPrice">
-            {props.stock.price[props.stock.price.length - 1]}
+            {props.stock.price[props.stock.price.length - 1]}$
           </div>
           {/* TODO включать только при подписке */}
           {/*<div className="gameProfitStocks__OfferBlock__InfoRisk">*/}

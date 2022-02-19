@@ -72,7 +72,7 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
     case SET_STOCKS:
       // копия массива с акциями . . .
       let initialStocksCopy = [...state.stocks]
-      state.companiesForStocks.map(company => {
+      state.companiesForStocks.forEach(company => {
         // генерируем риск . . .
         let risk = Number((Math.random() * 4 + 1).toFixed(0))
         // генерируем цену . . .
@@ -140,14 +140,14 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
       let myStocksCopy = [...state.myStocks]
       let filteredIndexingStocksCopy = [...state.filteredStocks]
 
-      state.stocks.map((stock, index) => {
+      state.stocks.forEach((stock, index) => {
         // изменение количества акций . . .
-        let indexCount = Number((Math.random() * 10 - 4).toFixed(0))
+        let indexCount = Number((getRandomNumber(10) - state.normalPriceChange).toFixed(0))
         // изменение состояния акций при условии, что она не подвежена новостям . . .
         let indexCondition: 'up' | 'down' = stock.condition
 
         if (stock.priceChangeInterval === 0) {
-          indexCondition = Math.random() * 10 >= (state.normalPriceChange - 1 + stock.risk) ? 'up' : 'down'
+          indexCondition = getRandomNumber(10) >= (state.normalPriceChange - 1 + stock.risk) ? 'up' : 'down'
         }
         // изменение цены акции . . .
         let indexPriceCount = Number((stock.risk * Number((Math.random() + 0.1).toFixed(1))).toFixed(1))
@@ -184,6 +184,7 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
           ],
           // новые выплаты с девидендов . . .
           dividendsAmount: Number((stocksCopy[index].dividendsPercentage * indexPrice / 100).toFixed(2))
+
         }
 
         // обновление цены в портфеле игрока . . .
@@ -221,7 +222,7 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
     // обновление цен наших акций . . .
     case SET_PRICE_CHANGE_INTERVAL:
       let stocksPriceChangeCopy = [...state.stocks]
-      stocksPriceChangeCopy.map((stock, index) => {
+      stocksPriceChangeCopy.forEach((stock, index) => {
         // находим нужную акцию
         // сетаем кол-во недель и тип роста
         if (stock.title === action.company) {
@@ -328,11 +329,11 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
 
       let brokersCopy = [...state.brokers]
 
-      state.brokersNames.map(name => {
+      state.brokersNames.forEach(name => {
 
-        let stockInCase = 
-        // TODO доработать
-        Array.from(Array(getRandomNumber(state.normalPriceChange) + 2).fill(''), (s,i) => {return i})
+        // let stockInCase = 
+        // // TODO доработать
+        // Array.from(Array(getRandomNumber(state.normalPriceChange) + 2).fill(''), (s,i) => {return i})
 
         let broker = {
           name: name,
@@ -366,12 +367,13 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
           return total
         }, 0 )
       }  
+
     case SET_BONDS:
 
       let bondsCopy: BondType[] = [...state.bonds]
       // количество облигаций...
       let count = Array.from(Array(getRandomNumber(10) + 10).fill({}), (item, index) => {return index})
-      count.map((s,index) => {
+      count.forEach((s,index) => {
         // создаем имя для облигации
         const price = getRandomNumber(600) + 650
         const risk = getRandomNumber(4) + 1
@@ -403,6 +405,47 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
         ...state,
         bonds: bondsCopy
       }
+
+    case INDEXING_BONDS:
+      let indexingBondsCopy: BondType[] = [...state.bonds]
+
+      state.bonds.forEach((bond, index) => {
+        // bond new condition...
+        let indexCondition: 'up' | 'down' = getRandomNumber(10) >= (state.normalPriceChange - 1 + bond.risk) ? 'up' : 'down'
+        // indexing bond count...
+        let indexCount = Number((getRandomNumber(10) - state.normalPriceChange).toFixed(0))
+        // bond price multiplier...
+        let indexPriceCount = Number((bond.risk * Number((Math.random() + 0.1).toFixed(1))).toFixed(1))
+        // bond new price depends on condition and multiplier...
+        let indexPrice: number = indexCondition === 'up'
+          ? bond.price[bond.price.length - 1] + indexPriceCount
+          : bond.price[bond.price.length - 1] - indexPriceCount
+        // price round...
+        indexPrice = Number(indexPrice.toFixed(1))    
+
+        indexingBondsCopy[index] = {
+          // возвращаем пред. данные . . .
+          ...indexingBondsCopy[index],
+          // новое состояние роста акции . . .
+          condition: indexCondition,
+          // новое количество акций . . .
+          count: indexingBondsCopy[index].count + indexCount > 0
+            ? indexingBondsCopy[index].count + indexCount
+            : indexingBondsCopy[index].count,
+          // новая цена акции . . .
+          price: [
+            ...indexingBondsCopy[index].price,
+            indexPrice
+          ],
+          // новые выплаты с девидендов . . .
+          dividendsAmount: Number((indexingBondsCopy[index].dividendsPercentage * indexPrice / 100).toFixed(2))
+      }
+    })
+
+      return {
+        ...state,
+        bonds: [...indexingBondsCopy]
+      }  
     default:
       return state
   }
@@ -441,6 +484,7 @@ export type stockType = {
   maxPrice: number
   minPrice: number
 }
+
 export type BondType = {
   title: string
   count: number
