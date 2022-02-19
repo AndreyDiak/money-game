@@ -8,8 +8,13 @@ const UPDATE_STOCKS = 'gamePage/UPDATE_STOCKS'
 const INDEXING_STOCKS = 'gamePage/INDEXING_STOCKS'
 const SET_PRICE_CHANGE_INTERVAL = 'gamePage/SET_PRICE_CHANGE_INTERVAL'
 const RESET_MY_STOCKS = 'gamePage/RESET_MY_STOCKS'
+
 const FILTER_STOCKS = 'gamePage/FILTER_STOCKS'
 const REVERSE_FILTERED_STOCKS = 'gamePage/REVERSE_FILTERED_STOCKS'
+
+const FILTER_BONDS = 'gamePage/FILTER_BONDS'
+const REVERSE_FILTERED_BONDS = 'gamePage/REVERSE_FILTERED_BONDS' 
+
 const SET_NEW_STOCKS = 'gamePage/SET_NEW_STOCKS'
 
 const SET_BROKERS = 'gamePage/SET_BROKERS'
@@ -51,6 +56,8 @@ let initialState = {
   bonds: [] as BondType[],
   // отфильтрованнае акции . . .
   filteredStocks: [] as stockType[],
+  //
+  filteredBonds: [] as BondType[],
   // брокеры для маржинальной торговли...
   brokersNames: [
     'Bill Nadsman', 
@@ -311,11 +318,72 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
         ...state,
         filteredStocks: filteredStocksCopy
       }
+    
+    case FILTER_BONDS:
+
+      let filteredBondsCopy = [] as BondType[]
+
+      switch (action.filter) {
+        case "title":
+          if (action.value === '') {
+            filteredBondsCopy = [...state.bonds]
+          } else {
+            state.bonds.forEach(bond => {
+              if (bond.title.includes(action.value) || bond.title.toLowerCase().includes(action.value)) filteredBondsCopy = [...filteredBondsCopy, bond]})
+          }
+          break
+
+        case "condition":
+          filteredBondsCopy = state.filteredBonds.sort((prev, next) => {
+            if (prev.condition === 'up' && next.condition === 'down') {
+              return -1
+            }
+            if (prev.condition === 'down' && next.condition === 'up') {
+              return 1
+            }
+            return 0
+          })
+          break
+
+        case "price":
+          filteredBondsCopy = state.bonds.sort((prev, next) => prev.price[prev.price.length - 1] - next.price[next.price.length - 1])
+          break
+
+        case "count":
+          filteredBondsCopy = state.bonds.sort((prev, next) => prev.count - next.count)
+          break
+
+        case "risk":
+          filteredBondsCopy = state.bonds.sort((prev, next) => prev.risk - next.risk)
+          break
+
+        case "dividends":
+          filteredBondsCopy = state.bonds.sort((prev, next) => next.dividendsPercentage - prev.dividendsPercentage)
+          break
+
+        case "none":
+          filteredBondsCopy = [...state.bonds]
+          break
+
+        default:
+          break
+      }
+
+      return {
+        ...state,
+        filteredBonds: [...filteredBondsCopy]
+      }
     // изменить последовательность . . .
     case REVERSE_FILTERED_STOCKS:
       return {
         ...state,
         filteredStocks: [...state.filteredStocks.reverse()]
+      }
+
+    case REVERSE_FILTERED_BONDS:
+      return {
+        ...state,
+        filteredBonds: [...state.filteredBonds.reverse()]
       }
 
     case SET_NEW_STOCKS:
@@ -403,11 +471,14 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
       })
       return {
         ...state,
-        bonds: bondsCopy
+        bonds: bondsCopy,
+        filteredBonds: bondsCopy
       }
 
     case INDEXING_BONDS:
       let indexingBondsCopy: BondType[] = [...state.bonds]
+      let indexingMyStocksCopy = [...state.myStocks]
+      let indexingFilteredBonds = [...state.filteredBonds]
 
       state.bonds.forEach((bond, index) => {
         // bond new condition...
@@ -440,11 +511,38 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
           // новые выплаты с девидендов . . .
           dividendsAmount: Number((indexingBondsCopy[index].dividendsPercentage * indexPrice / 100).toFixed(2))
       }
+
+      // обновление цены в портфеле игрока . . .
+      indexingMyStocksCopy.forEach((myStock, i) => {
+        if(myStock.title === bond.title) {
+
+          let price = indexPrice
+          
+          indexingMyStocksCopy[i] = {
+            ...indexingMyStocksCopy[i],
+            // new stock price
+            price: price,
+            // new stock condition / up / down
+            condition: price >= indexingMyStocksCopy[i].oldPrice ? 'up' : 'down',
+            // new dividend price
+            dividendsAmount: indexingBondsCopy[index].dividendsAmount,
+          }
+        }
+      })
+
+      indexingBondsCopy.forEach((fStock, fIndex) => {
+        if (fStock.title === bond.title) {
+          indexingBondsCopy[fIndex] = indexingBondsCopy[index]
+        }
+      })
+      
     })
 
       return {
         ...state,
-        bonds: [...indexingBondsCopy]
+        bonds: [...indexingBondsCopy],
+        myStocks: [...indexingMyStocksCopy],
+        filteredBonds: [...indexingBondsCopy]
       }  
     default:
       return state
@@ -460,8 +558,13 @@ export const stocksActions = {
   sellStocks: (stock: myStockType, count: number, activeStock: number) => ({type: SELL_STOCKS, stock, count, activeStock} as const),
   setPriceChangeInterval: (company: string, timeInterval: number, condition: 'up' | 'down') => ({type: SET_PRICE_CHANGE_INTERVAL, company, timeInterval, condition} as const),
   resetMyStocks: () => ({type: RESET_MY_STOCKS} as const),
+  
   filterStocks: (filter: filterType, value: string) => ({type: FILTER_STOCKS, filter, value} as const),
   reverseFilteredStocks: () => ({type: REVERSE_FILTERED_STOCKS} as const),
+  
+  filterBonds: (filter: filterType, value: string) => ({type: FILTER_BONDS, filter, value} as const),
+  reverseFilteredBonds: () => ({type: REVERSE_FILTERED_BONDS} as const),
+
   setNewStocks: (newStocks: stockType[], newMyStocks: myStockType[]) => ({type: SET_NEW_STOCKS, newStocks, newMyStocks} as const),
 
   setBrokers: () => ({type: SET_BROKERS} as const),

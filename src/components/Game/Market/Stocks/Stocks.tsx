@@ -44,6 +44,7 @@ export const Stocks: FC<StocksType> = ({setIsHistoryShown, setActiveStock}) => {
         <div className="gameProfitStocks__Header">
           Акции
         </div>
+        
         <div className="gameProfitStocks__OfferBlocks">
           <div className="gameProfitStocks__OfferBlocks__menu">
             <Input placeholder='Название акции...' className='gameProfitStocks__OfferBlocks__menuInput' onChange={(e) => filterStocks('title',e.target.value)}/>
@@ -60,6 +61,7 @@ export const Stocks: FC<StocksType> = ({setIsHistoryShown, setActiveStock}) => {
               }
             </Button>
           </div>
+
           <div className="gameProfitStocks__OfferBlocks__stocks">
             {filteredStocks.map((stock, index) =>
               <StockCard

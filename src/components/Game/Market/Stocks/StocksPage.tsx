@@ -15,6 +15,7 @@ export type RenderPlayerStocksType = {
   setIsMarginShown: (isMarginShown: boolean) => void
 }
 type MarketType = 'portfolio' | 'stocks' | 'bonds' | 'margin'
+
 export const StocksPage: FC<RenderPlayerStocksType> = ({
   setIsStockToSell, setMyActiveStock, setActiveStock, 
   setIsHistoryShown, setActiveBroker, setIsMarginShown}) => {
