@@ -6,6 +6,7 @@ import {Button} from "antd";
 import {newsActions} from "../../redux/news-reducer";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {settingsActions} from "../../redux/settings-reducer";
+import { myStockType, stockType } from "../../redux/stocks-reducer";
 
 
 export const NewsPage:FC<{setIsHistoryShown: any, setActiveStock: any, setMyActiveStock: any, setIsStockToSell: any}> = (props) => {
@@ -95,8 +96,8 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
 
   const dispatch = useDispatch()
 
-  const stocks = useSelector(getStocksSelector)
-  const myStocks = useSelector(getMyStocksSelector)
+  const stocks: stockType[] = useSelector(getStocksSelector)
+  const myStocks: myStockType[] = useSelector(getMyStocksSelector)
 
   const moveToArchive = () => {
     dispatch(newsActions.setToArchive(props.index))

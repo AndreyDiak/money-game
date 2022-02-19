@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../redux/store";
 import {getStocksSelector} from "../redux/stocks-selector";
-import {MarginPopup} from "./Game/Market/Stocks/MarginPopup";
+import {MarginPopup} from "./Game/Market/Margin/MarginPopup";
 
 export type PopupsType = {
   myStock: myStockType
@@ -33,8 +33,8 @@ export const Popups:FC<PopupsType> = (props) => {
     <>
       {props.isStockToSell && <SellPopup stock={props.myStock} setIsStockToSell={props.setIsStockToSell} activeStock={props.activeStock}/>}
       {props.isHistoryShown && <Chart setIsHistoryShown={props.setIsHistoryShown} stock={props.stock}/>}
-      {true && <MarginPopup/> }
-
+      {props.isMarginShown && <MarginPopup/> }
+      
       <Modal style={{width: '90%', textAlign: 'center'}} onCancel={() => props.setIsMarketOpen(false)} visible={props.isMarketOpen} title={'Рынок'} footer={[
         <>
         </>

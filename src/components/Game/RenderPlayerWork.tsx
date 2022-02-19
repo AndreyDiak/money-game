@@ -9,6 +9,7 @@ import {getMyStocksSelector} from "../../redux/stocks-selector";
 import {getMyBusinessesSelector} from "../../redux/business-selector";
 import childrenFalse from "../../img/children-none.png";
 import childrenTrue from "../../img/children.png";
+import { myStockType } from "../../redux/stocks-reducer";
 
 export const RenderPlayerWork = () => {
 
@@ -21,7 +22,7 @@ export const RenderPlayerWork = () => {
   //
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   //
-  const myStocks = useSelector(getMyStocksSelector)
+  const myStocks: myStockType[] = useSelector(getMyStocksSelector)
   //
   const myRealty = useSelector((state: AppStateType) => state.realtyPage.myRealty)
   //

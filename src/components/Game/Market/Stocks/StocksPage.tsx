@@ -3,21 +3,22 @@ import {Button, Select} from "antd";
 import {MyPortfolio} from "./MyPortfolio";
 import {Stocks} from "./Stocks";
 import {Bonds} from "./Bonds";
-import {Margin} from "./Margin";
+import {Margin} from "../Margin/Margin";
+import { brokerType } from "../../../../redux/stocks-reducer";
 
 export type RenderPlayerStocksType = {
   setIsHistoryShown: any
   setActiveStock: any
   setMyActiveStock: any
   setIsStockToSell: any
+  setActiveBroker: (activeBroker: brokerType) => void
+  setIsMarginShown: (isMarginShown: boolean) => void
 }
 type MarketType = 'portfolio' | 'stocks' | 'bonds' | 'margin'
-export const StocksPage: FC<RenderPlayerStocksType> = ({setIsStockToSell, setMyActiveStock, setActiveStock, setIsHistoryShown}) => {
+export const StocksPage: FC<RenderPlayerStocksType> = ({
+  setIsStockToSell, setMyActiveStock, setActiveStock, 
+  setIsHistoryShown, setActiveBroker, setIsMarginShown}) => {
 
-  // хук нужен только для размера под телефон...
-  // const [isMyStocksShown, setIsMyStocksShown] = useState(true)
-
-  const [isBrokerPopupShown, setIsBrokerPopupShown] = useState(false)
   const [marketActiveFilter, setMarketActiveFilter] = useState(1)
   // разрешение экрана...
   const filters = [
@@ -27,6 +28,7 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({setIsStockToSell, setMyA
     {name: 'Маржинальная торговля', filter: 'margin' as MarketType},
   ]
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
+  
   console.log(window.screen.width)
   return (
     <>
@@ -66,10 +68,16 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({setIsStockToSell, setMyA
                     />
                   }
                   {marketActiveFilter === 2 &&
-                    <Bonds/>
+                    <Bonds 
+                      setActiveStock={setActiveStock}
+                      setIsHistoryShown={setIsHistoryShown}
+                    />
                   }
                   {marketActiveFilter === 3 &&
-                    <Margin setIsBrokerPopupShown={setIsBrokerPopupShown}/>
+                    <Margin 
+                      setActiveBroker={setActiveBroker}
+                      setIsMarginShown={setIsMarginShown}
+                    />
                   }
                 </>
                 : <>
@@ -88,10 +96,16 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({setIsStockToSell, setMyA
                     />
                   }
                   {marketActiveFilter === 2 &&
-                    <Bonds/>
+                    <Bonds 
+                      setActiveStock={setActiveStock}
+                      setIsHistoryShown={setIsHistoryShown}
+                    />
                   }
                   {marketActiveFilter === 3 &&
-                    <Margin setIsBrokerPopupShown={setIsBrokerPopupShown}/>
+                    <Margin 
+                      setActiveBroker={setActiveBroker}
+                      setIsMarginShown={setIsMarginShown}
+                  />
                   }
                 </>
               }

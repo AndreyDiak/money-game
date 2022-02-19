@@ -159,6 +159,7 @@ export const GamePage: FC = () => {
       // создаём акции
       dispatch(stocksActions.setStocks())
       dispatch(stocksActions.setBrokers())
+      dispatch(stocksActions.setBonds())
       // // // новости про акции
       dispatch(newsActions.setAbleToShow('stocksNews'))
       openNotification('Вам стала доступна покупка акций!')
@@ -235,6 +236,8 @@ export const GamePage: FC = () => {
               setMyActiveStock={setMyActiveStock}
               setActiveStock={setActiveStock}
               setIsStockToSell={setIsStockToSell}
+              setActiveBroker={setActiveBroker}
+              setIsMarginShown={setIsMarginShown}
             />}/>
           <Route path='/game/bank' render={() => <BankPage />}/>
           {/*<Redirect exact from='/game/market' to='/game/stocks />*/}

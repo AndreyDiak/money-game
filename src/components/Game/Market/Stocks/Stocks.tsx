@@ -13,6 +13,7 @@ type StocksType = {
 
 export const Stocks: FC<StocksType> = ({setIsHistoryShown, setActiveStock}) => {
   const dispatch = useDispatch()
+  // @ts-ignore
   const filteredStocks: stockType[] = useSelector((state: AppStateType) => state.stocksPage.filteredStocks)
   const [isReverse, setIsReverse] = useState(false)
 

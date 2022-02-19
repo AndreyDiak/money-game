@@ -1,23 +1,18 @@
-import React, {Dispatch, FC, SetStateAction, useEffect, useState} from "react";
-import {Breadcrumb, message} from "antd";
-import {useDispatch, useSelector} from "react-redux";
-import {getDayInMonthSelector, getDaySelector, getMonthSelector, getMonthsSelector} from "../../redux/game-selector";
-import {actions} from "../../redux/game-reducer";
-import {AppStateType} from "../../redux/store";
-import {Work} from "../../redux/work-reducer";
-import {myStockType, stocksActions, stockType} from "../../redux/stocks-reducer";
-import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
-import {getDifficultySelector} from "../../redux/settings-selector";
-import {newsArrayType, setNewsThunk} from "../../redux/news-reducer";
-import {getMyBusinessesSelector} from "../../redux/business-selector";
-import {getRandomNumber} from "../../utils/getRandomNumber";
-import {spendsActions, weekSpendThunk} from "../../redux/spends-reducer";
-import {personType, profileActions, updateIncome} from "../../redux/profile-reducer";
-import {getExpensesSelector, getPersonSelector, getTaxSelector} from "../../redux/profile-selector";
-import {realtyActions, realtyType} from "../../redux/realty-reducer";
-import {useHttp} from "../../hooks/http.hook";
-import {CombineData} from "../../utils/combineData";
-import {BusinessType} from "../../redux/business-reducer";
+import { Breadcrumb } from "antd";
+import React, { FC, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHttp } from "../../hooks/http.hook";
+import { getMyBusinessesSelector } from "../../redux/business-selector";
+import { actions } from "../../redux/game-reducer";
+import { getDayInMonthSelector, getDaySelector, getMonthSelector, getMonthsSelector } from "../../redux/game-selector";
+import { setNewsThunk } from "../../redux/news-reducer";
+import { profileActions, updateIncome } from "../../redux/profile-reducer";
+import { realtyActions } from "../../redux/realty-reducer";
+import { spendsActions, weekSpendThunk } from "../../redux/spends-reducer";
+import { stocksActions } from "../../redux/stocks-reducer";
+import { getStocksSelector } from "../../redux/stocks-selector";
+import { AppStateType } from "../../redux/store";
+import { getRandomNumber } from "../../utils/getRandomNumber";
 
 type RenderTimeType = {
   wallet: number
@@ -26,6 +21,7 @@ type RenderTimeType = {
 export const RenderTime: FC<RenderTimeType> = (props) => {
 
   const newsTypeArray = useSelector((state: AppStateType) => state.newsPage.newsTypes)
+  
   const companies = useSelector((state: AppStateType) => state.stocksPage.companiesForStocks)
   // день месяца . . .
   const dayInMonth = useSelector(getDayInMonthSelector)

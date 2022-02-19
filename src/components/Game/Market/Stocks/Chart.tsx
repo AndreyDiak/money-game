@@ -17,7 +17,6 @@ export type RenderChartType = {
   stock: stockType
 }
 
-
 export const Chart: FC<RenderChartType> = (props) => {
   const dispatch = useDispatch()
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
@@ -141,8 +140,8 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
   // массив с акциями . . .
   const stocks = useSelector(getStocksSelector)
-
-  const filteredStocks = useSelector((state: AppStateType) => state.stocksPage.filteredStocks)
+  // @ts-ignore
+  const filteredStocks: stockType[] = useSelector((state: AppStateType) => state.stocksPage.filteredStocks)
   // массив купленных акций . . .
   const myStocks = useSelector(getMyStocksSelector)
   const [stocksToBuyCount, setStocksToBuyCount] = useState(1)

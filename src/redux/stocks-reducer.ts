@@ -15,6 +15,9 @@ const SET_NEW_STOCKS = 'gamePage/SET_NEW_STOCKS'
 const SET_BROKERS = 'gamePage/SET_BROKERS'
 const INDEX_STOCKS_SUMMARY_PRICE = 'gamePage/INDEX_STOCKS_SUMMARY_PRICE'
 
+const SET_BONDS = 'gamePage/SET_BONDS' 
+const INDEXING_BONDS = 'gamePage/INDEXING_BONDS'
+
 let initialState = {
   // изменение цены . . .
   normalPriceChange: 3,
@@ -33,7 +36,8 @@ let initialState = {
   ],
   // список названий под облигаци...
   companiesForBonds: [
-    '','','','','',''
+    'ЗАО ГосСтрой', 'ОАО МашинСервис', 'ОАО ВкуснаяЕда',
+    'ЗАО ЧистаяЭнергия', 'ЗданиеСтрой', 'ЗАО БыстрыйТранспорт'
   ],
   // акции в портфеле . . .
   myStocks: [] as myStockType[],
@@ -43,6 +47,8 @@ let initialState = {
   isSubscriptionBought: false,
   // акции на рынке . . .
   stocks: [] as stockType[],
+  //
+  bonds: [] as BondType[],
   // отфильтрованнае акции . . .
   filteredStocks: [] as stockType[],
   // брокеры для маржинальной торговли...
@@ -53,10 +59,12 @@ let initialState = {
     'Ed Paulson'
   ],
   // массив брокеров, которые могут предложить маржинальную торговлю...
-  brokers: [ ] as brokerType[]
+  brokers: [] as brokerType[]
 }
 
-export const stocksReducer = (state = initialState, action: ActionType) => {
+export type InitialStocksStateType = typeof initialState
+
+export const stocksReducer = (state = initialState, action: ActionType): InitialStocksStateType => {
   switch (action.type) {
     // TODO в идеале должно быть несколько видов акций ( до $100 ; до $250 ; до $500
     //  которые будут открываться с ростом доходов и портфеля игрока . . .
@@ -358,7 +366,43 @@ export const stocksReducer = (state = initialState, action: ActionType) => {
           return total
         }, 0 )
       }  
+    case SET_BONDS:
 
+      let bondsCopy: BondType[] = [...state.bonds]
+      // количество облигаций...
+      let count = Array.from(Array(getRandomNumber(10) + 10).fill({}), (item, index) => {return index})
+      count.map((s,index) => {
+        // создаем имя для облигации
+        const price = getRandomNumber(600) + 650
+        const risk = getRandomNumber(4) + 1
+        const percentage = getRandomNumber(7) + 8
+        let title = getRandomNumber(10) > 5 
+          ? 'ОФЗ ' + 
+          String((getRandomNumber(10) + 10)) + 
+          '-' + 
+          String(getRandomNumber(1000)+1000) +
+          ' ' + 
+          state.companiesForBonds[getRandomNumber(state.companiesForBonds.length)] 
+        : state.companiesForBonds[getRandomNumber(state.companiesForBonds.length)] +
+          ' выпуск ' + String(getRandomNumber(20) + 1)
+
+        // create a bond object...
+        let bond: BondType = {
+          title: title,
+          count: getRandomNumber(20) + 10,
+          risk: risk,
+          price: [price],
+          condition: getRandomNumber(10) > 5 ? 'up' : 'down',
+          dividendsPercentage: percentage,
+          dividendsAmount: percentage * price / 100
+        }
+        // push bond to array...
+        bondsCopy.push(bond)
+      })
+      return {
+        ...state,
+        bonds: bondsCopy
+      }
     default:
       return state
   }
@@ -378,7 +422,11 @@ export const stocksActions = {
   setNewStocks: (newStocks: stockType[], newMyStocks: myStockType[]) => ({type: SET_NEW_STOCKS, newStocks, newMyStocks} as const),
 
   setBrokers: () => ({type: SET_BROKERS} as const),
-  indexStocksSummaryPrice: () => ({ type: INDEX_STOCKS_SUMMARY_PRICE } as const)
+  indexStocksSummaryPrice: () => ({ type: INDEX_STOCKS_SUMMARY_PRICE } as const),
+  // создаем список облигаций..
+  setBonds: () => ({type: SET_BONDS} as const),
+  // обновляем цену на облигацию...
+  indexingBonds: () => ({type: INDEXING_BONDS} as const)
 }
 
 export type stockType = {
@@ -392,6 +440,15 @@ export type stockType = {
   dividendsAmount: number
   maxPrice: number
   minPrice: number
+}
+export type BondType = {
+  title: string
+  count: number
+  risk: number
+  price: number[]
+  condition: 'up' | 'down'
+  dividendsPercentage: number
+  dividendsAmount: number
 }
 export type myStockType = {
   title: string
@@ -411,7 +468,6 @@ export type brokerType = {
   timeMax: number
   stocks: stockType[]
 }
-
 export type marginStockType = {
   expiresIn: number
   count: number

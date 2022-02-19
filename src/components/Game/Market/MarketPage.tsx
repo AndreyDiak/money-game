@@ -4,6 +4,7 @@ import {RealtyPage} from "./RealtyPage";
 import {BusinessPage} from "./BusinessPage";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {StocksPage} from "./Stocks/StocksPage";
+import { brokerType } from "../../../redux/stocks-reducer";
 
 const {TabPane} = Tabs
 
@@ -12,6 +13,8 @@ export type MarketType = {
   setActiveStock: any
   setMyActiveStock: any
   setIsStockToSell: any
+  setActiveBroker: (activeBroker: brokerType) => void
+  setIsMarginShown: (isMarginShown: boolean) => void
 }
 
 export const MarketPage: FC<MarketType> = (props) => {
@@ -25,6 +28,8 @@ export const MarketPage: FC<MarketType> = (props) => {
             setMyActiveStock={props.setMyActiveStock}
             setActiveStock={props.setActiveStock}
             setIsStockToSell={props.setIsStockToSell}
+            setActiveBroker={props.setActiveBroker}
+            setIsMarginShown={props.setIsMarginShown}
           />
         }/>
         <Route path='/game/market/realty' render={() => <RealtyPage />}/>
