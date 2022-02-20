@@ -2428,6 +2428,15 @@ input:checked, input:active, input:focus {
   background-color: #f1f1f1;
   z-index: 3;
 }
+.chartPopupBlock__menu, .sellPopupBlock__menu, .marginPopupBlock__menu {
+  font-family: "Fira Mono", sans-serif;
+}
+.chartPopupBlock__menuSummary, .sellPopupBlock__menuSummary, .marginPopupBlock__menuSummary {
+  font-size: 16px;
+}
+.chartPopupBlock__menuCommission, .sellPopupBlock__menuCommission, .marginPopupBlock__menuCommission {
+  font-size: 16px;
+}
 .chartPopupBlock__Menu, .sellPopupBlock__Menu, .marginPopupBlock__Menu {
   margin-top: 20px;
   padding-bottom: 20px;
@@ -2482,6 +2491,13 @@ input:checked, input:active, input:focus {
   left: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1;
+}
+
+.chartPopup {
+  z-index: 100;
+}
+.chartPopupBlock {
+  z-index: 10;
 }
 
 .bannerBack {

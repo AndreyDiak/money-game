@@ -16,6 +16,7 @@ export type PopupsType = {
   activeStock: number
   setIsHistoryShown: SetStateAction<any>
   setIsMarketOpen: SetStateAction<any>
+  setActiveStock: (activeStock: stockType) => void
   setIsMarginShown: (isMarginShown: boolean) => void
   stock: stockType
   isHistoryShown: boolean
@@ -34,7 +35,14 @@ export const Popups:FC<PopupsType> = (props) => {
     <>
       {props.isStockToSell && <SellPopup stock={props.myStock} setIsStockToSell={props.setIsStockToSell} activeStock={props.activeStock}/>}
       {props.isHistoryShown && <Chart setIsHistoryShown={props.setIsHistoryShown} stock={props.stock}/>}
-      {props.isMarginShown && <MarginPopup setIsMarginShown={props.setIsMarginShown} broker={props.activeBroker} /> }
+      {props.isMarginShown && 
+      <MarginPopup 
+        setIsMarginShown={props.setIsMarginShown} 
+        broker={props.activeBroker} 
+        setIsHistotyShown={props.setIsHistoryShown} 
+        setActiveStock={props.setActiveStock}
+        /> 
+      }
       
       <Modal style={{width: '90%', textAlign: 'center'}} onCancel={() => props.setIsMarketOpen(false)} visible={props.isMarketOpen} title={'Рынок'} footer={[
         <>

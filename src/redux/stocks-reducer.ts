@@ -395,14 +395,27 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
 
     case SET_BROKERS:
 
-      let brokersCopy = [...state.brokers]
+      let brokersCopy = [ ...state.brokers ]
+      let stocks = [ ...state.stocks ]
 
       state.brokersNames.forEach(name => {
 
         // let stockInCase = 
         // // TODO доработать
         // Array.from(Array(getRandomNumber(state.normalPriceChange) + 2).fill(''), (s,i) => {return i})
+        let stocksCount = getRandomNumber(3) + 2
+        let marginStocks: stockType[] = []
 
+        for (let i = 0; i < stocksCount; i++) {
+          let randomStockIndex = getRandomNumber(stocks.length)
+          let randomAmount = getRandomNumber(1000) + 100
+          let marginStock = {
+            ...stocks[randomStockIndex],
+            count: randomAmount
+          }
+          marginStocks = [...marginStocks, marginStock]
+        }
+        
         let broker = {
           name: name,
           age: 20 + getRandomNumber(30),
@@ -416,7 +429,8 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
           timeMin: 1,
           // максимальный срок выдачи...
           timeMax: 2 + getRandomNumber(4),
-          
+          //
+          stocks: marginStocks
         }
         //@ts-ignore
         brokersCopy.push(broker)

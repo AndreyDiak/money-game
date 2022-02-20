@@ -241,7 +241,7 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
             <button onClick={() => setStocksCount(props.stock.count)}> max </button>
           </div>
         </div>
-          <div>
+        <div>
             <Button
               size='large'
               disabled={!(stocksToBuyPrice <= wallet)
@@ -256,7 +256,7 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
             }}>
               Купить
             </Button>
-          </div>
+        </div>
       </div>
       <div>
         Вы заплатите : <b>${(stocksToBuyPrice).toFixed(1)}</b>

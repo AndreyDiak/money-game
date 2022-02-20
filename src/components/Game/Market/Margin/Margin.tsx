@@ -1,9 +1,10 @@
 import { brokerType } from "../../../../redux/stocks-reducer"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { AppStateType } from "../../../../redux/store"
 import { FC, useState } from "react"
 import {Button, Popover} from "antd"
 import { getBrokersSelector } from "../../../../redux/stocks-selector"
+import { settingsActions } from "../../../../redux/settings-reducer"
 
 type RenderPlayerMarginType = {
   setActiveBroker: (activeBroker: brokerType) => void
@@ -11,12 +12,14 @@ type RenderPlayerMarginType = {
 }
 
 export const Margin: FC<RenderPlayerMarginType> = ({setActiveBroker, setIsMarginShown}) => {
- 
+  
+  const dispatch = useDispatch()
   const brokers: brokerType[] = useSelector(getBrokersSelector)
   // TODO
   // const [activeBroker, setActiveBroker] = useState({} as brokerType)
 
   const onButtonClick = (index: number) => {
+    dispatch(settingsActions.setTimeSpeed(0))
     setIsMarginShown(true)    
     setActiveBroker(brokers[index])
   }
