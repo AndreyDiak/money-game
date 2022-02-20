@@ -409,7 +409,7 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
           // коммиссия которую выплачивает игрок, после расчета прибыли / убыдка...
           commission: (10 + getRandomNumber(15) ) / 100,
           // минимальое кредитное плечо
-          leverAgeMin: 0.5,
+          leverAgeMin: 2,
           // максимальное кредитное плечо
           leverAgeMax: Number((0.5 - getRandomNumber(49) / 100).toFixed(2)),
           // минимальный срок выдачи ...
@@ -431,7 +431,7 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
       return {
         ...state,
         stocksSummaryPrice: state.myStocks.reduce((total, stock) => {
-          total += stock.price
+          total += stock.price*stock.count
           return total
         }, 0 )
       }  

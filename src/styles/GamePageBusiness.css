@@ -1,3 +1,152 @@
+.gameBusiness {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: inherit;
+  background: url("../img/banner-business.jpg") center no-repeat;
+  background-size: cover;
+  z-index: 3;
+  font-family: 'Fira Mono', sans-serif;
+  color: #fff;
+}
 
+.gameBusinessContent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  z-index: 10;
+  overflow: auto;
+}
 
+.gameBusinessContent__menu {
+  padding: 20px;
+  text-align: center;
+  width: 60%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.gameBusinessContent__block {
+  padding: 25px;
+  text-align: center;
+  border: 2px solid #fff;
+  background: rgba(32, 68, 98, 0.7);
+}
+
+.gameBusinessContent__blockTitle {
+  padding-bottom: 20px;
+  margin: 0 auto 20px;
+  font-weight: 900;
+  font-size: 28px;
+  max-width: 40%;
+  border-bottom: 2px solid #fff;
+}
+
+.gameBusinessContent__blockImg {
+  margin: 0 auto 20px;
+  max-width: 350px;
+  text-align: center;
+}
+
+.gameBusinessContent__blockImg img {
+  width: 100%;
+}
+
+.gameBusinessContent__blockIncome, .gameBusinessContent__blockPrice {
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.gameBusinessContent__blockButton {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px dashed #fff;
+}
+
+.gameBusinessContent__blocks {
+  padding: 50px;
+  width: 60%;
+  height: 850px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  z-index: 10;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 30px;
+  background: rgba(53, 92, 125, 0.9);
+  overflow: auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .gameBusinessContent__menu {
+    width: 80%;
+  }
+  .gameBusinessContent__blocks {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .gameBusinessContent__menu {
+    width: 90%;
+  }
+  .gameBusinessContent__block {
+    padding: 15px;
+  }
+  .gameBusinessContent__blockIncome, .gameBusinessContent__blockPrice {
+    font-size: 18px;
+  }
+  .gameBusinessContent__blockTitle {
+    padding-bottom: 10px;
+    font-size: 22px;
+  }
+  .gameBusinessContent__blocks {
+    padding: 30px;
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .gameBusiness {
+    padding-bottom: 50px;
+    height: auto;
+  }
+  .gameBusinessContent__menu {
+    width: 100%;
+  }
+  .gameBusinessContent__block {
+    padding: 10px;
+  }
+  .gameBusinessContent__blockIncome, .gameBusinessContent__blockPrice {
+    font-size: 16px;
+  }
+  .gameBusinessContent__blockTitle {
+    padding-bottom: 10px;
+    font-size: 18px;
+  }
+  .gameBusinessContent__blockButton {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+  .gameBusinessContent__blocks {
+    padding: 15px;
+    width: 100%;
+  }
+}
 /*# sourceMappingURL=GamePageBusiness.css.map */

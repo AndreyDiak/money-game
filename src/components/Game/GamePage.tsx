@@ -209,7 +209,7 @@ export const GamePage: FC = () => {
         isMarketOpen={isMarketOpen}
         activeBroker={activeBroker}
         isMarginShown={isMarginShown}
-
+        setIsMarginShown={setIsMarginShown}
       />
       <div style={screenWidth > 768
         ? {height: 'calc(100vh - 78px)'}

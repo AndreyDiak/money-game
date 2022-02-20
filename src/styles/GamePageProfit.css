@@ -1,59 +1,256 @@
 .gameProfit {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #282c34;
-  height: calc(100vh - 46px);
-  grid-area: profit;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  width: 100%;
+  height: inherit;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background: url("../img/banner-market.jpg") center no-repeat;
+  background-size: cover;
   color: #fff;
+  z-index: 0;
 }
+
+.gameProfit::after {
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+
+.gameProfitMargin {
+  padding: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-column-gap: 30px;
+          column-gap: 30px;
+  row-gap: 30px;
+}
+
+.gameProfitMargin__popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.gameProfitMargin__block {
+  position: relative;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  max-width: 80%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1.5fr;
+      grid-template-columns: 1fr 1.5fr;
+}
+
+.gameProfitMargin__block::after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  border-radius: 1px;
+  bottom: -15.5px;
+  left: 0;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.gameProfitMargin__block:last-child::after {
+  content: none;
+}
+
+.gameProfitMargin__blockButton {
+  margin-top: 15px;
+}
+
+.gameProfitMargin__blockButton button {
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+}
+
+.gameProfitMargin__blockAbout {
+  font-weight: 700;
+}
+
+.gameProfitMargin__blockAbout__name {
+  font-size: 24px;
+}
+
+.gameProfitMargin__blockAbout__age {
+  font-size: 18px;
+}
+
+.gameProfitMargin__blockStats {
+  font-size: 18px;
+}
+
+.gameProfitMargin__blockStats__help {
+  position: relative;
+  background: #fff;
+  text-align: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color: #000;
+  cursor: pointer;
+}
+
+.gameProfitMargin__blockStats__help span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.gameProfitMargin__blockStats__commission, .gameProfitMargin__blockStats__leverAge {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.gameProfitMenu {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: menu;
+  margin-bottom: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-column-gap: 15px;
+          column-gap: 15px;
+  row-gap: 15px;
+}
+
+.gameProfitMenu__item button {
+  font-weight: 900;
+  outline: none;
+}
+
 .gameProfitHeader {
-  margin-bottom: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   text-transform: lowercase;
-  font-size: 24px;
+  z-index: 2;
+}
+
+.gameProfitHeader span {
+  font-size: 18px;
+  font-family: 'Fira Mono', sans-serif;
   font-weight: 500;
+  color: #eeeeee;
 }
+
 .gameProfitStocks {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  padding: 30px;
+  height: 100%;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.1);
 }
+
+.gameProfitStocks .container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 'menu menu' 'myStocks stocks';
+}
+
 .gameProfitStocks__Me {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: myStocks;
   padding: 15px;
   border-right: 2px dashed #f1f1f1;
 }
+
 .gameProfitStocks__Header {
   text-align: center;
   font-weight: 700;
   text-transform: uppercase;
 }
+
+.gameProfitStocks__Menu {
+  z-index: 2;
+}
+
 .gameProfitStocks__MenuButton {
   padding: 7px 15px;
   font-weight: 700;
   font-size: 24px;
   width: 50%;
   color: #fff;
-  font-family: "Fira Mono", sans-serif;
+  font-family: 'Fira Mono', sans-serif;
   border: 1px solid #999999;
   background: rgba(0, 0, 0, 0.2);
 }
+
 .gameProfitStocks__MenuButton:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+
 .gameProfitStocks__MenuButtons {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
+
 .gameProfitStocks__Offer {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: stocks;
   padding: 15px;
 }
+
 .gameProfitStocks__OfferBlock {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  position: relative;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 70%;
-  flex-direction: column;
-  border-bottom: 1px solid darkgrey;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 }
+
+.gameProfitStocks__OfferBlock::after {
+  content: '';
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  border-radius: 1px;
+  bottom: -15.5px;
+  left: 0;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.gameProfitStocks__OfferBlock:last-child::after {
+  content: none;
+}
+
 .gameProfitStocks__OfferBlock__Button {
   margin-top: 10px;
   padding: 5px 10px;
@@ -63,24 +260,130 @@
   font-size: 18px;
   background: transparent;
 }
+
 .gameProfitStocks__OfferBlock__Button:hover {
   background: rgba(255, 255, 255, 0.2);
 }
+
 .gameProfitStocks__OfferBlock__Title {
   font-weight: 700;
   font-size: 24px;
 }
+
 .gameProfitStocks__OfferBlock__Info {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  column-gap: 15px;
+  -webkit-column-gap: 15px;
+          column-gap: 15px;
 }
-.gameProfitStocks__OfferBlocks {
-  margin-top: 30px;
+
+.gameProfitStocks__OfferBlocks__menu {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  max-height: 50vh;
+}
+
+.gameProfitStocks__OfferBlocks__stocks {
+  margin-top: 30px;
   overflow: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-height: 70vh;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   row-gap: 30px;
 }
 
+@media screen and (max-width: 1600px) {
+  .gameProfitStocks__OfferBlock {
+    width: 80%;
+  }
+  .gameProfitMargin__block {
+    width: 90%;
+  }
+  .gameProfitHeader span {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .gameProfitStocks__OfferBlock {
+    width: 90%;
+  }
+  .gameProfitStocks__OfferBlock__Title {
+    font-size: 18px;
+  }
+  .gameProfitStocks__OfferBlock__Info {
+    -webkit-column-gap: 10px;
+            column-gap: 10px;
+  }
+  .gameProfitStocks__OfferBlock__Button {
+    margin-top: 5px;
+    padding: 3px 7px;
+    font-size: 16px;
+  }
+  .gameProfitStocks__OfferBlock::after {
+    bottom: -7.5px;
+  }
+  .gameProfitStocks__OfferBlocks__menu {
+    margin-top: 10px;
+  }
+  .gameProfitStocks__OfferBlocks__stocks {
+    margin-top: 15px;
+    row-gap: 15px;
+  }
+  .gameProfitStocks__Me, .gameProfitStocks__Offer {
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .gameProfitStocks__OfferBlock {
+    width: 100%;
+  }
+  .gameProfitStocks__OfferBlock__Title {
+    font-size: 16px;
+  }
+  .gameProfitStocks__OfferBlock__Info {
+    -webkit-column-gap: 7px;
+            column-gap: 7px;
+  }
+  .gameProfitStocks__OfferBlock__Button {
+    padding: 3px 5px;
+    font-size: 14px;
+  }
+  .gameProfitHeader span {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .gameProfitMenu {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .gameProfitMenu__item {
+    width: 100%;
+  }
+  .gameProfitMenu__item button {
+    width: 100%;
+  }
+  .gameProfitStocks__Me {
+    border-right: none;
+  }
+  .gameProfitStocks .container {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+}
 /*# sourceMappingURL=GamePageProfit.css.map */

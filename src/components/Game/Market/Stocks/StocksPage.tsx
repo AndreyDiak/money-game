@@ -30,7 +30,6 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({
   ]
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
   
-  console.log(window.screen.width)
   return (
     <>
       <div className="gameProfit bannerBack">

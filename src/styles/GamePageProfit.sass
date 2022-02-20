@@ -29,7 +29,7 @@
         border-radius: 5px
         max-width: 80%
         display: grid
-        grid-template-columns: 1fr 1.5fr
+        grid-template-columns: 1fr 1fr
 
         &::after
           content: ''
@@ -58,6 +58,7 @@
         &Stats
           font-size: 18px
           &__help
+            position: relative
             background: #fff
             text-align: center
             width: 25px
@@ -65,9 +66,15 @@
             border-radius: 50%
             color: #000
             cursor: pointer
+            span
+              position: absolute
+              top: 50%
+              left: 50%
+              transform: translate(-50%, -50%)
           &__commission, &__leverAge
             display: flex
             justify-content: space-between
+            margin-bottom: 5px
 
     &Menu
       grid-area: menu
@@ -176,12 +183,40 @@
 
 @media screen and (max-width: 1600px)
   .gameProfit
+    &Stocks
+      &__Offer
+        &Block
+          width: 80%
+    &Margin
+      &__block
+        max-width: 95%
+        column-gap: 5px
+        &Stats
+          font-size: 16px
+          //&__commission
+
+        &About
+          &__name
+            font-size: 20px
+          &__age
+            font-size: 16px
     &Header
       span
         font-size: 16px
 
 @media screen and (max-width: 1200px)
   .gameProfit
+    &Margin
+      &__block
+        max-width: 100%
+        &Stats
+          font-size: 14px
+        &About
+          &__name
+            font-size: 18px
+          &__age
+            font-size: 14px
+
     &Stocks
       &__Offer
         &Block

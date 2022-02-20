@@ -741,7 +741,7 @@
   border-radius: 5px;
   max-width: 80%;
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
+  grid-template-columns: 1fr 1fr;
 }
 .gameProfitMargin__block::after {
   content: "";
@@ -777,6 +777,7 @@
   font-size: 18px;
 }
 .gameProfitMargin__blockStats__help {
+  position: relative;
   background: #fff;
   text-align: center;
   width: 25px;
@@ -785,9 +786,16 @@
   color: #000;
   cursor: pointer;
 }
+.gameProfitMargin__blockStats__help span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .gameProfitMargin__blockStats__commission, .gameProfitMargin__blockStats__leverAge {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 5px;
 }
 .gameProfitMenu {
   grid-area: menu;
@@ -912,11 +920,39 @@
 }
 
 @media screen and (max-width: 1600px) {
+  .gameProfitStocks__OfferBlock {
+    width: 80%;
+  }
+  .gameProfitMargin__block {
+    max-width: 95%;
+    column-gap: 5px;
+  }
+  .gameProfitMargin__blockStats {
+    font-size: 16px;
+  }
+  .gameProfitMargin__blockAbout__name {
+    font-size: 20px;
+  }
+  .gameProfitMargin__blockAbout__age {
+    font-size: 16px;
+  }
   .gameProfitHeader span {
     font-size: 16px;
   }
 }
 @media screen and (max-width: 1200px) {
+  .gameProfitMargin__block {
+    max-width: 100%;
+  }
+  .gameProfitMargin__blockStats {
+    font-size: 14px;
+  }
+  .gameProfitMargin__blockAbout__name {
+    font-size: 18px;
+  }
+  .gameProfitMargin__blockAbout__age {
+    font-size: 14px;
+  }
   .gameProfitStocks__OfferBlock {
     width: 90%;
   }
@@ -2374,7 +2410,7 @@ input:checked, input:active, input:focus {
   color: goldenrod;
 }
 
-.chartPopup, .sellPopup {
+.chartPopup, .sellPopup, .marginPopup {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -2385,14 +2421,14 @@ input:checked, input:active, input:focus {
   height: 100%;
   z-index: 10;
 }
-.chartPopupBlock, .sellPopupBlock {
+.chartPopupBlock, .sellPopupBlock, .marginPopupBlock {
   position: relative;
   padding: 30px 50px;
   width: 700px;
   background-color: #f1f1f1;
   z-index: 3;
 }
-.chartPopupBlock__Menu, .sellPopupBlock__Menu {
+.chartPopupBlock__Menu, .sellPopupBlock__Menu, .marginPopupBlock__Menu {
   margin-top: 20px;
   padding-bottom: 20px;
   padding-top: 20px;
@@ -2401,18 +2437,18 @@ input:checked, input:active, input:focus {
   align-items: center;
   justify-content: space-between;
 }
-.chartPopupBlock__MenuInfo__Title, .sellPopupBlock__MenuInfo__Title {
+.chartPopupBlock__MenuInfo__Title, .sellPopupBlock__MenuInfo__Title, .marginPopupBlock__MenuInfo__Title {
   padding: 10px;
   font-weight: 700;
   font-size: 16px;
   background: #439093;
   color: #fff;
 }
-.chartPopupBlock__MenuInfo__Input, .sellPopupBlock__MenuInfo__Input {
+.chartPopupBlock__MenuInfo__Input, .sellPopupBlock__MenuInfo__Input, .marginPopupBlock__MenuInfo__Input {
   margin-top: 10px;
   margin-right: 10px;
 }
-.chartPopupBlock__Button, .sellPopupBlock__Button {
+.chartPopupBlock__Button, .sellPopupBlock__Button, .marginPopupBlock__Button {
   margin-top: 15px;
   padding: 7px 25px;
   font-size: 24px;
@@ -2420,24 +2456,24 @@ input:checked, input:active, input:focus {
   border: 1px solid #282c34;
   border-radius: 2px;
 }
-.chartPopupBlock__Button:hover, .sellPopupBlock__Button:hover {
+.chartPopupBlock__Button:hover, .sellPopupBlock__Button:hover, .marginPopupBlock__Button:hover {
   background: rgba(0, 0, 0, 0.12);
 }
-.chartPopupBlock__Title, .sellPopupBlock__Title {
+.chartPopupBlock__Title, .sellPopupBlock__Title, .marginPopupBlock__Title {
   margin-bottom: 30px;
   font-size: 28px;
   font-weight: 500;
 }
-.chartPopupBlock__Close, .sellPopupBlock__Close {
+.chartPopupBlock__Close, .sellPopupBlock__Close, .marginPopupBlock__Close {
   position: absolute;
   top: 30px;
   right: 30px;
   font-size: 30px;
 }
-.chartPopupBlock__Close:hover, .sellPopupBlock__Close:hover {
+.chartPopupBlock__Close:hover, .sellPopupBlock__Close:hover, .marginPopupBlock__Close:hover {
   cursor: pointer;
 }
-.chartPopup::after, .sellPopup::after {
+.chartPopup::after, .sellPopup::after, .marginPopup::after {
   content: "";
   position: absolute;
   width: 100vw;
@@ -2502,15 +2538,6 @@ input:checked, input:active, input:focus {
 
 .ant-slider-step {
   height: 15px;
-}
-
-.ant-slider-handle {
-  top: 1px;
-  width: 30px;
-  height: 30px;
-  background: url("../img/gold.png") center no-repeat;
-  background-size: cover;
-  border: none;
 }
 
 .ant-tabs-tab, .ant-badge {

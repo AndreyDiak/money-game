@@ -1,84 +1,21 @@
 .game {
+  display: -ms-grid;
   display: grid;
-  grid-template-areas: "profile profit" " spend spend";
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 4fr 3fr;
-  width: 100vw;
+      grid-template-areas: 'profile actions';
+  -ms-grid-columns: 1.2fr 2fr;
+      grid-template-columns: 1.2fr 2fr;
+  width: 100%;
   height: 100vh;
 }
-.gameProfile {
-  grid-area: profile;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fdecfd;
-}
-.gameProfileHeader {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  font-size: 30px;
-  font-weight: 700;
-}
-.gameProfileContent {
-  display: flex;
-  font-size: 30px;
-  text-transform: uppercase;
-}
-.gameProfileContent__Person {
-  display: flex;
-}
-.gameProfileContent__PersonInfo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.gameProfileContent__PersonInfo__Name {
-  text-transform: uppercase;
-  font-weight: 700;
-}
-.gameProfileContent__PersonImg {
-  height: 500px;
-}
-.gameProfileContent__PersonImg img {
-  height: 100%;
-}
-.gameProfit {
-  grid-area: profit;
-  background-color: #282c34;
-  color: #fff;
-}
-.gameProfitHeader {
-  margin-top: 15px;
-  margin-bottom: 50px;
-  display: flex;
-  text-transform: lowercase;
-  font-size: 24px;
-  font-weight: 500;
-}
-.gameProfitStock__Title {
-  font-weight: 700;
-  font-size: 24px;
-}
-.gameProfitStock__Info {
-  display: flex;
-  column-gap: 15px;
-}
-.gameProfitStocks {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.gameProfitStock__Header {
-  text-align: center;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-.gameSpend {
-  grid-area: spend;
-  background-color: #ff6f3c;
+
+.gameActions {
+  height: 100vh;
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: actions;
 }
 
 .personImg img {
   height: 100%;
 }
-
 /*# sourceMappingURL=GamePage.css.map */

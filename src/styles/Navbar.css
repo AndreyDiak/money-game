@@ -1,3 +1,248 @@
+.navWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: #673c74;
+  font-family: 'Fira Mono', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
 
+.navItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100%;
+  width: 33%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-column-gap: 15px;
+          column-gap: 15px;
+}
 
+.navItem:last-child {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 78px;
+}
+
+.navItem:first-child {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.navItemProfile {
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 30px;
+          column-gap: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: 900;
+}
+
+.navItemMenu {
+  margin-left: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-column-gap: 25px;
+          column-gap: 25px;
+}
+
+.navItemMenu__block {
+  border: none;
+  background: transparent;
+  color: #212121;
+}
+
+.navItemBalance {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 30px;
+  font-size: 36px;
+  background: rgba(68, 39, 76, 0.8);
+}
+
+.navItem__link {
+  font-size: 18px;
+  width: 75px;
+  text-transform: uppercase;
+}
+
+.navItem__link a {
+  color: #fff;
+}
+
+.navItem__link a:hover {
+  color: #29b6f6;
+}
+
+.bottomNav {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  display: none;
+  padding: 10px;
+  background: white;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-column-gap: 15px;
+          column-gap: 15px;
+  z-index: 15;
+}
+
+.bottomNavItem {
+  z-index: 15;
+  color: #fff;
+}
+
+.bottomNavItem button {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+
+.bottomNavItem button img {
+  width: 35px;
+  height: 35px;
+}
+
+.bottomNavItem a {
+  color: #fff;
+}
+
+.bottomNavItem a button {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+
+.bottomNavItem a button img {
+  width: 35px;
+  height: 35px;
+}
+
+@media screen and (max-width: 1200px) {
+  .navItemMenu {
+    margin-left: 10px;
+    -webkit-column-gap: 15px;
+            column-gap: 15px;
+  }
+  .navItem__link {
+    width: 60px;
+    font-size: 16px;
+  }
+  .navItemBalance {
+    font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .navItem {
+    -webkit-column-gap: 10px;
+            column-gap: 10px;
+    width: auto;
+  }
+  .navItemBalance {
+    font-size: 24px;
+  }
+  .navItemProfile {
+    padding: 5px;
+    -webkit-column-gap: 10px;
+            column-gap: 10px;
+    font-size: 16px;
+  }
+  .navItem__link {
+    font-size: 14px;
+    width: auto;
+  }
+  .navItemMenu {
+    margin-left: 0;
+  }
+  .navItemMenu button {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .bottomNav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .navItem:last-child {
+    height: 50px;
+  }
+  .navItemProfile div {
+    width: 40px;
+    height: 40px;
+  }
+  .navItemProfile div div {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .navItemBalance {
+    padding: 0 10px;
+    font-size: 18px;
+  }
+  .navItem__link {
+    display: none;
+  }
+  .ant-menu {
+    text-align: center;
+  }
+  .ant-menu p {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .ant-modal {
+    width: 80% !important;
+  }
+  .navItemMenu {
+    -webkit-column-gap: 5px;
+            column-gap: 5px;
+  }
+  .navItemBalance {
+    font-size: 14px;
+  }
+  .navItemProfile {
+    font-size: 14px;
+  }
+  .navItemProfile div {
+    width: 30px;
+    height: 30px;
+  }
+  .navItemProfile div div {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}
 /*# sourceMappingURL=Navbar.css.map */

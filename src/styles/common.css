@@ -17,6 +17,7 @@
   border: none;
   color: #fff;
 }
+
 .buttonNav:hover {
   color: #cccccc;
 }
@@ -35,15 +36,22 @@
 
 .chartPopup, .sellPopup {
   position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 10;
 }
+
 .chartPopupBlock, .sellPopupBlock {
   position: relative;
   padding: 30px 50px;
@@ -51,15 +59,23 @@
   background-color: #f1f1f1;
   z-index: 3;
 }
+
 .chartPopupBlock__Menu, .sellPopupBlock__Menu {
   margin-top: 20px;
   padding-bottom: 20px;
   padding-top: 20px;
   border-top: 1px solid grey;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
+
 .chartPopupBlock__MenuInfo__Title, .sellPopupBlock__MenuInfo__Title {
   padding: 10px;
   font-weight: 700;
@@ -67,10 +83,12 @@
   background: #439093;
   color: #fff;
 }
+
 .chartPopupBlock__MenuInfo__Input, .sellPopupBlock__MenuInfo__Input {
   margin-top: 10px;
   margin-right: 10px;
 }
+
 .chartPopupBlock__Button, .sellPopupBlock__Button {
   margin-top: 15px;
   padding: 7px 25px;
@@ -79,25 +97,30 @@
   border: 1px solid #282c34;
   border-radius: 2px;
 }
+
 .chartPopupBlock__Button:hover, .sellPopupBlock__Button:hover {
   background: rgba(0, 0, 0, 0.12);
 }
+
 .chartPopupBlock__Title, .sellPopupBlock__Title {
   margin-bottom: 30px;
   font-size: 28px;
   font-weight: 500;
 }
+
 .chartPopupBlock__Close, .sellPopupBlock__Close {
   position: absolute;
   top: 30px;
   right: 30px;
   font-size: 30px;
 }
+
 .chartPopupBlock__Close:hover, .sellPopupBlock__Close:hover {
   cursor: pointer;
 }
+
 .chartPopup::after, .sellPopup::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -111,8 +134,9 @@
   position: relative;
   z-index: 1;
 }
+
 .bannerBack::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -146,8 +170,12 @@
 
 .ant-slider {
   text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .ant-slider-rail {
@@ -173,7 +201,7 @@
 }
 
 .ant-tabs-tab, .ant-badge {
-  font-family: "Fira Mono", sans-serif;
+  font-family: 'Fira Mono', sans-serif;
   font-size: 20px;
 }
 
@@ -188,16 +216,17 @@
     width: 75%;
   }
 }
+
 @media screen and (max-width: 1024px) {
   .container {
     width: 80%;
   }
 }
+
 @media screen and (max-width: 768px) {
   .container {
     width: 85%;
   }
-
   .chartPopupBlock, .sellPopupBlock {
     padding: 10px 20px;
     width: 90%;
@@ -213,15 +242,18 @@
     margin-top: 10px;
     padding-bottom: 10px;
     padding-top: 10px;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     row-gap: 10px;
   }
 }
+
 @media screen and (max-width: 480px) {
   .container {
     width: 90%;
   }
-
   .chartPopupBlock, .sellPopupBlock {
     padding: 5px 10px;
     width: 95%;
@@ -250,5 +282,4 @@
     display: none;
   }
 }
-
 /*# sourceMappingURL=common.css.map */

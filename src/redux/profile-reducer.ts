@@ -53,7 +53,7 @@ let initialState = {
     {
       name: 'Эдди',
       age: 28,
-      saving: 520,
+      saving: 15200,
       salary: 700,
       work: 'Маркетолог',
       expenses: [

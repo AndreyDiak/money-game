@@ -1,19 +1,197 @@
 .gameWork {
   width: 100%;
-  position: relative;
-  height: 100vh;
-  background: url("../img/banner-work.jpg");
-  z-index: 0;
-}
-.gameWork::after {
-  content: "";
-  position: absolute;
-  width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: url("../img/banner-work.jpg") no-repeat;
+  background-size: cover;
+  font-family: 'Fira Mono', sans-serif;
 }
 
+.gameWorkContent {
+  padding: 30px;
+  height: inherit;
+  background: rgba(244, 212, 189, 0.6);
+  z-index: 10;
+}
+
+.gameWorkContent__profile {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  grid-area: profile;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.gameWorkContent__profileChild {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.gameWorkContent__profileChild div {
+  height: 200px;
+}
+
+.gameWorkContent__profileChild div img {
+  height: 100%;
+}
+
+.gameWorkContent__profileImg {
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  height: 550px;
+  border-bottom: 2px dashed #fff;
+}
+
+.gameWorkContent__profileImg img {
+  height: 100%;
+}
+
+.gameWorkContent__incomes {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: incomes;
+  width: 90% !important;
+}
+
+.gameWorkContent__work {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: works;
+  width: 90% !important;
+}
+
+.gameWorkContent .container {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 'profile incomes ' 'profile works';
+  row-gap: 20px;
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+}
+
+.gameWorkContent__block {
+  text-align: center;
+  margin-bottom: 7px;
+  padding: 7px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 1px solid grey;
+  font-size: 22px;
+}
+
+.gameWorkContent__blockTitle {
+  font-weight: 700;
+}
+
+.gameWorkContent__blocks {
+  padding: 25px;
+  background: #ead2ac;
+  width: calc(45% - 50px);
+}
+
+.gameWorkContent__blocksTitle {
+  margin-bottom: 25px;
+  padding: 10px 30px;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 22px;
+  color: #fff;
+  background: rgba(115, 193, 103, 0.9);
+}
+
+.gameWorkContent__incomes .gameWorkContent__block:last-child {
+  font-size: 26px;
+  margin-top: 20px;
+  border-bottom: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .gameWorkContent__profileImg {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    height: 450px;
+  }
+  .gameWorkContent__profileChild div {
+    height: 180px;
+  }
+  .gameWorkContent__block {
+    font-size: 18px;
+  }
+  .gameWorkContent__blocks {
+    width: 100% !important;
+    padding: 15px;
+  }
+  .gameWorkContent__blocksTitle {
+    margin-bottom: 20px;
+    padding: 5px 15px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .gameWorkContent {
+    padding: 20px 0;
+  }
+  .gameWorkContent .container {
+    -ms-grid-columns: 1fr 2fr;
+        grid-template-columns: 1fr 2fr;
+  }
+  .gameWorkContent__block {
+    padding: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  .gameWorkContent__blocks {
+    padding: 10px;
+  }
+  .gameWorkContent__blocksTitle {
+    margin-bottom: 15px;
+    padding: 3px 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .gameWork {
+    height: auto;
+  }
+  .gameWorkContent__profileImg {
+    display: none;
+  }
+  .gameWorkContent__profileChild div {
+    height: 150px;
+  }
+  .gameWorkContent .container {
+        grid-template-areas: 'incomes' 'works' 'profile';
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+}
 /*# sourceMappingURL=GamePageWork.css.map */

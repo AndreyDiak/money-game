@@ -100,6 +100,13 @@ export const RenderMyStock: FC<RenderMyStockType> = (props) => {
           <div>
             {props.stock.count} штук
           </div>
+          {
+            props.stock.dividendsAmount > 0 && 
+            <div>
+              <b>Дивиденды: </b> 
+              ${props.stock.dividendsAmount}
+            </div>
+          }
         </div>
         <div>
           <button className="gameProfitStocks__OfferBlock__Button" onClick={() => {

@@ -1,46 +1,120 @@
 .menu {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
   background: url("../img/background.jpg") center no-repeat;
   background-size: cover;
-  z-index: -1;
+  position: relative;
+  height: 100vh;
 }
-.menu::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.25);
-  z-index: 0;
-}
-.menuHeader {
-  margin-bottom: 30px;
-  font-size: 50px;
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  color: #fff0f4;
-  z-index: 1;
-}
-.menuList {
+
+.menuContent {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  row-gap: 30px;
-  z-index: 1;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: calc(100vh - 206px);
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
-.menuListItem__Button {
-  font-size: 40px;
-  background: rgba(255, 255, 255, 0);
-  font-family: "Roboto", sans-serif;
-  border: none;
-  outline: none;
-  font-weight: 500;
+
+.menuGameName {
+  padding-top: 50px;
+  text-align: center;
+  font-size: 50px;
+  font-weight: 900;
   color: #fff;
 }
 
+.menuHeader {
+  margin-bottom: 20px;
+  font-size: 65px;
+  font-weight: 700;
+  color: #fff0f4;
+  z-index: 1;
+  font-family: 'Roboto', sans-serif;
+}
+
+.menuList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 20px;
+  z-index: 1;
+}
+
+.menuListItem__Button {
+  padding: 7px 12px;
+  width: 320px;
+  background: rgba(255, 255, 255, 0.4);
+  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.menuListItem__Button:hover {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+@media screen and (max-width: 1024px) {
+  .menuGameName {
+    font-size: 40px;
+  }
+  .menuHeader {
+    font-size: 50px;
+  }
+  .menuListItem__Button {
+    padding: 5px 10px;
+    width: 280px;
+    font-size: 24px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .menuGameName {
+    font-size: 32px;
+  }
+  .menuHeader {
+    font-size: 40px;
+  }
+  .menuList {
+    row-gap: 15px;
+  }
+  .menuListItem__Button {
+    padding: 5px 7px;
+    width: 240px;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .menuGameName {
+    font-size: 28px;
+  }
+  .menuHeader {
+    font-size: 32px;
+  }
+  .menuList {
+    row-gap: 10px;
+  }
+  .menuListItem__Button {
+    padding: 5px 7px;
+    width: 200px;
+    font-size: 16px;
+  }
+}
 /*# sourceMappingURL=MenuPage.css.map */

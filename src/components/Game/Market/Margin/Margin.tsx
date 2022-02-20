@@ -40,14 +40,18 @@ export const Margin: FC<RenderPlayerMarginType> = ({setActiveBroker, setIsMargin
                     <span>Коммисия - <b>{broker.commission * 100} %</b></span>
                     {index === 0 &&
                     <Popover content={'Процент от выручки / потери который мы платим брокеру... '}>
-                      <b className="gameProfitMargin__blockStats__help">?</b>
+                      <b className="gameProfitMargin__blockStats__help">
+                        <span>?</span>
+                      </b>
                     </Popover>}
                   </div>
                   <div className="gameProfitMargin__blockStats__leverAge">
-                    <span>Кредитное плечо -  <b>1 к { (1 / broker.leverAgeMax).toFixed(1)}</b></span>
+                    <span>Плечо -  <b>1 к { (1 / broker.leverAgeMax).toFixed(1)}</b></span>
                     {index === 0 &&
                     <Popover content={'Это отношение показывает во сколько раз кредит может превышать стоимость вашего портфеля'}>
-                      <b className="gameProfitMargin__blockStats__help">?</b>
+                      <b className="gameProfitMargin__blockStats__help">
+                        <span>?</span>
+                      </b>
                     </Popover>}
                   </div>
                 </div>
