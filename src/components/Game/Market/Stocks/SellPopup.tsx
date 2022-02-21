@@ -38,6 +38,20 @@ export const SellPopup: FC<SellPopupType> = (props) => {
     setStocksToSellCount(count)
   }
 
+  const sellStocks = () => {
+    props.setIsStockToSell(false)      
+    // возвращаем скорость времени
+    onChangeTime(timeSpeed)
+    // уменьшаем количество акций в пакете . . .
+    dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount, props.activeStock))
+    // увеличиваем баланс пользователя . . .
+    dispatch(actions.setWallet(Math.round(wallet + stocksToSellCount * props.stock.price)))
+    // обновление общей цены портфеля...
+    dispatch(stocksActions.indexStocksSummaryPrice())
+    // обновляем доход (если акции были с дивидендами...)
+    dispatch(updateIncome())
+  }
+
   return (
     <>
       <div className="sellPopup">
@@ -54,37 +68,27 @@ export const SellPopup: FC<SellPopupType> = (props) => {
           </div>
           <div className="sellPopupBlock__Menu">
             <div className="sellPopupBlock__MenuInfo">
-              <div className='sellPopupBlock__MenuInfo__Title' >
-                Кол-во акций в портфеле: <b>{props.stock.count}</b>
-              </div>
-              <div className='sellPopupBlock__MenuInfo__Input'>
-                <label htmlFor="">
-                  <InputNumber min={1} value={stocksToSellCount} max={props.stock.count} defaultValue={1} onChange={(value) => setStocksToSellCount(value)}/>
-                </label>
-                <button onClick={() => setStocksCount(1)}> min </button>
-                <button onClick={() => setStocksCount(stocksToSellCount - 1)}> -1 </button>
-                <button onClick={() => setStocksCount(stocksToSellCount - 5)}> -5 </button>
-                <button onClick={() => setStocksCount(stocksToSellCount - 10)}> -10 </button>
-                <button onClick={() => setStocksCount(stocksToSellCount + 10)}> +10 </button>
-                <button onClick={() => setStocksCount(stocksToSellCount + 5)}> +5 </button>
-                <button onClick={() => setStocksCount(stocksToSellCount + 1)}> +1 </button>
-                <button onClick={() => setStocksCount(props.stock.count)}> max </button>
+              <div>
+                <div className='sellPopupBlock__MenuInfo__Title' >
+                  Кол-во акций в портфеле: <b>{props.stock.count}</b>
+                </div>
+                <div className='sellPopupBlock__MenuInfo__Input'>
+                  <label htmlFor="">
+                    <InputNumber min={1} value={stocksToSellCount} max={props.stock.count} defaultValue={1} onChange={(value) => setStocksToSellCount(value)}/>
+                  </label>
+                  <button onClick={() => setStocksCount(1)}> min </button>
+                  <button onClick={() => setStocksCount(stocksToSellCount - 1)}> -1 </button>
+                  <button onClick={() => setStocksCount(stocksToSellCount - 5)}> -5 </button>
+                  <button onClick={() => setStocksCount(stocksToSellCount - 10)}> -10 </button>
+                  <button onClick={() => setStocksCount(stocksToSellCount + 10)}> +10 </button>
+                  <button onClick={() => setStocksCount(stocksToSellCount + 5)}> +5 </button>
+                  <button onClick={() => setStocksCount(stocksToSellCount + 1)}> +1 </button>
+                  <button onClick={() => setStocksCount(props.stock.count)}> max </button>
+                </div>
               </div>
             </div>
             <div>
-              <Button onClick={() => {
-                props.setIsStockToSell(false)
-                console.log(props.activeStock)
-                // возвращаем скорость времени
-                onChangeTime(timeSpeed)
-                // уменьшаем количество акций в пакете . . .
-                dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount, props.activeStock))
-                // увеличиваем баланс пользователя . . .
-                dispatch(actions.setWallet(Math.round(wallet + stocksToSellCount * props.stock.price)))
-                // обновление общей цены портфеля...
-                dispatch(stocksActions.indexStocksSummaryPrice())
-                dispatch(updateIncome())
-              }}>
+              <Button onClick={sellStocks}>
                 Продать
               </Button>
             </div>

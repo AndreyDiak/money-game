@@ -21,6 +21,7 @@ export const Chart: FC<RenderChartType> = (props) => {
   const dispatch = useDispatch()
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
+
   const Months = [
     'Январь', '', '', '', 'Февраль', '', '', '', 'Март', '', '', '',
     'Апрель', '', '', '', 'Май', '', '', '', 'Июнь', '', '', '',
@@ -223,6 +224,7 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
     <>
       <div className='chartPopupBlock__Menu'>
         <div className="chartPopupBlock__MenuInfo">
+          <div>
           <div className="chartPopupBlock__MenuInfo__Title">
             Доступных акций :  <b>{props.stock.count}</b>
           </div>
@@ -239,6 +241,7 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
             <button onClick={() => setStocksCount(stocksToBuyCount + 5)}> +5 </button>
             <button onClick={() => setStocksCount(stocksToBuyCount + 1)}> +1 </button>
             <button onClick={() => setStocksCount(props.stock.count)}> max </button>
+          </div>
           </div>
         </div>
         <div>

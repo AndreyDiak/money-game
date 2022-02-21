@@ -50,8 +50,8 @@
   max-width: 80%;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 1fr 1.5fr;
-      grid-template-columns: 1fr 1.5fr;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
 }
 
 .gameProfitMargin__block::after {
@@ -121,6 +121,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin-bottom: 5px;
 }
 
 .gameProfitMenu {
@@ -304,7 +305,18 @@
     width: 80%;
   }
   .gameProfitMargin__block {
-    width: 90%;
+    max-width: 95%;
+    -webkit-column-gap: 5px;
+            column-gap: 5px;
+  }
+  .gameProfitMargin__blockStats {
+    font-size: 16px;
+  }
+  .gameProfitMargin__blockAbout__name {
+    font-size: 20px;
+  }
+  .gameProfitMargin__blockAbout__age {
+    font-size: 16px;
   }
   .gameProfitHeader span {
     font-size: 16px;
@@ -312,6 +324,18 @@
 }
 
 @media screen and (max-width: 1200px) {
+  .gameProfitMargin__block {
+    max-width: 100%;
+  }
+  .gameProfitMargin__blockStats {
+    font-size: 14px;
+  }
+  .gameProfitMargin__blockAbout__name {
+    font-size: 18px;
+  }
+  .gameProfitMargin__blockAbout__age {
+    font-size: 14px;
+  }
   .gameProfitStocks__OfferBlock {
     width: 90%;
   }

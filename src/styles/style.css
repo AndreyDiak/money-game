@@ -2428,14 +2428,50 @@ input:checked, input:active, input:focus {
   background-color: #f1f1f1;
   z-index: 3;
 }
-.chartPopupBlock__menu, .sellPopupBlock__menu, .marginPopupBlock__menu {
+.chartPopupBlock__Result, .sellPopupBlock__Result, .marginPopupBlock__Result {
+  font-size: 16px;
   font-family: "Fira Mono", sans-serif;
+  font-weight: 500;
 }
-.chartPopupBlock__menuSummary, .sellPopupBlock__menuSummary, .marginPopupBlock__menuSummary {
+.chartPopupBlock__ResultMin b, .sellPopupBlock__ResultMin b, .marginPopupBlock__ResultMin b {
+  color: #f36f38;
+}
+.chartPopupBlock__ResultMax b, .sellPopupBlock__ResultMax b, .marginPopupBlock__ResultMax b {
+  color: #f67280;
+}
+.chartPopupBlock__Active, .sellPopupBlock__Active, .marginPopupBlock__Active {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  align-items: center;
+  grid-template-areas: "header portfolio" "stocks chart";
+}
+.chartPopupBlock__ActiveHeader, .sellPopupBlock__ActiveHeader, .marginPopupBlock__ActiveHeader {
+  grid-area: header;
+  font-family: "Fira Mono", sans-serif;
+  font-size: 18px;
+}
+.chartPopupBlock__ActivePortfolio, .sellPopupBlock__ActivePortfolio, .marginPopupBlock__ActivePortfolio {
+  grid-area: portfolio;
+  font-family: "Fira Mono", sans-serif;
   font-size: 16px;
 }
-.chartPopupBlock__menuCommission, .sellPopupBlock__menuCommission, .marginPopupBlock__menuCommission {
-  font-size: 16px;
+.chartPopupBlock__ActivePortfolio__summary b, .sellPopupBlock__ActivePortfolio__summary b, .marginPopupBlock__ActivePortfolio__summary b {
+  color: #57895b;
+}
+.chartPopupBlock__ActiveList, .sellPopupBlock__ActiveList, .marginPopupBlock__ActiveList {
+  grid-area: stocks;
+}
+.chartPopupBlock__ActiveList__header, .sellPopupBlock__ActiveList__header, .marginPopupBlock__ActiveList__header {
+  text-align: center;
+}
+.chartPopupBlock__ActiveList__stocks, .sellPopupBlock__ActiveList__stocks, .marginPopupBlock__ActiveList__stocks {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  column-gap: 10px;
+}
+.chartPopupBlock__ActiveChart, .sellPopupBlock__ActiveChart, .marginPopupBlock__ActiveChart {
+  grid-area: chart;
 }
 .chartPopupBlock__Menu, .sellPopupBlock__Menu, .marginPopupBlock__Menu {
   margin-top: 20px;
@@ -2445,6 +2481,17 @@ input:checked, input:active, input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.chartPopupBlock__MenuTime, .sellPopupBlock__MenuTime, .marginPopupBlock__MenuTime {
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  column-gap: 10px;
+  row-gap: 10px;
+}
+.chartPopupBlock__MenuInfo, .sellPopupBlock__MenuInfo, .marginPopupBlock__MenuInfo {
+  display: flex;
+  column-gap: 100px;
 }
 .chartPopupBlock__MenuInfo__Title, .sellPopupBlock__MenuInfo__Title, .marginPopupBlock__MenuInfo__Title {
   padding: 10px;
@@ -2498,6 +2545,10 @@ input:checked, input:active, input:focus {
 }
 .chartPopupBlock {
   z-index: 10;
+}
+
+.marginPopupBlock {
+  width: 900px;
 }
 
 .bannerBack {

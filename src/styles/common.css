@@ -34,7 +34,7 @@
   color: goldenrod;
 }
 
-.chartPopup, .sellPopup {
+.chartPopup, .sellPopup, .marginPopup {
   position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -52,7 +52,7 @@
   z-index: 10;
 }
 
-.chartPopupBlock, .sellPopupBlock {
+.chartPopupBlock, .sellPopupBlock, .marginPopupBlock {
   position: relative;
   padding: 30px 50px;
   width: 700px;
@@ -60,7 +60,81 @@
   z-index: 3;
 }
 
-.chartPopupBlock__Menu, .sellPopupBlock__Menu {
+.chartPopupBlock__Result, .sellPopupBlock__Result, .marginPopupBlock__Result {
+  font-size: 16px;
+  font-family: 'Fira Mono', sans-serif;
+  font-weight: 500;
+}
+
+.chartPopupBlock__ResultMin b, .sellPopupBlock__ResultMin b, .marginPopupBlock__ResultMin b {
+  color: #f36f38;
+}
+
+.chartPopupBlock__ResultMax b, .sellPopupBlock__ResultMax b, .marginPopupBlock__ResultMax b {
+  color: #f67280;
+}
+
+.chartPopupBlock__Active, .sellPopupBlock__Active, .marginPopupBlock__Active {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 3fr;
+      grid-template-columns: 1fr 3fr;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+      grid-template-areas: 'header portfolio' 'stocks chart';
+}
+
+.chartPopupBlock__ActiveHeader, .sellPopupBlock__ActiveHeader, .marginPopupBlock__ActiveHeader {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: header;
+  font-family: 'Fira Mono', sans-serif;
+  font-size: 18px;
+}
+
+.chartPopupBlock__ActivePortfolio, .sellPopupBlock__ActivePortfolio, .marginPopupBlock__ActivePortfolio {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: portfolio;
+  font-family: 'Fira Mono', sans-serif;
+  font-size: 16px;
+}
+
+.chartPopupBlock__ActivePortfolio__summary b, .sellPopupBlock__ActivePortfolio__summary b, .marginPopupBlock__ActivePortfolio__summary b {
+  color: #57895b;
+}
+
+.chartPopupBlock__ActiveList, .sellPopupBlock__ActiveList, .marginPopupBlock__ActiveList {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  grid-area: stocks;
+}
+
+.chartPopupBlock__ActiveList__header, .sellPopupBlock__ActiveList__header, .marginPopupBlock__ActiveList__header {
+  text-align: center;
+}
+
+.chartPopupBlock__ActiveList__stocks, .sellPopupBlock__ActiveList__stocks, .marginPopupBlock__ActiveList__stocks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 10px;
+  -webkit-column-gap: 10px;
+          column-gap: 10px;
+}
+
+.chartPopupBlock__ActiveChart, .sellPopupBlock__ActiveChart, .marginPopupBlock__ActiveChart {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: chart;
+}
+
+.chartPopupBlock__Menu, .sellPopupBlock__Menu, .marginPopupBlock__Menu {
   margin-top: 20px;
   padding-bottom: 20px;
   padding-top: 20px;
@@ -76,7 +150,11 @@
           justify-content: space-between;
 }
 
-.chartPopupBlock__MenuInfo__Title, .sellPopupBlock__MenuInfo__Title {
+.chartPopupBlock__MenuMenu, .sellPopupBlock__MenuMenu, .marginPopupBlock__MenuMenu {
+  margin-bottom: 10px;
+}
+
+.chartPopupBlock__MenuInfo__Title, .sellPopupBlock__MenuInfo__Title, .marginPopupBlock__MenuInfo__Title {
   padding: 10px;
   font-weight: 700;
   font-size: 16px;
@@ -84,12 +162,12 @@
   color: #fff;
 }
 
-.chartPopupBlock__MenuInfo__Input, .sellPopupBlock__MenuInfo__Input {
+.chartPopupBlock__MenuInfo__Input, .sellPopupBlock__MenuInfo__Input, .marginPopupBlock__MenuInfo__Input {
   margin-top: 10px;
   margin-right: 10px;
 }
 
-.chartPopupBlock__Button, .sellPopupBlock__Button {
+.chartPopupBlock__Button, .sellPopupBlock__Button, .marginPopupBlock__Button {
   margin-top: 15px;
   padding: 7px 25px;
   font-size: 24px;
@@ -98,28 +176,28 @@
   border-radius: 2px;
 }
 
-.chartPopupBlock__Button:hover, .sellPopupBlock__Button:hover {
+.chartPopupBlock__Button:hover, .sellPopupBlock__Button:hover, .marginPopupBlock__Button:hover {
   background: rgba(0, 0, 0, 0.12);
 }
 
-.chartPopupBlock__Title, .sellPopupBlock__Title {
+.chartPopupBlock__Title, .sellPopupBlock__Title, .marginPopupBlock__Title {
   margin-bottom: 30px;
   font-size: 28px;
   font-weight: 500;
 }
 
-.chartPopupBlock__Close, .sellPopupBlock__Close {
+.chartPopupBlock__Close, .sellPopupBlock__Close, .marginPopupBlock__Close {
   position: absolute;
   top: 30px;
   right: 30px;
   font-size: 30px;
 }
 
-.chartPopupBlock__Close:hover, .sellPopupBlock__Close:hover {
+.chartPopupBlock__Close:hover, .sellPopupBlock__Close:hover, .marginPopupBlock__Close:hover {
   cursor: pointer;
 }
 
-.chartPopup::after, .sellPopup::after {
+.chartPopup::after, .sellPopup::after, .marginPopup::after {
   content: '';
   position: absolute;
   width: 100vw;
@@ -128,6 +206,18 @@
   left: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1;
+}
+
+.chartPopup {
+  z-index: 100;
+}
+
+.chartPopupBlock {
+  z-index: 10;
+}
+
+.marginPopupBlock {
+  width: 900px;
 }
 
 .bannerBack {
@@ -189,15 +279,6 @@
 
 .ant-slider-step {
   height: 15px;
-}
-
-.ant-slider-handle {
-  top: 1px;
-  width: 30px;
-  height: 30px;
-  background: url("../img/gold.png") center no-repeat;
-  background-size: cover;
-  border: none;
 }
 
 .ant-tabs-tab, .ant-badge {

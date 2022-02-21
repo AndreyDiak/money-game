@@ -125,21 +125,38 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
       }
     // продажа акций . . .
     case SELL_STOCKS:
-      let myStocksCopyToSell = [...state.myStocks]
+      console.log(action.stock)
 
+      let myStocksCopyToSell = [...state.myStocks]
+      let stocksCopyToSell = [ ...state.stocks ]
+      let filteredStocksCopyToSell = [ ...state.filteredStocks ]
+
+      // обновляем количество акций в нашем портфеле...
       myStocksCopyToSell[action.activeStock] = {
         ...myStocksCopyToSell[action.activeStock],
         count: myStocksCopyToSell[action.activeStock].count - action.count
       }
+      // обновляем количество акций на бирже...
+      stocksCopyToSell.forEach((s, i) => {
+        if (s.title === action.stock.title) 
+          stocksCopyToSell[i] = {...stocksCopyToSell[i], count: stocksCopyToSell[i].count + action.stock.count }
+      })
+      // обновляем количество акций в фильтре...
+      filteredStocksCopyToSell.forEach((s, i) => {
+        if (s.title === action.stock.title) 
+        filteredStocksCopyToSell[i] = {...filteredStocksCopyToSell[i], count: filteredStocksCopyToSell[i].count + action.stock.count }
+      })
+
 
       if(myStocksCopyToSell[action.activeStock].count === 0) {
         myStocksCopyToSell.splice(action.activeStock, 1)
       }
 
-
       return {
         ...state,
-        myStocks: myStocksCopyToSell
+        myStocks: [...myStocksCopyToSell],
+        stocks: [...stocksCopyToSell],
+        filteredStocks: [...filteredStocksCopyToSell]
       }
     // изменение цен на акции . . .
     case INDEXING_STOCKS:
