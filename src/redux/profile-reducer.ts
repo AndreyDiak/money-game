@@ -508,7 +508,7 @@ export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
   })
 
   let expensesSummary = 0
-  profilePage.profile?.expenses.map((expense, index) => {
+  profilePage.profile?.expenses.forEach((expense, index) => {
     if (profilePage.profile?.expenses[index].remainPrice !== 0) {
       expensesSummary += expense.startPrice * expense.payment / 100
     }

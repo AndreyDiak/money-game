@@ -561,9 +561,9 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
         }
       })
 
-      indexingBondsCopy.forEach((fStock, fIndex) => {
+      indexingFilteredBonds.forEach((fStock, fIndex) => {
         if (fStock.title === bond.title) {
-          indexingBondsCopy[fIndex] = indexingBondsCopy[index]
+          indexingFilteredBonds[fIndex] = indexingBondsCopy[index]
         }
       })
       
@@ -573,7 +573,7 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
         ...state,
         bonds: [...indexingBondsCopy],
         myStocks: [...indexingMyStocksCopy],
-        filteredBonds: [...indexingBondsCopy]
+        filteredBonds: [...indexingFilteredBonds]
       }  
     default:
       return state

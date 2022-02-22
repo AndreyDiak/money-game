@@ -1,16 +1,16 @@
-import React, {FC, SetStateAction, useState} from "react";
-import {Button, InputNumber} from "antd";
-import {CloseOutlined} from "@ant-design/icons";
-import {actions} from "../../../../redux/game-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {getWalletSelector} from "../../../../redux/game-selector";
-import {myStockType, stocksActions, stockType} from "../../../../redux/stocks-reducer";
+import { CloseOutlined } from "@ant-design/icons";
+import { Button, InputNumber } from "antd";
+import React, { FC, SetStateAction, useState } from "react";
 import { Line } from "react-chartjs-2";
-import {getMyStocksSelector, getStocksSelector} from "../../../../redux/stocks-selector";
-import {settingsActions} from "../../../../redux/settings-reducer";
-import {getConstTimeSpeedSelector} from "../../../../redux/settings-selector";
-import {AppStateType} from "../../../../redux/store";
-import {profileActions, updateIncome} from "../../../../redux/profile-reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "../../../../redux/game-reducer";
+import { getWalletSelector } from "../../../../redux/game-selector";
+import { updateIncome } from "../../../../redux/profile-reducer";
+import { settingsActions } from "../../../../redux/settings-reducer";
+import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector";
+import { myStockType, stocksActions, stockType } from "../../../../redux/stocks-reducer";
+import { getMyStocksSelector, getStocksSelector } from "../../../../redux/stocks-selector";
+import { AppStateType } from "../../../../redux/store";
 
 export type RenderChartType = {
   setIsHistoryShown: SetStateAction<any>
@@ -225,23 +225,23 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
       <div className='chartPopupBlock__Menu'>
         <div className="chartPopupBlock__MenuInfo">
           <div>
-          <div className="chartPopupBlock__MenuInfo__Title">
-            Доступных акций :  <b>{props.stock.count}</b>
-          </div>
-          <div>
-            <InputNumber className='chartPopupBlock__MenuInfo__Input' min={0} max={props.stock.count} value={stocksToBuyCount} onChange={(value) => {
-              setStocksToBuyCount(value)
-              setStocksToBuyPrice(value * props.stock.price[props.stock.price.length - 1])
-            }}/>
-            <button onClick={() => setStocksCount(1)}> min </button>
-            <button onClick={() => setStocksCount(stocksToBuyCount - 1)}> -1 </button>
-            <button onClick={() => setStocksCount(stocksToBuyCount - 5)}> -5 </button>
-            <button onClick={() => setStocksCount(stocksToBuyCount - 10)}> -10 </button>
-            <button onClick={() => setStocksCount(stocksToBuyCount + 10)}> +10 </button>
-            <button onClick={() => setStocksCount(stocksToBuyCount + 5)}> +5 </button>
-            <button onClick={() => setStocksCount(stocksToBuyCount + 1)}> +1 </button>
-            <button onClick={() => setStocksCount(props.stock.count)}> max </button>
-          </div>
+            <div className="chartPopupBlock__MenuInfo__Title">
+              Доступных акций :  <b>{props.stock.count}</b>
+            </div>
+            <div>
+              <InputNumber className='chartPopupBlock__MenuInfo__Input' min={0} max={props.stock.count} value={stocksToBuyCount} onChange={(value) => {
+                setStocksToBuyCount(value)
+                setStocksToBuyPrice(value * props.stock.price[props.stock.price.length - 1])
+              }}/>
+              <button onClick={() => setStocksCount(1)}> min </button>
+              <button onClick={() => setStocksCount(stocksToBuyCount - 1)}> -1 </button>
+              <button onClick={() => setStocksCount(stocksToBuyCount - 5)}> -5 </button>
+              <button onClick={() => setStocksCount(stocksToBuyCount - 10)}> -10 </button>
+              <button onClick={() => setStocksCount(stocksToBuyCount + 10)}> +10 </button>
+              <button onClick={() => setStocksCount(stocksToBuyCount + 5)}> +5 </button>
+              <button onClick={() => setStocksCount(stocksToBuyCount + 1)}> +1 </button>
+              <button onClick={() => setStocksCount(props.stock.count)}> max </button>
+            </div>
           </div>
         </div>
         <div>

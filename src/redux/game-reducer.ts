@@ -1,8 +1,7 @@
 import {InferActionsType} from "./store";
-import {DifficultyType} from "./settings-reducer";
 
 // time . . .
-const SET_TIME_SPEED = 'gamePage/SET_TIME_SPEED'
+// const SET_TIME_SPEED = 'gamePage/SET_TIME_SPEED'
 const SET_DAY = 'gamePage/SET_DAY'
 const SET_MONTH = 'gamePage/SET_MONTH'
 const SET_DAY_IN_MONTH = 'gamePage/SET_DAY_IN_MONTH'

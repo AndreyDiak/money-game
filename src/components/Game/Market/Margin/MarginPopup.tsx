@@ -1,15 +1,14 @@
 import { CloseOutlined } from "@ant-design/icons"
-import { FC, useEffect, useState } from "react"
-import { brokerType, stockType } from "../../../../redux/stocks-reducer"
-import { useSelector, useDispatch } from 'react-redux'
+import { Button, InputNumber, Slider } from "antd"
+import React, { FC, useEffect, useState } from "react"
+import { Line } from "react-chartjs-2"
+import { useDispatch, useSelector } from 'react-redux'
+import { getWalletSelector } from "../../../../redux/game-selector"
 import { settingsActions } from "../../../../redux/settings-reducer"
 import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector"
-import { AppStateType } from "../../../../redux/store"
-import { Button, InputNumber, Slider } from "antd"
-import { getWalletSelector } from "../../../../redux/game-selector"
+import { brokerType, stockType } from "../../../../redux/stocks-reducer"
 import { getStocksSelector } from "../../../../redux/stocks-selector"
-import { Line } from "react-chartjs-2"
-import React from "react"
+import { AppStateType } from "../../../../redux/store"
 
 type MarginPopupType = {
   broker: brokerType
@@ -51,6 +50,13 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
 
   const setActiveMargin = (stock: stockType) => {
     setActiveMarginStock({...stocks.filter(s => s.title === stock.title)[0], count: stock.count})
+  }
+
+  const buyMarginStock = () => {
+    // add stocks to my stocks
+    // update broker portfolio
+    // indexing salary
+    // add info about margin
   }
 
   useEffect(() => {

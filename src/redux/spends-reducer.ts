@@ -1,5 +1,4 @@
 // spends and update . . .
-import {DifficultyType} from "./settings-reducer";
 import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
 import {actions} from "./game-reducer";

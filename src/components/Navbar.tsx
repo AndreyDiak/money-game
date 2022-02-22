@@ -1,16 +1,16 @@
-import {Avatar, Button, Dropdown, Menu, Popover, Progress} from 'antd'
-import {NavLink} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {getPersonSelector} from "../redux/profile-selector";
-import React, {FC, useState} from "react";
-import {personType} from "../redux/profile-reducer";
-import {settingsActions} from "../redux/settings-reducer";
-import {DoubleRightOutlined, PauseOutlined, RightOutlined} from "@ant-design/icons/lib/icons";
-import {getConstTimeSpeedSelector, getTimeSpeedSelector} from "../redux/settings-selector";
-import {getWalletSelector} from "../redux/game-selector";
-import {RenderTime} from "./Game/RenderTime";
-import {AppStateType} from "../redux/store";
-import {getStocksSelector} from "../redux/stocks-selector";
+import { DoubleRightOutlined, PauseOutlined, RightOutlined } from "@ant-design/icons/lib/icons";
+import { Avatar, Button, Dropdown, Menu, Progress } from 'antd';
+import React, { FC, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { getWalletSelector } from "../redux/game-selector";
+import { personType } from "../redux/profile-reducer";
+import { getPersonSelector } from "../redux/profile-selector";
+import { settingsActions } from "../redux/settings-reducer";
+import { getConstTimeSpeedSelector, getTimeSpeedSelector } from "../redux/settings-selector";
+import { getStocksSelector } from "../redux/stocks-selector";
+import { AppStateType } from "../redux/store";
+import { RenderTime } from "./Game/RenderTime";
 const { SubMenu } = Menu
 
 export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {

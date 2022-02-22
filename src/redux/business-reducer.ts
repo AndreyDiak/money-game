@@ -77,7 +77,7 @@ export const businessReducer = (state = initialState, action: BusinessActionType
     // продажа бизнесса
     case REMOVE_FROM_MY_BUSINESSES:
       let myBusinessCopy = [...state.myBusinesses]
-      myBusinessCopy.map((myBusiness, index) => {
+      myBusinessCopy.forEach((myBusiness, index) => {
         if (myBusiness.name === action.business.name) {
           myBusinessCopy.splice(index, 1)
         }
@@ -89,7 +89,7 @@ export const businessReducer = (state = initialState, action: BusinessActionType
     // обновление дохода с бизнесса
     case UPDATE_BUSINESS_INCOME:
       let myBusinessesCopy = [...state.myBusinesses]
-      myBusinessesCopy.map((business, index) => {
+      myBusinessesCopy.forEach((business, index) => {
         if (business.name === action.title) {
           myBusinessesCopy[index].income += action.income
         }

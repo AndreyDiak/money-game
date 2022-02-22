@@ -3,10 +3,7 @@ import {GamePage} from "../Game/GamePage";
 import {MenuPage} from "../Menu/MenuPage";
 import {ProfilePage} from "../Profile/ProfilePage";
 import {SettingsPage} from "../Settings/SettingsPage";
-import { WorkPage } from "../Work/WorkPage";
 import {RoflPage} from "../rofl/RoflPage";
-import {AuthPage} from "../AuthPage";
-import {LoginPage} from "../LoginPage";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {useEffect, useState} from "react";
@@ -45,7 +42,7 @@ export const Main = () => {
           <Redirect exact from='/money-game' to='/menu'/>
           <Redirect exact from='/money-game-demo' to='/menu'/>
           <Route path='/menu' render={() => <MenuPage /> }/>
-          <Route path='/work' render={() => <WorkPage /> }/>
+          {/* <Route path='/work' render={() => <WorkPage /> }/> */}
           <Route path='/game' render={() => <GamePage /> }/>
           <Route path='/user' render={() => <UserPage /> }/>
           <Route path='/profile' render={() => <ProfilePage /> }/>

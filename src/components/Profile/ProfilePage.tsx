@@ -1,8 +1,8 @@
-import {FC, useCallback, useEffect, useState} from "react"
+import {FC, useEffect, useState} from "react"
 import {Avatar, Button} from "antd"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {personType, profileActions, updateIncome} from "../../redux/profile-reducer";
+import {profileActions, updateIncome} from "../../redux/profile-reducer";
 import {actions} from "../../redux/game-reducer";
 import {NavLink} from "react-router-dom";
 import Radio from "antd/lib/radio";
@@ -18,7 +18,7 @@ export const ProfilePage: FC = () => {
 
   const dispatch = useDispatch()
   const timeSpeed = useSelector(getTimeSpeedSelector)
-  const difficulty = useSelector(getDifficultySelector)
+  // const difficulty = useSelector(getDifficultySelector)
   const victoryBalance = useSelector((state: AppStateType) => state.gamePage.victoryBalance)
   const persons = useSelector((state: AppStateType) => state.profilePage.persons)
   const [activePerson, setActivePerson] = useState(0)
@@ -42,9 +42,9 @@ export const ProfilePage: FC = () => {
 
   const updateStats = async (profile: any) => {
     try {
-      const data = await request('/api/profile/new', 'POST', {profile},{
-        Authorization: `Bearer ${token}`
-      })
+      // const data = await request('/api/profile/new', 'POST', {profile},{
+      //   Authorization: `Bearer ${token}`
+      // })
 
     } catch (e) {}
   }
@@ -95,7 +95,7 @@ export const ProfilePage: FC = () => {
   useEffect(() => {
     dispatch(spendsActions.setEventsPrice())
     // filteredPersons = persons.filter(f => f.difficulty === 'easy')
-  },[, persons])
+  },[,persons])
 
   useEffect(() => {
     setScreenWidth(window.screen.width)

@@ -2,7 +2,6 @@ import { BondType, filterType, stocksActions, stockType } from "../../../../redu
 import {useSelector, useDispatch} from 'react-redux'
 import {ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined} from "@ant-design/icons";
 import { FC, useState } from "react"
-import { getBondsSelector } from "../../../../redux/stocks-selector"
 import { StockCard } from "../Stocks/StockCard"
 import { Button, Input, Popover, Radio, Space } from "antd"
 import { AppStateType } from "../../../../redux/store";

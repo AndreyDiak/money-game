@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {message, notification, Spin} from "antd";
 import {useDispatch, useSelector} from "react-redux"
 import {actions} from "../../redux/game-reducer";
@@ -9,7 +9,7 @@ import {RenderPlayerWork} from "./RenderPlayerWork";
 import {brokerType, stocksActions, stockType} from "../../redux/stocks-reducer";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {newsActions} from "../../redux/news-reducer";
-import {getBusinessesSelector, getMyBusinessesSelector} from "../../redux/business-selector";
+import {getBusinessesSelector} from "../../redux/business-selector";
 import {businessActions} from "../../redux/business-reducer";
 import {settingsActions} from "../../redux/settings-reducer";
 import {Redirect, Route, Switch} from "react-router-dom";
@@ -45,7 +45,7 @@ export const GamePage: FC = () => {
   // доход в месяц игрока . . .
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   // уровень трат . . .
-  const spendsLevel = useSelector((state: AppStateType) => state.spendsPage.spendsLevel)
+  // const spendsLevel = useSelector((state: AppStateType) => state.spendsPage.spendsLevel)
   const profile = useSelector(getPersonSelector)
   // баланс необходимый для победы . . .
   const victoryBalance = useSelector(getVictoryBalance)
@@ -57,13 +57,13 @@ export const GamePage: FC = () => {
   // массив купленных акций . . .
   const myStocks = useSelector(getMyStocksSelector)
   // массив ваших бизнессов . . .
-  const myBusinesses = useSelector(getMyBusinessesSelector)
+  // const myBusinesses = useSelector(getMyBusinessesSelector)
   //
-  const myRealty = useSelector((state: AppStateType) => state.realtyPage.myRealty)
+  // const myRealty = useSelector((state: AppStateType) => state.realtyPage.myRealty)
   // будущий массив с предложением по бизнессу . . .
   const businesses = useSelector(getBusinessesSelector)
   // количество новостей . . .
-  const news = useSelector((state: AppStateType) => state.newsPage.news)
+  // const news = useSelector((state: AppStateType) => state.newsPage.news)
 
   // активная акция . . .
   const [myActiveStock, setMyActiveStock] = useState(0)
