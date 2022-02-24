@@ -4,9 +4,10 @@ import React, { FC, useEffect, useState } from "react"
 import { Line } from "react-chartjs-2"
 import { useDispatch, useSelector } from 'react-redux'
 import { getWalletSelector } from "../../../../redux/game-selector"
+import { updateIncome } from "../../../../redux/profile-reducer"
 import { settingsActions } from "../../../../redux/settings-reducer"
 import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector"
-import { brokerType, stockType } from "../../../../redux/stocks-reducer"
+import { addMarginToPortfolioThunk, addStocksToPortfolioThunk, brokerType, stockType, updateBrokerStocksCountThunk } from "../../../../redux/stocks-reducer"
 import { getStocksSelector } from "../../../../redux/stocks-selector"
 import { AppStateType } from "../../../../redux/store"
 
@@ -53,14 +54,22 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
   }
 
   const buyMarginStock = () => {
-    // add stocks to my stocks
-    // update broker portfolio
-    // indexing salary
+    // add stocks to my stocks +
+    // update broker portfolio +
+    // indexing salary +
     // add info about margin
+    dispatch(addStocksToPortfolioThunk(activeMarginStock, stocksToBuyCount))
+    dispatch(updateBrokerStocksCountThunk(broker, stocksToBuyCount, activeMarginStock.title))
+    dispatch(addMarginToPortfolioThunk(activeMarginStock, broker ,stocksToBuyCount, activeMarginTime))
+    setStocksToBuyCount(0)
+    setStocksToBuyPrice(0)
+    // dispatch(updateIncome())
+
+    onCloseClick()
   }
 
   useEffect(() => {
-    setAbleToBuy(stocksToBuyPrice > minLeverAge && stocksToBuyPrice < maxLeverAge)
+    setAbleToBuy(stocksToBuyPrice > minLeverAge && stocksToBuyPrice < maxLeverAge && stocksToBuyCount <= activeMarginStock.count)
   }, [stocksToBuyPrice])
 
   return (
@@ -116,6 +125,7 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
             setStocksToBuyCount={setStocksToBuyCount}
             setStocksToBuyPrice={setStocksToBuyPrice}
             stocksToBuyCount={stocksToBuyCount}
+            buyMarginStock={buyMarginStock}
           />
           <div className="marginPopupBlock__Result">
             <div className="marginPopupBlock__ResultMin">
@@ -136,20 +146,9 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
     </>
   )
 }
-type MarginPopupMenuType = {
-  stock: stockType
-  activeMarginTime: number
-  stocksToBuyCount: number
-  broker: brokerType
-  ableToBuy: boolean
-  setStocksToBuyCount: (count: number) => void
-  setActiveMarginTime: (time: number) => void
-  setStocksToBuyPrice: (price: number) => void
-  
-}
 export const MarginPopupMenu: FC<MarginPopupMenuType> = ({
   stock, broker, stocksToBuyCount, activeMarginTime, ableToBuy,
-  setStocksToBuyCount, setStocksToBuyPrice, setActiveMarginTime}) => {
+  setStocksToBuyCount, setStocksToBuyPrice, setActiveMarginTime, buyMarginStock}) => {
 
   const setStocksCount = (count: number) => {
     if(count <= 0) {
@@ -209,7 +208,7 @@ export const MarginPopupMenu: FC<MarginPopupMenuType> = ({
       </div>
       
       <div>
-        <Button disabled={!ableToBuy}>Купить</Button>
+        <Button disabled={!ableToBuy} onClick={buyMarginStock}>Купить</Button>
       </div>
     </div>
     
@@ -305,4 +304,16 @@ export const MarginPopupChart: FC<{stock: stockType}> = React.memo(({stock}) => 
   )
 })
 
+type MarginPopupMenuType = {
+  stock: stockType
+  activeMarginTime: number
+  stocksToBuyCount: number
+  broker: brokerType
+  ableToBuy: boolean
+  setStocksToBuyCount: (count: number) => void
+  setActiveMarginTime: (time: number) => void
+  setStocksToBuyPrice: (price: number) => void
+  buyMarginStock: () => void
+  
+}
 

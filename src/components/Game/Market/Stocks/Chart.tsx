@@ -8,7 +8,7 @@ import { getWalletSelector } from "../../../../redux/game-selector";
 import { updateIncome } from "../../../../redux/profile-reducer";
 import { settingsActions } from "../../../../redux/settings-reducer";
 import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector";
-import { myStockType, stocksActions, stockType } from "../../../../redux/stocks-reducer";
+import { addStocksToPortfolioThunk, myStockType, stocksActions, stockType } from "../../../../redux/stocks-reducer";
 import { getMyStocksSelector, getStocksSelector } from "../../../../redux/stocks-selector";
 import { AppStateType } from "../../../../redux/store";
 
@@ -134,7 +134,6 @@ type RenderChartMenuType = {
 
 export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
 
-
   const wallet = useSelector(getWalletSelector)
   const dispatch = useDispatch()
 
@@ -173,32 +172,14 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
     dispatch(stocksActions.updateStocks(stockCopy, filteredStocksCopy))
   }
 
-  // покупаем акцию и добовляем её в портфель . . .
-  const addStocks = (stock: stockType) => {
-    let myStocksCopy = [...myStocks]
-
-    let newStock: myStockType = {
-      title: stock.title,
-      price: stock.price[stock.price.length - 1],
-      count: stocksToBuyCount,
-      oldPrice: stock.price[stock.price.length - 1],
-      condition: stock.condition,
-      dividendsAmount: stock.dividendsAmount
-    }
-
-    myStocksCopy = [...myStocksCopy, newStock]
-
-    dispatch(stocksActions.updateMyStocks(myStocksCopy))
-    dispatch(stocksActions.indexStocksSummaryPrice())
-  }
-
   const buyStocks = () => {
     dispatch(actions.setWallet(Math.round(wallet - stocksToBuyPrice)))
+    updateStocksCount()
+    dispatch(addStocksToPortfolioThunk(props.stock, stocksToBuyCount))
     setStocksToBuyCount(0)
     setStocksToBuyPrice(0)
-    updateStocksCount()
-    addStocks(props.stock)
-    dispatch(updateIncome())
+    // addStocks(props.stock)
+    // dispatch(updateIncome())
   }
 
   const onChangeTime = (time: number) => {

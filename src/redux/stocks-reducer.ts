@@ -1,5 +1,8 @@
+import { updateIncome } from './profile-reducer';
+import { ThunkAction } from 'redux-thunk';
 import { getRandomNumber } from './../utils/getRandomNumber';
-import {InferActionsType} from "./store";
+import {AppStateType, InferActionsType} from "./store";
+import { Margin } from '../components/Game/Market/Margin/Margin';
 
 const SET_STOCKS = 'gamePage/SET_STOCKS'
 const SELL_STOCKS = 'gamePage/SELL_STOCKS'
@@ -18,10 +21,12 @@ const REVERSE_FILTERED_BONDS = 'gamePage/REVERSE_FILTERED_BONDS'
 const SET_NEW_STOCKS = 'gamePage/SET_NEW_STOCKS'
 
 const SET_BROKERS = 'gamePage/SET_BROKERS'
+const UPDATE_BROKERS_STOCKS_COUNT = 'gamePage/UPDATE_BROKERS_STOCKS_COUNT'
 const INDEX_STOCKS_SUMMARY_PRICE = 'gamePage/INDEX_STOCKS_SUMMARY_PRICE'
 
 const SET_BONDS = 'gamePage/SET_BONDS' 
 const INDEXING_BONDS = 'gamePage/INDEXING_BONDS'
+const SET_MARGIN = 'gamePage/SET_MARGIN'
 
 let initialState = {
   // изменение цены . . .
@@ -66,7 +71,9 @@ let initialState = {
     'Ed Paulson'
   ],
   // массив брокеров, которые могут предложить маржинальную торговлю...
-  brokers: [] as brokerType[]
+  brokers: [] as brokerType[],
+  //
+  margin: [] as MarginType[]
 }
 
 export type InitialStocksStateType = typeof initialState
@@ -457,7 +464,12 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
         ...state,
         brokers: brokersCopy
       } 
-      
+    case UPDATE_BROKERS_STOCKS_COUNT:
+      return {
+        ...state,
+        brokers: action.brokers
+      }  
+
     case INDEX_STOCKS_SUMMARY_PRICE:
       return {
         ...state,
@@ -574,6 +586,12 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
         bonds: [...indexingBondsCopy],
         myStocks: [...indexingMyStocksCopy],
         filteredBonds: [...indexingFilteredBonds]
+      }
+    
+    case SET_MARGIN:
+      return {
+        ...state,
+        margin: [...state.margin, action.activeMargin]
       }  
     default:
       return state
@@ -599,13 +617,109 @@ export const stocksActions = {
   setNewStocks: (newStocks: stockType[], newMyStocks: myStockType[]) => ({type: SET_NEW_STOCKS, newStocks, newMyStocks} as const),
 
   setBrokers: () => ({type: SET_BROKERS} as const),
+  updateBrokerStocksCount: (brokers: brokerType[]) => ({type: UPDATE_BROKERS_STOCKS_COUNT, brokers} as const),
   indexStocksSummaryPrice: () => ({ type: INDEX_STOCKS_SUMMARY_PRICE } as const),
   // создаем список облигаций..
   setBonds: () => ({type: SET_BONDS} as const),
+  // добавляем обязанность по марже...
+  setMargin: (activeMargin: MarginType) => ({type: SET_MARGIN, activeMargin} as const),
   // обновляем цену на облигацию...
   indexingBonds: () => ({type: INDEXING_BONDS} as const)
 }
 
+export const addStocksToPortfolioThunk = (stock: stockType, count: number):ActionThunkType => (dispatch, getState) => {
+  let myStocksCopy = [ ...getState().stocksPage.myStocks ]
+
+  let newStock: myStockType = {
+    title: stock.title,
+    price: stock.price[stock.price.length - 1],
+    count: count,
+    oldPrice: stock.price[stock.price.length - 1],
+    condition: stock.condition,
+    dividendsAmount: stock.dividendsAmount
+  }
+  if (myStocksCopy.some(s => s.title === newStock.title)) {
+    // если у нас уже есть акции данной компании то мы добавляем их в позицию и усредняем цену...
+    //TODO доразобаца в проблеме...
+    myStocksCopy = myStocksCopy.map((stock, index) => {
+      if (stock.title === newStock.title) {
+        let oldPrice = Number(((stock.count * stock.oldPrice + newStock.count * newStock.oldPrice) / (stock.count + newStock.count)).toFixed(1))
+        return {
+          ...stock,
+          count: stock.count + newStock.count,
+          oldPrice: oldPrice,
+          condition: stock.price >= oldPrice ? 'up' : 'down',
+        }
+      }
+      return stock
+    })
+  } else {
+    myStocksCopy = [ ...myStocksCopy, newStock ]
+  }
+
+  // update player porfolio...
+  dispatch(stocksActions.updateMyStocks(myStocksCopy))
+  // indexing new portfolio summar price...
+  dispatch(stocksActions.indexStocksSummaryPrice())
+  // updating player income (devidents amount?)
+  dispatch(updateIncome())
+}
+export const updateBrokerStocksCountThunk = (broker: brokerType, count: number, stockTitle: string): ActionThunkType => (dispatch, getState) => {
+  let brokersCopy = [ ...getState().stocksPage.brokers ]
+
+  brokersCopy.forEach((b, index) => {
+    if (b.name === broker.name) {
+      b.stocks.forEach((s, i) => {
+        if (s.title === stockTitle) {
+          brokersCopy[index].stocks[i].count = brokersCopy[index].stocks[i].count - count
+        }
+      })
+    }
+  })
+  dispatch(stocksActions.updateBrokerStocksCount(brokersCopy))
+}
+export const addMarginToPortfolioThunk = (stock: stockType, broker: brokerType , count: number, time: number): ActionThunkType => (dispatch, getState) => {
+  let currentDay = getState().gamePage.daysInMonth // day, when player take margin
+  let currentMount = getState().gamePage.month // month index, when player take margin
+
+  let newMargin = {
+    expiresIn: time, // time to giveBack...
+    commision: broker.commission, // payOut commision...
+    brokerName: broker.name, // broker name...
+    giveBackData: {
+      day: currentDay,
+      month: currentMount + time > 12 
+        ? time - (12 - currentMount) 
+        : currentMount + time // giveBack data
+    },
+    stockTitle: stock.title, // stock title
+    stockPrice: stock.price[stock.price.length - 1], // stock price
+    stockCount: count // stock count
+  }
+
+  dispatch(stocksActions.setMargin(newMargin))
+
+}
+export const marginPayOut = (): ActionThunkType => (dispatch, getState) => {
+  let marginCopy = getState().stocksPage.margin[0]
+
+  let currentDay = getState().gamePage.daysInMonth // day, when player take margin
+  let currentMount = getState().gamePage.month // month index, when player take margin
+
+  if(marginCopy.giveBackData.day === currentDay && marginCopy.giveBackData.month === currentMount) {
+    // margin payout with commision function
+    let myStocksCopy = [ ...getState().stocksPage.myStocks ]
+    let totalStocks = myStocksCopy.reduce((total, stock) => {
+      if (stock.title === marginCopy.stockTitle) total += 1
+      return total
+    }, 0)
+    console.log("totalStocks: " + totalStocks)
+  } else {
+    if (marginCopy.giveBackData.day === currentDay) {
+      // dicrease expiresIn with 1 mount
+    }
+  }
+}
 export type stockType = {
   title: string
   count: number
@@ -618,7 +732,6 @@ export type stockType = {
   maxPrice: number
   minPrice: number
 }
-
 export type BondType = {
   title: string
   count: number
@@ -653,4 +766,19 @@ export type marginStockType = {
 }
 // виды фильтров . . .
 export type filterType = 'price' | 'condition' | 'title' | 'count' | 'none' | 'risk' | 'dividends'
+
+type MarginType = {
+  expiresIn: number
+  commision: number
+  brokerName: string
+  giveBackData: {
+    day: number
+    month: number
+  }
+  stockTitle: string
+  stockPrice: number
+  stockCount: number
+}
+
 type ActionType = InferActionsType<typeof stocksActions>
+type ActionThunkType = ThunkAction<any, AppStateType, unknown, ActionType>
