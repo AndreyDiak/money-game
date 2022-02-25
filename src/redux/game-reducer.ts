@@ -1,4 +1,11 @@
-import {InferActionsType} from "./store";
+import { ThunkAction } from 'redux-thunk';
+import { getRandomNumber } from '../utils/getRandomNumber';
+import { setNewsThunk } from './news-reducer';
+import { profileActions, ProfileActionsType, updateIncome } from './profile-reducer';
+import { realtyActions, RealtyActionsType } from './realty-reducer';
+import { spendsActions, SpendsActionType } from './spends-reducer';
+import { ActionType, stocksActions } from './stocks-reducer';
+import { AppStateType, InferActionsType } from "./store";
 
 // time . . .
 // const SET_TIME_SPEED = 'gamePage/SET_TIME_SPEED'
@@ -193,3 +200,64 @@ export const actions = {
 }
 
 type ActionsType = InferActionsType<typeof actions>
+type ActionThunkType = ThunkAction<any, AppStateType, unknown, ActionsType | SpendsActionType | RealtyActionsType | ProfileActionsType | ActionType>
+
+export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
+  let income = getState().profilePage.income
+  let spendsLevel = getState().spendsPage.spendsLevel
+  console.log('hello from thunk')
+  // ставим первый день в месяце
+  dispatch(actions.setDayInMonth(1))
+  // зануляем траты прошлого месяца
+  dispatch(spendsActions.resetCurrentMonth())
+  // чистая прибыль персонажа в месяц
+  dispatch(actions.updateWallet(income))
+  // создаем предложение по недвижимости
+  dispatch(realtyActions.generateActiveRealty())
+  // уменьшаем необходимую выплату по долгу на месячную ставку
+  dispatch(profileActions.updateExpenses())
+  // если мы выплатили целиком какой либо долг, то у нас растет ЗП
+  dispatch(updateIncome())
+  
+  if (income >= 250) {
+    dispatch(stocksActions.indexingBonds())
+  }
+  // если наш доход перевалил за $1000 или $4500 в месяц, то мы увеличиваем траты
+  if ((income >= 1000 && spendsLevel === 1) || (income >= 4500 && spendsLevel === 2)) {
+    dispatch(spendsActions.setSpendsLevel())
+    dispatch(spendsActions.setEventsPrice())
+  }
+
+  if ((income < 1000 && spendsLevel === 2) || (income < 4500 && spendsLevel === 3)) {
+    dispatch(spendsActions.decreaseSpendsLevel())
+    dispatch(spendsActions.setEventsPrice())
+  }
+
+}
+
+export const generateNewsThunk = (): ActionThunkType => (dispatch, getState) => {
+  const myBusinesses = [...getState().businessPage.myBusinesses]
+  const newsTypeArray = getState().newsPage.newsTypes
+  const companies = getState().stocksPage.companiesForStocks
+  // stocksNews / businessNews / personNews . . .
+  let newsType = getRandomNumber(2)
+  if (newsTypeArray[newsType].ableToShow) {
+    
+    let company = ''
+    if(newsTypeArray[newsType].type === 'stocksNews') {
+      company = companies[getRandomNumber(companies.length)]
+    }
+    if (newsTypeArray[newsType].type === 'businessNews') {
+      if (myBusinesses.length !== 0) {
+        let companyIndex = getRandomNumber(myBusinesses.length)
+        company = myBusinesses[companyIndex].name
+      } else {
+        return dispatch(generateNewsThunk())
+      }
+    }
+    dispatch(setNewsThunk(newsTypeArray[newsType].type, company))
+  } else {
+    dispatch(generateNewsThunk())
+  }
+}
+

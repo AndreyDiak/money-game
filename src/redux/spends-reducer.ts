@@ -1,8 +1,8 @@
 // spends and update . . .
-import {AppStateType, InferActionsType} from "./store";
-import {ThunkAction} from "redux-thunk";
-import {actions} from "./game-reducer";
-import {getRandomNumber} from "../utils/getRandomNumber";
+import { ThunkAction } from "redux-thunk";
+import { getRandomNumber } from "../utils/getRandomNumber";
+import { actions } from "./game-reducer";
+import { AppStateType, InferActionsType } from "./store";
 
 const WEEK_SPEND = 'gamePage/WEEK_SPEND'
 const INDEX_PRICE = 'gamePage/INDEX_PRICE'
@@ -216,7 +216,7 @@ export type eventType = {
   price: number
 }
 export type InitialSpendsStateType = typeof initialState
-type SpendsActionType = InferActionsType<typeof spendsActions>
+export type SpendsActionType = InferActionsType<typeof spendsActions>
 type SpendsThunkType = ThunkAction<any, AppStateType, unknown, SpendsActionType>
 
 export const weekSpendThunk = (): SpendsThunkType => (dispatch, getState) => {

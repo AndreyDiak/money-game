@@ -1,37 +1,37 @@
-import {AppStateType, InferActionsType} from "./store"
-import person1Photo from "../img/characters/person-1.png"
+import { ThunkAction } from "redux-thunk"
 import person1Avatar from "../img/characters/person-1-avatar.png"
-import person2Photo from "../img/characters/person-2.png"
-import person2Avatar from "../img/characters/person-2-avatar.png"
-import person3Photo from "../img/characters/person-3.png"
-import person3Avatar from "../img/characters/person-3-avatar.png"
-import person4Photo from "../img/characters/person-4.png"
-import person4Avatar from "../img/characters/person-4-avatar.png"
-import person5Photo from "../img/characters/person-5.png"
-import person5Avatar from "../img/characters/person-5-avatar.png"
-import person6Photo from "../img/characters/person-6.png"
-import person6Avatar from "../img/characters/person-6-avatar.png"
-import person7Photo from "../img/characters/person-7.png"
-import person7Avatar from "../img/characters/person-7-avatar.png"
-import person8Photo from "../img/characters/person-8.png"
-import person8Avatar from "../img/characters/person-8-avatar.png"
-import person9Photo from "../img/characters/person-9.png"
-import person9Avatar from "../img/characters/person-9-avatar.png"
-import person10Photo from "../img/characters/person-10.png"
+import person1Photo from "../img/characters/person-1.png"
 import person10Avatar from "../img/characters/person-10-avatar.png"
-import person11Photo from "../img/characters/person-11.png"
+import person10Photo from "../img/characters/person-10.png"
 import person11Avatar from "../img/characters/person-11-avatar.png"
-import person12Photo from "../img/characters/person-12.png"
+import person11Photo from "../img/characters/person-11.png"
 import person12Avatar from "../img/characters/person-12-avatar.png"
-import person13Photo from "../img/characters/person-13.png"
+import person12Photo from "../img/characters/person-12.png"
 import person13Avatar from "../img/characters/person-13-avatar.png"
-import person14Photo from "../img/characters/person-14.png"
+import person13Photo from "../img/characters/person-13.png"
 import person14Avatar from "../img/characters/person-14-avatar.png"
-import person15Photo from "../img/characters/person-15.png"
+import person14Photo from "../img/characters/person-14.png"
 import person15Avatar from "../img/characters/person-15-avatar.png"
-import {ThunkAction} from "redux-thunk";
-import {actions} from "./game-reducer";
-import {myStockType} from "./stocks-reducer";
+import person15Photo from "../img/characters/person-15.png"
+import person2Avatar from "../img/characters/person-2-avatar.png"
+import person2Photo from "../img/characters/person-2.png"
+import person3Avatar from "../img/characters/person-3-avatar.png"
+import person3Photo from "../img/characters/person-3.png"
+import person4Avatar from "../img/characters/person-4-avatar.png"
+import person4Photo from "../img/characters/person-4.png"
+import person5Avatar from "../img/characters/person-5-avatar.png"
+import person5Photo from "../img/characters/person-5.png"
+import person6Avatar from "../img/characters/person-6-avatar.png"
+import person6Photo from "../img/characters/person-6.png"
+import person7Avatar from "../img/characters/person-7-avatar.png"
+import person7Photo from "../img/characters/person-7.png"
+import person8Avatar from "../img/characters/person-8-avatar.png"
+import person8Photo from "../img/characters/person-8.png"
+import person9Avatar from "../img/characters/person-9-avatar.png"
+import person9Photo from "../img/characters/person-9.png"
+import { actions } from "./game-reducer"
+import { myStockType } from "./stocks-reducer"
+import { AppStateType, InferActionsType } from "./store"
 
 const SET_PROFILE = 'profilePage/SET_PROFILE'
 const SET_TAX = 'profilePage/SET_TAX'
@@ -419,7 +419,7 @@ export const profileActions = {
   setNewProfile: (startSalary: number, income: number, children: number[], childrenCount: number, profile: personType, tax: number) => ({type: SET_NEW_PROFILE, startSalary, income, childrenCount, children, profile, tax} as const )
 }
 
-type ProfileActionsType = InferActionsType<typeof profileActions>
+export type ProfileActionsType = InferActionsType<typeof profileActions>
 export type expenseType = {
   type: string
   title: string

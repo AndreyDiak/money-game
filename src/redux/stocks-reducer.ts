@@ -1,8 +1,7 @@
-import { updateIncome } from './profile-reducer';
 import { ThunkAction } from 'redux-thunk';
 import { getRandomNumber } from './../utils/getRandomNumber';
-import {AppStateType, InferActionsType} from "./store";
-import { Margin } from '../components/Game/Market/Margin/Margin';
+import { updateIncome } from './profile-reducer';
+import { AppStateType, InferActionsType } from "./store";
 
 const SET_STOCKS = 'gamePage/SET_STOCKS'
 const SELL_STOCKS = 'gamePage/SELL_STOCKS'
@@ -27,6 +26,10 @@ const INDEX_STOCKS_SUMMARY_PRICE = 'gamePage/INDEX_STOCKS_SUMMARY_PRICE'
 const SET_BONDS = 'gamePage/SET_BONDS' 
 const INDEXING_BONDS = 'gamePage/INDEXING_BONDS'
 const SET_MARGIN = 'gamePage/SET_MARGIN'
+const DISCREASE_MARGIN_TIME = 'gamePage/DISCREASE_MARGIN_TIME'
+const MARGIN_PAYBACK = 'gamePage/MARGIN_PAYBACK'
+
+
 
 let initialState = {
   // изменение цены . . .
@@ -452,7 +455,7 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
           // минимальный срок выдачи ...
           timeMin: 1,
           // максимальный срок выдачи...
-          timeMax: 2 + getRandomNumber(4),
+          timeMax: 3 + getRandomNumber(4),
           //
           stocks: marginStocks
         }
@@ -464,6 +467,7 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
         ...state,
         brokers: brokersCopy
       } 
+      
     case UPDATE_BROKERS_STOCKS_COUNT:
       return {
         ...state,
@@ -593,6 +597,17 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
         ...state,
         margin: [...state.margin, action.activeMargin]
       }  
+
+    case DISCREASE_MARGIN_TIME:
+      return {
+        ...state,
+        margin: state.margin.map((margin, index) => {
+          return {
+            ...margin,
+            expiresIn: margin.expiresIn - 1
+          }
+        })
+      }
     default:
       return state
   }
@@ -623,6 +638,7 @@ export const stocksActions = {
   setBonds: () => ({type: SET_BONDS} as const),
   // добавляем обязанность по марже...
   setMargin: (activeMargin: MarginType) => ({type: SET_MARGIN, activeMargin} as const),
+  dicreseMarginTime: () => ({type: DISCREASE_MARGIN_TIME} as const),
   // обновляем цену на облигацию...
   indexingBonds: () => ({type: INDEXING_BONDS} as const)
 }
@@ -700,7 +716,7 @@ export const addMarginToPortfolioThunk = (stock: stockType, broker: brokerType ,
   dispatch(stocksActions.setMargin(newMargin))
 
 }
-export const marginPayOut = (): ActionThunkType => (dispatch, getState) => {
+export const marginPayOutThunk = (): ActionThunkType => (dispatch, getState) => {
   let marginCopy = getState().stocksPage.margin[0]
 
   let currentDay = getState().gamePage.daysInMonth // day, when player take margin
@@ -709,14 +725,30 @@ export const marginPayOut = (): ActionThunkType => (dispatch, getState) => {
   if(marginCopy.giveBackData.day === currentDay && marginCopy.giveBackData.month === currentMount) {
     // margin payout with commision function
     let myStocksCopy = [ ...getState().stocksPage.myStocks ]
-    let totalStocks = myStocksCopy.reduce((total, stock) => {
-      if (stock.title === marginCopy.stockTitle) total += 1
-      return total
-    }, 0)
-    console.log("totalStocks: " + totalStocks)
+
+    if (myStocksCopy.some(s => s.title === marginCopy.stockTitle)) {
+      // if player have current stocks in portfolio...
+      if (myStocksCopy.filter(s => s.title === marginCopy.stockTitle)[0].count >= marginCopy.stockCount) {
+        // if player stocksCount in portfolio are able to broker condition...
+        let stockToSell = myStocksCopy.filter(s => s.title === marginCopy.stockTitle)[0]
+        let toSellIndex = 0 
+        
+        myStocksCopy.forEach((s,i) => {
+          if (s.title === marginCopy.stockTitle)
+          toSellIndex = i
+        })
+        // sell stocks...
+        dispatch(stocksActions.sellStocks(stockToSell, marginCopy.stockCount, toSellIndex))
+      } else {
+        // игроку не хватает акций в портфеле...
+      }
+    } else {
+      // player havent stocks in portfolio...
+    }
   } else {
     if (marginCopy.giveBackData.day === currentDay) {
       // dicrease expiresIn with 1 mount
+      dispatch(stocksActions.dicreseMarginTime())
     }
   }
 }
@@ -780,5 +812,5 @@ type MarginType = {
   stockCount: number
 }
 
-type ActionType = InferActionsType<typeof stocksActions>
+export type ActionType = InferActionsType<typeof stocksActions>
 type ActionThunkType = ThunkAction<any, AppStateType, unknown, ActionType>

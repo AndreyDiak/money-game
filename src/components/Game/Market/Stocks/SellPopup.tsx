@@ -1,14 +1,13 @@
-import React, {FC, SetStateAction, useState} from "react";
-import {CloseOutlined} from "@ant-design/icons";
-import {Button, InputNumber} from "antd";
-import {actions} from "../../../../redux/game-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {myStockType, stocksActions} from "../../../../redux/stocks-reducer";
-import {getWalletSelector} from "../../../../redux/game-selector";
-import {getMyStocksSelector} from "../../../../redux/stocks-selector";
-import {settingsActions} from "../../../../redux/settings-reducer";
-import {getConstTimeSpeedSelector} from "../../../../redux/settings-selector";
-import {updateIncome} from "../../../../redux/profile-reducer";
+import { CloseOutlined } from "@ant-design/icons";
+import { Button, InputNumber } from "antd";
+import React, { FC, SetStateAction, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "../../../../redux/game-reducer";
+import { getWalletSelector } from "../../../../redux/game-selector";
+import { updateIncome } from "../../../../redux/profile-reducer";
+import { settingsActions } from "../../../../redux/settings-reducer";
+import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector";
+import { myStockType, stocksActions } from "../../../../redux/stocks-reducer";
 
 export type SellPopupType = {
   stock: myStockType
@@ -39,9 +38,7 @@ export const SellPopup: FC<SellPopupType> = (props) => {
   }
 
   const sellStocks = () => {
-    props.setIsStockToSell(false)      
-    // возвращаем скорость времени
-    onChangeTime(timeSpeed)
+    onCloseClick()
     // уменьшаем количество акций в пакете . . .
     dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount, props.activeStock))
     // увеличиваем баланс пользователя . . .
@@ -51,16 +48,17 @@ export const SellPopup: FC<SellPopupType> = (props) => {
     // обновляем доход (если акции были с дивидендами...)
     dispatch(updateIncome())
   }
-
+  const onCloseClick = () => {
+    props.setIsStockToSell(false)
+    onChangeTime(timeSpeed)
+  }
+  
   return (
     <>
       <div className="sellPopup">
         <div className="sellPopupBlock">
           <div className="sellPopupBlock__Close">
-            <CloseOutlined onClick={() => {
-              props.setIsStockToSell(false)
-              onChangeTime(timeSpeed)
-            }}/>
+            <CloseOutlined onClick={onCloseClick} />
           </div>
           <div className="sellPopupBlock__Title">
             <div>Вы хотите продать акции компании:</div>
