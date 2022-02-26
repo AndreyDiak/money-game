@@ -5,11 +5,10 @@ import { Line } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../../../redux/game-reducer";
 import { getWalletSelector } from "../../../../redux/game-selector";
-import { updateIncome } from "../../../../redux/profile-reducer";
 import { settingsActions } from "../../../../redux/settings-reducer";
 import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector";
-import { addStocksToPortfolioThunk, myStockType, stocksActions, stockType } from "../../../../redux/stocks-reducer";
-import { getMyStocksSelector, getStocksSelector } from "../../../../redux/stocks-selector";
+import { addStocksToPortfolioThunk, stocksActions, stockType } from "../../../../redux/stocks-reducer";
+import { getStocksSelector } from "../../../../redux/stocks-selector";
 import { AppStateType } from "../../../../redux/store";
 
 export type RenderChartType = {
@@ -142,8 +141,6 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
   const stocks = useSelector(getStocksSelector)
   // @ts-ignore
   const filteredStocks: stockType[] = useSelector((state: AppStateType) => state.stocksPage.filteredStocks)
-  // массив купленных акций . . .
-  const myStocks = useSelector(getMyStocksSelector)
   const [stocksToBuyCount, setStocksToBuyCount] = useState(1)
   const [stocksToBuyPrice, setStocksToBuyPrice] = useState(props.stock.price[props.stock.price.length - 1])
 
@@ -158,7 +155,7 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
           count: stockCopy[index].count - stocksToBuyCount
         }
         // TODO
-        filteredStocksCopy.map((fStock, fIndex) => {
+        filteredStocksCopy.forEach((fStock, fIndex) => {
           if (fStock.title === props.stock.title) {
             filteredStocksCopy[fIndex] = {
               ...filteredStocksCopy[fIndex],

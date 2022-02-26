@@ -145,14 +145,6 @@ let initialState = {
                 {title: 'Кэшбэк по карте', amount: 200},
                 {title: 'У вашего босса хорошее настроение, вы получили премию', amount: 220}
               ]
-            }, {
-              // новости, которые будут довать буст к зарплате
-              type: 'regular',
-              titles: [
-                {title: 'Вы помогаете по работе коллеге, прибавка к зарплате!', amount: 70},
-                {title: 'Друг попросил отдать ему гараж под сервис, ваша доля в месяц: ', amount: 120},
-                // {title: 'Вы сдаёте комнату, месячная плата', amount: 300}
-              ]
             }
           ]
         },
@@ -176,9 +168,6 @@ let initialState = {
               type: 'regular',
               titles: [
                 {title: 'У вас родился ребёнок! Поздравляем!', amount: -125},
-                // {title: 'Стройка на даче занимает слишком много сил, и не только', amount: -70},
-                {title: 'Обеспечение родителей, вещь важная!', amount: -25},
-
               ]
             }
           ]
@@ -280,7 +269,7 @@ export const newsReducer = (state = initialState, action: NewsActionsType): Init
 
       let newsTypeCopy = [...state.newsTypes]
       // @ts-ignore
-      newsTypeCopy[1].variants[1].events[1].titles.splice(0, 1)
+      newsTypeCopy[1].variants[1].events.splice(0, 1)
       return {
         ...state,
         newsTypes: newsTypeCopy

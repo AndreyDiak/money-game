@@ -18,7 +18,7 @@ const FILTER_BONDS = 'gamePage/FILTER_BONDS'
 const REVERSE_FILTERED_BONDS = 'gamePage/REVERSE_FILTERED_BONDS' 
 
 const SET_NEW_STOCKS = 'gamePage/SET_NEW_STOCKS'
-
+const SET_INSTRUCTION_COMPLETED = 'gamePage/SET_INSTRUCTION_COMPLETED'
 const SET_BROKERS = 'gamePage/SET_BROKERS'
 const UPDATE_BROKERS_STOCKS_COUNT = 'gamePage/UPDATE_BROKERS_STOCKS_COUNT'
 const INDEX_STOCKS_SUMMARY_PRICE = 'gamePage/INDEX_STOCKS_SUMMARY_PRICE'
@@ -28,8 +28,6 @@ const INDEXING_BONDS = 'gamePage/INDEXING_BONDS'
 const SET_MARGIN = 'gamePage/SET_MARGIN'
 const DISCREASE_MARGIN_TIME = 'gamePage/DISCREASE_MARGIN_TIME'
 const MARGIN_PAYBACK = 'gamePage/MARGIN_PAYBACK'
-
-
 
 let initialState = {
   // изменение цены . . .
@@ -58,6 +56,8 @@ let initialState = {
   stocksSummaryPrice: 0,
   // подписка, благодаяря которой можно видеть риски акций...
   isSubscriptionBought: false,
+  //
+  isInstructionCompleted: false,
   // акции на рынке . . .
   stocks: [] as stockType[],
   //
@@ -447,7 +447,7 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
           name: name,
           age: 20 + getRandomNumber(30),
           // коммиссия которую выплачивает игрок, после расчета прибыли / убыдка...
-          commission: (10 + getRandomNumber(15) ) / 100,
+          commission: (2 + getRandomNumber(5) ) / 100,
           // минимальое кредитное плечо
           leverAgeMin: 2,
           // максимальное кредитное плечо
@@ -592,6 +592,12 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
         filteredBonds: [...indexingFilteredBonds]
       }
     
+    case SET_INSTRUCTION_COMPLETED:
+      return {
+        ...state,
+        isInstructionCompleted: true
+      }
+
     case SET_MARGIN:
       return {
         ...state,
@@ -630,7 +636,7 @@ export const stocksActions = {
   reverseFilteredBonds: () => ({type: REVERSE_FILTERED_BONDS} as const),
 
   setNewStocks: (newStocks: stockType[], newMyStocks: myStockType[]) => ({type: SET_NEW_STOCKS, newStocks, newMyStocks} as const),
-
+  setInstructionCompleted: () => ({type: SET_INSTRUCTION_COMPLETED} as const),
   setBrokers: () => ({type: SET_BROKERS} as const),
   updateBrokerStocksCount: (brokers: brokerType[]) => ({type: UPDATE_BROKERS_STOCKS_COUNT, brokers} as const),
   indexStocksSummaryPrice: () => ({ type: INDEX_STOCKS_SUMMARY_PRICE } as const),
@@ -723,28 +729,7 @@ export const marginPayOutThunk = (): ActionThunkType => (dispatch, getState) => 
   let currentMount = getState().gamePage.month // month index, when player take margin
 
   if(marginCopy.giveBackData.day === currentDay && marginCopy.giveBackData.month === currentMount) {
-    // margin payout with commision function
-    let myStocksCopy = [ ...getState().stocksPage.myStocks ]
-
-    if (myStocksCopy.some(s => s.title === marginCopy.stockTitle)) {
-      // if player have current stocks in portfolio...
-      if (myStocksCopy.filter(s => s.title === marginCopy.stockTitle)[0].count >= marginCopy.stockCount) {
-        // if player stocksCount in portfolio are able to broker condition...
-        let stockToSell = myStocksCopy.filter(s => s.title === marginCopy.stockTitle)[0]
-        let toSellIndex = 0 
-        
-        myStocksCopy.forEach((s,i) => {
-          if (s.title === marginCopy.stockTitle)
-          toSellIndex = i
-        })
-        // sell stocks...
-        dispatch(stocksActions.sellStocks(stockToSell, marginCopy.stockCount, toSellIndex))
-      } else {
-        // игроку не хватает акций в портфеле...
-      }
-    } else {
-      // player havent stocks in portfolio...
-    }
+    
   } else {
     if (marginCopy.giveBackData.day === currentDay) {
       // dicrease expiresIn with 1 mount

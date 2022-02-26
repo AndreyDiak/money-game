@@ -2423,7 +2423,7 @@ input:checked, input:active, input:focus {
 }
 .chartPopupBlock, .sellPopupBlock, .marginPopupBlock {
   position: relative;
-  padding: 30px 50px;
+  padding: 30px 40px;
   width: 700px;
   background-color: #f1f1f1;
   z-index: 3;
@@ -2491,13 +2491,14 @@ input:checked, input:active, input:focus {
 }
 .chartPopupBlock__MenuInfo, .sellPopupBlock__MenuInfo, .marginPopupBlock__MenuInfo {
   display: flex;
-  column-gap: 100px;
+  column-gap: 50px;
 }
 .chartPopupBlock__MenuInfo__Title, .sellPopupBlock__MenuInfo__Title, .marginPopupBlock__MenuInfo__Title {
   padding: 10px;
   font-weight: 700;
   font-size: 16px;
   background: #439093;
+  min-width: 240px;
   color: #fff;
 }
 .chartPopupBlock__MenuInfo__Input, .sellPopupBlock__MenuInfo__Input, .marginPopupBlock__MenuInfo__Input {
@@ -2548,7 +2549,7 @@ input:checked, input:active, input:focus {
 }
 
 .marginPopupBlock {
-  width: 900px;
+  width: 1000px;
 }
 
 .bannerBack {

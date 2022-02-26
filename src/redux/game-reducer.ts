@@ -205,7 +205,6 @@ type ActionThunkType = ThunkAction<any, AppStateType, unknown, ActionsType | Spe
 export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
   let income = getState().profilePage.income
   let spendsLevel = getState().spendsPage.spendsLevel
-  console.log('hello from thunk')
   // ставим первый день в месяце
   dispatch(actions.setDayInMonth(1))
   // зануляем траты прошлого месяца

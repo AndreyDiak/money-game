@@ -3,11 +3,12 @@ import { Button, InputNumber, Slider } from "antd"
 import React, { FC, useEffect, useState } from "react"
 import { Line } from "react-chartjs-2"
 import { useDispatch, useSelector } from 'react-redux'
+import { actions } from "../../../../redux/game-reducer"
 import { getWalletSelector } from "../../../../redux/game-selector"
 import { updateIncome } from "../../../../redux/profile-reducer"
 import { settingsActions } from "../../../../redux/settings-reducer"
 import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector"
-import { addMarginToPortfolioThunk, addStocksToPortfolioThunk, brokerType, stockType, updateBrokerStocksCountThunk } from "../../../../redux/stocks-reducer"
+import { addMarginToPortfolioThunk, addStocksToPortfolioThunk, brokerType, stocksActions, stockType, updateBrokerStocksCountThunk } from "../../../../redux/stocks-reducer"
 import { getStocksSelector } from "../../../../redux/stocks-selector"
 import { AppStateType } from "../../../../redux/store"
 
@@ -22,6 +23,7 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
   const dispatch = useDispatch()
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
   const stocksSummaryPrice = useSelector((state: AppStateType) => state.stocksPage.stocksSummaryPrice)
+  const isInstructionCompleted = useSelector((state: AppStateType) => state.stocksPage.isInstructionCompleted)
   const stocks = useSelector(getStocksSelector)
   const wallet = useSelector(getWalletSelector)
   const summary = Number((wallet + stocksSummaryPrice).toFixed(1))
@@ -42,11 +44,21 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
   // срок кредитования
   const [activeMarginTime, setActiveMarginTime] = useState(broker.timeMin)
   // переменная для проверки возможности покупки
-  const [ableToBuy, setAbleToBuy] = useState(stocksToBuyPrice > minLeverAge && stocksToBuyPrice < maxLeverAge)
+  const [ableToBuy, setAbleToBuy] = useState(
+    stocksToBuyPrice > minLeverAge && 
+    stocksToBuyPrice < maxLeverAge && 
+    stocksToBuyPrice * broker.commission <= wallet
+    )
+  // первичная плата за вход на маржу...
+  const [commission, setCommision] = useState(Math.floor(stocksToBuyPrice * broker.commission))
 
   const onCloseClick = () => {
     setIsMarginShown(false)
     dispatch(settingsActions.setTimeSpeed(timeSpeed))
+  }
+
+  const onButtonClick = () => {
+    dispatch(stocksActions.setInstructionCompleted())
   }
 
   const setActiveMargin = (stock: stockType) => {
@@ -54,13 +66,10 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
   }
 
   const buyMarginStock = () => {
-    // add stocks to my stocks +
-    // update broker portfolio +
-    // indexing salary +
-    // add info about margin
     dispatch(addStocksToPortfolioThunk(activeMarginStock, stocksToBuyCount))
     dispatch(updateBrokerStocksCountThunk(broker, stocksToBuyCount, activeMarginStock.title))
     dispatch(addMarginToPortfolioThunk(activeMarginStock, broker ,stocksToBuyCount, activeMarginTime))
+    dispatch(actions.setWallet(wallet - commission))
     setStocksToBuyCount(0)
     setStocksToBuyPrice(0)
     // dispatch(updateIncome())
@@ -68,79 +77,155 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
     onCloseClick()
   }
 
+
+
   useEffect(() => {
-    setAbleToBuy(stocksToBuyPrice > minLeverAge && stocksToBuyPrice < maxLeverAge && stocksToBuyCount <= activeMarginStock.count)
+    setAbleToBuy(
+      stocksToBuyPrice > minLeverAge && 
+      stocksToBuyPrice < maxLeverAge && 
+      stocksToBuyCount <= activeMarginStock.count &&
+      stocksToBuyPrice * broker.commission <= wallet
+      )
+      setCommision(Math.floor(stocksToBuyPrice * broker.commission))
   }, [stocksToBuyPrice])
 
   return (
     <>
       <div className="marginPopup">
         <div className="marginPopupBlock">
-          <div className="marginPopupBlock__Close">
-            <CloseOutlined onClick={onCloseClick} />
-          </div>
-          <div className="marginPopupBlock__Title">
-            {broker.name}
-          </div>
-          <div className="marginPopupBlock__Active">
-            <div className="marginPopupBlock__ActiveHeader">
-              Список доступных акций
-            </div>
-            <div className="marginPopupBlock__ActivePortfolio">
-              <div className="marginPopupBlock__ActivePortfolio__summary">
-                Общая сумма портфеля: <b>${summary}</b>
+          {isInstructionCompleted 
+          ? 
+            <>
+              <div className="marginPopupBlock__Close">
+                <CloseOutlined onClick={onCloseClick} />
               </div>
-              <div className="marginPopupBlock__ActivePortfolio__commission">
-                Комиссия брокера: <b> {broker.commission * 100}% </b>
-                <small>
-                  <i>(вы платите этот процент от разницы цен акций на входе и выходе )</i>
-                </small>
+              <div className="marginPopupBlock__Title">
+                {broker.name}
               </div>
-            </div>
-            <div className="marginPopupBlock__ActiveList">
-              {/* <div className="marginPopupBlock__ActiveList__header"><b>Компании</b></div> */}
-              <div className="marginPopupBlock__ActiveList__stocks">
-                {broker.stocks.map((stock, index) => {
-                return (
-                  <div key={index}>
-                    {/* TODO  возможно добавить активной акции индекс? */}
-                    <Button onClick={() => setActiveMargin(stock)} type={stock.title === activeMarginStock.title ? 'primary' : 'default'}>
-                      {stock.title} 
-                    </Button>
+              <div className="marginPopupBlock__Active">
+                <div className="marginPopupBlock__ActiveHeader">
+                  Список доступных акций
+                </div>
+                <div className="marginPopupBlock__ActivePortfolio">
+                  <div className="marginPopupBlock__ActivePortfolio__summary">
+                    Общая сумма портфеля: <b>${summary}</b>
                   </div>
-                )
-              })}
+                  <div className="marginPopupBlock__ActivePortfolio__commission">
+                    Комиссия брокера: <b> {broker.commission * 100}% </b>
+                    <small>
+                      <i>(вы платите этот процент при открытие и закрытие долга...)</i>
+                    </small>
+                  </div>
+                </div>
+                <div className="marginPopupBlock__ActiveList">
+                  {/* <div className="marginPopupBlock__ActiveList__header"><b>Компании</b></div> */}
+                  <div className="marginPopupBlock__ActiveList__stocks">
+                    {broker.stocks.map((stock, index) => {
+                    return (
+                      <div key={index}>
+                        {/* TODO  возможно добавить активной акции индекс? */}
+                        <Button onClick={() => setActiveMargin(stock)} type={stock.title === activeMarginStock.title ? 'primary' : 'default'}>
+                          {stock.title} 
+                        </Button>
+                      </div>
+                    )
+                  })}
+                  </div>
+                </div>
+                <div className="marginPopupBlock__ActiveChart">
+                  <MarginPopupChart stock={activeMarginStock}/>
+                </div>
               </div>
-            </div>
-            <div className="marginPopupBlock__ActiveChart">
-              <MarginPopupChart stock={activeMarginStock}/>
-            </div>
-          </div>
-          <MarginPopupMenu 
-            stock={activeMarginStock}
-            broker={broker}
-            ableToBuy={ableToBuy}
-            activeMarginTime={activeMarginTime}
-            setActiveMarginTime={setActiveMarginTime} 
-            setStocksToBuyCount={setStocksToBuyCount}
-            setStocksToBuyPrice={setStocksToBuyPrice}
-            stocksToBuyCount={stocksToBuyCount}
-            buyMarginStock={buyMarginStock}
-          />
-          <div className="marginPopupBlock__Result">
-            <div className="marginPopupBlock__ResultMin">
-              Минимальный размер маржи: <b>${minLeverAge}</b>
-            </div>
-            <div className="marginPopupBlock__ResultMax">
-              Максимальный размер маржи: <b>${maxLeverAge}</b>
-            </div>
-            <div className="marginPopupBlock__ResultCurrent">
-              Текущая сумма:
-              <b style={ableToBuy ? {color: 'green'} : {color: 'red'}}> 
-                {` $${stocksToBuyPrice}`} 
-              </b>
-            </div>
-          </div>
+              <MarginPopupMenu 
+                stock={activeMarginStock}
+                broker={broker}
+                ableToBuy={ableToBuy}
+                activeMarginTime={activeMarginTime}
+                setActiveMarginTime={setActiveMarginTime} 
+                setStocksToBuyCount={setStocksToBuyCount}
+                setStocksToBuyPrice={setStocksToBuyPrice}
+                stocksToBuyCount={stocksToBuyCount}
+                buyMarginStock={buyMarginStock}
+              />
+              <div className="marginPopupBlock__Result">
+                <div className="marginPopupBlock__ResultPrice">
+                  Размер маржи: 
+                  <span className="marginPopupBlock__ResultMin">
+                    <b>{' '}${minLeverAge}</b> 
+                  </span>
+                  - 
+                  <span className="marginPopupBlock__ResultMax">
+                    <b>{' '}${maxLeverAge}</b>
+                  </span>
+                </div>
+                {/* <div className="marginPopupBlock__ResultMax">
+                  Максимальный размер маржи: <b>$</b>
+                </div> */}
+                <div className="marginPopupBlock__ResultCurrent">
+                  Текущая сумма:
+                  <b style={ableToBuy ? {color: 'green'} : {color: 'red'}}> 
+                    {` $${stocksToBuyPrice}`} 
+                  </b>
+                </div>
+                <div className="marginPopupBlock__ResultCommission">
+                  Первичная плата: <b>${commission}</b>
+                </div>
+              </div>
+            </>
+          : 
+            <>
+              <div className="marginPopupBlock__Close">
+                <CloseOutlined onClick={onCloseClick} />
+              </div>
+              <div>
+                <div>
+                  <h2>Внимание</h2>
+                  <p>
+                    Маржинальная торговля связана с <b>большими</b> рисками для инвестора. 
+                    Поэтому рекомендуем пользоватся этим инстументом с <b>особой</b> осторожностью.
+                  </p>
+                </div>
+                <hr />
+                <div>
+                  <h2>Для чего мне нужна маржинальная торговля?</h2>
+                  <p>
+                    На вашем счету недостаточно средств но вы <b>уверены</b> в своем прогнозе
+                    относительно каких-либо акций и хотите на этом <b>заработать</b>
+                  </p>
+                </div>
+                <div>
+                  <h2>Какой алгоритм действий?</h2>
+                  <ol>
+                    <li>Вы выбираете брокера и <b>анализируете</b> список акций который он может вам предложить</li>
+                    <li>Выбираете подходящую акцию, которая по <b>вашему</b> мнению должна скоро изменится в цене</li>
+                    <li>Берете <b>кредит</b> у брокера и платите первоначальную <b>коммисию</b></li>
+                    <li>Когда подойдет конец торговой сессии вы должны <b>вернуть</b> брокеру все акции и заплатить <b>коммисию</b> при закрытие долга</li>
+                  </ol>
+                </div>
+                <div>
+                  <h2>Размер плеча</h2>
+                  <p>Размер плеча показывает <b>максимальное</b> отношение суммы кредита к сумме <b>вашего</b> портфеля</p>
+                </div>
+                <div>
+                  <h2>Комиссия</h2>
+                  <ol>
+                    <li>При первоначальное покупке акций у брокера вы платите первую коммиссию = <b>Коммисия</b> брокера * <b>общая</b> стоимость акций</li>
+                    <li>При закрытие позиции вы платите <b>фиксированную</b> ставку которая указывается в профиле брокера </li>
+                  </ol>
+                </div>
+                <div>
+                  <h2>Плата за перенос</h2>
+                  <p>Если вы <b>не успели</b> выплатить брокеру весь размер долга к концу сессии то вы будете платить <b>ежедневную</b> плату за перенос</p>
+                </div>
+                <hr />
+                <div>
+                  <Button onClick={onButtonClick}>
+                    Понятно
+                  </Button>
+                </div>
+              </div>
+            </>
+            }
         </div>
       </div>
     </>
@@ -196,19 +281,19 @@ export const MarginPopupMenu: FC<MarginPopupMenuType> = ({
       
       <div className="marginPopupBlock__MenuTime">
         <div className="marginPopupBlock__MenuInfo__Title">
-          Срок кредитования: 
+          Срок кредитования: {activeMarginTime} мес.
         </div>
-        <Slider min={broker.timeMin} value={activeMarginTime} max={broker.timeMax} tooltipVisible onChange={(e) => {setActiveMarginTime(e)}}/>
+        <Slider min={broker.timeMin} value={activeMarginTime} max={broker.timeMax} onChange={(e) => {setActiveMarginTime(e)}}/>
         <small>
           <i>
-            (через этот срок[мес] брокер спишет акции с вашего портфеля)
+            (срок для закрытия позиции)
           </i>
         </small>
       </div>
       </div>
       
       <div>
-        <Button disabled={!ableToBuy} onClick={buyMarginStock}>Купить</Button>
+        <Button disabled={!ableToBuy} onClick={buyMarginStock}>Открыть позицию</Button>
       </div>
     </div>
     
