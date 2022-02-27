@@ -246,17 +246,18 @@ export const generateNewsThunk = (): ActionThunkType => (dispatch, getState) => 
     if(newsTypeArray[newsType].type === 'stocksNews') {
       company = companies[getRandomNumber(companies.length)]
     }
-    if (newsTypeArray[newsType].type === 'businessNews') {
-      if (myBusinesses.length !== 0) {
-        let companyIndex = getRandomNumber(myBusinesses.length)
-        company = myBusinesses[companyIndex].name
-      } else {
-        return dispatch(generateNewsThunk())
-      }
-    }
+    // if (newsTypeArray[newsType].type === 'businessNews') {
+    //   if (myBusinesses.length !== 0) {
+    //     let companyIndex = getRandomNumber(myBusinesses.length)
+    //     company = myBusinesses[companyIndex].name
+    //   } else {
+    //     return dispatch(generateNewsThunk())
+    //   }
+    // }
+
     dispatch(setNewsThunk(newsTypeArray[newsType].type, company))
   } else {
-    dispatch(generateNewsThunk())
+    return dispatch(generateNewsThunk())
   }
 }
 

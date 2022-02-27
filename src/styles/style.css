@@ -722,6 +722,15 @@
 .gameProfit::after {
   background: rgba(0, 0, 0, 0.6) !important;
 }
+.gameProfitDanger {
+  grid-area: danger;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.gameProfitDanger button {
+  font-weight: 900;
+  color: #b71c1c;
+}
 .gameProfitMargin {
   padding: 15px;
   display: flex;
@@ -799,7 +808,7 @@
 }
 .gameProfitMenu {
   grid-area: menu;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: center;
   column-gap: 15px;
@@ -829,7 +838,7 @@
 .gameProfitStocks .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas: "menu menu" "myStocks stocks";
+  grid-template-areas: "menu menu" "danger danger" "myStocks stocks";
 }
 .gameProfitStocks__Me {
   grid-area: myStocks;
@@ -868,7 +877,7 @@
   position: relative;
   padding: 10px;
   display: flex;
-  width: 70%;
+  width: 80%;
   flex-direction: column;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
@@ -921,7 +930,7 @@
 
 @media screen and (max-width: 1600px) {
   .gameProfitStocks__OfferBlock {
-    width: 80%;
+    width: 90%;
   }
   .gameProfitMargin__block {
     max-width: 95%;

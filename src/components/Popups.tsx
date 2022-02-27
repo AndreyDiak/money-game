@@ -1,35 +1,42 @@
-import {SellPopup} from "./Game/Market/Stocks/SellPopup";
-import {Chart} from "./Game/Market/Stocks/Chart";
-import {brokerType, myStockType, stockType} from "../redux/stocks-reducer";
-import React, {FC, SetStateAction} from "react";
-import {Button, Menu, Modal} from "antd";
-import {NavLink} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../redux/store";
-import {getStocksSelector} from "../redux/stocks-selector";
-import {MarginPopup} from "./Game/Market/Margin/MarginPopup";
+import { Button, Menu, Modal } from "antd";
+import React, { FC } from "react";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { brokerType, myStockType, stockType } from "../redux/stocks-reducer";
+import { getStocksSelector } from "../redux/stocks-selector";
+import { AppStateType } from "../redux/store";
+import { MarginPayBackPopup } from "./Game/Market/Margin/MarginPayBackPopup";
+import { MarginPopup } from "./Game/Market/Margin/MarginPopup";
+import { Chart } from "./Game/Market/Stocks/Chart";
+import { SellPopup } from "./Game/Market/Stocks/SellPopup";
 
 export type PopupsType = {
   myStock: myStockType
   activeBroker: brokerType
-  setIsStockToSell: SetStateAction<any>
   activeStock: number
-  setIsHistoryShown: SetStateAction<any>
-  setIsMarketOpen: SetStateAction<any>
-  setActiveStock: (activeStock: stockType) => void
-  setIsMarginShown: (isMarginShown: boolean) => void
   stock: stockType
   isHistoryShown: boolean
   isStockToSell: boolean
   showExitModal: boolean
   isMarketOpen: boolean
   isMarginShown: boolean
+  isMarginPayBackShown: boolean
+  setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
+  setIsStockToSell: (isStockToSell: boolean) => void
+  setIsHistoryShown: (isHistoryShown: boolean) => void
+  setIsMarketOpen: (isMarketOpen: boolean) => void
+  setActiveStock: (activeStock: stockType) => void
+  setIsMarginShown: (isMarginShown: boolean) => void
 }
 
 export const Popups:FC<PopupsType> = (props) => {
 
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   const stocks = useSelector(getStocksSelector)
+
+  const onButtonClick = () => {
+    props.setIsMarketOpen(false)
+  }
 
   return (
     <>
@@ -43,8 +50,12 @@ export const Popups:FC<PopupsType> = (props) => {
         setActiveStock={props.setActiveStock}
         /> 
       }
-      
-      <Modal style={{width: '90%', textAlign: 'center'}} onCancel={() => props.setIsMarketOpen(false)} visible={props.isMarketOpen} title={'Рынок'} footer={[
+      {props.isMarginPayBackShown && 
+      <MarginPayBackPopup 
+        setIsMarginPayBackShown={props.setIsMarginPayBackShown}
+      /> 
+      }
+      <Modal style={{width: '90%', textAlign: 'center'}} onCancel={onButtonClick} visible={props.isMarketOpen} title={'Рынок'} footer={[
         <>
         </>
       ]}>
@@ -55,7 +66,7 @@ export const Popups:FC<PopupsType> = (props) => {
             </p>
             : <Menu.Item>
               <NavLink to='/game/market/stocks'>
-                <Button onClick={() => props.setIsMarketOpen(false)}>Акции</Button>
+                <Button onClick={onButtonClick}>Акции</Button>
               </NavLink>
             </Menu.Item>
           }
@@ -65,7 +76,7 @@ export const Popups:FC<PopupsType> = (props) => {
             </p>
             : <Menu.Item>
               <NavLink to='/game/market/realty'>
-                <Button onClick={() => props.setIsMarketOpen(false)}>Недвижимость</Button>
+                <Button onClick={onButtonClick}>Недвижимость</Button>
               </NavLink>
             </Menu.Item>
           }
@@ -75,7 +86,7 @@ export const Popups:FC<PopupsType> = (props) => {
             </p>
             : <Menu.Item>
               <NavLink to='/game/market/business'>
-                <Button onClick={() => props.setIsMarketOpen(false)}>Бизнес</Button>
+                <Button onClick={onButtonClick}>Бизнес</Button>
               </NavLink>
             </Menu.Item>
           }

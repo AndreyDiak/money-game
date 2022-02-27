@@ -1,16 +1,19 @@
-import React, {FC, useState} from "react";
-import {Button, Select} from "antd";
-import {MyPortfolio} from "./MyPortfolio";
-import { Stocks } from "./Stocks";
+import { Button } from "antd";
+import React, { FC, useState } from "react";
+import { useSelector } from 'react-redux'
+import { brokerType } from "../../../../redux/stocks-reducer";
+import { AppStateType } from "../../../../redux/store";
 import { Bonds } from "../Bonds/Bonds";
 import { Margin } from "../Margin/Margin";
-import { brokerType } from "../../../../redux/stocks-reducer";
+import { MyPortfolio } from "./MyPortfolio";
+import { Stocks } from "./Stocks";
 
 export type RenderPlayerStocksType = {
   setIsHistoryShown: any
   setActiveStock: any
   setMyActiveStock: any
   setIsStockToSell: any
+  setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
   setActiveBroker: (activeBroker: brokerType) => void
   setIsMarginShown: (isMarginShown: boolean) => void
 }
@@ -18,9 +21,10 @@ type MarketType = 'portfolio' | 'stocks' | 'bonds' | 'margin'
 
 export const StocksPage: FC<RenderPlayerStocksType> = ({
   setIsStockToSell, setMyActiveStock, setActiveStock, 
-  setIsHistoryShown, setActiveBroker, setIsMarginShown}) => {
+  setIsHistoryShown, setActiveBroker, setIsMarginShown, setIsMarginPayBackShown}) => {
 
   const [marketActiveFilter, setMarketActiveFilter] = useState(1)
+  const margin = useSelector((state: AppStateType) => state.stocksPage.margin)
   // разрешение экрана...
   const filters = [
     {name: 'Портфель', filter: 'portfolio' as MarketType},
@@ -30,6 +34,10 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({
   ]
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
   
+  const onMarginClick = () => {
+    setIsMarginPayBackShown(true)
+  }
+
   return (
     <>
       <div className="gameProfit bannerBack">
@@ -52,6 +60,10 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({
                     </>
                   )
                 })}
+              </div>
+              <div className="gameProfitDanger">
+                {margin.length > 0 && 
+                <Button onClick={onMarginClick}>Закрыть позицию</Button>}
               </div>
               {screenWidth > 768
                 ? <>

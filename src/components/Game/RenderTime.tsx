@@ -5,7 +5,7 @@ import { useHttp } from "../../hooks/http.hook";
 import { actions, generateNewsThunk, updateMonthThunk } from "../../redux/game-reducer";
 import { getDayInMonthSelector, getDaySelector, getMonthSelector, getMonthsSelector } from "../../redux/game-selector";
 import { weekSpendThunk } from "../../redux/spends-reducer";
-import { stocksActions } from "../../redux/stocks-reducer";
+import { marginPayOutThunk, stocksActions } from "../../redux/stocks-reducer";
 import { getStocksSelector } from "../../redux/stocks-selector";
 import { AppStateType } from "../../redux/store";
 
@@ -18,9 +18,9 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   // день месяца . . .
   const dayInMonth = useSelector(getDayInMonthSelector)
   //
-  const {request, isLoading, error} = useHttp()
+  // const {request, isLoading, error} = useHttp()
   //
-  const token = useSelector((state: AppStateType) => state.app.token)
+  // const token = useSelector((state: AppStateType) => state.app.token)
   //
   const dispatch = useDispatch()
   // текущий день . . .
@@ -49,13 +49,13 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   // обновляем счётчик недель . . .
   useEffect(() => {
     dispatch(actions.setDayInMonth(dayInMonth + 1))
+    dispatch(marginPayOutThunk())
     // еженедельные покупки . . .
     if (day % 7 === 0 && day !== 0) {
       // создаем новости каждые две недели
       if(day % 14 === 0 && day !== 0) {
         dispatch(generateNewsThunk())
         // отправляем данные для сохранения игры . . .
-        // TODO реализовать в будущем нормальное сохранение... saveGame(dataForSave)
       }
       // еженедельная трата . . .
       // dispatch(actions.weekSpend(difficulty))

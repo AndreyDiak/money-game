@@ -27,6 +27,7 @@ const SET_BONDS = 'gamePage/SET_BONDS'
 const INDEXING_BONDS = 'gamePage/INDEXING_BONDS'
 const SET_MARGIN = 'gamePage/SET_MARGIN'
 const DISCREASE_MARGIN_TIME = 'gamePage/DISCREASE_MARGIN_TIME'
+const ADD_MARGIN_PENALTY = 'gamePage/ADD_MARGIN_PENALTY'
 const MARGIN_PAYBACK = 'gamePage/MARGIN_PAYBACK'
 
 let initialState = {
@@ -75,6 +76,13 @@ let initialState = {
   ],
   // массив брокеров, которые могут предложить маржинальную торговлю...
   brokers: [] as brokerType[],
+  // плата за перенос...
+  penaltyPay: [
+    {summary: 10000, penalty: 150},
+    {summary: 25000, penalty: 250},
+    {summary: 50000, penalty: 450},
+    {summary: 100000, penalty: 800},
+  ],
   //
   margin: [] as MarginType[]
 }
@@ -604,16 +612,28 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
         margin: [...state.margin, action.activeMargin]
       }  
 
+    case ADD_MARGIN_PENALTY:
+      return {
+        ...state,
+        margin: state.margin.map(margin => {
+          return {
+            ...margin,
+            currentPenalty: margin.currentPenalty + margin.penaltyPay
+          }
+        })
+      }
+
     case DISCREASE_MARGIN_TIME:
       return {
         ...state,
-        margin: state.margin.map((margin, index) => {
+        margin: state.margin.map(margin => {
           return {
             ...margin,
             expiresIn: margin.expiresIn - 1
           }
         })
       }
+
     default:
       return state
   }
@@ -644,6 +664,7 @@ export const stocksActions = {
   setBonds: () => ({type: SET_BONDS} as const),
   // добавляем обязанность по марже...
   setMargin: (activeMargin: MarginType) => ({type: SET_MARGIN, activeMargin} as const),
+  addMarginPenalty: () => ({type: ADD_MARGIN_PENALTY} as const),
   dicreseMarginTime: () => ({type: DISCREASE_MARGIN_TIME} as const),
   // обновляем цену на облигацию...
   indexingBonds: () => ({type: INDEXING_BONDS} as const)
@@ -704,10 +725,20 @@ export const addMarginToPortfolioThunk = (stock: stockType, broker: brokerType ,
   let currentDay = getState().gamePage.daysInMonth // day, when player take margin
   let currentMount = getState().gamePage.month // month index, when player take margin
 
-  let newMargin = {
+  const price = Math.floor(count * stock.price[stock.price.length - 1])
+  const penaltyPay = [ ...getState().stocksPage.penaltyPay ]
+
+  let penalty = penaltyPay.reverse().reduce((total, p) => {
+    if (price < p.summary) total = p.penalty
+    return total
+  }, 0.006 * price) // if price > 100000$ we will pay 0.6% of this price...
+
+  let newMargin: MarginType = {
     expiresIn: time, // time to giveBack...
     commision: broker.commission, // payOut commision...
     brokerName: broker.name, // broker name...
+    penaltyPay: penalty, 
+    currentPenalty: penalty,
     giveBackData: {
       day: currentDay,
       month: currentMount + time > 12 
@@ -723,17 +754,19 @@ export const addMarginToPortfolioThunk = (stock: stockType, broker: brokerType ,
 
 }
 export const marginPayOutThunk = (): ActionThunkType => (dispatch, getState) => {
-  let marginCopy = getState().stocksPage.margin[0]
+  if (getState().stocksPage.margin.length > 0) {
+    let marginCopy = getState().stocksPage.margin[0]
 
-  let currentDay = getState().gamePage.daysInMonth // day, when player take margin
-  let currentMount = getState().gamePage.month // month index, when player take margin
+    let currentDay = getState().gamePage.daysInMonth // day, when player take margin
+    let currentMount = getState().gamePage.month // month index, when player take margin
 
-  if(marginCopy.giveBackData.day === currentDay && marginCopy.giveBackData.month === currentMount) {
-    
-  } else {
-    if (marginCopy.giveBackData.day === currentDay) {
-      // dicrease expiresIn with 1 mount
+    if(marginCopy.giveBackData.day === currentDay && marginCopy.expiresIn > 0) {
       dispatch(stocksActions.dicreseMarginTime())
+    } else {
+      if (marginCopy.expiresIn === 0) {
+        // penaltyPay...
+        dispatch(stocksActions.addMarginPenalty())
+      }
     }
   }
 }
@@ -788,6 +821,8 @@ type MarginType = {
   expiresIn: number
   commision: number
   brokerName: string
+  penaltyPay: number
+  currentPenalty: number
   giveBackData: {
     day: number
     month: number

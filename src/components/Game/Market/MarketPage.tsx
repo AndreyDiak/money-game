@@ -13,6 +13,7 @@ export type MarketType = {
   setActiveStock: any
   setMyActiveStock: any
   setIsStockToSell: any
+  setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
   setActiveBroker: (activeBroker: brokerType) => void
   setIsMarginShown: (isMarginShown: boolean) => void
 }
@@ -30,6 +31,7 @@ export const MarketPage: FC<MarketType> = (props) => {
             setIsStockToSell={props.setIsStockToSell}
             setActiveBroker={props.setActiveBroker}
             setIsMarginShown={props.setIsMarginShown}
+            setIsMarginPayBackShown={props.setIsMarginPayBackShown}
           />
         }/>
         <Route path='/game/market/realty' render={() => <RealtyPage />}/>

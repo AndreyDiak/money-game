@@ -1,17 +1,34 @@
 
-MARKET_PAGE
+===MARKET_PAGE===
+'+'
+  marginPayBack {
+    +add commision
+    +add currency to the wallet
+    +add penalty if pleyer havent enough stock in portfolio...
+  }
 
--tune routing on market page againts stocks page
--+start to create processing function to add margin stocks to the portfolio and add margin agreements to the user profile
--add subscription to the investor journal, that gives ability to see stocks and bonds risks... (?)
--marginPayBack {
-  -add commision
-  -add currency to the wallet
-  -add penalty if pleyer havent enough stock in portfolio...
-}
-MENU_PAGE
--tune some styles to more comfortable UI
+'-'
+  -tune routing on market page againts stocks page
+  -start to create processing function to add margin stocks to the portfolio and add margin agreements to the user profile
+  -add subscription to the investor journal, that gives ability to see stocks and bonds risks... (?)
+  -add margin PayBack modal
 
-RENDER_TIME
-+take out main functons from the component to the thunk function
--maybe take out smth else to the thunk function
+===NEWS_PAGE===
+'+'
+
+'-'
+  -review all generateNews function to optimize work...
+  -with low chance there are problem with indefined news...
+
+===MENU_PAGE===
+'+'
+
+'-'
+  -tune some styles to more comfortable UI
+
+===RENDER_TIME===
+'+'
+  +take out main functons from the component to the thunk function
+
+'-'
+  -maybe take out smth else to the thunk function

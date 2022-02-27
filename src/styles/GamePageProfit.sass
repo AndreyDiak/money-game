@@ -12,6 +12,13 @@
     z-index: 0
     &::after
       background: rgba(0, 0, 0, 0.6) !important
+    &Danger
+      grid-area: danger
+      margin-bottom: 10px
+      text-align: center
+      button
+        font-weight: 900
+        color: #b71c1c
     &Margin
       padding: 15px
       display: flex
@@ -78,7 +85,7 @@
 
     &Menu
       grid-area: menu
-      margin-bottom: 30px
+      margin-bottom: 10px
       display: flex
       justify-content: center
       column-gap: 15px
@@ -104,7 +111,7 @@
       .container
         display: grid
         grid-template-columns: 1fr 1fr
-        grid-template-areas: 'menu menu' 'myStocks stocks'
+        grid-template-areas: 'menu menu' 'danger danger' 'myStocks stocks'
       &__Me
         grid-area: myStocks
         padding: 15px
@@ -135,7 +142,7 @@
           position: relative
           padding: 10px
           display: flex
-          width: 70%
+          width: 80%
           flex-direction: column
           background: rgba(0,0,0,0.2)
           border-radius: 5px
@@ -186,7 +193,7 @@
     &Stocks
       &__Offer
         &Block
-          width: 80%
+          width: 90%
     &Margin
       &__block
         max-width: 95%

@@ -77,8 +77,10 @@ export const GamePage: FC = () => {
   const [activeStock, setActiveStock] = useState(null as null | stockType)
   //
   const [activeBroker, setActiveBroker] = useState({} as brokerType)
+  //
   const [isMarginShown, setIsMarginShown] = useState(false)
-
+  //
+  const [isMarginPayBackShown, setIsMarginPayBackShown] = useState(false)
   // проверка на конец игры . . .
   const [isEndOfGame, setIsEndOfGame] = useState(false)
   // показать окно при конце игры
@@ -209,8 +211,10 @@ export const GamePage: FC = () => {
         isMarketOpen={isMarketOpen}
         activeBroker={activeBroker}
         isMarginShown={isMarginShown}
+        isMarginPayBackShown={isMarginPayBackShown}
         setIsMarginShown={setIsMarginShown}
         setActiveStock={setActiveStock}
+        setIsMarginPayBackShown={setIsMarginPayBackShown}
       />
       <div style={screenWidth > 768
         ? {height: 'calc(100vh - 78px)'}
@@ -238,8 +242,10 @@ export const GamePage: FC = () => {
               setActiveStock={setActiveStock}
               setIsStockToSell={setIsStockToSell}
               setActiveBroker={setActiveBroker}
-              setIsMarginShown={setIsMarginShown}
-            />}/>
+              setIsMarginShown={setIsMarginShown} 
+              setIsMarginPayBackShown={setIsMarginPayBackShown}            
+            />}
+          />
           <Route path='/game/bank' render={() => <BankPage />}/>
           {/*<Redirect exact from='/game/market' to='/game/stocks />*/}
           <Redirect exact from='/game' to='/game/profile' />
