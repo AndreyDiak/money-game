@@ -5,7 +5,6 @@ import { Line } from "react-chartjs-2"
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from "../../../../redux/game-reducer"
 import { getWalletSelector } from "../../../../redux/game-selector"
-import { updateIncome } from "../../../../redux/profile-reducer"
 import { settingsActions } from "../../../../redux/settings-reducer"
 import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector"
 import { addMarginToPortfolioThunk, addStocksToPortfolioThunk, brokerType, stocksActions, stockType, updateBrokerStocksCountThunk } from "../../../../redux/stocks-reducer"
@@ -15,10 +14,8 @@ import { AppStateType } from "../../../../redux/store"
 type MarginPopupType = {
   broker: brokerType
   setIsMarginShown: (isMarginShown: boolean) => void
-  setIsHistotyShown: (isHistoryShown: boolean) => void
-  setActiveStock: (activeStock: stockType) => void
 }
-export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setIsHistotyShown, setActiveStock}) => {
+export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown}) => {
 
   const dispatch = useDispatch()
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
@@ -31,18 +28,13 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
   const maxLeverAge = Math.floor( summary / broker.leverAgeMax )
   const minLeverAge = Math.floor( summary / broker.leverAgeMin )
 
-  // const [creditAmount, setCreditAmount] = useState(summary * (1 / broker.leverAgeMin))
-
-  // const [creditAmountCommission, setCreditAmountCommission] = useState( Math.floor(creditAmount * (1 + broker.commission)) )
-
   const [activeMarginStock, setActiveMarginStock] = useState({...stocks.filter(s => s.title === broker.stocks[0].title)[0], count: broker.stocks[0].count})
-
+  // срок кредитования
+  const [activeMarginTime, setActiveMarginTime] = useState(broker.timeMin)
   // общее количество акций на покупку...
   const [stocksToBuyCount, setStocksToBuyCount] = useState(1)
   // общая цена акций на покупку...
   const [stocksToBuyPrice, setStocksToBuyPrice] = useState(activeMarginStock.price[activeMarginStock.price.length - 1])
-  // срок кредитования
-  const [activeMarginTime, setActiveMarginTime] = useState(broker.timeMin)
   // переменная для проверки возможности покупки
   const [ableToBuy, setAbleToBuy] = useState(
     stocksToBuyPrice > minLeverAge && 
@@ -65,10 +57,10 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
     setActiveMarginStock({...stocks.filter(s => s.title === stock.title)[0], count: stock.count})
   }
 
-  const buyMarginStock = () => {
+  const buyMarginStock = (type: 'short' | 'long') => {
     dispatch(addStocksToPortfolioThunk(activeMarginStock, stocksToBuyCount))
     dispatch(updateBrokerStocksCountThunk(broker, stocksToBuyCount, activeMarginStock.title))
-    dispatch(addMarginToPortfolioThunk(activeMarginStock, broker ,stocksToBuyCount, activeMarginTime))
+    dispatch(addMarginToPortfolioThunk(activeMarginStock, broker, stocksToBuyCount, activeMarginTime, type))
     dispatch(actions.setWallet(wallet - commission))
     setStocksToBuyCount(0)
     setStocksToBuyPrice(0)
@@ -76,8 +68,6 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
 
     onCloseClick()
   }
-
-
 
   useEffect(() => {
     setAbleToBuy(
@@ -151,7 +141,7 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
                 <div className="marginPopupBlock__ResultPrice">
                   Размер маржи: 
                   <span className="marginPopupBlock__ResultMin">
-                    <b>{' '}${minLeverAge}</b> 
+                    <b>{' '}${minLeverAge} </b> 
                   </span>
                   - 
                   <span className="marginPopupBlock__ResultMax">
@@ -217,6 +207,13 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown, setI
                   <h2>Плата за перенос</h2>
                   <p>Если вы <b>не успели</b> выплатить брокеру весь размер долга к концу сессии то вы будете платить <b>ежедневную</b> плату за перенос</p>
                 </div>
+                <div>
+                  <h2>Торговля в шорт / лонг</h2>
+                  <ul>
+                    <li>ЛОНГ -{">"} Ждете <b>повышение</b> цен на акции и продаете их, выручка ваша!</li>
+                    <li>ШОРТ -{">"} Продаете акции, после чего ждете их <b>снижения</b> цены на рынке. После чего <b>покупаете</b> их по более мальнькой цене и возвращаете брокеру</li>
+                  </ul>
+                </div>
                 <hr />
                 <div>
                   <Button onClick={onButtonClick}>
@@ -252,7 +249,7 @@ export const MarginPopupMenu: FC<MarginPopupMenuType> = ({
 
   return (
     <>
-      <div className="marginPopupBlock__Menu">
+      <div className="marginPopupBlock__Menu">  
         <div className="marginPopupBlock__MenuInfo">
           <div>
           <div className="marginPopupBlock__MenuInfo__Title">
@@ -265,7 +262,7 @@ export const MarginPopupMenu: FC<MarginPopupMenuType> = ({
             value={stocksToBuyCount} 
             onChange={(value) => {
               setStocksToBuyCount(value)
-              setStocksToBuyPrice(value * stock.price[stock.price.length - 1])
+              setStocksToBuyPrice(Math.floor(value * stock.price[stock.price.length - 1]))
             }}
           />
           <button onClick={() => setStocksCount(1)}> min </button>
@@ -289,11 +286,11 @@ export const MarginPopupMenu: FC<MarginPopupMenuType> = ({
             (срок для закрытия позиции)
           </i>
         </small>
+        </div>
       </div>
-      </div>
-      
-      <div>
-        <Button disabled={!ableToBuy} onClick={buyMarginStock}>Открыть позицию</Button>
+      <div className="marginPopupBlock__MenuButtons">
+        <Button disabled={!ableToBuy} onClick={() => buyMarginStock('short')}>Открыть ШОРТ</Button>
+        <Button disabled={!ableToBuy} onClick={() => buyMarginStock('long')}>Открыть ЛОНГ</Button>
       </div>
     </div>
     
@@ -398,7 +395,7 @@ type MarginPopupMenuType = {
   setStocksToBuyCount: (count: number) => void
   setActiveMarginTime: (time: number) => void
   setStocksToBuyPrice: (price: number) => void
-  buyMarginStock: () => void
+  buyMarginStock: (type: 'short' | 'long') => void
   
 }
 

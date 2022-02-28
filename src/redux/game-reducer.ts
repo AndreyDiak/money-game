@@ -60,7 +60,7 @@ let initialState = {
 
 export type InitialGameStateType = typeof initialState
 
-export const gameReducer = (state = initialState, action: ActionsType): InitialGameStateType => {
+export const gameReducer = (state = initialState, action: GameActionsType): InitialGameStateType => {
   switch (action.type) {
     // обновляем счётчик дней
     case SET_DAY:
@@ -199,8 +199,8 @@ export const actions = {
   setNewGame: (day: number, dayInMonth: number, month: number, wallet: number, victoryBalance: number) => ({type: SET_NEW_GAME, day, dayInMonth, month, wallet, victoryBalance} as const)
 }
 
-type ActionsType = InferActionsType<typeof actions>
-type ActionThunkType = ThunkAction<any, AppStateType, unknown, ActionsType | SpendsActionType | RealtyActionsType | ProfileActionsType | ActionType>
+export type GameActionsType = InferActionsType<typeof actions>
+type ActionThunkType = ThunkAction<any, AppStateType, unknown, GameActionsType | SpendsActionType | RealtyActionsType | ProfileActionsType | ActionType>
 
 export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
   let income = getState().profilePage.income

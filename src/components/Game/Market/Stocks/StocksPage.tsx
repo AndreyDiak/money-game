@@ -1,13 +1,14 @@
-import { Button } from "antd";
+import { Button, Select } from "antd";
 import React, { FC, useState } from "react";
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { settingsActions } from "../../../../redux/settings-reducer";
 import { brokerType } from "../../../../redux/stocks-reducer";
 import { AppStateType } from "../../../../redux/store";
 import { Bonds } from "../Bonds/Bonds";
 import { Margin } from "../Margin/Margin";
 import { MyPortfolio } from "./MyPortfolio";
 import { Stocks } from "./Stocks";
-
+const {Option} = Select
 export type RenderPlayerStocksType = {
   setIsHistoryShown: any
   setActiveStock: any
@@ -22,7 +23,8 @@ type MarketType = 'portfolio' | 'stocks' | 'bonds' | 'margin'
 export const StocksPage: FC<RenderPlayerStocksType> = ({
   setIsStockToSell, setMyActiveStock, setActiveStock, 
   setIsHistoryShown, setActiveBroker, setIsMarginShown, setIsMarginPayBackShown}) => {
-
+  
+  const dispatch = useDispatch()
   const [marketActiveFilter, setMarketActiveFilter] = useState(1)
   const margin = useSelector((state: AppStateType) => state.stocksPage.margin)
   // разрешение экрана...
@@ -35,6 +37,7 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
   
   const onMarginClick = () => {
+    dispatch(settingsActions.setTimeSpeed(0))
     setIsMarginPayBackShown(true)
   }
 
@@ -44,22 +47,30 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({
         <div className="gameProfitStocks">
             <div className="container">
               <div className="gameProfitMenu">
-                {filters.map((filter, index) => {
-                  return (
-                    <>
-                      {screenWidth < 768
-                        ?
-                        <div className="gameProfitMenu__item">
-                          <Button onClick={() => setMarketActiveFilter(index)}>{filter.name}</Button>
-                        </div>
-                        : index !== 0 &&
-                        <div className="gameProfitMenu__item">
-                          <Button onClick={() => setMarketActiveFilter(index)}>{filter.name}</Button>
-                        </div>
-                      }
-                    </>
-                  )
-                })}
+                {
+                  screenWidth > 768 &&
+                  <>
+                    {filters.map((filter, index) => {
+                      return (
+                        <>
+                          {index !== 0 &&
+                            <div className="gameProfitMenu__item">
+                              <Button onClick={() => setMarketActiveFilter(index)}>{filter.name}</Button>
+                            </div>
+                          }
+                        </>
+                      )
+                    })}
+                  </>
+                }
+                {screenWidth < 768 &&
+                <Select defaultValue={0} onChange={(value) => setMarketActiveFilter(value)}>
+                  {filters.map((f,i) => {
+                    return <Option value={i}>{f.name}</Option>
+                  })}
+                </Select>
+                }
+                
               </div>
               <div className="gameProfitDanger">
                 {margin.length > 0 && 

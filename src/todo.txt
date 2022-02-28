@@ -8,6 +8,7 @@
   }
 
 '-'
+  -добавить нормальную продажу акций из портфеля в thunk для повторного использования...
   -tune routing on market page againts stocks page
   -start to create processing function to add margin stocks to the portfolio and add margin agreements to the user profile
   -add subscription to the investor journal, that gives ability to see stocks and bonds risks... (?)

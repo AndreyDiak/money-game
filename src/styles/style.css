@@ -2491,6 +2491,16 @@ input:checked, input:active, input:focus {
   align-items: center;
   justify-content: space-between;
 }
+.chartPopupBlock__MenuButtons, .sellPopupBlock__MenuButtons, .marginPopupBlock__MenuButtons {
+  display: flex;
+  row-gap: 5px;
+  column-gap: 5px;
+  flex-direction: column;
+}
+.chartPopupBlock__MenuButtons button, .sellPopupBlock__MenuButtons button, .marginPopupBlock__MenuButtons button {
+  font-weight: 500;
+  outline: none;
+}
 .chartPopupBlock__MenuTime, .sellPopupBlock__MenuTime, .marginPopupBlock__MenuTime {
   max-width: 200px;
   display: flex;

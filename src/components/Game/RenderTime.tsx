@@ -5,7 +5,7 @@ import { useHttp } from "../../hooks/http.hook";
 import { actions, generateNewsThunk, updateMonthThunk } from "../../redux/game-reducer";
 import { getDayInMonthSelector, getDaySelector, getMonthSelector, getMonthsSelector } from "../../redux/game-selector";
 import { weekSpendThunk } from "../../redux/spends-reducer";
-import { marginPayOutThunk, stocksActions } from "../../redux/stocks-reducer";
+import { marginPayOutThunk, payMarginPenaltyThunk, stocksActions } from "../../redux/stocks-reducer";
 import { getStocksSelector } from "../../redux/stocks-selector";
 import { AppStateType } from "../../redux/store";
 
@@ -49,7 +49,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   // обновляем счётчик недель . . .
   useEffect(() => {
     dispatch(actions.setDayInMonth(dayInMonth + 1))
-    dispatch(marginPayOutThunk())
+    dispatch(payMarginPenaltyThunk())
     // еженедельные покупки . . .
     if (day % 7 === 0 && day !== 0) {
       // создаем новости каждые две недели

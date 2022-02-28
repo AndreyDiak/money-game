@@ -1,5 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { getRandomNumber } from './../utils/getRandomNumber';
+import { actions, GameActionsType } from './game-reducer';
 import { updateIncome } from './profile-reducer';
 import { AppStateType, InferActionsType } from "./store";
 
@@ -25,7 +26,10 @@ const INDEX_STOCKS_SUMMARY_PRICE = 'gamePage/INDEX_STOCKS_SUMMARY_PRICE'
 
 const SET_BONDS = 'gamePage/SET_BONDS' 
 const INDEXING_BONDS = 'gamePage/INDEXING_BONDS'
+
 const SET_MARGIN = 'gamePage/SET_MARGIN'
+const RESET_MARGIN = 'gamePage/RESET_MARGIN'
+
 const DISCREASE_MARGIN_TIME = 'gamePage/DISCREASE_MARGIN_TIME'
 const ADD_MARGIN_PENALTY = 'gamePage/ADD_MARGIN_PENALTY'
 const MARGIN_PAYBACK = 'gamePage/MARGIN_PAYBACK'
@@ -78,10 +82,10 @@ let initialState = {
   brokers: [] as brokerType[],
   // плата за перенос...
   penaltyPay: [
-    {summary: 10000, penalty: 150},
-    {summary: 25000, penalty: 250},
-    {summary: 50000, penalty: 450},
-    {summary: 100000, penalty: 800},
+    {summary: 10000, penalty: 50},
+    {summary: 25000, penalty: 75},
+    {summary: 50000, penalty: 120},
+    {summary: 100000, penalty: 200},
   ],
   //
   margin: [] as MarginType[]
@@ -609,8 +613,14 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
     case SET_MARGIN:
       return {
         ...state,
-        margin: [...state.margin, action.activeMargin]
+        margin: [action.activeMargin]
       }  
+    
+    case RESET_MARGIN:
+      return {
+        ...state,
+        margin: []
+      }
 
     case ADD_MARGIN_PENALTY:
       return {
@@ -664,6 +674,7 @@ export const stocksActions = {
   setBonds: () => ({type: SET_BONDS} as const),
   // добавляем обязанность по марже...
   setMargin: (activeMargin: MarginType) => ({type: SET_MARGIN, activeMargin} as const),
+  resetMargin: () => ({type: RESET_MARGIN} as const),
   addMarginPenalty: () => ({type: ADD_MARGIN_PENALTY} as const),
   dicreseMarginTime: () => ({type: DISCREASE_MARGIN_TIME} as const),
   // обновляем цену на облигацию...
@@ -721,7 +732,7 @@ export const updateBrokerStocksCountThunk = (broker: brokerType, count: number, 
   })
   dispatch(stocksActions.updateBrokerStocksCount(brokersCopy))
 }
-export const addMarginToPortfolioThunk = (stock: stockType, broker: brokerType , count: number, time: number): ActionThunkType => (dispatch, getState) => {
+export const addMarginToPortfolioThunk = (stock: stockType, broker: brokerType , count: number, time: number, type: 'short' | 'long'): ActionThunkType => (dispatch, getState) => {
   let currentDay = getState().gamePage.daysInMonth // day, when player take margin
   let currentMount = getState().gamePage.month // month index, when player take margin
 
@@ -731,9 +742,10 @@ export const addMarginToPortfolioThunk = (stock: stockType, broker: brokerType ,
   let penalty = penaltyPay.reverse().reduce((total, p) => {
     if (price < p.summary) total = p.penalty
     return total
-  }, 0.006 * price) // if price > 100000$ we will pay 0.6% of this price...
+  }, 0.0025 * price) // if price > 100000$ we will pay 0.25% of this price...
 
   let newMargin: MarginType = {
+    type: type, // short / long margin
     expiresIn: time, // time to giveBack...
     commision: broker.commission, // payOut commision...
     brokerName: broker.name, // broker name...
@@ -753,7 +765,7 @@ export const addMarginToPortfolioThunk = (stock: stockType, broker: brokerType ,
   dispatch(stocksActions.setMargin(newMargin))
 
 }
-export const marginPayOutThunk = (): ActionThunkType => (dispatch, getState) => {
+export const payMarginPenaltyThunk = (): ActionThunkType => (dispatch, getState) => {
   if (getState().stocksPage.margin.length > 0) {
     let marginCopy = getState().stocksPage.margin[0]
 
@@ -769,6 +781,40 @@ export const marginPayOutThunk = (): ActionThunkType => (dispatch, getState) => 
       }
     }
   }
+}
+export const marginPayOutThunk = (count: number): ActionThunkType => (dispatch, getState) => {
+  let marginCopy = {...getState().stocksPage.margin[0]}
+  let myStocksCopy = [ ...getState().stocksPage.myStocks ]
+  let price = myStocksCopy.filter(s => s.title === marginCopy.stockTitle)[0].price
+
+  marginCopy.stockCount -= count
+  myStocksCopy.forEach((s,i) => {
+    if (s.title === marginCopy.stockTitle) {
+      myStocksCopy[i].count -= count
+
+      if (myStocksCopy[i].count === 0)
+        myStocksCopy.splice(i, 1)
+    }
+      
+    
+  })
+  dispatch(stocksActions.updateMyStocks(myStocksCopy))
+  // если мы торгуем в лонг то фиксируем разницу в цене и записываем ее на счет...
+  if (marginCopy.type === 'long')
+    dispatch(actions.updateWallet(price * count - marginCopy.stockPrice * count))
+  // если мы закрываем все акции то платим коммисию и обнуляем маржу...
+  if (marginCopy.stockCount === 0) {
+    // снимаем плату за покрытие позиции
+    dispatch(actions.updateWallet(-marginCopy.currentPenalty))
+    // обнуляем маржу...      
+    dispatch(stocksActions.resetMargin())
+  } else {
+    // если выплачеваем часть то уменьшаем кол-во акций по марже...
+    dispatch(stocksActions.setMargin(marginCopy))
+  }
+   
+
+
 }
 export type stockType = {
   title: string
@@ -818,6 +864,7 @@ export type marginStockType = {
 export type filterType = 'price' | 'condition' | 'title' | 'count' | 'none' | 'risk' | 'dividends'
 
 type MarginType = {
+  type: 'short' | 'long' // the type of margin
   expiresIn: number
   commision: number
   brokerName: string
@@ -833,4 +880,4 @@ type MarginType = {
 }
 
 export type ActionType = InferActionsType<typeof stocksActions>
-type ActionThunkType = ThunkAction<any, AppStateType, unknown, ActionType>
+type ActionThunkType = ThunkAction<any, AppStateType, unknown, ActionType | GameActionsType>

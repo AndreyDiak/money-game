@@ -217,8 +217,8 @@ export const GamePage: FC = () => {
         setIsMarginPayBackShown={setIsMarginPayBackShown}
       />
       <div style={screenWidth > 768
-        ? {height: 'calc(100vh - 78px)'}
-        : {height: 'calc(100vh - 50px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}
+        ? {height: 'calc(100vh - 78px)', overflow: 'hidden'}
+        : {height: 'calc(100vh - 50px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden'}
       }>
         <Switch>
           <Route path='/game/news' render={() =>

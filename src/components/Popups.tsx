@@ -42,14 +42,7 @@ export const Popups:FC<PopupsType> = (props) => {
     <>
       {props.isStockToSell && <SellPopup stock={props.myStock} setIsStockToSell={props.setIsStockToSell} activeStock={props.activeStock}/>}
       {props.isHistoryShown && <Chart setIsHistoryShown={props.setIsHistoryShown} stock={props.stock}/>}
-      {props.isMarginShown && 
-      <MarginPopup 
-        setIsMarginShown={props.setIsMarginShown} 
-        broker={props.activeBroker} 
-        setIsHistotyShown={props.setIsHistoryShown} 
-        setActiveStock={props.setActiveStock}
-        /> 
-      }
+      {props.isMarginShown && <MarginPopup setIsMarginShown={props.setIsMarginShown} broker={props.activeBroker} /> }
       {props.isMarginPayBackShown && 
       <MarginPayBackPopup 
         setIsMarginPayBackShown={props.setIsMarginPayBackShown}
