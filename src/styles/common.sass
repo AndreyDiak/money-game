@@ -44,6 +44,11 @@
     width: 700px
     background-color: #f1f1f1
     z-index: 3
+    &__Alert
+      &Title
+        display: flex
+        align-items: center
+        column-gap: 10px
     &__Result
       font-size: 16px
       font-family: 'Fira Mono', sans-serif
@@ -100,7 +105,6 @@
           outline: none
 
       &Time
-        max-width: 200px
         display: flex
         flex-direction: column
         column-gap: 10px
@@ -115,7 +119,7 @@
           font-weight: 700
           font-size: 16px
           background: rgb(67, 144, 147)
-          min-width: 240px
+          //min-width: 240px
           color: #fff
         &__Input
           margin-top: 10px
@@ -260,14 +264,6 @@
 .ant-slider-step
   height: 15px
 
-//.ant-slider-handle
-//  top: 1px
-//  width: 30px
-//  height: 30px
-//  background: url("../img/gold.png") center no-repeat
-//  background-size: cover
-//  border: none
-
 .ant-tabs-tab, .ant-badge
   font-family: 'Fira Mono', sans-serif
   font-size: 20px
@@ -282,16 +278,46 @@
     width: 75%
 
 @media screen and (max-width: 1024px)
+  .marginPopup
+    &Block
+      width: 740px
+      &__Menu
+        flex-direction: column
+        &Buttons
+          justify-content: center
+          flex-direction: row
+        &Info
+          &__Input
+            width: 60px
+      &__Active
+        grid-template-areas: 'portfolio portfolio' 'stocks stocks' 'chart chart'
+        &Header
+          display: none
+        &List
+          &__stocks
+            flex-direction: row
+            justify-content: center
+            flex-wrap: wrap
   .container
     width: 80%
 
 @media screen and (max-width: 768px)
   .container
     width: 85%
-  .chartPopup, .sellPopup
+  .chartPopup, .sellPopup, .marginPopup
     &Block
       padding: 10px 20px
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      //overflow: scroll
       width: 90%
+      &__Result
+        font-size: 14px
+      &__Active
+        &Portfolio
+          font-size: 14px
       &__Title
         margin-bottom: 10px
         font-size: 22px
@@ -303,11 +329,15 @@
         padding-top: 10px
         flex-direction: column
         row-gap: 10px
+        &Info
+          flex-direction: column
+          row-gap: 10px
+
 
 @media screen and (max-width: 480px)
   .container
     width: 90%
-  .chartPopup, .sellPopup
+  .chartPopup, .sellPopup, .marginPopup
     &Block
       padding: 5px 10px
       width: 95%
@@ -328,5 +358,8 @@
         &Info
           text-align: center
           div
+            display: flex
+            align-items: center
+            column-gap: 5px
             button
               display: none

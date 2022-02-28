@@ -1,4 +1,4 @@
-import { CloseOutlined } from "@ant-design/icons"
+import { CaretDownOutlined, CaretUpOutlined, CloseOutlined } from "@ant-design/icons"
 import { Button, InputNumber, Slider } from "antd"
 import React, { FC, useEffect, useState } from "react"
 import { Line } from "react-chartjs-2"
@@ -168,52 +168,7 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown}) => 
                 <CloseOutlined onClick={onCloseClick} />
               </div>
               <div>
-                <div>
-                  <h2>Внимание</h2>
-                  <p>
-                    Маржинальная торговля связана с <b>большими</b> рисками для инвестора. 
-                    Поэтому рекомендуем пользоватся этим инстументом с <b>особой</b> осторожностью.
-                  </p>
-                </div>
-                <hr />
-                <div>
-                  <h2>Для чего мне нужна маржинальная торговля?</h2>
-                  <p>
-                    На вашем счету недостаточно средств но вы <b>уверены</b> в своем прогнозе
-                    относительно каких-либо акций и хотите на этом <b>заработать</b>
-                  </p>
-                </div>
-                <div>
-                  <h2>Какой алгоритм действий?</h2>
-                  <ol>
-                    <li>Вы выбираете брокера и <b>анализируете</b> список акций который он может вам предложить</li>
-                    <li>Выбираете подходящую акцию, которая по <b>вашему</b> мнению должна скоро изменится в цене</li>
-                    <li>Берете <b>кредит</b> у брокера и платите первоначальную <b>коммисию</b></li>
-                    <li>Когда подойдет конец торговой сессии вы должны <b>вернуть</b> брокеру все акции и заплатить <b>коммисию</b> при закрытие долга</li>
-                  </ol>
-                </div>
-                <div>
-                  <h2>Размер плеча</h2>
-                  <p>Размер плеча показывает <b>максимальное</b> отношение суммы кредита к сумме <b>вашего</b> портфеля</p>
-                </div>
-                <div>
-                  <h2>Комиссия</h2>
-                  <ol>
-                    <li>При первоначальное покупке акций у брокера вы платите первую коммиссию = <b>Коммисия</b> брокера * <b>общая</b> стоимость акций</li>
-                    <li>При закрытие позиции вы платите <b>фиксированную</b> ставку которая указывается в профиле брокера </li>
-                  </ol>
-                </div>
-                <div>
-                  <h2>Плата за перенос</h2>
-                  <p>Если вы <b>не успели</b> выплатить брокеру весь размер долга к концу сессии то вы будете платить <b>ежедневную</b> плату за перенос</p>
-                </div>
-                <div>
-                  <h2>Торговля в шорт / лонг</h2>
-                  <ul>
-                    <li>ЛОНГ -{">"} Ждете <b>повышение</b> цен на акции и продаете их, выручка ваша!</li>
-                    <li>ШОРТ -{">"} Продаете акции, после чего ждете их <b>снижения</b> цены на рынке. После чего <b>покупаете</b> их по более мальнькой цене и возвращаете брокеру</li>
-                  </ul>
-                </div>
+                <MarginAlert />
                 <hr />
                 <div>
                   <Button onClick={onButtonClick}>
@@ -228,10 +183,128 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown}) => 
     </>
   )
 }
+const MarginAlert = () => {
+  const [isAbleToShow, setIsAbleToShow] = useState(Array(6).fill(false))
+  const alerts = [
+    {
+      title: 
+      <>
+        <h2>Для чего мне нужна маржинальная торговля?</h2>
+      </>, 
+      text: 
+      <>
+        <p>
+          На вашем счету недостаточно средств но вы <b>уверены</b> в своем прогнозе
+          относительно каких-либо акций и хотите на этом <b>заработать</b>
+        </p>
+      </>
+    },
+    {
+      title: 
+      <>
+        <h2>Какой алгоритм действий</h2> 
+      </>, 
+      text: 
+      <>
+        <ol>
+          <li>Вы выбираете брокера и <b>анализируете</b> список акций который он может вам предложить</li>
+          <li>Выбираете подходящую акцию, которая по <b>вашему</b> мнению должна скоро изменится в цене</li>
+          <li>Берете <b>кредит</b> у брокера и платите первоначальную <b>коммисию</b></li>
+          <li>Когда подойдет конец торговой сессии вы должны <b>вернуть</b> брокеру все акции и заплатить <b>коммисию</b> при закрытие долга</li>
+        </ol>
+      </>
+    },
+    {
+      title: 
+      <>
+        <h2>Размер плеча</h2> 
+      </>, 
+      text: 
+      <>
+        <p>Размер плеча показывает <b>максимальное</b> отношение суммы кредита к сумме <b>вашего</b> портфеля</p>
+      </>
+    },
+    {
+      title: 
+      <>
+        <h2>Комиссия</h2>
+      </>, 
+      text: 
+      <>
+        <ol>
+          <li>При первоначальное покупке акций у брокера вы платите первую коммиссию = <b>Коммисия</b> брокера * <b>общая</b> стоимость акций</li>
+          <li>При закрытие позиции вы платите <b>фиксированную</b> ставку которая указывается в профиле брокера </li>
+        </ol>
+      </>
+    },
+    {
+      title: 
+      <>
+        <h2>Плата за перенос</h2>
+      </>, 
+      text: 
+      <>
+        <p>Если вы <b>не успели</b> выплатить брокеру весь размер долга к концу сессии то вы будете платить <b>ежедневную</b> плату за перенос</p>
+      </>
+    },
+    {
+      title: 
+      <>
+        <h2>Торговля в шорт / лонг</h2>
+      </>, 
+      text: 
+      <>
+        <ul>
+          <li>ЛОНГ -{">"} Ждете <b>повышение</b> цен на акции и продаете их, выручка ваша!</li>
+          <li>ШОРТ -{">"} Продаете акции, после чего ждете их <b>снижения</b> цены на рынке. После чего <b>покупаете</b> их по более мальнькой цене и возвращаете брокеру</li>
+        </ul>
+      </>
+    }
+  ]
+
+  const toggleAlertShow = (index: number) => {
+    console.log(index)
+    let isAbleToShowCopy = [...isAbleToShow]
+    isAbleToShowCopy.forEach((s, i) => {
+      if (i === index)
+      isAbleToShowCopy[index] = !isAbleToShowCopy[index]
+    })
+    setIsAbleToShow(isAbleToShowCopy)
+  }
+  console.log(isAbleToShow)
+  return (
+    <>
+      <div className="marginPopupBlock__Alert">
+        <div className="marginPopupBlock__AlertTitle">
+          <h2>Внимание</h2> 
+        </div>
+        <p>
+          Маржинальная торговля связана с <b>большими</b> рисками для инвестора. 
+          Поэтому рекомендуем пользоватся этим инстументом с <b>особой</b> осторожностью.
+        </p>
+      </div>
+      <hr />
+      {alerts.map((alert, index) => {
+        return (
+          <div className="marginPopupBlock__Alert">
+            <div className="marginPopupBlock__AlertTitle">
+              {alert.title}
+              <span onClick={() => toggleAlertShow(index)}>
+                {isAbleToShow[index] ? <CaretUpOutlined /> : <CaretDownOutlined />}
+              </span>
+            </div>
+            {isAbleToShow[index] && alert.text}
+          </div>
+        )
+      })}
+    </>
+  )
+}
 export const MarginPopupMenu: FC<MarginPopupMenuType> = ({
   stock, broker, stocksToBuyCount, activeMarginTime, ableToBuy,
   setStocksToBuyCount, setStocksToBuyPrice, setActiveMarginTime, buyMarginStock}) => {
-
+  
+  const [screenWidth, setScreenWidth] = useState(window.screen.width)
   const setStocksCount = (count: number) => {
     if(count <= 0) {
       setStocksToBuyCount(1)
@@ -280,7 +353,10 @@ export const MarginPopupMenu: FC<MarginPopupMenuType> = ({
         <div className="marginPopupBlock__MenuInfo__Title">
           Срок кредитования: {activeMarginTime} мес.
         </div>
-        <Slider min={broker.timeMin} value={activeMarginTime} max={broker.timeMax} onChange={(e) => {setActiveMarginTime(e)}}/>
+        {screenWidth > 481 
+          ? <Slider min={broker.timeMin} value={activeMarginTime} max={broker.timeMax} onChange={(e) => {setActiveMarginTime(e)}}/> 
+          : <InputNumber min={1} max={broker.timeMax} value={activeMarginTime} onChange={(e) => {setActiveMarginTime(e)}} />
+        }
         <small>
           <i>
             (срок для закрытия позиции)
@@ -297,7 +373,6 @@ export const MarginPopupMenu: FC<MarginPopupMenuType> = ({
     </>
   )
 }
-
 export const MarginPopupChart: FC<{stock: stockType}> = React.memo(({stock}) => {
 
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
@@ -323,7 +398,7 @@ export const MarginPopupChart: FC<{stock: stockType}> = React.memo(({stock}) => 
 
 
   const data = {
-    labels: Months,
+    labels: screenWidth > 768 ? Months : null,
     datasets: [
       {
         label: 'цена за шт.',

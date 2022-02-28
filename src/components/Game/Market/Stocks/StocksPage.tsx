@@ -63,7 +63,7 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({
                     })}
                   </>
                 }
-                {screenWidth < 768 &&
+                {screenWidth <= 768 &&
                 <Select defaultValue={0} onChange={(value) => setMarketActiveFilter(value)}>
                   {filters.map((f,i) => {
                     return <Option value={i}>{f.name}</Option>
@@ -78,6 +78,7 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({
               </div>
               {screenWidth > 768
                 ? <>
+                  {/* 2 columns */}
                     <MyPortfolio
                       setIsHistoryShown={setIsHistoryShown}
                       setActiveStock={setActiveStock}
@@ -104,6 +105,7 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({
                   }
                 </>
                 : <>
+                  {/* 1 column */}
                   {marketActiveFilter === 0 &&
                     <MyPortfolio
                       setIsHistoryShown={setIsHistoryShown}

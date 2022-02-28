@@ -269,8 +269,7 @@
 @media screen and (max-width: 768px)
   .gameProfit
     &Menu
-      flex-direction: column
-      align-items: center
+      justify-content: start
       &__item
         width: 100%
         button
@@ -279,4 +278,16 @@
       &__Me
         border-right: none
       .container
+        grid-template-columns: 1fr
+        grid-template-areas: 'menu' 'danger' 'myStocks' 'stocks'
+@media screen and (max-width: 480px)
+  .gameProfit
+    &Stocks
+      padding: 30px 5px 50px
+      overflow: scroll
+    .container
+      width: 100%
+      overflow: hidden
+    &Margin
+      &__block
         grid-template-columns: 1fr

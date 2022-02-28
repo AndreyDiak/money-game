@@ -1010,8 +1010,7 @@
 }
 @media screen and (max-width: 768px) {
   .gameProfitMenu {
-    flex-direction: column;
-    align-items: center;
+    justify-content: start;
   }
   .gameProfitMenu__item {
     width: 100%;
@@ -1023,6 +1022,20 @@
     border-right: none;
   }
   .gameProfitStocks .container {
+    grid-template-columns: 1fr;
+    grid-template-areas: "menu" "danger" "myStocks" "stocks";
+  }
+}
+@media screen and (max-width: 480px) {
+  .gameProfitStocks {
+    padding: 30px 5px 50px;
+    overflow: scroll;
+  }
+  .gameProfit .container {
+    width: 100%;
+    overflow: hidden;
+  }
+  .gameProfitMargin__block {
     grid-template-columns: 1fr;
   }
 }
@@ -2437,6 +2450,11 @@ input:checked, input:active, input:focus {
   background-color: #f1f1f1;
   z-index: 3;
 }
+.chartPopupBlock__AlertTitle, .sellPopupBlock__AlertTitle, .marginPopupBlock__AlertTitle {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
 .chartPopupBlock__Result, .sellPopupBlock__Result, .marginPopupBlock__Result {
   font-size: 16px;
   font-family: "Fira Mono", sans-serif;
@@ -2502,7 +2520,6 @@ input:checked, input:active, input:focus {
   outline: none;
 }
 .chartPopupBlock__MenuTime, .sellPopupBlock__MenuTime, .marginPopupBlock__MenuTime {
-  max-width: 200px;
   display: flex;
   flex-direction: column;
   column-gap: 10px;
@@ -2518,7 +2535,6 @@ input:checked, input:active, input:focus {
   font-weight: 700;
   font-size: 16px;
   background: #439093;
-  min-width: 240px;
   color: #fff;
 }
 .chartPopupBlock__MenuInfo__Input, .sellPopupBlock__MenuInfo__Input, .marginPopupBlock__MenuInfo__Input {
@@ -2708,6 +2724,31 @@ input:checked, input:active, input:focus {
   }
 }
 @media screen and (max-width: 1024px) {
+  .marginPopupBlock {
+    width: 740px;
+  }
+  .marginPopupBlock__Menu {
+    flex-direction: column;
+  }
+  .marginPopupBlock__MenuButtons {
+    justify-content: center;
+    flex-direction: row;
+  }
+  .marginPopupBlock__MenuInfo__Input {
+    width: 60px;
+  }
+  .marginPopupBlock__Active {
+    grid-template-areas: "portfolio portfolio" "stocks stocks" "chart chart";
+  }
+  .marginPopupBlock__ActiveHeader {
+    display: none;
+  }
+  .marginPopupBlock__ActiveList__stocks {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
   .container {
     width: 80%;
   }
@@ -2717,21 +2758,35 @@ input:checked, input:active, input:focus {
     width: 85%;
   }
 
-  .chartPopupBlock, .sellPopupBlock {
+  .chartPopupBlock, .sellPopupBlock, .marginPopupBlock {
     padding: 10px 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 90%;
   }
-  .chartPopupBlock__Title, .sellPopupBlock__Title {
+  .chartPopupBlock__Result, .sellPopupBlock__Result, .marginPopupBlock__Result {
+    font-size: 14px;
+  }
+  .chartPopupBlock__ActivePortfolio, .sellPopupBlock__ActivePortfolio, .marginPopupBlock__ActivePortfolio {
+    font-size: 14px;
+  }
+  .chartPopupBlock__Title, .sellPopupBlock__Title, .marginPopupBlock__Title {
     margin-bottom: 10px;
     font-size: 22px;
   }
-  .chartPopupBlock__Close, .sellPopupBlock__Close {
+  .chartPopupBlock__Close, .sellPopupBlock__Close, .marginPopupBlock__Close {
     font-size: 22px;
   }
-  .chartPopupBlock__Menu, .sellPopupBlock__Menu {
+  .chartPopupBlock__Menu, .sellPopupBlock__Menu, .marginPopupBlock__Menu {
     margin-top: 10px;
     padding-bottom: 10px;
     padding-top: 10px;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+  .chartPopupBlock__MenuInfo, .sellPopupBlock__MenuInfo, .marginPopupBlock__MenuInfo {
     flex-direction: column;
     row-gap: 10px;
   }
@@ -2741,31 +2796,36 @@ input:checked, input:active, input:focus {
     width: 90%;
   }
 
-  .chartPopupBlock, .sellPopupBlock {
+  .chartPopupBlock, .sellPopupBlock, .marginPopupBlock {
     padding: 5px 10px;
     width: 95%;
   }
-  .chartPopupBlock__Title, .sellPopupBlock__Title {
+  .chartPopupBlock__Title, .sellPopupBlock__Title, .marginPopupBlock__Title {
     margin-bottom: 5px;
     font-size: 16px;
   }
-  .chartPopupBlock__Close, .sellPopupBlock__Close {
+  .chartPopupBlock__Close, .sellPopupBlock__Close, .marginPopupBlock__Close {
     font-size: 16px;
   }
-  .chartPopupBlock__Menu, .sellPopupBlock__Menu {
+  .chartPopupBlock__Menu, .sellPopupBlock__Menu, .marginPopupBlock__Menu {
     margin-top: 5px;
     padding-bottom: 5px;
     padding-top: 5px;
     row-gap: 5px;
   }
-  .chartPopupBlock__Menu div button, .sellPopupBlock__Menu div button {
+  .chartPopupBlock__Menu div button, .sellPopupBlock__Menu div button, .marginPopupBlock__Menu div button {
     padding: 2px 10px;
     font-size: 14px;
   }
-  .chartPopupBlock__MenuInfo, .sellPopupBlock__MenuInfo {
+  .chartPopupBlock__MenuInfo, .sellPopupBlock__MenuInfo, .marginPopupBlock__MenuInfo {
     text-align: center;
   }
-  .chartPopupBlock__MenuInfo div button, .sellPopupBlock__MenuInfo div button {
+  .chartPopupBlock__MenuInfo div, .sellPopupBlock__MenuInfo div, .marginPopupBlock__MenuInfo div {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+  }
+  .chartPopupBlock__MenuInfo div button, .sellPopupBlock__MenuInfo div button, .marginPopupBlock__MenuInfo div button {
     display: none;
   }
 }
