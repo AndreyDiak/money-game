@@ -10,6 +10,7 @@ import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector";
 import { addStocksToPortfolioThunk, stocksActions, stockType } from "../../../../redux/stocks-reducer";
 import { getStocksSelector } from "../../../../redux/stocks-selector";
 import { AppStateType } from "../../../../redux/store";
+import { MarginPopupChart } from "../Margin/MarginPopup";
 
 export type RenderChartType = {
   setIsHistoryShown: SetStateAction<any>
@@ -19,85 +20,6 @@ export type RenderChartType = {
 export const Chart: FC<RenderChartType> = (props) => {
   const dispatch = useDispatch()
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
-  const [screenWidth, setScreenWidth] = useState(window.screen.width)
-
-  const Months = [
-    'Январь', '', '', '', 'Февраль', '', '', '', 'Март', '', '', '',
-    'Апрель', '', '', '', 'Май', '', '', '', 'Июнь', '', '', '',
-    'Июль', '', '', '', 'Август', '', '', '', 'Сентябрь', '', '', '',
-    'Октябрь', '', '', '', 'Ноябрь', '', '', '', 'Декабрь', '', '', '',
-  ]
-  let labels: any[] = []
-
-  // TODO настройка показа графика(неделя / месяц / год / все время)
-
-  props.stock.price.forEach((price, index) => {
-    let labelsCopy = [...labels]
-    if(props.stock.price.length > 48 && index < props.stock.price.length - 48) {
-      return
-    }
-
-    labelsCopy.push(price)
-    labels = labelsCopy
-  })
-
-
-  const data = {
-    labels: Months,
-    datasets: [
-      {
-        label: 'цена за шт.',
-        data: labels,
-        fill: false,
-        // сглаживание . . .
-        lineTension: 0.4,
-        // цвета . . .
-        // backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgba(255, 99, 132, 0.8)',
-        borderCapStyle: 'butt',
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBorderWidth: 2,
-        pointRadius: 0,
-        pointHitRadius: 10,
-      },
-    ],
-  };
-  const options = {
-    scales: {
-      x: {
-        grid: {
-          // @ts-ignore
-          display: true,
-        }
-      },
-      y: {
-        grid: {
-          // @ts-ignore
-          display: true,
-        }
-      },
-    },
-  };
-  const optionsSmall = {
-    scales: {
-      x: {
-        grid: {
-          // @ts-ignore
-          display: false,
-        }
-      },
-      y: {
-        grid: {
-          // @ts-ignore
-          display: false,
-        }
-      },
-    },
-  };
 
   const onChangeTime = (time: number) => {
     dispatch(settingsActions.setTimeSpeed(time))
@@ -118,7 +40,7 @@ export const Chart: FC<RenderChartType> = (props) => {
             <b>{props.stock.title}</b>
           </div>
           {/* рисуем график с ценой на акции . . . */}
-          <Line data={data} options={screenWidth > 768 ? options : optionsSmall} title='цена акций' contextMenu={'Привет'}  />
+          <MarginPopupChart stock={props.stock} />
           <RenderChartMenu stock={props.stock} setIsHistoryShown={props.setIsHistoryShown}/>
         </div>
       </div>
@@ -252,3 +174,4 @@ export const RenderChartMenu: FC<RenderChartMenuType> = (props) => {
     </>
   )
 }
+

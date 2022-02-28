@@ -110,6 +110,7 @@
         //width: 640px
         column-gap: 50px
         &__Title
+          margin-bottom: 5px
           padding: 10px
           font-weight: 700
           font-size: 16px
@@ -139,6 +140,58 @@
       font-size: 30px
       &:hover
         cursor: pointer
+    &__Payback
+      display: grid
+      grid-template-columns: 1fr 1fr
+      justify-content: center
+      row-gap: 20px
+      font-weight: 500
+      font-size: 18px
+      grid-template-areas: 'time stock' 'penalty stock' 'menu menu'
+      &__Time, &__Stock, &__Penalty
+        padding: 10px
+        max-width: 70%
+        text-align: center
+        //justify-self: center
+      &__Time
+        grid-area: time
+        color: #fff
+        background: #ead2ac
+        border: 2px solid rgba(115, 193, 103, 0.9)
+        &Expires
+          margin-bottom: 10px
+        &Expires, &Final
+          padding: 5px
+          display: flex
+          justify-content: space-between
+          background: rgba(115, 193, 103, 0.9)
+      &__Penalty
+        grid-area: penalty
+        color: #fff
+        background: #b3e5fc
+        border: 2px solid #439093
+        &Current
+          margin-bottom: 10px
+        &Current, &Final
+          padding: 5px
+          display: flex
+          justify-content: space-between
+          background: #439093
+      &__Stock
+        grid-area: stock
+        background: #ead2ac
+        border: 2px solid rgba(115, 193, 103, 0.9)
+        &Title
+          padding: 5px
+          margin-bottom: 15px
+          background: rgba(115, 193, 103, 0.9)
+          color: #fff
+        &Block
+          display: flex
+          justify-content: space-between
+          border-bottom: 1px solid black
+      &__Menu
+        grid-area: menu
 
   &::after
     content: ''

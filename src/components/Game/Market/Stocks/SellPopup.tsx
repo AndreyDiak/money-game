@@ -8,6 +8,8 @@ import { updateIncome } from "../../../../redux/profile-reducer";
 import { settingsActions } from "../../../../redux/settings-reducer";
 import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector";
 import { myStockType, stocksActions } from "../../../../redux/stocks-reducer";
+import { AppStateType } from "../../../../redux/store";
+import { MarginPopupChart } from "../Margin/MarginPopup";
 
 export type SellPopupType = {
   stock: myStockType
@@ -18,6 +20,7 @@ export const SellPopup: FC<SellPopupType> = (props) => {
   // количество акций на продажу . . .
   const [stocksToSellCount, setStocksToSellCount] = useState(1)
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
+  const stockForChart = useSelector((state: AppStateType) => state.stocksPage.stocks.filter(s => s.title === props.stock.title)[0])
   const wallet = useSelector(getWalletSelector)
   const dispatch = useDispatch()
 
@@ -63,6 +66,10 @@ export const SellPopup: FC<SellPopupType> = (props) => {
           <div className="sellPopupBlock__Title">
             <div>Вы хотите продать акции компании:</div>
             <b>{props.stock.title}</b>
+          </div>
+          <div>
+            {/*  @ts-ignore */}
+            <MarginPopupChart stock={stockForChart} />
           </div>
           <div className="sellPopupBlock__Menu">
             <div className="sellPopupBlock__MenuInfo">

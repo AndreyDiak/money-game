@@ -51,6 +51,7 @@ export const MarginPayBackPopup: FC<MarginPayBackPopupType> = ({
     dispatch(marginPayOutThunk(stocksToReturnCount))
     // если мы выплачиваем последнии акции то мы платим стоимость за выход из позиции...
   }
+  console.log(daysToPayBack)
 
   useEffect(() => {
     if(stock.length > 0)
@@ -67,25 +68,25 @@ export const MarginPayBackPopup: FC<MarginPayBackPopupType> = ({
           {margin.stockTitle} / {margin.type === 'short' ? 'шорт' : 'лонг'}
         </div>
         <div className="marginPopupBlock__Payback">
-          <div className="marginPopupBlock__Payback__Time">
-            <div className="marginPopupBlock__Payback__TimeExpires">
+          <div className="marginPopupBlock__Payback__Time" style={daysToPayBack === 0 ? {border: '2px solid #b71c1c'} : {}}>
+            <div className="marginPopupBlock__Payback__TimeExpires" style={daysToPayBack === 0 ? {background: '#b71c1c'} : {}}>
               {
                 daysToPayBack > 0 
-                ? <>
-                  До закрытия позиции:
-                  <b>
-                    {margin.expiresIn > 1 
-                      ? <> {margin.expiresIn} мес.</> 
-                      : <> {daysToPayBack} дней</>
-                    }
-                  </b>
-                  </> 
-                : <>
-                    <b> Необходимо закрыть позицию</b>
-                  </>
+                  ? <>
+                      До закрытия позиции:
+                     <b>
+                        {margin.expiresIn > 1 
+                          ? <> {margin.expiresIn} мес.</> 
+                          : <> {daysToPayBack} дней</>
+                        }
+                    </b>
+                    </> 
+                  : <>
+                      <b> Необходимо закрыть позицию</b>
+                    </>
               }
             </div>
-            <div className="marginPopupBlock__Payback__TimeFinal">
+            <div className="marginPopupBlock__Payback__TimeFinal" style={daysToPayBack === 0 ? {background: '#b71c1c'} : {}}>
               Закрыть до: 
               {' '}
               <b>
@@ -97,22 +98,29 @@ export const MarginPayBackPopup: FC<MarginPayBackPopupType> = ({
           </div>
           <div className="marginPopupBlock__Payback__Penalty">
             <div className="marginPopupBlock__Payback__PenaltyCurrent">
-              Стоимость закрытия позиции: <b>${margin.currentPenalty}</b>
+              Закрыть позицию: 
+              <b>${margin.currentPenalty}</b>
             </div>
             <div className="marginPopupBlock__Payback__PenaltyFinal">
-              Плата за перенос: <b>${margin.penaltyPay} / день</b>
+              Плата за перенос: 
+              <b>${margin.penaltyPay} / день</b>
             </div>
           </div>
           <div className="marginPopupBlock__Payback__Stock">
-            {
-              stock.length > 0 
-                ? 
-                  <>
-                    <div className="marginPopupBlock__Payback__StockTitle">{stock[0].title}</div>
-                    <div className="marginPopupBlock__Payback__StockCount">{stock[0].count}</div>
-                  </> 
-                : ''
-            }
+            <div className="marginPopupBlock__Payback__StockTitle">
+              Акций в портфеле
+            </div>
+            <div className="marginPopupBlock__Payback__StockBlock">
+              {
+                stock.length > 0 
+                  ? 
+                    <>
+                      <div className="marginPopupBlock__Payback__StockBlock__title">{stock[0].title}</div>
+                      <div className="marginPopupBlock__Payback__StockBlock__count">{stock[0].count} шт.</div>
+                    </> 
+                  : ''
+              }
+            </div>
           </div>
           <div className="marginPopupBlock__Payback__Menu">
             <MarginPayBackMenu 

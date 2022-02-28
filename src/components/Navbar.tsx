@@ -127,11 +127,14 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
             </NavLink>
           </div>
           <div className="navItem__link">
-            <Dropdown overlay={market}>
+            <NavLink to='/game/market/stocks' activeStyle={{color: '#29b6f6'}}>
+              Биржа
+            </NavLink>
+            {/* <Dropdown overlay={market}>
               <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                Рынок
+                
               </a>
-            </Dropdown>
+            </Dropdown> */}
           </div>
           <div className="navItem__link">
             <NavLink to='/game/bank' activeStyle={{color: '#29b6f6'}}>
