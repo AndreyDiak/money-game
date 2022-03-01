@@ -23,7 +23,7 @@ const SET_INSTRUCTION_COMPLETED = 'gamePage/SET_INSTRUCTION_COMPLETED'
 const SET_BROKERS = 'gamePage/SET_BROKERS'
 const UPDATE_BROKERS_STOCKS_COUNT = 'gamePage/UPDATE_BROKERS_STOCKS_COUNT'
 const INDEX_STOCKS_SUMMARY_PRICE = 'gamePage/INDEX_STOCKS_SUMMARY_PRICE'
-
+const BUY_INVESTOR_JOURNAL = 'gamePage/BUY_INVESTOR_JOURNAL'
 const SET_BONDS = 'gamePage/SET_BONDS' 
 const INDEXING_BONDS = 'gamePage/INDEXING_BONDS'
 
@@ -664,7 +664,7 @@ export const stocksActions = {
   
   filterBonds: (filter: filterType, value: string) => ({type: FILTER_BONDS, filter, value} as const),
   reverseFilteredBonds: () => ({type: REVERSE_FILTERED_BONDS} as const),
-
+  buyInvestorJournal: () => ({type: BUY_INVESTOR_JOURNAL} as const),
   setNewStocks: (newStocks: stockType[], newMyStocks: myStockType[]) => ({type: SET_NEW_STOCKS, newStocks, newMyStocks} as const),
   setInstructionCompleted: () => ({type: SET_INSTRUCTION_COMPLETED} as const),
   setBrokers: () => ({type: SET_BROKERS} as const),
