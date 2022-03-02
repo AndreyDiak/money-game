@@ -1,8 +1,8 @@
-import React, { FC, SetStateAction} from "react"
-import {ArrowDownOutlined, ArrowUpOutlined, FallOutlined, RiseOutlined } from "@ant-design/icons"
-import {myStockType, stockType } from "../../../../redux/stocks-reducer"
-import {settingsActions} from "../../../../redux/settings-reducer";
-import {useDispatch, useSelector} from "react-redux";
+import { ArrowDownOutlined, ArrowUpOutlined, FallOutlined, RiseOutlined } from "@ant-design/icons";
+import React, { FC, SetStateAction } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { settingsActions } from "../../../../redux/settings-reducer";
+import { myStockType, stockType } from "../../../../redux/stocks-reducer";
 import { AppStateType } from "../../../../redux/store";
 
 export type RenderStockType = {
@@ -39,9 +39,11 @@ export const StockCard: FC<RenderStockType> = (props) => {
           <div className="gameProfitStocks__OfferBlock__InfoPrice">
             {props.stock.price[props.stock.price.length - 1]}$
           </div>
+          {isSubcsriptionBought &&
           <div className="gameProfitStocks__OfferBlock__InfoRisk">
             риск: <b>{props.stock.risk}</b>
           </div>
+          }
             {props.stock.dividendsPercentage === 0
               ? ''
               : <div className="gameProfitStocks__OfferBlock__InfoDividends">

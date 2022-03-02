@@ -30,7 +30,7 @@ export const RenderPlayerWork = () => {
   //
   const newsIncome = useSelector((state: AppStateType) => state.newsPage.newsIncome)
   //
-  const children = useSelector((state: AppStateType) => state.profilePage.children)
+  const childrenCount = useSelector((state: AppStateType) => state.profilePage.childrenCount)
   // работа персонажа
   const daysWorked = useSelector((state: AppStateType) => state.worksPage.workedDays)
   //
@@ -85,11 +85,11 @@ export const RenderPlayerWork = () => {
                 </div>
                 <h3><b>Количество детей</b></h3>
                 <div className="gameWorkContent__profileChild">
-                  {children.map(child => {
+                  {Array(3).fill(1).map((c, index) => {
                     return (
                       <>
                         <div>
-                          <img src={child === 0 ? childrenFalse : childrenTrue} alt=""/>
+                          <img src={childrenCount - 1 >= index ? childrenTrue : childrenFalse} alt=""/>
                         </div>
                       </>
                     )

@@ -382,6 +382,7 @@ export const MarginPopupChart: FC<{stock: stockType}> = React.memo(({stock}) => 
     'Июль', '', '', '', 'Август', '', '', '', 'Сентябрь', '', '', '',
     'Октябрь', '', '', '', 'Ноябрь', '', '', '', 'Декабрь', '', '', '',
   ]
+  const MonthsSmall = Months.map(month => month.length > 4 ? month.toLowerCase().slice(0,3).concat('.') : month.toLowerCase())
   let labels: any[] = []
 
   // TODO настройка показа графика(неделя / месяц / год / все время)
@@ -398,7 +399,7 @@ export const MarginPopupChart: FC<{stock: stockType}> = React.memo(({stock}) => 
 
 
   const data = {
-    labels: screenWidth > 768 ? Months : null,
+    labels: screenWidth > 768 ? Months : MonthsSmall,
     datasets: [
       {
         label: 'цена за шт.',

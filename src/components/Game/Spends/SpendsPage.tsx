@@ -22,18 +22,18 @@ export const SpendsPage: FC = (props) => {
   //
   const tax = useSelector(getTaxSelector)
   //
-  const newsExpenses = useSelector((state: AppStateType) => state.newsPage.newsExpenses)
+  const childrenCount = useSelector((state: AppStateType) => state.profilePage.childrenCount)
   //
   const expenses = useSelector(getExpensesSelector) as expenseType[]
   //
   const profile = useSelector(getPersonSelector) as personType
   // расходы с новостей
-  let newsExpensesPrice = 0
-  if (newsExpenses.length !== 0) {
-    newsExpenses.forEach(expenses => {
-      newsExpensesPrice -= expenses.amount
-    })
-  }
+  // let newsExpensesPrice = 0
+  // if (newsExpenses.length !== 0) {
+  //   newsExpenses.forEach(expenses => {
+  //     newsExpensesPrice -= expenses.amount
+  //   })
+  // }
   let expensesSummary = 0
   expenses.map(expense => {
     expensesSummary += expense.remainPrice
@@ -78,7 +78,7 @@ export const SpendsPage: FC = (props) => {
                     Другое
                   </div>
                   <div className="gameWorkContent__blockPrice">
-                    ${newsExpensesPrice}
+                    ${childrenCount * 125}
                   </div>
                 </div>
               </div>

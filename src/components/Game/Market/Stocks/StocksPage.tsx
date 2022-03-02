@@ -1,6 +1,6 @@
 import { Button, Select } from "antd";
 import React, { FC, useState } from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { settingsActions } from "../../../../redux/settings-reducer";
 import { brokerType } from "../../../../redux/stocks-reducer";
 import { AppStateType } from "../../../../redux/store";
@@ -64,7 +64,7 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({
                   </>
                 }
                 {screenWidth <= 768 &&
-                <Select defaultValue={0} onChange={(value) => setMarketActiveFilter(value)}>
+                <Select defaultValue={1} onChange={(value) => setMarketActiveFilter(value)}>
                   {filters.map((f,i) => {
                     return <Option value={i}>{f.name}</Option>
                   })}

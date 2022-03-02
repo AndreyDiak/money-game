@@ -22,6 +22,20 @@
   background: rgba(0, 0, 0, 0.6) !important;
 }
 
+.gameProfitDanger {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: danger;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.gameProfitDanger button {
+  font-weight: 900;
+  color: #b71c1c;
+}
+
 .gameProfitMargin {
   padding: 15px;
   display: -webkit-box;
@@ -129,7 +143,7 @@
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
   grid-area: menu;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -173,11 +187,11 @@
   display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
-      grid-template-areas: 'menu menu' 'myStocks stocks';
+      grid-template-areas: 'menu menu' 'danger danger' 'myStocks stocks';
 }
 
 .gameProfitStocks__Me {
-  -ms-grid-row: 2;
+  -ms-grid-row: 3;
   -ms-grid-column: 1;
   grid-area: myStocks;
   padding: 15px;
@@ -216,7 +230,7 @@
 }
 
 .gameProfitStocks__Offer {
-  -ms-grid-row: 2;
+  -ms-grid-row: 3;
   -ms-grid-column: 2;
   grid-area: stocks;
   padding: 15px;
@@ -228,7 +242,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 70%;
+  width: 80%;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -302,7 +316,7 @@
 
 @media screen and (max-width: 1600px) {
   .gameProfitStocks__OfferBlock {
-    width: 80%;
+    width: 90%;
   }
   .gameProfitMargin__block {
     max-width: 95%;
@@ -388,13 +402,9 @@
 
 @media screen and (max-width: 768px) {
   .gameProfitMenu {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
   }
   .gameProfitMenu__item {
     width: 100%;
@@ -406,6 +416,22 @@
     border-right: none;
   }
   .gameProfitStocks .container {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: 'menu' 'danger' 'myStocks' 'stocks';
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .gameProfitStocks {
+    padding: 30px 5px 50px;
+    overflow: scroll;
+  }
+  .gameProfit .container {
+    width: 100%;
+    overflow: hidden;
+  }
+  .gameProfitMargin__block {
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
   }

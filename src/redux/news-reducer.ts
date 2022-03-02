@@ -11,8 +11,8 @@ const ABLE_TO_SHOW = 'newsPage/ABLE_TO_SHOW'
 const SET_TO_ARCHIVE = 'newsPage/SET_TO_ARCHIVE'
 const SET_ALL_TO_ARCHIVE = 'newsPage/SET_ALL_TO_ARCHIVE'
 const RESET_NEWS = 'newsPage/RESET_NEWS'
-const ADD_NEWS_INCOME = 'newsPage/ADD_NEWS_INCOME'
-const ADD_NEWS_EXPENSES = 'newsPage/ADD_NEWS_EXPENSES'
+// const ADD_NEWS_INCOME = 'newsPage/ADD_NEWS_INCOME'
+// const ADD_NEWS_EXPENSES = 'newsPage/ADD_NEWS_EXPENSES'
 const SET_NEWS = 'newsPage/SET_NEWS'
 
 let initialState = {
@@ -163,22 +163,22 @@ export const newsReducer = (state = initialState, action: NewsActionsType): Init
         ...state,
         news: [] as newsArrayType[]
       }
-    case ADD_NEWS_INCOME:
-      return {
-        ...state,
-        newsIncome: [
-          ...state.newsIncome,
-          action.news
-        ]
-      }
-    case ADD_NEWS_EXPENSES:
-      return {
-        ...state,
-        newsExpenses: [
-          ...state.newsExpenses,
-          action.news
-        ]
-      }
+    // case ADD_NEWS_INCOME:
+    //   return {
+    //     ...state,
+    //     newsIncome: [
+    //       ...state.newsIncome,
+    //       action.news
+    //     ]
+    //   }
+    // case ADD_NEWS_EXPENSES:
+    //   return {
+    //     ...state,
+    //     newsExpenses: [
+    //       ...state.newsExpenses,
+    //       action.news
+    //     ]
+    //   }
     case SET_NEWS:
       return {
         ...state,
@@ -199,8 +199,8 @@ export const newsActions = {
   setToArchive: (index: number) => ({type: SET_TO_ARCHIVE, index} as const),
   setAllToArchive: () => ({type: SET_ALL_TO_ARCHIVE} as const),
   resetNews: () => ({type: RESET_NEWS} as const),
-  addNewsIncome: (news: any) => ({type: ADD_NEWS_INCOME, news} as const),
-  addNewsExpenses: (news: any) => ({type: ADD_NEWS_EXPENSES, news} as const),
+  // addNewsIncome: (news: any) => ({type: ADD_NEWS_INCOME, news} as const),
+  // addNewsExpenses: (news: any) => ({type: ADD_NEWS_EXPENSES, news} as const),
   setNewNews: (news: newsArrayType[], newsIncome: newsExInType[], newsExpenses: newsExInType[]) => ({type: SET_NEWS, news, newsIncome, newsExpenses} as const)
 }
 

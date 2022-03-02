@@ -1,5 +1,5 @@
 import { DoubleRightOutlined, PauseOutlined, RightOutlined } from "@ant-design/icons/lib/icons";
-import { Avatar, Button, Dropdown, Menu, Progress } from 'antd';
+import { Avatar, Badge, Button, Dropdown, Menu, Progress } from 'antd';
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -29,6 +29,7 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
   //
   const stocks = useSelector(getStocksSelector)
   //
+  const news = useSelector((state: AppStateType) => state.newsPage.news)
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
   //
   const onChangeTime = (time: number) => {
@@ -111,19 +112,9 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
           </div>
         </div>
         <div className="navItem">
-          <div className="navItem__link" >
-            <NavLink to='/game/news' activeStyle={{color: '#29b6f6'}}>
-              Новости
-            </NavLink>
-          </div>
           <div className="navItem__link">
             <NavLink to='/game/spends' activeStyle={{color: '#29b6f6'}}>
               Расходы
-            </NavLink>
-          </div>
-          <div className="navItem__link">
-            <NavLink to='/game/profile' activeStyle={{color: '#29b6f6'}}>
-              Профиль
             </NavLink>
           </div>
           <div className="navItem__link">
@@ -137,9 +128,22 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
             </Dropdown> */}
           </div>
           <div className="navItem__link">
+            <NavLink to='/game/profile' activeStyle={{color: '#29b6f6'}}>
+              Профиль
+            </NavLink>
+          </div>
+          
+          <div className="navItem__link">
             <NavLink to='/game/bank' activeStyle={{color: '#29b6f6'}}>
               Банк
             </NavLink>
+          </div>
+          <div className="navItem__link" >
+            <Badge count={news.length} overflowCount={10}>
+              <NavLink to='/game/news' activeStyle={{color: '#29b6f6'}}>
+                Новости
+              </NavLink>
+            </Badge>
           </div>
         </div>
         <div className="navItem">

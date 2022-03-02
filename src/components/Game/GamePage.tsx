@@ -1,5 +1,5 @@
 import {FC, useEffect, useState} from "react";
-import {message, notification, Spin} from "antd";
+import {Badge, message, notification, Spin} from "antd";
 import {useDispatch, useSelector} from "react-redux"
 import {actions} from "../../redux/game-reducer";
 import {getDaySelector, getLoseBalance, getVictoryBalance, getWalletSelector} from "../../redux/game-selector";
@@ -51,15 +51,12 @@ export const GamePage: FC = () => {
   const victoryBalance = useSelector(getVictoryBalance)
   // баланс для поражения . . .
   const loseBalance = useSelector(getLoseBalance)
-
+  //
+  const news = useSelector((state: AppStateType) => state.newsPage.news)
   // массив с акциями . . .
   const stocks = useSelector(getStocksSelector)
   // массив купленных акций . . .
   const myStocks = useSelector(getMyStocksSelector)
-  // массив ваших бизнессов . . .
-  // const myBusinesses = useSelector(getMyBusinessesSelector)
-  //
-  // const myRealty = useSelector((state: AppStateType) => state.realtyPage.myRealty)
   // будущий массив с предложением по бизнессу . . .
   const businesses = useSelector(getBusinessesSelector)
   // количество новостей . . .
@@ -252,23 +249,9 @@ export const GamePage: FC = () => {
         </Switch>
         <div className="bottomNav">
           <div className="bottomNavItem">
-            <NavLink to='/game/news'>
-              <button className="">
-                <img src={menuIconNews} alt=""/>
-              </button>
-            </NavLink>
-          </div>
-          <div className="bottomNavItem">
             <NavLink to='/game/spends'>
               <button className="">
                 <img src={menuIconSpends} alt=""/>
-              </button>
-            </NavLink>
-          </div>
-          <div className="bottomNavItem">
-            <NavLink to='/game/profile'>
-              <button className="">
-                <img src={menuIconProfile} alt=""/>
               </button>
             </NavLink>
           </div>
@@ -278,11 +261,27 @@ export const GamePage: FC = () => {
             </button>
           </div>
           <div className="bottomNavItem">
+            <NavLink to='/game/profile'>
+              <button className="">
+                <img src={menuIconProfile} alt=""/>
+              </button>
+            </NavLink>
+          </div>
+          <div className="bottomNavItem">
             <NavLink to='/game/bank'>
               <button className="">
                 <img src={menuIconBank} alt=""/>
               </button>
             </NavLink>
+          </div>
+          <div className="bottomNavItem">
+            <Badge count={news.length} size={"small"} overflowCount={10}>
+              <NavLink to='/game/news'>
+                <button className="">
+                  <img src={menuIconNews} alt=""/>
+                </button>
+              </NavLink>
+            </Badge>
           </div>
         </div>
       </div>

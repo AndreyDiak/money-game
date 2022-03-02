@@ -8,6 +8,7 @@ import { settingsActions } from "../../../../redux/settings-reducer"
 import { Button, InputNumber } from "antd"
 import { marginPayOutThunk, stockType } from "../../../../redux/stocks-reducer"
 import { getWalletSelector } from "../../../../redux/game-selector"
+import { updateIncome } from "../../../../redux/profile-reducer"
 type MarginPayBackPopupType = {
   setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
 }
@@ -49,9 +50,9 @@ export const MarginPayBackPopup: FC<MarginPayBackPopupType> = ({
     if (stocksToReturnCount === margin.stockCount)
       onCloseClick()
     dispatch(marginPayOutThunk(stocksToReturnCount))
+    dispatch(updateIncome())
     // если мы выплачиваем последнии акции то мы платим стоимость за выход из позиции...
   }
-  console.log(daysToPayBack)
 
   useEffect(() => {
     if(stock.length > 0)

@@ -8,25 +8,37 @@
   }
   +start to create processing function to add margin stocks to the portfolio and add margin agreements to the user profile
   +add margin PayBack modal
+  +добавить нормальную продажу акций из портфеля в thunk для повторного использования...
+  +tune routing on market page againts stocks page
+
 '-'
-  -добавить нормальную продажу акций из портфеля в thunk для повторного использования...
-  -tune routing on market page againts stocks page
   -add subscription to the investor journal, that gives ability to see stocks and bonds risks... (?)
   
+===GAME_PAGE===
+  -take off huge function from component
+  -доделать модалку когда игрок проигрывает или выигрывает...
 
 ===NEWS_PAGE===
 '+'
-
+  +review all generateNews function to optimize work...
+  +with low chance there are problem with indefined news...
+  +вылетает ошибка 'Cannot read propirties of undefined' reading (titles)
 '-'
-  -review all generateNews function to optimize work...
-  -with low chance there are problem with indefined news...
-  -вылетает ошибка 'Cannot read propirties of undefined' reading (titles)
-
+  
 ===MENU_PAGE===
 '+'
 
 '-'
   -tune some styles to more comfortable UI
+  -поменять экран начала игры {
+    игрок может выбрать 3 режима длительности игры {
+      - короткая (только акции)
+      - средняя (недвижимость)
+      - долгая (бизнесс)
+    }
+    поменять расположение блоков 
+    замутить последующий адаптив...
+  }
 
 ===RENDER_TIME===
 '+'

@@ -296,8 +296,7 @@ let initialState = {
   startSalary: 0, // начальная зп
   tax: 0, // налог с зп
   income: 0, // доход персонажа
-  children: [0, 0, 0], // дети персонажа / 0 ребенка нет / 1 ребенок есть / максимум 3 ребенка
-  childrenCount: 0,
+  childrenCount: 0 // количество детей...
 }
 
 export type InitialProfileStateType = typeof initialState
@@ -378,18 +377,19 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
           salary: action.newSalary
         } as personType
       }
+
     case NEW_CHILD:
       return {
         ...state,
         childrenCount: state.childrenCount + 1
       }
+
     case SET_NEW_PROFILE:
       return {
         ...state,
         profile: action.profile,
         startSalary: action.startSalary,
         income: action.income,
-        children: action.children,
         childrenCount: action.childrenCount,
         tax: action.tax
       }

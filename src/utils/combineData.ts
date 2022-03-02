@@ -22,7 +22,6 @@ export const CombineData = () => {
     news: [] as newsArrayType[],
     startSalary: 0,
     income: 0,
-    children: [0, 0, 0],
     childrenCount: 0,
     day: 0,
     level: 0,
@@ -44,7 +43,6 @@ export const CombineData = () => {
   data.news = useSelector((state: AppStateType) => state.newsPage.news)
   data.startSalary = useSelector((state: AppStateType) => state.profilePage.startSalary)
   data.income = useSelector((state: AppStateType) => state.profilePage.income)
-  data.children = useSelector((state: AppStateType) => state.profilePage.children)
   data.childrenCount = useSelector((state: AppStateType) => state.profilePage.childrenCount)
   data.day = useSelector((state: AppStateType) => state.gamePage.day)
   data.level = 0 // не реализовано . . .
