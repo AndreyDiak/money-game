@@ -1,24 +1,38 @@
 .profile
   width: 100vw
   //height: 100vh
-  background: url("../img/characters/banner.jpg") center no-repeat
+  background: url("../img/banner-settings.jpg") center no-repeat
   background-size: cover
   display: grid
-  grid-template-columns: 1fr 2fr 1fr
-  grid-template-areas: 'preview persons menu'
+  grid-template-columns: 3fr 2fr
+  grid-template-areas: 'menu menu' 'preview settings'
   font-family: 'Fira Mono', sans-serif
   z-index: 10
   &Menu
-    height: 100vh
     background: rgba(0, 0, 0, 0.6)
     z-index: 10
     grid-area: menu
+    &Title
+      text-align: center
+    &List
+      text-align: center
+      //display: flex
+      //justify-content: center
+
+      &__item
+        &Img
+          background: transparent
+          outline: none
+          border: none
+        &s
+          display: flex
+          justify-content: center
     &__Stats
       //border-top: 2px solid #282c34
       background: #f4d4bd
       &Cash
         font-size: 18px
-        font-weight: 700
+      font-weight: 700
       &Title
         padding: 5px
         font-weight: 900
@@ -135,6 +149,8 @@
       img
         z-index: -1
         height: 100%
+  &Settings
+    grid-area: settings
 
 @media screen and (max-width: 1600px)
   .profile

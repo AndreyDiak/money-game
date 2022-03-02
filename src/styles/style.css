@@ -97,26 +97,40 @@
 }
 .profile {
   width: 100vw;
-  background: url("../img/characters/banner.jpg") center no-repeat;
+  background: url("../img/banner-settings.jpg") center no-repeat;
   background-size: cover;
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-areas: "preview persons menu";
+  grid-template-columns: 3fr 2fr;
+  grid-template-areas: "menu menu" "preview settings";
   font-family: "Fira Mono", sans-serif;
   z-index: 10;
 }
 .profileMenu {
-  height: 100vh;
   background: rgba(0, 0, 0, 0.6);
   z-index: 10;
   grid-area: menu;
 }
+.profileMenuTitle {
+  text-align: center;
+}
+.profileMenuList {
+  text-align: center;
+}
+.profileMenuList__itemImg {
+  background: transparent;
+  outline: none;
+  border: none;
+}
+.profileMenuList__items {
+  display: flex;
+  justify-content: center;
+}
 .profileMenu__Stats {
   background: #f4d4bd;
+  font-weight: 700;
 }
 .profileMenu__StatsCash {
   font-size: 18px;
-  font-weight: 700;
 }
 .profileMenu__StatsTitle {
   padding: 5px;
@@ -253,6 +267,9 @@
 .profilePreview__Img img {
   z-index: -1;
   height: 100%;
+}
+.profileSettings {
+  grid-area: settings;
 }
 
 @media screen and (max-width: 1600px) {
