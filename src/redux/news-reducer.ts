@@ -1,10 +1,10 @@
 import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
-import {actions} from "./game-reducer";
-import {stocksActions} from "./stocks-reducer";
+import {actions, GameActionsType} from "./game-reducer";
+import {stocksActions, StocksActionType} from "./stocks-reducer";
 import {businessActions} from "./business-reducer";
 import {getRandomNumber} from "../utils/getRandomNumber";
-import {profileActions, updateIncome} from "./profile-reducer";
+import {profileActions, ProfileActionsType, updateIncome} from "./profile-reducer";
 
 const ADD_NEWS = 'newsPage/ADD_NEWS'
 const ABLE_TO_SHOW = 'newsPage/ABLE_TO_SHOW'
@@ -13,7 +13,6 @@ const SET_ALL_TO_ARCHIVE = 'newsPage/SET_ALL_TO_ARCHIVE'
 const RESET_NEWS = 'newsPage/RESET_NEWS'
 const ADD_NEWS_INCOME = 'newsPage/ADD_NEWS_INCOME'
 const ADD_NEWS_EXPENSES = 'newsPage/ADD_NEWS_EXPENSES'
-const MAX_CHILDREN = 'newsPage/MAX_CHILDREN'
 const SET_NEWS = 'newsPage/SET_NEWS'
 
 let initialState = {
@@ -22,99 +21,84 @@ let initialState = {
   archive: [] as newsArrayType[],
   newsTypes: [
     {
-      type: 'stocksNews' as NewsTypes,
-      ableToShow: false,
-      variants: [
-        {
-          variantType: 'positive' as VariantType,
-          titles: [
-            'Компания получила приличное пожертвование, вам следует проследить за ней!',
-            'Квартальный отчет показал хорошие результаты, доход компании вырос, скоро будет рост акций тоже!',
-            'Идёт активный рост компании, это хорошо влияет на её акции',
-            'Компания заняла лидирующие позиции в своём сегменте рынка, думаю вам стоит присмотреться к ней!',
-            'Брокеры предсказывают рост доходов в следующем квартале, это может повлиять на акции',
-            'Компанию продали под крыло большего гиганта, новое начальство знает, что надо делать!',
-          ]
-        }, {
-          variantType: 'negative' as VariantType,
-          titles: [
-            'Компания терпит убыдки! Скоро акции полетят вниз!',
-            'Квартальный отчет показал неутешительные результаты, доход компании упал!',
-            'В связи с последними новостями, у компании череда неудач, будьте внимательны',
-            'Компания потеряла лидирующие места в гонке за господством на рынке, это ударит по акциям',
-            'Брокеры предсказывают падение доходов в следующем квартале, следите внимательно',
-            'Компания расспадается и возможно уйдёт с рынка, следите за ней внимательнее',
-          ]
-        }, {
-        variantType: 'neutral' as VariantType,
-          titles: [
-            'На рынке акций всё спокойно! Можете не волноваться',
-            'Компании S&P 500 показывают хорошие квартальный результаты после карантинных падений',
-            'Вы можете спать спокойно, пока деньги работают за вас, а не вы за них'
-          ]
-        }
-      ]
-    },
-    {
       type: 'personNews' as NewsTypes,
       ableToShow: true,
       variants: [
         {
-          variantType: 'positive' as VariantType,
-          events: [
-            {
-              // одноразовые бонусы игроку
-              type: 'one',
-              titles: [
-                {title: 'Вы получили бонус на работе. Так держать!', amount: 100},
-                {title: 'Разовая выплата от правительства', amount: 150},
-                {title: 'Вы победели в лотерее, поздравляем!', amount: 300},
-                {title: 'Вам досталось наследство семьи! Потратьте его с умом', amount: 500},
-                {title: 'Продажа квартиры родственников!', amount: 1000},
-                {title: 'Вы закрыли проект на работе и получили свою долю', amount: 250},
-                {title: 'Кэшбэк по карте', amount: 200},
-                {title: 'У вашего босса хорошее настроение, вы получили премию', amount: 220}
-              ]
-            }
+          variantType: 'positive',
+          titles: [
+            {title: 'Вы получили бонус на работе. Так держать!', amount: 100},
+            {title: 'Разовая выплата от правительства', amount: 150},
+            {title: 'Вы победели в лотерее, поздравляем!', amount: 300},
+            {title: 'Вам досталось наследство семьи! Потратьте его с умом', amount: 500},
+            {title: 'Продажа квартиры родственников!', amount: 1000},
+            {title: 'Вы закрыли проект на работе и получили свою долю', amount: 250},
+            {title: 'Кэшбэк по карте', amount: 200},
+            {title: 'У вашего босса хорошее настроение, вы получили премию', amount: 220}
           ]
         },
         {
-          variantType: 'negative' as VariantType,
-          events: [
-            {
-              type: 'one',
-              titles: [
-                {title: 'Вы проиграли в лотерее', amount: -200},
-                {title: 'Онлайн казино дело такое!', amount: -100},
-                {title: 'От цен на бензин хочется плакать!', amount: -80},
-                {title: 'На вас напали в переулке!', amount: -150},
-                {title: 'Случайный прохожий попросил у вас денег', amount: -50},
-                {title: 'По пути на работу вы зашли за чашечкой кофе', amount: -75},
-                {title: 'На выходных вы решили себя побаловать!', amount: -120},
-                {title: 'Выписка с штрафа', amount: -175}
-              ]
-            },
-            {
-              type: 'regular',
-              titles: [
-                {title: 'У вас родился ребёнок! Поздравляем!', amount: -125},
-              ]
-            }
+          variantType: 'negative',
+          titles: [
+            {title: 'Вы проиграли в лотерее', amount: -200},
+            {title: 'Онлайн казино дело такое!', amount: -100},
+            {title: 'От цен на бензин хочется плакать!', amount: -80},
+            {title: 'На вас напали в переулке!', amount: -150},
+            {title: 'Случайный прохожий попросил у вас денег', amount: -50},
+            {title: 'По пути на работу вы зашли за чашечкой кофе', amount: -75},
+            {title: 'На выходных вы решили себя побаловать!', amount: -120},
+            {title: 'Выписка с штрафа', amount: -175}
           ]
         },
         {
-          variantType: 'neutral' as VariantType,
-          events: [
-            'Хочешь сбежать от повседневности — не останавливайся в развитии.',
-            '— Сегодня хороший день, чтобы умереть. — Ты всегда так говоришь. — Всегда так и есть.',
-            'Человек, живущий обычной, размеренной жизнью, быстро становится рабом собственных привычек.',
-            'Иногда, знаете ли, полезно съесть подгнившую селёдочную голову, чтобы оценить прелесть обычного повседневного обеда.',
-            'Повседневность начинается на улице, а кончается в бесконечности.',
-            'Взрослые -это дети, научившиеся обманывать ещё и себя.',
-            'Год новый, а проблемы всё те же…'
+          variantType: 'neutral',
+          titles: [
+            {title: 'Хочешь сбежать от повседневности — не останавливайся в развитии.'},
+            {title: '— Сегодня хороший день, чтобы умереть. — Ты всегда так говоришь. — Всегда так и есть.'},
+            {title: 'Человек, живущий обычной, размеренной жизнью, быстро становится рабом собственных привычек.'},
+            {title: 'Иногда, знаете ли, полезно съесть подгнившую селёдочную голову, чтобы оценить прелесть обычного повседневного обеда.'},
+            {title: 'Повседневность начинается на улице, а кончается в бесконечности.'},
+            {title: 'Взрослые -это дети, научившиеся обманывать ещё и себя.'},
+            {title: 'Год новый, а проблемы всё те же…'},
           ]
         }
-      ]
+      ] as VariantType[]
+    },
+    {
+      type: 'stocksNews' as NewsTypes,
+      ableToShow: false,
+      variants: [
+        {
+          variantType: 'positive',
+          titles: [
+            {title: 'Компания получила приличное пожертвование, вам следует проследить за ней!'},
+            {title: 'Квартальный отчет показал хорошие результаты, доход компании вырос, скоро будет рост акций тоже!'},
+            {title: 'Идёт активный рост компании, это хорошо влияет на её акции'},
+            {title: 'Компания заняла лидирующие позиции в своём сегменте рынка, думаю вам стоит присмотреться к ней!'},
+            {title: 'Брокеры предсказывают рост доходов в следующем квартале, это может повлиять на акции'},
+            {title: 'Компанию продали под крыло большего гиганта, новое начальство знает, что надо делать!'},
+          ]
+        }, 
+        {
+          variantType: 'negative',
+          titles: [
+            {title: 'Компания терпит убыдки! Скоро акции полетят вниз!'},
+            {title: 'Квартальный отчет показал неутешительные результаты, доход компании упал!'},
+            {title: 'В связи с последними новостями, у компании череда неудач, будьте внимательны'},
+            {title: 'Компания потеряла лидирующие места в гонке за господством на рынке, это ударит по акциям'},
+            {title: 'Брокеры предсказывают падение доходов в следующем квартале, следите внимательно'},
+            {title: 'Компания расспадается и возможно уйдёт с рынка, следите за ней внимательнее'},
+          ]
+        }, 
+        {
+        variantType: 'neutral',
+          titles: [
+            {title: 'На рынке акций всё спокойно! Можете не волноваться'},
+            {title: 'Компании S&P 500 показывают хорошие квартальный результаты после карантинных падений'},
+            {title: 'Вы можете спать спокойно, пока деньги работают за вас, а не вы за них'}
+          ]
+        }
+      ] as VariantType[]
     }
   ],
   newsIncome: [] as newsExInType[],
@@ -195,15 +179,6 @@ export const newsReducer = (state = initialState, action: NewsActionsType): Init
           action.news
         ]
       }
-    case MAX_CHILDREN:
-
-      let newsTypeCopy = [...state.newsTypes]
-      // @ts-ignore
-      newsTypeCopy[1].variants[1].events.splice(0, 1)
-      return {
-        ...state,
-        newsTypes: newsTypeCopy
-      }
     case SET_NEWS:
       return {
         ...state,
@@ -226,16 +201,17 @@ export const newsActions = {
   resetNews: () => ({type: RESET_NEWS} as const),
   addNewsIncome: (news: any) => ({type: ADD_NEWS_INCOME, news} as const),
   addNewsExpenses: (news: any) => ({type: ADD_NEWS_EXPENSES, news} as const),
-  maxChildren: () => ({type: MAX_CHILDREN} as const),
   setNewNews: (news: newsArrayType[], newsIncome: newsExInType[], newsExpenses: newsExInType[]) => ({type: SET_NEWS, news, newsIncome, newsExpenses} as const)
 }
 
-export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkType => (dispatch, getState) => {
-  const state = getState().newsPage
+export const setNewsThunk = (newsTypeIndex: number): NewsThunkType => (dispatch, getState) => {
+  const newsTypes = getState().newsPage.newsTypes
   const dayInMonth = getState().gamePage.daysInMonth
-  const month = getState().gamePage.months[getState().gamePage.month].name
-  const children = getState().profilePage.children
-  let newsCopy = [...state.news]
+
+  let newsCopy = [...getState().newsPage.news]
+  const month = getState().gamePage.months[getState().gamePage.month].name // name of month
+  const companies = getState().stocksPage.companiesForStocks
+  const childrensCount = getState().profilePage.childrenCount // childrens count...
   // создание шаблона новости
   let news = {
     title: '',
@@ -246,139 +222,79 @@ export const setNewsThunk = (newsType: NewsTypes, company: string): NewsThunkTyp
     month: month,
     condition: '' as string | number
   }
+  
+  if (childrensCount < 3 && getRandomNumber(100) < 5) {
+    // шанс рождения ребенка примерно 5%
+    news.title = 'Рождение ребенка это большое событие!'
+    news.amount = -125
+    dispatch(actions.getNewsPayout('regular', news.amount))
+    dispatch(profileActions.newChild())
+  } else {
+    // выбираем одну из 3 видов новостей хорошая / плохая / нейтральная
+    let newsConditionIndex = getRandomNumber(newsTypes[newsTypeIndex].variants.length)
+    // записываем выбранный варинт новости в переменную...
+    let newsVariant = newsTypes[newsTypeIndex].variants[newsConditionIndex]
+    // выбираем содержание новости...
+    let newsTitleIndex = getRandomNumber(newsVariant.titles.length)
+    // заголовок новости...
+    news.title = newsVariant.titles[newsTitleIndex].title
 
-  state.newsTypes.map((newsTypes, index) => {
-    if(newsTypes.type === newsType) {
-      // выбираем одну из 3 видов новостей хорошая / плохая / нейтральная
-      let condition = getRandomNumber(newsTypes.variants.length)
-      // 0 - хорошая / 1 - плохая / 2 - нейтральная
-      switch (newsType) {
-        case "personNews":
-          // если новость плохая или хорошая . . .
-          if(condition === 0 || condition === 1) {
-            // вид новости . . .
-            let typeOfNews = newsTypes.variants[condition] // positive / negative / neutral
-            // @ts-ignore / вид выплаты (один раз или постоянная)
-            let typeOfPayout = getRandomNumber(typeOfNews.events.length)
-            // @ts-ignore / выбираем новость
-            let titleIndex = getRandomNumber(typeOfNews.events[typeOfPayout].titles.length)
-
-            // @ts-ignore | если рождается ребёнок
-            if(typeOfNews.events[typeOfPayout].titles[titleIndex].title === 'У вас родился ребёнок! Поздравляем!') {
-              // @ts-ignore / добавляем ребенка в профиль
-              dispatch(profileActions.newChild())
-
-              let childrenCount = 0
-              children.forEach(child => {
-                childrenCount += child
-              })
-              // считаем кол-во детей, если их 3 то больше детей быть не может
-              if (childrenCount === 3) {
-                dispatch(newsActions.maxChildren())
-              }
-            }
-
-            // @ts-ignore/ заголовок новости
-            news.title = typeOfNews.events[typeOfPayout].titles[titleIndex].title
-            // @ts-ignore/ цена
-            news.amount = typeOfNews.events[typeOfPayout].titles[titleIndex].amount
-            // @ts-ignore / обновляем баланс или доход игрока
-            dispatch(actions.getNewsPayout(typeOfNews.events[typeOfPayout].type, news.amount))
-
-            // если новость влияет на доходы или расходы то мы добовляем ее в доход профиля
-            if (typeOfPayout === 1) {
-              condition === 0
-                ? dispatch(newsActions.addNewsIncome({title: news.title, amount: news.amount}))
-                : dispatch(newsActions.addNewsExpenses({title: news.title, amount: news.amount}))
-
-              dispatch(updateIncome())
-            }
-          } else {
-            // если новость нейтральная . . .
-            // @ts-ignore
-            let titleIndex = Number((Math.random() * (newsTypes.variants[condition].events.length - 1)).toFixed(0))
-            // @ts-ignore
-            // создаём новость . . .
-            news.title = newsTypes.variants[condition].events[titleIndex]
-            news.amount = 0
-          }
-          news.type = 'person'
-          break
-        case "stocksNews":
-          // @ts-ignore
-          let titleIndex = Number((Math.random() * (newsTypes.variants[condition].titles.length - 1)).toFixed(0))
-          // @ts-ignore
-          news.title = newsTypes.variants[condition].titles[titleIndex]
-          if (condition === 0 || condition === 1) {
-            news.company = company
-            // продолжительность роста / падения акции
-            const growType = condition === 0 ? 'up' : 'down'
-            const timeInterval = Number((Math.random() * 4 + 3).toFixed(0))
-
-            // @ts-ignore
-            dispatch(stocksActions.setPriceChangeInterval(company, timeInterval, growType))
-          }
-          news.type = 'stock'
-          news.condition = condition
-          break
-        case "businessNews":
-          if (condition === 0 || condition === 1) {
-            console.log(condition)
-            // вид новости . . .
-            let typeOfNews = newsTypes.variants[condition] // positive / negative / neutral
-
-            let incomeAmount = Number((Math.random() * 100 + 50).toFixed(0))
-
-            let businessType: number
-            switch (company) {
-              case 'Ресторан':
-                businessType = 0
-                break
-              case 'Сдача гаража':
-                businessType = 1
-                break
-              case 'Сервис':
-                businessType = 2
-                break
-              case 'Мотель':
-                businessType = 3
-                break
-              default:
-                return null
-            }
-            // @ts-ignore
-            let titleIndex = getRandomNumber(typeOfNews.events[businessType].titles.length)
-
-            // @ts-ignore // заголовок новости
-            news.title = typeOfNews.events[businessType].titles[titleIndex]
-            // название бизнеса
-            news.company = company
-            // прибыль/убыль бизнеса
-            news.amount = incomeAmount
-
-            // @ts-ignore / обновляем доход пользователя . . .
-            condition === 0 ? dispatch(actions.updateBusinessIncome(incomeAmount)) : dispatch(actions.updateBusinessIncome(-incomeAmount))
-            // @ts-ignore
-            condition === 0 ? dispatch(businessActions.updateBusinessIncome(company, incomeAmount)) : dispatch(businessActions.updateBusinessIncome(company, -incomeAmount))
-          } else {
-            // @ts-ignore / если новость не связана с доходом то просто отдаем заголовок . . .
-            let titleIndex = getRandomNumber(newsTypes.variants[condition].events.length)
-            // @ts-ignore
-            news.title = newsTypes.variants[condition].events[titleIndex]
-          }
-          news.type = 'business'
-          break
-      }
+    switch (newsTypes[newsTypeIndex].type) {
+      // новость которая напрямую связана с игроком...
+      case "personNews":
+        news.type = 'person'
+        // если новость нейтральная
+        if (newsVariant.variantType === 'negative' || newsVariant.variantType === 'positive') {
+          // стоимость
+          news.amount = newsVariant.titles[newsTitleIndex].amount as number
+          // уменьшаем или увеличиваем баланс игрока...
+          dispatch(actions.getNewsPayout('one', news.amount))
+        }
+        break
+      // новость влияет на рынок акций...
+      case "stocksNews":
+        news.type = 'stock'
+        news.condition = newsConditionIndex
+        //
+        if(newsVariant.variantType === 'negative' || newsVariant.variantType === 'positive') {
+          // выбор компании...
+          news.company = companies[getRandomNumber(companies.length)]
+          
+          const growType = newsConditionIndex === 0 ? 'up' : 'down' // grow or fall
+          const timeInterval = getRandomNumber(4) + 3 // time in wheeks to grow or fall
+          dispatch(stocksActions.setPriceChangeInterval(news.company, timeInterval, growType))
+        }
+        break
+      default:
+        return null
     }
-    return null
-  })
-  // диспачим обновленные новости в state
+  }
+  
+  // добавляем новость в начало массива...
   newsCopy = [news, ...newsCopy]
   dispatch(newsActions.addNews(newsCopy))
 }
 
+export const generateNewsThunk = (): NewsThunkType => (dispatch, getState) => {
+  const newsTypeArray = getState().newsPage.newsTypes
+
+  // newsTypeIndex == 0 -> personNews
+  // newsTypeIndex == 1 -> stocksNews
+  // newsTypeIndex == 2 -> businessNews
+
+  let newsTypeIndex = getRandomNumber(newsTypeArray.reduce((acc, next) => next.ableToShow ? acc + 1 : acc, 0))
+  // передаем индекс новости 
+  dispatch(setNewsThunk(newsTypeIndex))
+}
+
 export type NewsTypes = 'stocksNews' | 'businessNews' | 'personNews'
-export type VariantType = 'positive' | 'negative' | 'neutral'
+export type VariantType = {
+  variantType: 'positive' | 'negative' | 'neutral',
+  titles: {
+    title: string, 
+    amount?: number
+  }[]
+}
 export type newsArrayType = {
   title: string
   amount: number
@@ -394,4 +310,4 @@ export type newsExInType = {
 }
 type NewsActionsType = InferActionsType<typeof newsActions>
 
-export type NewsThunkType = ThunkAction<any, AppStateType, unknown, NewsActionsType>
+export type NewsThunkType = ThunkAction<any, AppStateType, unknown, NewsActionsType | GameActionsType | StocksActionType | ProfileActionsType>

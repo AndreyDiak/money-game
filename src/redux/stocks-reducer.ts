@@ -93,7 +93,7 @@ let initialState = {
 
 export type InitialStocksStateType = typeof initialState
 
-export const stocksReducer = (state = initialState, action: ActionType): InitialStocksStateType => {
+export const stocksReducer = (state = initialState, action: StocksActionType): InitialStocksStateType => {
   switch (action.type) {
     // TODO в идеале должно быть несколько видов акций ( до $100 ; до $250 ; до $500
     //  которые будут открываться с ростом доходов и портфеля игрока . . .
@@ -494,6 +494,12 @@ export const stocksReducer = (state = initialState, action: ActionType): Initial
           return total
         }, 0 )
       }  
+    
+    case BUY_INVESTOR_JOURNAL:
+      return {
+        ...state,
+        isSubscriptionBought: true
+      }
 
     case SET_BONDS:
 
@@ -879,5 +885,5 @@ type MarginType = {
   stockCount: number
 }
 
-export type ActionType = InferActionsType<typeof stocksActions>
-type ActionThunkType = ThunkAction<any, AppStateType, unknown, ActionType | GameActionsType>
+export type StocksActionType = InferActionsType<typeof stocksActions>
+type ActionThunkType = ThunkAction<any, AppStateType, unknown, StocksActionType | GameActionsType>

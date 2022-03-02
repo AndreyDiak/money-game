@@ -379,15 +379,9 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
         } as personType
       }
     case NEW_CHILD:
-      let childrenCopy = state.children
-      let childrenCountCopy = state.childrenCount
-      childrenCopy[childrenCountCopy] = 1
-      childrenCountCopy += 1
-
       return {
         ...state,
-        children: childrenCopy,
-        childrenCount: childrenCountCopy
+        childrenCount: state.childrenCount + 1
       }
     case SET_NEW_PROFILE:
       return {
@@ -409,7 +403,6 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
 export const profileActions = {
   setProfile: (profile: personType) => ({type: SET_PROFILE, profile} as const),
   setTax: (tax: number) => ({type: SET_TAX, tax} as const),
-  // setExpenses: (expenses: expenseType[]) => ({type: SET_EXPENSES, expenses} as const),
   updateExpenses: () => ({type: UPDATE_EXPENSES} as const),
   payForExpenses: (expenses: expenseType[]) => ({type: PAY_FOR_EXPENSES, expenses} as const),
   setCredit: (expenses: expenseType[]) => ({type: SET_CREDIT, expenses} as const),
@@ -418,27 +411,6 @@ export const profileActions = {
   newChild: () => ({type: NEW_CHILD} as const),
   setNewProfile: (startSalary: number, income: number, children: number[], childrenCount: number, profile: personType, tax: number) => ({type: SET_NEW_PROFILE, startSalary, income, childrenCount, children, profile, tax} as const )
 }
-
-export type ProfileActionsType = InferActionsType<typeof profileActions>
-export type expenseType = {
-  type: string
-  title: string
-  remainPrice: number
-  startPrice: number
-  payment: number
-}
-export type personType = {
-  name: string
-  age: number
-  saving: number
-  salary: number
-  img: string
-  avatar: string
-  work: string
-  difficulty: 'easy' | 'normal' | 'hard'
-  expenses: expenseType[]
-}
-type ProfileThunkType = ThunkAction<any, AppStateType, unknown, ProfileActionsType>
 
 export const payForExpensesThunk = (price: number, expenseType: string): ProfileThunkType => (dispatch, getState) => {
   // price / сумма к погашению долга
@@ -539,3 +511,23 @@ export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
   // dispatch(profileActions.setSalary(salary + workAdd))
   // dispatch(profileActions.setTax(newTax))
 }
+export type ProfileActionsType = InferActionsType<typeof profileActions>
+export type expenseType = {
+  type: string
+  title: string
+  remainPrice: number
+  startPrice: number
+  payment: number
+}
+export type personType = {
+  name: string
+  age: number
+  saving: number
+  salary: number
+  img: string
+  avatar: string
+  work: string
+  difficulty: 'easy' | 'normal' | 'hard'
+  expenses: expenseType[]
+}
+type ProfileThunkType = ThunkAction<any, AppStateType, unknown, ProfileActionsType>

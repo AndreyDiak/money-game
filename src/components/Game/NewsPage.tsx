@@ -169,10 +169,22 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
                     </span>
                   </>
                 : <>
-                    Вы потратили
-                    <span className="gameNewsBlock__NewsPriceBold">
-                        ${-props.amount}
-                    </span>
+                    {props.title === 'Рождение ребенка это большое событие!'
+                      ? 
+                        <>
+                          Ежемесячная трата на ребенка:
+                          <span className="gameNewsBlock__NewsPriceBold">
+                            ${-props.amount}
+                          </span>
+                        </>
+                      : 
+                        <>
+                          Вы потратили
+                          <span className="gameNewsBlock__NewsPriceBold">
+                            ${-props.amount}
+                          </span>
+                        </>
+                      }
                   </>
               }
               </div>

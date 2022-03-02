@@ -2,7 +2,8 @@ import React, { FC, SetStateAction} from "react"
 import {ArrowDownOutlined, ArrowUpOutlined, FallOutlined, RiseOutlined } from "@ant-design/icons"
 import {myStockType, stockType } from "../../../../redux/stocks-reducer"
 import {settingsActions} from "../../../../redux/settings-reducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import { AppStateType } from "../../../../redux/store";
 
 export type RenderStockType = {
   stock: stockType,
@@ -23,7 +24,7 @@ export type RenderMyStockType = {
 export const StockCard: FC<RenderStockType> = (props) => {
 
   const dispatch = useDispatch()
-
+  const isSubcsriptionBought = useSelector((state: AppStateType) => state.stocksPage.isSubscriptionBought)
   const onChangeTime = (time: number) => {
     dispatch(settingsActions.setTimeSpeed(time))
   }
@@ -38,10 +39,9 @@ export const StockCard: FC<RenderStockType> = (props) => {
           <div className="gameProfitStocks__OfferBlock__InfoPrice">
             {props.stock.price[props.stock.price.length - 1]}$
           </div>
-          {/* TODO включать только при подписке */}
-          {/*<div className="gameProfitStocks__OfferBlock__InfoRisk">*/}
-          {/*  {props.stock.risk}*/}
-          {/*</div>*/}
+          <div className="gameProfitStocks__OfferBlock__InfoRisk">
+            риск: <b>{props.stock.risk}</b>
+          </div>
             {props.stock.dividendsPercentage === 0
               ? ''
               : <div className="gameProfitStocks__OfferBlock__InfoDividends">

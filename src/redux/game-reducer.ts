@@ -4,7 +4,7 @@ import { setNewsThunk } from './news-reducer';
 import { profileActions, ProfileActionsType, updateIncome } from './profile-reducer';
 import { realtyActions, RealtyActionsType } from './realty-reducer';
 import { spendsActions, SpendsActionType } from './spends-reducer';
-import { ActionType, stocksActions } from './stocks-reducer';
+import { StocksActionType, stocksActions } from './stocks-reducer';
 import { AppStateType, InferActionsType } from "./store";
 
 // time . . .
@@ -200,7 +200,7 @@ export const actions = {
 }
 
 export type GameActionsType = InferActionsType<typeof actions>
-type ActionThunkType = ThunkAction<any, AppStateType, unknown, GameActionsType | SpendsActionType | RealtyActionsType | ProfileActionsType | ActionType>
+type ActionThunkType = ThunkAction<any, AppStateType, unknown, GameActionsType | SpendsActionType | RealtyActionsType | ProfileActionsType | StocksActionType>
 
 export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
   let income = getState().profilePage.income
@@ -233,31 +233,3 @@ export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
   }
 
 }
-
-export const generateNewsThunk = (): ActionThunkType => (dispatch, getState) => {
-  const myBusinesses = [...getState().businessPage.myBusinesses]
-  const newsTypeArray = getState().newsPage.newsTypes
-  const companies = getState().stocksPage.companiesForStocks
-  // stocksNews / businessNews / personNews . . .
-  let newsType = getRandomNumber(2)
-  if (newsTypeArray[newsType].ableToShow) {
-    
-    let company = ''
-    if(newsTypeArray[newsType].type === 'stocksNews') {
-      company = companies[getRandomNumber(companies.length)]
-    }
-    // if (newsTypeArray[newsType].type === 'businessNews') {
-    //   if (myBusinesses.length !== 0) {
-    //     let companyIndex = getRandomNumber(myBusinesses.length)
-    //     company = myBusinesses[companyIndex].name
-    //   } else {
-    //     return dispatch(generateNewsThunk())
-    //   }
-    // }
-
-    dispatch(setNewsThunk(newsTypeArray[newsType].type, company))
-  } else {
-    return dispatch(generateNewsThunk())
-  }
-}
-
