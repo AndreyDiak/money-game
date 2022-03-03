@@ -3,13 +3,14 @@
   position: relative
   width: 100vw
   height: 100vh
-  background: url("../img/banner-market.jpg") center no-repeat
+  background: url("../img/banner-settings.jpg") center no-repeat
   background-size: cover
   display: grid
   grid-template-columns: 2fr 2fr
   grid-template-areas: 'menu menu' 'preview settings'
   font-family: 'Fira Mono', sans-serif
   z-index: 10
+  overflow: scroll
   &Back
     position: absolute
     top: 30px
@@ -112,6 +113,7 @@
     display: flex
     flex-direction: column
     &__Button
+      text-align: center
       z-index: 100
     &__Speed, &__Condition
       padding: 30px
@@ -128,120 +130,72 @@
         padding-top: 10px
         border-top: 1px solid white
         font-size: 16px
+
 @media screen and (max-width: 1600px)
   .profile
-    grid-template-columns: 1fr 2fr 2fr
     &Preview
+      padding: 15px
       &__Img
-        max-height: 600px
-    &Persons
-      &__Filter
-        margin: 20px
-      &__Block
-        &s
-          padding: 30px
+        max-height: 450px
+
+@media screen and (max-width: 1200px)
+  .profile
+    grid-template-columns: 1fr
+    grid-template-areas: 'menu' 'preview' 'settings'
     &Menu
+      &List
+        &__item
+          width: 70px
+          height: 70px
+    &Preview
       &__Stats
         &Title
           font-size: 20px
         &Block
-          margin: 5px
-          padding: 5px
-          &__Title
-            font-size: 16px
-          &__Price
-            font-size: 16px
-      &__Settings
-        padding: 20px
-        &Item
-          padding-bottom: 10px
-          margin-bottom: 10px
-          font-size: 16px
-          text-align: center
-          label
-            width: 60%
-            margin-bottom: 5px
-      &__Button
-        padding: 13px
-        a
-          button
-            font-size: 20px
-
-@media screen and (max-width: 1200px)
-  .profile
-    grid-template-columns: 1fr 2fr 2fr
-    &Preview
-      max-width: 350px
+          font-size: 14px
+      &__Name
+        font-size: 24px
       &__Img
         max-height: 400px
+    &Settings
+      &__Speed, &__Condition
+        padding: 15px
+        font-size: 18px
+      &__ConditionAbout
+        font-size: 14px
 
 @media screen and (max-width: 1024px)
   .profile
-    grid-template-columns: 1fr 1fr
-    grid-template-areas: 'persons menu'
-    &Persons
-      &__Block
-        &Img
-          max-width: 70px
-    &Preview
-      display: none !important
+    padding-top: 70px
+    height: auto
+    &Back
+      top: 15px
+      right: 15px
+      button
+        font-size: 18px
 
 @media screen and (max-width: 768px)
   .profile
-    padding-bottom: 30px
-    grid-template-columns: 1fr
-    grid-template-areas: 'persons' 'menu'
-    &Persons
-      &__Button
-        padding-bottom: 10px
-      &__Block
-        width: 70px
-        height: 70px
-        &s
-          row-gap: 10px
-          column-gap: 10px
-        &Img
-          span
-            height: 70px !important
-            width: 70px !important
-            img
-              width: 100%
-    &Preview
-      display: none !important
     &Menu
-      margin: 0 auto
-      height: auto
-      width: 60%
-      &__Buttons
+      &List__items
+        flex-wrap: wrap
+    &Preview
+      grid-template-columns: 1fr
+      grid-template-areas: 'name' 'stats'
+      &__Img
         display: none
-      &__Settings
-        &Item
-          label
-            width: auto
-
 @media screen and (max-width: 480px)
   .profile
-    &Persons
-      &__Filter
-        flex-direction: column
-        align-items: center
-        row-gap: 10px
-        button
-          width: 60%
-    &Menu
-      width: 90%
-      &__Stats
-        &Title
-          font-size: 18px
-        &Block
-          &__Title
-            font-size: 14px
-          &__Price
-            font-size: 14px
-      &__Settings
-        &Item
-          label
-            width: 60%
-
-
-
+    padding: 60px 10px
+    &Back
+      right: 50%
+      transform: translateX(50%)
+    &Settings
+      padding: 10px
+      &__Speed, &__Condition
+        padding: 10px 5px
+        font-size: 14px
+      &__ConditionAbout
+        font-size: 12px
+      &__Speed
+        margin-bottom: 10px

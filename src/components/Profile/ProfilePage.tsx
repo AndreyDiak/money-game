@@ -133,15 +133,7 @@ export const ProfilePage: FC = () => {
                 </>
               }
             </div>
-          </div>
-          <div className="profilePersons__Button">
-            {screenWidth < 769 && <NavLink to='/game'>
-                <Button onClick={() => setProfile()}>
-                  Начать игру
-                </Button>
-              </NavLink>
-            }
-          </div>  
+          </div> 
         </div>
         <div className="profilePreview">
           <div className="profilePreview__Name">

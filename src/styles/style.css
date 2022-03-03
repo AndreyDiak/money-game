@@ -100,13 +100,14 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: url("../img/banner-market.jpg") center no-repeat;
+  background: url("../img/banner-settings.jpg") center no-repeat;
   background-size: cover;
   display: grid;
   grid-template-columns: 2fr 2fr;
   grid-template-areas: "menu menu" "preview settings";
   font-family: "Fira Mono", sans-serif;
   z-index: 10;
+  overflow: scroll;
 }
 .profileBack {
   position: absolute;
@@ -231,6 +232,7 @@
   flex-direction: column;
 }
 .profileSettings__Button {
+  text-align: center;
   z-index: 100;
 }
 .profileSettings__Speed, .profileSettings__Condition {
@@ -251,136 +253,87 @@
 }
 
 @media screen and (max-width: 1600px) {
-  .profile {
-    grid-template-columns: 1fr 2fr 2fr;
+  .profilePreview {
+    padding: 15px;
   }
   .profilePreview__Img {
-    max-height: 600px;
-  }
-  .profilePersons__Filter {
-    margin: 20px;
-  }
-  .profilePersons__Blocks {
-    padding: 30px;
-  }
-  .profileMenu__StatsTitle {
-    font-size: 20px;
-  }
-  .profileMenu__StatsBlock {
-    margin: 5px;
-    padding: 5px;
-  }
-  .profileMenu__StatsBlock__Title {
-    font-size: 16px;
-  }
-  .profileMenu__StatsBlock__Price {
-    font-size: 16px;
-  }
-  .profileMenu__Settings {
-    padding: 20px;
-  }
-  .profileMenu__SettingsItem {
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    font-size: 16px;
-    text-align: center;
-  }
-  .profileMenu__SettingsItem label {
-    width: 60%;
-    margin-bottom: 5px;
-  }
-  .profileMenu__Button {
-    padding: 13px;
-  }
-  .profileMenu__Button a button {
-    font-size: 20px;
+    max-height: 450px;
   }
 }
 @media screen and (max-width: 1200px) {
   .profile {
-    grid-template-columns: 1fr 2fr 2fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: "menu" "preview" "settings";
   }
-  .profilePreview {
-    max-width: 350px;
+  .profileMenuList__item {
+    width: 70px;
+    height: 70px;
+  }
+  .profilePreview__StatsTitle {
+    font-size: 20px;
+  }
+  .profilePreview__StatsBlock {
+    font-size: 14px;
+  }
+  .profilePreview__Name {
+    font-size: 24px;
   }
   .profilePreview__Img {
     max-height: 400px;
   }
+  .profileSettings__Speed, .profileSettings__Condition {
+    padding: 15px;
+    font-size: 18px;
+  }
+  .profileSettings__ConditionAbout {
+    font-size: 14px;
+  }
 }
 @media screen and (max-width: 1024px) {
   .profile {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: "persons menu";
+    padding-top: 70px;
+    height: auto;
   }
-  .profilePersons__BlockImg {
-    max-width: 70px;
+  .profileBack {
+    top: 15px;
+    right: 15px;
   }
-  .profilePreview {
-    display: none !important;
+  .profileBack button {
+    font-size: 18px;
   }
 }
 @media screen and (max-width: 768px) {
-  .profile {
-    padding-bottom: 30px;
-    grid-template-columns: 1fr;
-    grid-template-areas: "persons" "menu";
-  }
-  .profilePersons__Button {
-    padding-bottom: 10px;
-  }
-  .profilePersons__Block {
-    width: 70px;
-    height: 70px;
-  }
-  .profilePersons__Blocks {
-    row-gap: 10px;
-    column-gap: 10px;
-  }
-  .profilePersons__BlockImg span {
-    height: 70px !important;
-    width: 70px !important;
-  }
-  .profilePersons__BlockImg span img {
-    width: 100%;
+  .profileMenuList__items {
+    flex-wrap: wrap;
   }
   .profilePreview {
-    display: none !important;
+    grid-template-columns: 1fr;
+    grid-template-areas: "name" "stats";
   }
-  .profileMenu {
-    margin: 0 auto;
-    height: auto;
-    width: 60%;
-  }
-  .profileMenu__Buttons {
+  .profilePreview__Img {
     display: none;
-  }
-  .profileMenu__SettingsItem label {
-    width: auto;
   }
 }
 @media screen and (max-width: 480px) {
-  .profilePersons__Filter {
-    flex-direction: column;
-    align-items: center;
-    row-gap: 10px;
+  .profile {
+    padding: 60px 10px;
   }
-  .profilePersons__Filter button {
-    width: 60%;
+  .profileBack {
+    right: 50%;
+    transform: translateX(50%);
   }
-  .profileMenu {
-    width: 90%;
+  .profileSettings {
+    padding: 10px;
   }
-  .profileMenu__StatsTitle {
-    font-size: 18px;
-  }
-  .profileMenu__StatsBlock__Title {
+  .profileSettings__Speed, .profileSettings__Condition {
+    padding: 10px 5px;
     font-size: 14px;
   }
-  .profileMenu__StatsBlock__Price {
-    font-size: 14px;
+  .profileSettings__ConditionAbout {
+    font-size: 12px;
   }
-  .profileMenu__SettingsItem label {
-    width: 60%;
+  .profileSettings__Speed {
+    margin-bottom: 10px;
   }
 }
 .settings {
@@ -2666,6 +2619,7 @@ input:checked, input:active, input:focus {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
 }
 
 .profile-start {
