@@ -355,7 +355,10 @@ export const MarginPopupMenu: FC<MarginPopupMenuType> = ({
         </div>
         {screenWidth > 481 
           ? <Slider min={broker.timeMin} value={activeMarginTime} max={broker.timeMax} onChange={(e) => {setActiveMarginTime(e)}}/> 
-          : <InputNumber min={1} max={broker.timeMax} value={activeMarginTime} onChange={(e) => {setActiveMarginTime(e)}} />
+          : <>
+              <InputNumber min={1} max={broker.timeMax} value={activeMarginTime} onChange={(e) => {setActiveMarginTime(e)}} />
+              <span>макс: <b> {broker.timeMax} </b>мес.</span> 
+            </>
         }
         <small>
           <i>

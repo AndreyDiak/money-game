@@ -2529,11 +2529,10 @@ input:checked, input:active, input:focus {
   row-gap: 20px;
   font-weight: 500;
   font-size: 18px;
-  grid-template-areas: "time stock" "penalty stock" "menu menu";
+  grid-template-areas: "time penalty" "stock stock" "menu menu";
 }
 .chartPopupBlock__Payback__Time, .chartPopupBlock__Payback__Stock, .chartPopupBlock__Payback__Penalty, .sellPopupBlock__Payback__Time, .sellPopupBlock__Payback__Stock, .sellPopupBlock__Payback__Penalty, .marginPopupBlock__Payback__Time, .marginPopupBlock__Payback__Stock, .marginPopupBlock__Payback__Penalty, .marginPaybackPopupBlock__Payback__Time, .marginPaybackPopupBlock__Payback__Stock, .marginPaybackPopupBlock__Payback__Penalty {
   padding: 10px;
-  max-width: 70%;
   text-align: center;
 }
 .chartPopupBlock__Payback__Time, .sellPopupBlock__Payback__Time, .marginPopupBlock__Payback__Time, .marginPaybackPopupBlock__Payback__Time {
@@ -2563,21 +2562,16 @@ input:checked, input:active, input:focus {
   background: #439093;
 }
 .chartPopupBlock__Payback__Stock, .sellPopupBlock__Payback__Stock, .marginPopupBlock__Payback__Stock, .marginPaybackPopupBlock__Payback__Stock {
+  margin: 10px;
   grid-area: stock;
-  background: #ead2ac;
-  min-width: 320px;
-  border: 2px solid rgba(115, 193, 103, 0.9);
+  background: #439093;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
 }
 .chartPopupBlock__Payback__StockTitle, .sellPopupBlock__Payback__StockTitle, .marginPopupBlock__Payback__StockTitle, .marginPaybackPopupBlock__Payback__StockTitle {
   padding: 10px;
-  margin-bottom: 15px;
-  background: rgba(115, 193, 103, 0.9);
-  color: #fff;
-}
-.chartPopupBlock__Payback__StockBlock, .sellPopupBlock__Payback__StockBlock, .marginPopupBlock__Payback__StockBlock, .marginPaybackPopupBlock__Payback__StockBlock {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid black;
 }
 .chartPopupBlock__Payback__Menu, .sellPopupBlock__Payback__Menu, .marginPopupBlock__Payback__Menu, .marginPaybackPopupBlock__Payback__Menu {
   grid-area: menu;
@@ -2604,7 +2598,7 @@ input:checked, input:active, input:focus {
   width: 1000px;
 }
 .marginPopupPayback {
-  width: 900px;
+  width: 800px;
 }
 
 .bannerBack {
@@ -2723,6 +2717,15 @@ input:checked, input:active, input:focus {
     transform: translate(-50%, -50%);
     width: 90%;
   }
+  .chartPopupBlock__Close, .sellPopupBlock__Close, .marginPopupBlock__Close {
+    top: 10px;
+    right: 10px;
+  }
+  .chartPopupBlock__Payback, .sellPopupBlock__Payback, .marginPopupBlock__Payback {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+    grid-template-areas: "time" "penalty" "stock" "menu";
+  }
   .chartPopupBlock__Result, .sellPopupBlock__Result, .marginPopupBlock__Result {
     font-size: 14px;
   }
@@ -2743,7 +2746,7 @@ input:checked, input:active, input:focus {
     flex-direction: column;
     row-gap: 10px;
   }
-  .chartPopupBlock__MenuInfo, .sellPopupBlock__MenuInfo, .marginPopupBlock__MenuInfo {
+  .chartPopupBlock__MenuInfo div, .sellPopupBlock__MenuInfo div, .marginPopupBlock__MenuInfo div {
     flex-direction: column;
     row-gap: 10px;
   }
@@ -2776,11 +2779,6 @@ input:checked, input:active, input:focus {
   }
   .chartPopupBlock__MenuInfo, .sellPopupBlock__MenuInfo, .marginPopupBlock__MenuInfo {
     text-align: center;
-  }
-  .chartPopupBlock__MenuInfo div, .sellPopupBlock__MenuInfo div, .marginPopupBlock__MenuInfo div {
-    display: flex;
-    align-items: center;
-    column-gap: 5px;
   }
   .chartPopupBlock__MenuInfo div button, .sellPopupBlock__MenuInfo div button, .marginPopupBlock__MenuInfo div button {
     display: none;

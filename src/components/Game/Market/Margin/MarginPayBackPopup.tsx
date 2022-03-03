@@ -108,20 +108,15 @@ export const MarginPayBackPopup: FC<MarginPayBackPopupType> = ({
             </div>
           </div>
           <div className="marginPopupBlock__Payback__Stock">
-            <div className="marginPopupBlock__Payback__StockTitle">
-              Акций в портфеле
-            </div>
-            <div className="marginPopupBlock__Payback__StockBlock">
-              {
-                stock.length > 0 
-                  ? 
-                    <>
-                      <div className="marginPopupBlock__Payback__StockBlock__title">{stock[0].title}</div>
-                      <div className="marginPopupBlock__Payback__StockBlock__count">{stock[0].count} шт.</div>
-                    </> 
-                  : ''
-              }
-            </div>
+            {
+              stock.length > 0 
+                ? 
+                  <>
+                    <div className="marginPopupBlock__Payback__StockTitle">{stock[0].title}</div>
+                    <div className="marginPopupBlock__Payback__StockCount">{stock[0].count} шт.</div>
+                  </> 
+                : 'Купите необходимые акции!'
+            }
           </div>
           <div className="marginPopupBlock__Payback__Menu">
             <MarginPayBackMenu 
@@ -181,8 +176,8 @@ export const MarginPayBackMenu: FC<MarginPayBackMenuType> = ({
           <div>
             <div className="chartPopupBlock__MenuInfo__Title">
               {type === 'short' 
-                ? <>Необходимо вернуть :  <b>{stocksReturnCount}</b> шт.</>
-                : <>Продать : <b>{stocksReturnCount} шт.</b></>
+                ? <><span>Необходимо вернуть :</span>  <span><b>{stocksReturnCount}</b> шт.</span></>
+                : <><span>Продать :</span> <span><b>{stocksReturnCount} шт.</b></span></>
               }
               
             </div>
