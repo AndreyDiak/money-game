@@ -1,35 +1,83 @@
 .profile
+  padding: 30px
+  position: relative
   width: 100vw
-  //height: 100vh
-  background: url("../img/banner-settings.jpg") center no-repeat
+  height: 100vh
+  background: url("../img/banner-market.jpg") center no-repeat
   background-size: cover
   display: grid
-  grid-template-columns: 3fr 2fr
+  grid-template-columns: 2fr 2fr
   grid-template-areas: 'menu menu' 'preview settings'
   font-family: 'Fira Mono', sans-serif
   z-index: 10
+  &Back
+    position: absolute
+    top: 30px
+    right: 30px
+    font-size: 24px
+    z-index: 100
+    button
+      font-size: 24px
+      height: auto
   &Menu
-    background: rgba(0, 0, 0, 0.6)
     z-index: 10
     grid-area: menu
     &Title
       text-align: center
     &List
       text-align: center
-      //display: flex
-      //justify-content: center
-
       &__item
+        width: 90px
+        height: 90px
         &Img
           background: transparent
+          width: 100%
           outline: none
           border: none
+          span
+            width: 100% !important
+            height: 100% !important
         &s
           display: flex
           justify-content: center
+    &__Button
+      padding: 20px
+      text-align: center
+      //border-bottom: 1px solid #fff
+      a
+        button
+          height: auto
+          font-size: 28px
+          font-weight: 700
+  &Preview
+    padding: 30px
+    background: rgba(0, 0, 0, 0.4)
+    display: grid
+    grid-template-columns: 2fr 3fr
+    border: 1px solid white
+    grid-template-areas: 'name stats' 'img stats'
+    z-index: 10
+    grid-area: preview
+    &__Name
+      grid-area: name
+      font-size: 30px
+      color: #fff
+      font-weight: 900
+      max-width: 200px
+      &Work
+        border-top: 1px solid white
+        color: darkgrey
     &__Stats
-      //border-top: 2px solid #282c34
-      background: #f4d4bd
+      grid-area: stats
+      display: flex
+      flex-direction: column
+      justify-content: center
+      &Income, &Expenses, &Cash
+        background: #f4d4bd
+      &Income
+        margin-bottom: 15px
+      &Expenses
+        margin-bottom: 15px
       &Cash
         font-size: 18px
       font-weight: 700
@@ -44,114 +92,42 @@
         margin: 7px
         padding: 7px
         display: flex
-        justify-content: space-between
         border-bottom: 1px solid #282c34
+        justify-content: space-between
         font-size: 18px
         font-weight: 700
         &:last-child
           border-bottom: none
-    &__Settings
-      padding: 30px
-      background: rgba(255,255,255,0.6)
-      display: flex
-      flex-direction: column
-      &Item
-        padding-bottom: 15px
-        margin-bottom: 15px
-        font-weight: 900
-        font-size: 20px
-        border-bottom: 1px solid #282c34
-    &__Button
-      padding: 20px
-      text-align: center
-      //border-bottom: 1px solid #fff
-      a
-        button
-          height: auto
-          font-size: 28px
-          font-weight: 700
-  &Persons
-    z-index: 10
-    grid-area: persons
-    &__Filter
-      margin-top: 30px
-      margin-bottom: 30px
-      display: flex
-      justify-content: center
-      column-gap: 30px
-    &__Title
-      background: rgba(0, 0, 0, 0.6)
-      font-size: 24px
-      font-weight: 700
-      text-align: center
-      color: #fff
-      padding: 15px
-    &__Button
-      text-align: center
-      padding-top: 10px
-      a
-        button
-          font-size: 24px
-          font-weight: 700
-          height: auto
-    &__Block
-      width: 100px
-      height: 100px
-      z-index: 10
-      &s
-        padding: 45px
-        display: flex
-        justify-content: center
-        flex-wrap: wrap
-        align-items: flex-start
-        row-gap: 15px
-        column-gap: 15px
-      &Img
-        border: none
-        background: transparent
-        span
-          border: 2px solid #282c34
-        &:hover
-          cursor: pointer
-  &Preview
-    text-align: center
-    background: rgba(0, 0, 0, 0.6)
-    display: flex
-    flex-direction: column
-    justify-content: space-between
-    height: 100vh
-    z-index: 10
-    grid-area: preview
-    &__Name
-      margin: 30px
-      padding-bottom: 30px
-      font-size: 30px
-      color: #fff
-      font-weight: 900
-      border-bottom: 1px solid #fff
-      &Work
-        color: darkgrey
-    &__Title
-      padding: 15px
-      font-size: 24px
-      font-weight: 700
-      color: rgba(255, 255, 255, 0.8)
-      border-bottom: 2px solid rgba(255, 255, 255, 0.6)
-      border-right: 2px solid rgba(255, 255, 255, 0.6)
-      z-index: 10
     &__Img
+      grid-area: img
       padding: 5px
-      margin: 0 auto
-      display: flex
-      align-items: end
-      z-index: 0
-      max-height: 700px
+      //margin: 0 auto
+      //z-index: 0
+      max-height: 550px
       img
         z-index: -1
         height: 100%
   &Settings
-    grid-area: settings
-
+    padding: 50px 75px
+    display: flex
+    flex-direction: column
+    &__Button
+      z-index: 100
+    &__Speed, &__Condition
+      padding: 30px
+      text-align: center
+      margin-bottom: 30px
+      background: rgba(0,0,0,0.6)
+      z-index: 100
+      color: #fff
+      font-size: 24px
+      border: 1px solid white
+    &__Condition
+      &About
+        margin-top: 10px
+        padding-top: 10px
+        border-top: 1px solid white
+        font-size: 16px
 @media screen and (max-width: 1600px)
   .profile
     grid-template-columns: 1fr 2fr 2fr

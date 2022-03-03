@@ -1,32 +1,31 @@
-import {FC, useEffect, useState} from "react";
-import {Badge, message, notification, Spin} from "antd";
-import {useDispatch, useSelector} from "react-redux"
-import {actions} from "../../redux/game-reducer";
-import {getDaySelector, getLoseBalance, getVictoryBalance, getWalletSelector} from "../../redux/game-selector";
-import {getTimeSpeedSelector} from "../../redux/settings-selector";
-import {AppStateType} from "../../redux/store";
-import {RenderPlayerWork} from "./RenderPlayerWork";
-import {brokerType, stocksActions, stockType} from "../../redux/stocks-reducer";
-import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
-import {newsActions} from "../../redux/news-reducer";
-import {getBusinessesSelector} from "../../redux/business-selector";
-import {businessActions} from "../../redux/business-reducer";
-import {settingsActions} from "../../redux/settings-reducer";
-import {Redirect, Route, Switch} from "react-router-dom";
-import {getPersonSelector} from "../../redux/profile-selector";
-import {Navbar} from "../Navbar";
-import { NewsPage } from "./NewsPage";
+import { Badge, message, notification, Spin } from "antd";
+import { Children, FC, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useRoutes, Routes, Route } from "react-router-dom";
+import { useHttp } from "../../hooks/http.hook";
+import menuIconBank from "../../img/menu/bank.svg";
+import menuIconMarket from "../../img/menu/market.svg";
+import menuIconNews from "../../img/menu/news.svg";
+import menuIconProfile from "../../img/menu/profile.svg";
+import menuIconSpends from "../../img/menu/spends.svg";
+import { businessActions } from "../../redux/business-reducer";
+import { getBusinessesSelector } from "../../redux/business-selector";
+import { actions } from "../../redux/game-reducer";
+import { getDaySelector, getLoseBalance, getVictoryBalance, getWalletSelector } from "../../redux/game-selector";
+import { newsActions } from "../../redux/news-reducer";
+import { getPersonSelector } from "../../redux/profile-selector";
+import { settingsActions } from "../../redux/settings-reducer";
+import { getTimeSpeedSelector } from "../../redux/settings-selector";
+import { brokerType, stocksActions, stockType } from "../../redux/stocks-reducer";
+import { getMyStocksSelector, getStocksSelector } from "../../redux/stocks-selector";
+import { AppStateType } from "../../redux/store";
+import { Navbar } from "../Navbar";
+import { Popups } from "../Popups";
 import { BankPage } from "./BankPage";
 import { MarketPage } from "./Market/MarketPage";
+import { NewsPage } from "./NewsPage";
+import { RenderPlayerWork } from "./RenderPlayerWork";
 import { SpendsPage } from "./Spends/SpendsPage";
-import {NavLink} from "react-router-dom";
-import {Popups} from "../Popups";
-import menuIconNews from "../../img/menu/news.svg"
-import menuIconSpends from "../../img/menu/spends.svg"
-import menuIconProfile from "../../img/menu/profile.svg"
-import menuIconMarket from "../../img/menu/market.svg"
-import menuIconBank from "../../img/menu/bank.svg"
-import {useHttp} from "../../hooks/http.hook";
 
 
 export const GamePage: FC = () => {
@@ -215,38 +214,18 @@ export const GamePage: FC = () => {
       />
       <div style={screenWidth > 768
         ? {height: 'calc(100vh - 78px)', overflow: 'hidden'}
-        : {height: 'calc(100vh - 50px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden'}
-      }>
-        <Switch>
-          <Route path='/game/news' render={() =>
-            <NewsPage
-              setIsHistoryShown={setIsHistoryShown}
-              setMyActiveStock={setMyActiveStock}
-              setActiveStock={setActiveStock}
-              setIsStockToSell={setIsStockToSell}
-            />
-          }/>
-          <Route path='/game/spends' render={() =>
-            <SpendsPage/>
-          }/>
-          <Route path='/game/profile' render={() =>
-            <RenderPlayerWork />
-          }/>
-          <Route path='/game/market' render={() =>
-            <MarketPage
-              setIsHistoryShown={setIsHistoryShown}
-              setMyActiveStock={setMyActiveStock}
-              setActiveStock={setActiveStock}
-              setIsStockToSell={setIsStockToSell}
-              setActiveBroker={setActiveBroker}
-              setIsMarginShown={setIsMarginShown} 
-              setIsMarginPayBackShown={setIsMarginPayBackShown}            
-            />}
-          />
-          <Route path='/game/bank' render={() => <BankPage />}/>
-          {/*<Redirect exact from='/game/market' to='/game/stocks />*/}
-          <Redirect exact from='/game' to='/game/profile' />
-        </Switch>
+        : {height: 'calc(100vh - 50px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden'}}
+      >
+        {/* игровые роуты... */}
+        <Pages 
+          setActiveBroker={setActiveBroker} 
+          setActiveStock={setActiveStock} 
+          setIsHistoryShown={setIsHistoryShown} 
+          setIsMarginPayBackShown={setIsMarginPayBackShown} 
+          setIsMarginShown={setIsMarginShown} 
+          setIsStockToSell={setIsStockToSell}
+          setMyActiveStock={setMyActiveStock}
+        />
         <div className="bottomNav">
           <div className="bottomNavItem">
             <NavLink to='/game/spends'>
@@ -288,5 +267,65 @@ export const GamePage: FC = () => {
     </>
   )
 }
+type PagesType = {
+  setIsStockToSell: (isShown: boolean) => void 
+  setIsHistoryShown: (isShown: boolean) => void
+  setMyActiveStock: (index: number) => void
+  setActiveStock: (stock: stockType) => void
+  setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
+  setActiveBroker: (activeBroker: brokerType) => void
+  setIsMarginShown: (isMarginShown: boolean) => void
+}
+const Pages: FC<PagesType> = ({
+  setIsHistoryShown, setMyActiveStock, setActiveStock,
+  setIsStockToSell,setActiveBroker,setIsMarginShown,setIsMarginPayBackShown
+}) => {
+  const routes = useRoutes([
+    {
+      path: '',
+      index: true,
+      element: <RenderPlayerWork />
+    },
+    {
+      path: 'spends',
+      element: <SpendsPage/> ,
+    },
+    {
+      path: 'profile',
+      element: <RenderPlayerWork />
+    },
+    {
+      path: 'bank',
+      element: <BankPage />
+    },
+    {
+      path: 'news',
+      element: 
+        <NewsPage 
+          setIsHistoryShown={setIsHistoryShown}
+          setMyActiveStock={setMyActiveStock}
+          setActiveStock={setActiveStock}
+          setIsStockToSell={setIsStockToSell} 
+        />
+    },
+    {
+      path: 'market',
+      element:
+        <MarketPage
+          setIsHistoryShown={setIsHistoryShown}
+          setMyActiveStock={setMyActiveStock}
+          setActiveStock={setActiveStock}
+          setIsStockToSell={setIsStockToSell}
+          setActiveBroker={setActiveBroker}
+          setIsMarginShown={setIsMarginShown} 
+          setIsMarginPayBackShown={setIsMarginPayBackShown}  
+        />
+    }
+  ])
+
+  return routes
+}
+
+
 
 

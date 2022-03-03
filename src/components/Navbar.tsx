@@ -36,41 +36,6 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
     dispatch(settingsActions.setTimeSpeed(time))
   }
 
-  const market = (
-    <Menu style={{padding: '10px'}}>
-      {income < 250 && stocks.length === 0
-        ? <p>
-            Доход более $250 / мес
-          </p>
-        : <Menu.Item>
-            <NavLink to='/game/market/stocks'>
-              <Button>Акции</Button>
-            </NavLink>
-          </Menu.Item>
-      }
-      {income < 1000
-        ? <p>
-          Доход более <b>$1000</b> / мес
-        </p>
-        : <Menu.Item>
-          <NavLink to='/game/market/realty'>
-            <Button>Недвижимость</Button>
-          </NavLink>
-        </Menu.Item>
-      }
-      {income < 3000
-        ? <p>
-          Доход более <b>$3000</b> / мес
-        </p>
-        : <Menu.Item>
-          <NavLink to='/game/market/business'>
-            <Button>Бизнес</Button>
-          </NavLink>
-        </Menu.Item>
-      }
-    </Menu>
-  )
-
   return (
     <>
       <div className="navWrapper">
@@ -113,34 +78,29 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
         </div>
         <div className="navItem">
           <div className="navItem__link">
-            <NavLink to='/game/spends' activeStyle={{color: '#29b6f6'}}>
+            <NavLink to='/game/spends'>
               Расходы
             </NavLink>
           </div>
           <div className="navItem__link">
-            <NavLink to='/game/market/stocks' activeStyle={{color: '#29b6f6'}}>
+            <NavLink to='/game/market'>
               Биржа
             </NavLink>
-            {/* <Dropdown overlay={market}>
-              <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                
-              </a>
-            </Dropdown> */}
           </div>
           <div className="navItem__link">
-            <NavLink to='/game/profile' activeStyle={{color: '#29b6f6'}}>
+            <NavLink to='/game/profile'>
               Профиль
             </NavLink>
           </div>
           
           <div className="navItem__link">
-            <NavLink to='/game/bank' activeStyle={{color: '#29b6f6'}}>
+            <NavLink to='/game/bank' >
               Банк
             </NavLink>
           </div>
           <div className="navItem__link" >
             <Badge count={news.length} overflowCount={10}>
-              <NavLink to='/game/news' activeStyle={{color: '#29b6f6'}}>
+              <NavLink to='/game/news'>
                 Новости
               </NavLink>
             </Badge>

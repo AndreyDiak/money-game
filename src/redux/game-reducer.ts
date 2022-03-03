@@ -12,7 +12,7 @@ import { AppStateType, InferActionsType } from "./store";
 const SET_DAY = 'gamePage/SET_DAY'
 const SET_MONTH = 'gamePage/SET_MONTH'
 const SET_DAY_IN_MONTH = 'gamePage/SET_DAY_IN_MONTH'
-
+const SET_DIFFICULTY = 'gamePage/SET_DIFFICULTY'
 // wallet . . .
 const SET_WALLET = 'gamePage/SET_WALLET'
 const UPDATE_WALLET = 'gamePage/UPDATE_WALLET'
@@ -47,6 +47,8 @@ let initialState = {
   income: 0,
   // баланс необходимый для победы / возможно потом его можно менять . . .
   victoryBalance: 15000,
+  //
+  difficulty: 'easy' as DifficultyType,
   // баланс для пораженя
   loseBalance: 0,
   // месяцы игры . . .
@@ -182,6 +184,7 @@ export const actions = {
   setDay: (day: number) => ({type: SET_DAY, day} as const),
   setMonth: (month: number) => ({type: SET_MONTH, month} as const),
   setDayInMonth: (dayInMonth: number) => ({type: SET_DAY_IN_MONTH, dayInMonth} as const),
+  setDifficulty: (difficulty: DifficultyType) => ({type: SET_DIFFICULTY, difficulty} as const),
   // actions для кошелька . . .
   setWallet: (wallet: number) => ({type: SET_WALLET, wallet} as const),
   updateWallet: (wallet: number) => ({type: UPDATE_WALLET, wallet} as const),
@@ -198,9 +201,6 @@ export const actions = {
 
   setNewGame: (day: number, dayInMonth: number, month: number, wallet: number, victoryBalance: number) => ({type: SET_NEW_GAME, day, dayInMonth, month, wallet, victoryBalance} as const)
 }
-
-export type GameActionsType = InferActionsType<typeof actions>
-type ActionThunkType = ThunkAction<any, AppStateType, unknown, GameActionsType | SpendsActionType | RealtyActionsType | ProfileActionsType | StocksActionType>
 
 export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
   let income = getState().profilePage.income
@@ -233,3 +233,7 @@ export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
   }
 
 }
+
+export type DifficultyType = 'easy' | 'normal' | 'hard'
+export type GameActionsType = InferActionsType<typeof actions>
+type ActionThunkType = ThunkAction<any, AppStateType, unknown, GameActionsType | SpendsActionType | RealtyActionsType | ProfileActionsType | StocksActionType>

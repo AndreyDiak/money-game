@@ -58,7 +58,7 @@ export const Popups:FC<PopupsType> = (props) => {
               Доход более $250 / мес
             </p>
             : <Menu.Item>
-              <NavLink to='/game/market/stocks'>
+              <NavLink to='/game/market'>
                 <Button onClick={onButtonClick}>Акции</Button>
               </NavLink>
             </Menu.Item>

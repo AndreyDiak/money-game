@@ -1,14 +1,16 @@
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom"
-import {GamePage} from "../Game/GamePage";
-import {MenuPage} from "../Menu/MenuPage";
-import {ProfilePage} from "../Profile/ProfilePage";
-import {SettingsPage} from "../Settings/SettingsPage";
-import {RoflPage} from "../rofl/RoflPage";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store";
-import {useEffect, useState} from "react";
-import {UserPage} from "../User/UserPage";
-import {appActions, loginThunk} from "../../redux/app-reducer";
+import { Children, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, useRoutes } from "react-router-dom";
+import { appActions, loginThunk } from "../../redux/app-reducer";
+import { AppStateType } from "../../redux/store";
+import { BankPage } from "../Game/BankPage";
+import { GamePage } from "../Game/GamePage";
+import { MarketPage } from "../Game/Market/MarketPage";
+import { NewsPage } from "../Game/NewsPage";
+import { RenderPlayerWork } from "../Game/RenderPlayerWork";
+import { SpendsPage } from "../Game/Spends/SpendsPage";
+import { MenuPage } from "../Menu/MenuPage";
+import { ProfilePage } from "../Profile/ProfilePage";
 
 const STORAGE_NAME = 'PROFILE_LOCAL_STORAGE'
 
@@ -37,27 +39,70 @@ export const Main = () => {
   return (
     <>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Switch>
-          <Redirect exact from='/' to='/menu'/>
-          <Redirect exact from='/money-game' to='/menu'/>
-          <Redirect exact from='/money-game-demo' to='/menu'/>
-          <Route path='/menu' render={() => <MenuPage /> }/>
-          {/* <Route path='/work' render={() => <WorkPage /> }/> */}
-          <Route path='/game' render={() => <GamePage /> }/>
-          <Route path='/user' render={() => <UserPage /> }/>
-          <Route path='/profile' render={() => <ProfilePage /> }/>
-          <Route path='/settings' render={() => <SettingsPage/> }/>
-          <Route path='/rofl' render={() => <RoflPage/> }/>
-          <Redirect to='/'/>
-        </Switch>
-        {/* //  : <Switch>
-        //     <Route path='/register' render={() => <AuthPage/>}/>
-        //     <Route path='/login' render={() =>  <LoginPage/>}/>
-        //     <Redirect to='/login'/>
-        //   </Switch> */}
-        
+        <Pages />
       </BrowserRouter>
     </>
   )
 }
 
+const Pages = () => {
+  const routes = useRoutes([
+    {
+      path: '/menu',
+      element: <MenuPage />
+    },
+    {
+      path: '/game',
+      element: <GamePage />,
+      children: [
+        {
+          path: 'spends',
+          element: <SpendsPage/> ,
+        },
+        {
+          path: 'profile',
+          element: <RenderPlayerWork />
+        },
+
+        {
+          path: 'bank',
+          element: <BankPage />
+        },
+        {
+          path: 'news',
+          // @ts-ignore
+          element: <NewsPage />
+        },
+        {
+          path: 'market',
+          // @ts-ignore
+          element: <MarketPage />,
+        }
+      ]
+    },
+    {
+      path: '/select',
+      element: <ProfilePage />
+    },
+    {
+      path: '/',
+      index: true,
+      element: <MenuPage />
+    },
+    {
+      path: '/money-game',
+      index: true,
+      element: <MenuPage />
+    },
+    {
+      path: '/money-game-demo',
+      index: true,
+      element: <MenuPage />
+    }
+  ])
+  return (
+    <>
+      {routes}
+    </>
+  )
+}

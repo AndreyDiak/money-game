@@ -1,12 +1,10 @@
-import {Tabs} from "antd"
-import React, {FC} from "react";
-import {RealtyPage} from "./RealtyPage";
-import {BusinessPage} from "./BusinessPage";
-import {Redirect, Route, Switch} from "react-router-dom";
-import {StocksPage} from "./Stocks/StocksPage";
+import { Tabs } from "antd";
+import React, { FC } from "react";
+import { useRoutes } from "react-router-dom";
 import { brokerType } from "../../../redux/stocks-reducer";
-
-const {TabPane} = Tabs
+import { BusinessPage } from "./BusinessPage";
+import { RealtyPage } from "./RealtyPage";
+import { StocksPage } from "./Stocks/StocksPage";
 
 export type MarketType = {
   setIsHistoryShown: any
@@ -19,25 +17,47 @@ export type MarketType = {
 }
 
 export const MarketPage: FC<MarketType> = (props) => {
-
+    const routes = useRoutes([
+      {
+        path: '/stocks',
+        element: 
+        <StocksPage 
+          setIsHistoryShown={props.setIsHistoryShown}
+          setMyActiveStock={props.setMyActiveStock}
+          setActiveStock={props.setActiveStock}
+          setIsStockToSell={props.setIsStockToSell}
+          setActiveBroker={props.setActiveBroker}
+          setIsMarginShown={props.setIsMarginShown}
+          setIsMarginPayBackShown={props.setIsMarginPayBackShown}
+        />
+      },
+      {
+        path: '/',
+        index: true,
+        element: 
+        <StocksPage 
+          setIsHistoryShown={props.setIsHistoryShown}
+          setMyActiveStock={props.setMyActiveStock}
+          setActiveStock={props.setActiveStock}
+          setIsStockToSell={props.setIsStockToSell}
+          setActiveBroker={props.setActiveBroker}
+          setIsMarginShown={props.setIsMarginShown}
+          setIsMarginPayBackShown={props.setIsMarginPayBackShown}
+        />
+      },
+      {
+        path: '/realty',
+        element: <RealtyPage />
+      },
+      {
+        path: '/business',
+        element: <BusinessPage />
+      }
+    ])
+    
   return (
     <>
-      <Switch>
-        <Route path='/game/market/stocks' render={() =>
-          <StocksPage
-            setIsHistoryShown={props.setIsHistoryShown}
-            setMyActiveStock={props.setMyActiveStock}
-            setActiveStock={props.setActiveStock}
-            setIsStockToSell={props.setIsStockToSell}
-            setActiveBroker={props.setActiveBroker}
-            setIsMarginShown={props.setIsMarginShown}
-            setIsMarginPayBackShown={props.setIsMarginPayBackShown}
-          />
-        }/>
-        <Route path='/game/market/realty' render={() => <RealtyPage />}/>
-        <Route path='/game/market/business' render={() => <BusinessPage />}/>
-        <Redirect to='/game/market/stocks'/>
-      </Switch>
+      {routes}
     </>
   )
 }

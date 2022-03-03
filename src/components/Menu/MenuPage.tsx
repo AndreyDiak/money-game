@@ -72,7 +72,7 @@ export const MenuPage = () => {
                 </div>
               }
               <div className="menuListItem">
-                <NavLink to='/profile'>
+                <NavLink to='/select'>
                   <button className='menuListItem__Button'>
                     Начать игру
                   </button>

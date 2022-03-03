@@ -61,7 +61,7 @@ export const MarginPayBackPopup: FC<MarginPayBackPopupType> = ({
 
   return (
     <div className="marginPopup">
-      <div className="marginPopupBlock">
+      <div className="marginPopupBlock marginPopupPayback">
         <div className="marginPopupBlock__Close">
           <CloseOutlined onClick={onCloseClick} />
         </div>

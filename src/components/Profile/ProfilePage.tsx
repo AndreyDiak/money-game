@@ -1,11 +1,11 @@
-import {FC, useEffect, useState} from "react"
+import React, {FC, useEffect, useState} from "react"
 import {Avatar, Button} from "antd"
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {profileActions, updateIncome} from "../../redux/profile-reducer";
-import {actions} from "../../redux/game-reducer";
+import {actions, DifficultyType} from "../../redux/game-reducer";
 import {NavLink} from "react-router-dom";
-import Radio from "antd/lib/radio";
+import Radio, { RadioGroupContextProps } from "antd/lib/radio";
 import {getDifficultySelector, getTimeSpeedSelector} from "../../redux/settings-selector";
 import {settingsActions} from "../../redux/settings-reducer";
 import {spendsActions} from "../../redux/spends-reducer";
@@ -22,24 +22,27 @@ export const ProfilePage: FC = () => {
   const victoryBalance = useSelector((state: AppStateType) => state.gamePage.victoryBalance)
   const persons = useSelector((state: AppStateType) => state.profilePage.persons)
   const [activePerson, setActivePerson] = useState(0)
+  const about = [
+    'Быстрая игра, хорошо подходит для ознакомления с игрой, доступен только рынок акций, для победы добейтесь дохода в 5000$',
+    'Нормальная игры, подходит для тех кто изучил основные принципы игры и хочет попробовать что-то новенькое, доступен рынок акций и рынок недвижимости, для победы добейтесь дохода в 15000$',
+    'Долгая игра, пройдите суровую проверку своих навыков, все рынки доступны, для победы добейтесь дохода в 50000$',
+  ]
 
   const [filteredPersons, setFilteredPersons] = useState(persons.filter(f => f.difficulty === 'easy'))
-
+  const [difficulty, setDifficulty] = useState<0 | 1 | 2>(0)
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
   // выбор скорости игры
   const timesSpeed = [8, 4, 2]
 
   // расчёт подоходного налога / зависит на прямую от зп
   const tax = filteredPersons[activePerson].salary >= 500
-    ? filteredPersons[activePerson].salary * 0.15
+    ? filteredPersons[activePerson].salary * 0.15 // на зп более 100$ повышенный налог...
     : filteredPersons[activePerson].salary * 0.10
 
-  let taxesSummary = tax
-
-  filteredPersons[activePerson].expenses.forEach(expense => {
-    taxesSummary += expense.startPrice * expense.payment / 100
-  })
-
+  let taxesSummary = filteredPersons[activePerson].expenses.reduce((acc, next) => {
+    return acc + next.startPrice * next.payment / 100
+  }, tax)
+  
   const updateStats = async (profile: any) => {
     try {
       // const data = await request('/api/profile/new', 'POST', {profile},{
@@ -53,7 +56,7 @@ export const ProfilePage: FC = () => {
 
     const profile = filteredPersons[activePerson]
 
-    await updateStats(profile)
+    // await updateStats(profile)
 
     dispatch(profileActions.setProfile(profile))
     // устанавливаем подоходный налог на зп
@@ -72,15 +75,11 @@ export const ProfilePage: FC = () => {
     { label: 'день/2сек', value: timesSpeed[1] },
     { label: 'день/1сек', value: timesSpeed[2] },
   ]
-  // const optionsDifficulty = [
-  //   { label: 'Легко', value: 'легко' },
-  //   { label: 'Средне', value: 'средне' },
-  //   { label: 'Сложно', value: 'сложно' },
-  // ]
-  const optionsVictoryBalance = [
-    { label: '5.000$', value: 5000 },
-    { label: '15.000$', value: 15000 },
-    { label: '50.000$', value: 50000 },
+  
+  const gameDifficulty = [
+    { label: 'Легко', value: 0 },
+    { label: 'Средне', value: 1 },
+    { label: 'Сложно', value: 2 },
   ]
 
   const onChangeTime = (e: any) => {
@@ -88,13 +87,17 @@ export const ProfilePage: FC = () => {
     dispatch(settingsActions.setConstTimeSpeed(e.target.value))
   }
 
-  const onChangeVictoryBalance = (e: any) => {
-    dispatch(actions.setVictoryBalance(e.target.value))
+  const onChangeDifficulty = (e: any) => {
+    setDifficulty(e.target.value)
+    let [filter, balance] = e.target.value === 0 ? ['easy', 5000] : e.target.value === 1 ? ['normal', 15000] : ['hard', 50000]
+    dispatch(actions.setVictoryBalance(balance))
+    dispatch(actions.setDifficulty(filter as DifficultyType))
+    setActivePerson(0)
+    setFilteredPersons(persons.filter(f => f.difficulty === filter))
   }
 
   useEffect(() => {
     dispatch(spendsActions.setEventsPrice())
-    // filteredPersons = persons.filter(f => f.difficulty === 'easy')
   },[,persons])
 
   useEffect(() => {
@@ -103,8 +106,14 @@ export const ProfilePage: FC = () => {
   return (
     <>
       <div className="profile bannerBack">
+        <div className="profileBack">
+          <NavLink to='/'>
+            <Button>Обратно в меню</Button>
+          </NavLink>
+        </div>
+
         <div className="profileMenu">
-          <div className="profileMenuTitle">Добро пожаловать</div>
+          <div className="profileMenuTitle">Выбор персонажа</div>
           <div className="profileMenuList">
             <div className="profileMenuList__items">
               {filteredPersons.length === 0
@@ -123,22 +132,6 @@ export const ProfilePage: FC = () => {
                   })}
                 </>
               }
-            </div>
-            <div className="profileMenuList__settings">
-              <div className="profilePersons__Filter">
-                <Button size={'large'} onClick={() => {
-                  setActivePerson(0)
-                  setFilteredPersons(persons.filter(f => f.difficulty === 'easy'))
-                }}>Легкие</Button>
-                <Button size={'large'} onClick={() => {
-                  setActivePerson(0)
-                  setFilteredPersons(persons.filter(f => f.difficulty === 'normal'))
-                }}>Нормальные</Button>
-                <Button size={'large'} onClick={() => {
-                  setActivePerson(0)
-                  setFilteredPersons(persons.filter(f => f.difficulty === 'hard'))
-                }}>Сложные</Button>
-              </div>
             </div>
           </div>
           <div className="profilePersons__Button">
@@ -170,8 +163,8 @@ export const ProfilePage: FC = () => {
                 <div className="profilePreview__StatsBlock__Price">${filteredPersons[activePerson].salary}</div>
               </div>
               <div className="profilePreview__StatsBlock">
-                <div className="profilePreview__StatsBlock__Title">Сбережения:</div>
-                <div className="profilePreview__StatsBlock__Price">${filteredPersons[activePerson].saving}</div>
+                <div className="profilePreview__StatsBlock__Title">Остаток:</div>
+                <div className="profilePreview__StatsBlock__Price">${filteredPersons[activePerson].salary - taxesSummary}</div>
               </div>
             </div>
             <div className='profilePreview__StatsExpenses'>
@@ -184,14 +177,14 @@ export const ProfilePage: FC = () => {
               </div>
               {filteredPersons[activePerson].expenses.map((expense, index) => {
                 return (
-                  <span key={index}>
+                  <>
                     {expense.remainPrice !== 0
-                      ? <div className='profilePreview__StatsBlock'>
+                      ? <div className='profilePreview__StatsBlock' key={index}>
                           <div className="profilePreview__StatsBlock__Title">{expense.title}:</div>
                           <div className="profilePreview__StatsBlock__Price">${expense.remainPrice * expense.payment / 100}</div>
                         </div>
                       : ''}
-                  </span>
+                  </>
                 )
               })}
             </div>
@@ -200,44 +193,42 @@ export const ProfilePage: FC = () => {
                 Наличные:
               </div>
               <div className="profilePreview__StatsBlock">
-                ${filteredPersons[activePerson].salary - taxesSummary}
+                ${filteredPersons[activePerson].saving}
               </div>
             </div>
           </div>
         </div>
         <div className="profileSettings">
-          <div className="profileMenu__Buttons">
-            <div className="profileMenu__Button">
-              <NavLink to='/'>
-                <Button>
-                  Вернутся в меню
-                </Button>
-              </NavLink>
+          <div className="profileSettings__Speed">
+            Скорость игры
+            <br/>
+            <Radio.Group
+              options={optionsTime}
+              onChange={onChangeTime}
+              value={timeSpeed}
+              optionType="button"                
+              className='profileSettings__SpeedRadio'
+            />
+          </div>
+          <div className="profileSettings__Condition">
+            Сложность
+            <br/>
+            <Radio.Group
+              options={gameDifficulty}
+              onChange={onChangeDifficulty}
+              value={difficulty}
+              optionType="button"
+              className='settingsListItem__Radio'
+            />
+            <br />
+            <div className="profileSettings__ConditionAbout">
+              {about[difficulty]}
             </div>
           </div>
-          <div className="profileMenu__Settings">
-            <div className="profileMenu__SettingsItem">
-              Скорость игры
-              <br/>
-              <Radio.Group
-                options={optionsTime}
-                onChange={onChangeTime}
-                value={timeSpeed}
-                optionType="button"
-                className='settingsListItem__Radio'
-              />
-            </div>
-            <div className="profileMenu__SettingsItem">
-              Доход / мес
-              <br/>
-              <Radio.Group
-                options={optionsVictoryBalance}
-                onChange={onChangeVictoryBalance}
-                value={victoryBalance}
-                optionType="button"
-                className='settingsListItem__Radio'
-              />
-            </div>
+          <div className="profileSettings__Button">
+            <NavLink to='/game'>
+              <Button size="large" onClick={setProfile}>Начать игру</Button>
+            </NavLink>
           </div>
         </div>
       </div>
