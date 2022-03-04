@@ -258,15 +258,16 @@ export const balanceCheckThunk = (): ActionThunkType => (dispatch, getState) => 
     // @ts-ignore
     dispatch(newsActions.resetNews())
   }
-
+  console.log('checking balance...')
   if (wallet <= loseBalance) {
     // player lose...
-    actions.setGameStatus('lose')
+    dispatch(actions.setGameStatus('lose'))
     resetGame()
   } else {
     if (income >= victoryBalance) {
       // player win
-      actions.setGameStatus('win')      }
+      dispatch(actions.setGameStatus('win'))   
+    }
   }
 }
 export type DifficultyType = 'easy' | 'normal' | 'hard'

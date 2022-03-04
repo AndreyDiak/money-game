@@ -84,7 +84,7 @@ export const GamePage: FC = () => {
 
   // запуск функций
   liveProcess()
-
+  console.log(gameStatus)
   // заполнение массива акциями . . .
   useEffect(() => {
     // создаём акции
