@@ -33,7 +33,8 @@ export const Popups:FC<PopupsType> = (props) => {
 
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   const stocks = useSelector(getStocksSelector)
-
+  const gameStatus = useSelector((state: AppStateType) => state.gamePage.gameStatus)
+  
   const onButtonClick = () => {
     props.setIsMarketOpen(false)
   }

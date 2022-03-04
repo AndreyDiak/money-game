@@ -1,10 +1,9 @@
-import {AppStateType, InferActionsType} from "./store";
-import {ThunkAction} from "redux-thunk";
-import {actions, GameActionsType} from "./game-reducer";
-import {stocksActions, StocksActionType} from "./stocks-reducer";
-import {businessActions} from "./business-reducer";
-import {getRandomNumber} from "../utils/getRandomNumber";
-import {profileActions, ProfileActionsType, updateIncome} from "./profile-reducer";
+import { ThunkAction } from "redux-thunk";
+import { getRandomNumber } from "../utils/getRandomNumber";
+import { actions, GameActionsType } from "./game-reducer";
+import { profileActions, ProfileActionsType, updateIncome } from "./profile-reducer";
+import { stocksActions, StocksActionType } from "./stocks-reducer";
+import { AppStateType, InferActionsType } from "./store";
 
 const ADD_NEWS = 'newsPage/ADD_NEWS'
 const ABLE_TO_SHOW = 'newsPage/ABLE_TO_SHOW'
@@ -227,8 +226,9 @@ export const setNewsThunk = (newsTypeIndex: number): NewsThunkType => (dispatch,
     // шанс рождения ребенка примерно 5%
     news.title = 'Рождение ребенка это большое событие!'
     news.amount = -125
-    dispatch(actions.getNewsPayout('regular', news.amount))
+    
     dispatch(profileActions.newChild())
+    dispatch(updateIncome())
   } else {
     // выбираем одну из 3 видов новостей хорошая / плохая / нейтральная
     let newsConditionIndex = getRandomNumber(newsTypes[newsTypeIndex].variants.length)

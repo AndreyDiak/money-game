@@ -34,11 +34,10 @@
       + долгая (бизнесс)
     }
     +поменять расположение блоков 
-'-'
-  -tune some styles to more comfortable UI
-  
-    замутить последующий адаптив...
+    +tune some styles to more comfortable UI
+    +замутить последующий адаптив...
   }
+'-'
 
 ===RENDER_TIME===
 '+'
@@ -46,3 +45,8 @@
 
 '-'
   -maybe take out smth else to the thunk function
+
+сделать всплывашки при разных действиях 
+ - взятие маржи
+ - какие либо новости (?)
+ - покупка / продажа чего либо (?)

@@ -1,7 +1,7 @@
 import { Breadcrumb } from "antd";
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actions, updateMonthThunk } from "../../redux/game-reducer";
+import { actions, balanceCheckThunk, updateMonthThunk } from "../../redux/game-reducer";
 import { getDayInMonthSelector, getDaySelector, getMonthSelector, getMonthsSelector } from "../../redux/game-selector";
 import { generateNewsThunk } from "../../redux/news-reducer";
 import { weekSpendThunk } from "../../redux/spends-reducer";
@@ -16,10 +16,6 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
 
   // день месяца . . .
   const dayInMonth = useSelector(getDayInMonthSelector)
-  //
-  // const {request, isLoading, error} = useHttp()
-  //
-  // const token = useSelector((state: AppStateType) => state.app.token)
   //
   const dispatch = useDispatch()
   // текущий день . . .
@@ -49,6 +45,8 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   useEffect(() => {
     dispatch(actions.setDayInMonth(dayInMonth + 1))
     dispatch(payMarginPenaltyThunk())
+    dispatch(balanceCheckThunk())
+    // TODO добавить сюда проверку баланса игрока на каждый день...
     // еженедельные покупки . . .
     if (day % 7 === 0 && day !== 0) {
       // создаем новости каждые две недели
@@ -64,9 +62,12 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
       if(stocks.length !== 0) {
         // обновление цен на акции . . .
         dispatch(stocksActions.indexingStocks())
-        // обновление цены всего портфеля игрока...
+        // обновление цен на облигации..
+        dispatch(stocksActions.indexingBonds())
+        // обновление цены всего портфеля игрока..
         dispatch(stocksActions.indexStocksSummaryPrice())
       }
+      
     }
     // если сегодня последний день месяца, то обновляем месяц и выдаём зарплату игроку . . .
     if(dayInMonth === months[month].duration) {

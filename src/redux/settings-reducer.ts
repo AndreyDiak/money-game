@@ -1,4 +1,4 @@
-import {InferActionsType} from "./store";
+import { InferActionsType } from "./store";
 
 const SET_TIME_SPEED = 'settingsPage/SET_TIME_SPEED'
 const SET_DIFFICULTY = 'settingsPage/SET_DIFFICULTY'
@@ -15,7 +15,7 @@ let initialState = {
 
 export type InitialSettingsStateType = typeof initialState
 
-export const settingsReducer = (state = initialState, action: ProfileActionsType): InitialSettingsStateType => {
+export const settingsReducer = (state = initialState, action: SettingsActionType): InitialSettingsStateType => {
   switch (action.type) {
     case SET_TIME_SPEED:
       return {
@@ -47,5 +47,5 @@ export const settingsActions = {
 
 export type DifficultyType = 'легко' | 'средне' | 'сложно'
 
-type ProfileActionsType = InferActionsType<typeof settingsActions>
+export type SettingsActionType = InferActionsType<typeof settingsActions>
 

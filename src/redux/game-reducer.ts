@@ -1,10 +1,11 @@
 import { ThunkAction } from 'redux-thunk';
-import { getRandomNumber } from '../utils/getRandomNumber';
-import { setNewsThunk } from './news-reducer';
+import { businessActions } from './business-reducer';
+import { newsActions } from './news-reducer';
 import { profileActions, ProfileActionsType, updateIncome } from './profile-reducer';
 import { realtyActions, RealtyActionsType } from './realty-reducer';
+import { settingsActions, SettingsActionType } from './settings-reducer';
 import { spendsActions, SpendsActionType } from './spends-reducer';
-import { StocksActionType, stocksActions } from './stocks-reducer';
+import { stocksActions, StocksActionType } from './stocks-reducer';
 import { AppStateType, InferActionsType } from "./store";
 
 // time . . .
@@ -31,6 +32,7 @@ const UPDATE_BUSINESS_INCOME = 'gamePage/UPDATE_BUSINESS_INCOME'
 const SET_VICTORY_BALANCE = 'gamePage/SET_VICTORY_BALANCE'
 
 const SET_NEW_GAME = 'gamePage/SET_NEW_GAME'
+const SET_GAME_STATUS = 'gamePage/SET_GAME_STATUS'
 
 let initialState = {
   // счётчик дней . . .
@@ -49,8 +51,10 @@ let initialState = {
   victoryBalance: 15000,
   //
   difficulty: 'easy' as DifficultyType,
-  // баланс для пораженя
+  // баланс для поражения
   loseBalance: 0,
+  //
+  gameStatus: 'process' as GameStatusType,
   // месяцы игры . . .
   months: [
     {name: 'Январь', duration: 31}, {name: 'Февраль', duration: 28}, {name: 'Март', duration: 31},
@@ -164,7 +168,12 @@ export const gameReducer = (state = initialState, action: GameActionsType): Init
         income: 0,
         // happenedEvents: Array(12).fill([] as eventType[])
       }
-
+    case SET_GAME_STATUS:
+      return {
+        ...state,
+        gameStatus: action.status
+        
+      }
     case SET_NEW_GAME:
       return {
         ...state,
@@ -179,7 +188,7 @@ export const gameReducer = (state = initialState, action: GameActionsType): Init
   }
 }
 
-export const actions = {
+export const  actions = {
   // actions даты и времени . . .
   setDay: (day: number) => ({type: SET_DAY, day} as const),
   setMonth: (month: number) => ({type: SET_MONTH, month} as const),
@@ -199,7 +208,8 @@ export const actions = {
   updateBusinessIncome: (income: number) => ({type: UPDATE_BUSINESS_INCOME, income} as const),
   initGame: () => ({type: INIT_GAME} as const),
 
-  setNewGame: (day: number, dayInMonth: number, month: number, wallet: number, victoryBalance: number) => ({type: SET_NEW_GAME, day, dayInMonth, month, wallet, victoryBalance} as const)
+  setNewGame: (day: number, dayInMonth: number, month: number, wallet: number, victoryBalance: number) => ({type: SET_NEW_GAME, day, dayInMonth, month, wallet, victoryBalance} as const),
+  setGameStatus: (status: GameStatusType) => ({type: SET_GAME_STATUS, status} as const)
 }
 
 export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
@@ -234,6 +244,33 @@ export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
 
 }
 
+export const balanceCheckThunk = (): ActionThunkType => (dispatch, getState) => {
+  const income = getState().gamePage.income
+  const wallet = getState().gamePage.wallet
+  const victoryBalance = getState().gamePage.victoryBalance
+  const loseBalance = getState().gamePage.loseBalance
+
+  const resetGame = () => {
+    dispatch(settingsActions.setTimeSpeed(0))
+    dispatch(stocksActions.resetMyStocks())
+    // @ts-ignore
+    dispatch(businessActions.resetMyBusinesses())
+    // @ts-ignore
+    dispatch(newsActions.resetNews())
+  }
+
+  if (wallet <= loseBalance) {
+    // player lose...
+    actions.setGameStatus('lose')
+    resetGame()
+  } else {
+    if (income >= victoryBalance) {
+      // player win
+      actions.setGameStatus('win')      }
+  }
+}
 export type DifficultyType = 'easy' | 'normal' | 'hard'
+export type GameStatusType = 'process' | 'win' | 'lose'
 export type GameActionsType = InferActionsType<typeof actions>
-type ActionThunkType = ThunkAction<any, AppStateType, unknown, GameActionsType | SpendsActionType | RealtyActionsType | ProfileActionsType | StocksActionType>
+type ActionThunkType = ThunkAction<any, AppStateType, unknown, 
+GameActionsType | SpendsActionType | RealtyActionsType | ProfileActionsType | StocksActionType | SettingsActionType>

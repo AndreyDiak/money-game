@@ -1,20 +1,18 @@
-import { Badge, message, notification, Spin } from "antd";
-import { Children, FC, useEffect, useState } from "react";
+import { Badge, notification, Spin } from "antd";
+import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useRoutes, Routes, Route } from "react-router-dom";
+import { NavLink, useRoutes } from "react-router-dom";
 import { useHttp } from "../../hooks/http.hook";
 import menuIconBank from "../../img/menu/bank.svg";
 import menuIconMarket from "../../img/menu/market.svg";
 import menuIconNews from "../../img/menu/news.svg";
 import menuIconProfile from "../../img/menu/profile.svg";
 import menuIconSpends from "../../img/menu/spends.svg";
-import { businessActions } from "../../redux/business-reducer";
 import { getBusinessesSelector } from "../../redux/business-selector";
 import { actions } from "../../redux/game-reducer";
-import { getDaySelector, getLoseBalance, getVictoryBalance, getWalletSelector } from "../../redux/game-selector";
+import { getDaySelector } from "../../redux/game-selector";
 import { newsActions } from "../../redux/news-reducer";
 import { getPersonSelector } from "../../redux/profile-selector";
-import { settingsActions } from "../../redux/settings-reducer";
 import { getTimeSpeedSelector } from "../../redux/settings-selector";
 import { brokerType, stocksActions, stockType } from "../../redux/stocks-reducer";
 import { getMyStocksSelector, getStocksSelector } from "../../redux/stocks-selector";
@@ -39,17 +37,11 @@ export const GamePage: FC = () => {
   const token = useSelector((state: AppStateType) => state.app.token)
   // счётчик дней . . .
   const day = useSelector(getDaySelector)
-  // кошелёк игрока . . .
-  const wallet = useSelector(getWalletSelector)
   // доход в месяц игрока . . .
   const income = useSelector((state: AppStateType) => state.profilePage.income)
-  // уровень трат . . .
-  // const spendsLevel = useSelector((state: AppStateType) => state.spendsPage.spendsLevel)
+  // статус игры
+  const gameStatus = useSelector((state: AppStateType) => state.gamePage.gameStatus)
   const profile = useSelector(getPersonSelector)
-  // баланс необходимый для победы . . .
-  const victoryBalance = useSelector(getVictoryBalance)
-  // баланс для поражения . . .
-  const loseBalance = useSelector(getLoseBalance)
   //
   const news = useSelector((state: AppStateType) => state.newsPage.news)
   // массив с акциями . . .
@@ -59,16 +51,13 @@ export const GamePage: FC = () => {
   // будущий массив с предложением по бизнессу . . .
   const businesses = useSelector(getBusinessesSelector)
   // количество новостей . . .
-  // const news = useSelector((state: AppStateType) => state.newsPage.news)
-
+  const margin = useSelector((state: AppStateType) => state.stocksPage.margin)
   // активная акция . . .
   const [myActiveStock, setMyActiveStock] = useState(0)
   // переменная для просмотра истории цены акции . . .
   const [isHistoryShown, setIsHistoryShown] = useState(false)
   // переменная для продажи акций . . .
   const [isStockToSell, setIsStockToSell] = useState(false)
-  // // смена работы . . .
-  // const [isChangeWorkShown, setIsChangeWorkShown] = useState(false)
   // активная акция пользователя . . .
   const [activeStock, setActiveStock] = useState(null as null | stockType)
   //
@@ -85,70 +74,16 @@ export const GamePage: FC = () => {
   const [isMarketOpen, setIsMarketOpen] = useState(false)
   //
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
-  // функция проверка на победу/поражение
 
-  const resetGame = () => {
-    setIsEndOfGame(true)
-    dispatch(settingsActions.setTimeSpeed(0))
-    dispatch(stocksActions.resetMyStocks())
-    dispatch(businessActions.resetMyBusinesses())
-    dispatch(newsActions.resetNews())
-  }
-
-  const balanceCheck = async () => {
-    if (income >= victoryBalance) {
-      console.log('u win!')
-      // зануление игры . . .
-      if(!isEndOfGame) {
-        // обновление статистики игры
-          try {
-            await request('/api/profile/win', 'POST',{},{
-              Authorization: `Bearer ${token}`
-            })
-            await request('/api/game/delete', 'POST', {}, {
-              Authorization: `Bearer ${token}`
-            })
-            // зануление данных чтобы юзер не мог вернуться к данной игре из меню после победы...
-            //
-            setShowExitModal(true)
-            resetGame()
-            // message.success('Данные по игре обновлены...')
-          } catch (e) {
-            // message.error('Ну удалось обновить данные по игре..')
-          }
-      }
-    }
-    if(wallet < loseBalance) {
-      // зануление игры . . .
-      if(!isEndOfGame) {
-        console.log('u lose!')
-        setIsEndOfGame(true)
-          try {
-            await request('/api/game/delete', 'POST', {}, {
-              Authorization: `Bearer ${token}`
-            })
-            message.success('Данные по игре обновлены...')
-            setShowExitModal(true)
-            resetGame()
-          } catch (e) {
-            message.error('Ну удалось обновить данные по игре..')
-          }
-      }
-    }
-  }
-  // функция которая ведёт подсчёт дней . . .
+  // увеличиваем кол-во дней...
   const liveProcess = () => {
-    if(timeSpeed !== 0) {
-      setTimeout(() => {
-        // диспатчим обновленный счетчик дней . . .
-        dispatch(actions.setDay(day + 1))
-      }, timeSpeed * 500)
+    if(timeSpeed !== 0 && gameStatus === 'process') {
+      setTimeout(() => dispatch(actions.setDay(day + 1)), timeSpeed * 500)
     }
   }
 
   // запуск функций
   liveProcess()
-  balanceCheck()
 
   // заполнение массива акциями . . .
   useEffect(() => {
@@ -160,16 +95,22 @@ export const GamePage: FC = () => {
       dispatch(stocksActions.setBonds())
       // // // новости про акции
       dispatch(newsActions.setAbleToShow('stocksNews'))
-      openNotification('Вам стала доступна покупка акций!')
+      openNotification('Рынок акций / облигаций открыт!')
       }
     // создаём бизнесс
     if (income >= 1000 && businesses.length === 0) {
-      openNotification('Вам стала доступна покупка недвижимости')
+      openNotification('Рынок недвижимости открыт!')
     }
     if (income >= 4500 && businesses.length === 0) {
-      openNotification('Вам стала доступна покупка своего бизнеса!')
+      openNotification('Купите ваш первый настоящий бизнесс!')
     }
-    },[income])
+    if (margin.length === 1) {
+      openNotification('Вы открыли позицию у брокера')
+    } else {
+      if (day > 3)
+        openNotification('Вы закрыли позицию у брокера')
+    }
+    },[income, margin])
 
   const openNotification = (text: string) => {
     notification.open({

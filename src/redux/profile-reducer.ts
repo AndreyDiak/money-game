@@ -30,7 +30,6 @@ import person8Photo from "../img/characters/person-8.png"
 import person9Avatar from "../img/characters/person-9-avatar.png"
 import person9Photo from "../img/characters/person-9.png"
 import { actions } from "./game-reducer"
-import { myStockType } from "./stocks-reducer"
 import { AppStateType, InferActionsType } from "./store"
 
 const SET_PROFILE = 'profilePage/SET_PROFILE'
@@ -442,75 +441,37 @@ export const takeCreditThunk = (creditAmount: number, payoutPercentage: number, 
     startPrice: finalPayout,
     payment: payoutPercentage
   }
-
+  // добавляем выплаты по кредиту в профиль игрока...
   dispatch(profileActions.setCredit(expensesCopy))
-
-  // @ts-ignore
+  // @ts-ignore начисляем сумму кредита на счет игрока...
   dispatch(actions.updateWalletFromSpends(-creditAmount))
-
+  // обновляем доход персонажа... (теперь он платит процент по кредиту...)
   dispatch(updateIncome())
 }
 export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
-
+  // Изменить суммарные подсчеты начислений на баланс игрока...
   const profilePage = getState().profilePage
+  const profile = profilePage.profile as personType
   const tax = profilePage.tax
-  const salary = profilePage.profile?.salary as number
-
-  // начисления с девидендов
-  const myStocks = getState().stocksPage.myStocks as myStockType[]
-  let dividendsSummary = 0
-
-  myStocks.forEach(stock => {
-    dividendsSummary += stock.dividendsAmount * stock.count
-  })
-
-  // начисления с недвижимости
+  const salary = profile.salary
+  const myStocks = getState().stocksPage.myStocks
   const myRealty = getState().realtyPage.myRealty
-  let realtySummary = 0
-
-  myRealty.forEach(realty => {
-    realtySummary += realty.payment
-  })
-
-  // начисления с бизнесса
   const myBusiness = getState().businessPage.myBusinesses
-  let businessSummary = 0
-  myBusiness.forEach(business => {
-    businessSummary += business.income
-  })
-
-  let expensesSummary = 0
-  profilePage.profile?.expenses.forEach((expense, index) => {
-    if (profilePage.profile?.expenses[index].remainPrice !== 0) {
-      expensesSummary += expense.startPrice * expense.payment / 100
-    }
-  })
-
-  const newsExpenses = getState().newsPage.newsExpenses
-  // расходы с новостей
-  let newsExpensesPrice = 0
-  if (newsExpenses.length !== 0) {
-    newsExpenses.forEach(expenses => {
-      newsExpensesPrice -= expenses.amount
-    })
-  }
-
-  const newsIncome = getState().newsPage.newsIncome
-  // доходы с новостей
-  let newsIncomesPrice = 0
-  if (newsIncome.length !== 0) {
-    newsIncome.forEach(income => {
-      newsIncomesPrice += income.amount
-    })
-  }
-
-  // @ts-ignore
-  let NewIncome = Math.round(salary - tax - expensesSummary - newsExpensesPrice + newsIncomesPrice + dividendsSummary + realtySummary + businessSummary)
-
+  // начисление с аекций
+  let dividendsSummary = myStocks.reduce((acc, next) => acc + next.dividendsAmount * next.count, 0)
+  // начисления с недвижимости
+  let realtySummary = myRealty.reduce((acc, next) => acc + next.payment, 0)
+  // начисления с бизнесса
+  let businessSummary = myBusiness.reduce((acc, next) => acc + next.income, 0)
+  // долги игрока...
+  let expensesSummary = profile.expenses.reduce((acc, next) => next.remainPrice !== 0 ? acc + next.startPrice * next.payment / 100 : 0, 0)
+  let childrenSummary = profilePage.childrenCount * 125
+  // считаем новый доход персонажа...
+  let NewIncome = Math.round(salary - tax - expensesSummary - childrenSummary + dividendsSummary + realtySummary + businessSummary)
+  // новый доход игрока...
   dispatch(profileActions.updateIncome(NewIncome))
-  // dispatch(profileActions.setSalary(salary + workAdd))
-  // dispatch(profileActions.setTax(newTax))
 }
+
 export type ProfileActionsType = InferActionsType<typeof profileActions>
 export type expenseType = {
   type: string
