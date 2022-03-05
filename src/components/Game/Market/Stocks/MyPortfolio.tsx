@@ -11,36 +11,35 @@ type MyStocksType = {
   setIsStockToSell: SetStateAction<any>
 }
 
-export const MyPortfolio: FC<MyStocksType> = ({
-                                             setActiveStock,
-                                             setMyActiveStock,
-                                             setIsHistoryShown,
-                                             setIsStockToSell}) => {
+export const MyPortfolio: FC<MyStocksType> = React.memo(({
+  setActiveStock,
+  setMyActiveStock,
+  setIsHistoryShown,
+  setIsStockToSell}) => {
 
-  const myStocks: myStockType[] = useSelector(getMyStocksSelector)
+const myStocks: myStockType[] = useSelector(getMyStocksSelector)
 
-  return (
-    <>
-      <div className="gameProfitStocks__Me">
-        <div className="gameProfitStocks__Header">
-          Ваш портфель
-        </div>
-        <div className="gameProfitStocks__OfferBlocks">
-          <div className="gameProfitStocks__OfferBlocks__stocks">
-            {myStocks.map((stock, index) =>
-              <RenderMyStock
-                stock={stock}
-                index={index}
-                setIsHistoryShown={setIsHistoryShown}
-                setActiveStock={setActiveStock}
-                setMyActiveStock={setMyActiveStock}
-                setIsStockToSell={setIsStockToSell}
-              />
-            )}
-
-          </div>
-        </div>
+return (
+  <>
+  <div className="gameProfitStocks__Me">
+    <div className="gameProfitStocks__Header">
+    Ваш портфель
+    </div>
+    <div className="gameProfitStocks__OfferBlocks">
+      <div className="gameProfitStocks__OfferBlocks__stocks">
+        {myStocks.map((stock, index) =>
+          <RenderMyStock
+            stock={stock}
+            index={index}
+            setIsHistoryShown={setIsHistoryShown}
+            setActiveStock={setActiveStock}
+            setMyActiveStock={setMyActiveStock}
+            setIsStockToSell={setIsStockToSell}
+          />
+        )}
       </div>
-    </>
+    </div>
+  </div>
+  </>
   )
-}
+})

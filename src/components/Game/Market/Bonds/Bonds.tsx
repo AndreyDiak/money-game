@@ -5,12 +5,13 @@ import { FC, useState } from "react"
 import { StockCard } from "../Stocks/StockCard"
 import { Button, Input, Popover, Radio, Space } from "antd"
 import { AppStateType } from "../../../../redux/store";
+import React from "react";
 
 type BondsType = {
   setIsHistoryShown: (isHistoryShown: boolean) => void
   setActiveStock: (activeStock: BondType) => void
 }
-export const Bonds: FC<BondsType> = ({setActiveStock, setIsHistoryShown}) => {
+export const Bonds: FC<BondsType> = React.memo(({setActiveStock, setIsHistoryShown}) => {
 
   const filteredBonds: BondType[] = useSelector((state: AppStateType) => state.stocksPage.filteredBonds)
   const [isReverse, setIsReverse] = useState(false)
@@ -71,6 +72,6 @@ export const Bonds: FC<BondsType> = ({setActiveStock, setIsHistoryShown}) => {
       </div>
     </>
   )
-}
+})
 
 

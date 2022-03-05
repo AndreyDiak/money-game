@@ -20,7 +20,7 @@ export type RenderPlayerStocksType = {
 }
 type MarketType = 'portfolio' | 'stocks' | 'bonds' | 'margin'
 
-export const StocksPage: FC<RenderPlayerStocksType> = ({
+export const StocksPage: FC<RenderPlayerStocksType> = React.memo(({
   setIsStockToSell, setMyActiveStock, setActiveStock, 
   setIsHistoryShown, setActiveBroker, setIsMarginShown, setIsMarginPayBackShown}) => {
   
@@ -139,4 +139,4 @@ export const StocksPage: FC<RenderPlayerStocksType> = ({
       </div>
     </>
   )
-}
+})

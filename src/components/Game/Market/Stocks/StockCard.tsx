@@ -21,7 +21,7 @@ export type RenderMyStockType = {
   setIsStockToSell: SetStateAction<any>
 }
 
-export const StockCard: FC<RenderStockType> = (props) => {
+export const StockCard: FC<RenderStockType> = React.memo((props) => {
 
   const dispatch = useDispatch()
   const isSubcsriptionBought = useSelector((state: AppStateType) => state.stocksPage.isSubscriptionBought)
@@ -71,9 +71,9 @@ export const StockCard: FC<RenderStockType> = (props) => {
       </div>
     </>
   )
-}
+})
 
-export const RenderMyStock: FC<RenderMyStockType> = (props) => {
+export const RenderMyStock: FC<RenderMyStockType> = React.memo((props) => {
 
   const dispatch = useDispatch()
 
@@ -122,5 +122,5 @@ export const RenderMyStock: FC<RenderMyStockType> = (props) => {
       </div>
     </>
   )
-}
+})
 

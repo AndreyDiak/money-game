@@ -1,5 +1,5 @@
 import { DoubleRightOutlined, PauseOutlined, RightOutlined } from "@ant-design/icons/lib/icons";
-import { Avatar, Badge, Button, Dropdown, Menu, Progress } from 'antd';
+import { Avatar, Badge, Menu, Progress } from 'antd';
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -13,7 +13,7 @@ import { AppStateType } from "../redux/store";
 import { RenderTime } from "./Game/RenderTime";
 const { SubMenu } = Menu
 
-export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
+export const Navbar: FC<{isEndOfGame: boolean}> = React.memo(({isEndOfGame}) => {
 
   const dispatch = useDispatch()
 
@@ -117,4 +117,4 @@ export const Navbar: FC<{isEndOfGame: boolean}> = ({isEndOfGame}) => {
       </div>
     </>
   )
-}
+})

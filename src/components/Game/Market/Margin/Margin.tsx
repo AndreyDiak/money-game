@@ -1,4 +1,5 @@
 import { Button, Popover } from "antd"
+import React from "react"
 import { FC } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { settingsActions } from "../../../../redux/settings-reducer"
@@ -10,7 +11,7 @@ type RenderPlayerMarginType = {
   setIsMarginShown: (isMarginShown: boolean) => void
 }
 
-export const Margin: FC<RenderPlayerMarginType> = ({setActiveBroker, setIsMarginShown}) => {
+export const Margin: FC<RenderPlayerMarginType> = React.memo(({setActiveBroker, setIsMarginShown}) => {
   
   const dispatch = useDispatch()
   const brokers: brokerType[] = useSelector(getBrokersSelector)
@@ -69,4 +70,4 @@ export const Margin: FC<RenderPlayerMarginType> = ({setActiveBroker, setIsMargin
       </div>
     </>
   )
-}
+})

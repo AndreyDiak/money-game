@@ -15,7 +15,7 @@ type MarginPopupType = {
   broker: brokerType
   setIsMarginShown: (isMarginShown: boolean) => void
 }
-export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown}) => {
+export const MarginPopup: FC<MarginPopupType> = React.memo(({broker, setIsMarginShown}) => {
 
   const dispatch = useDispatch()
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
@@ -182,8 +182,8 @@ export const MarginPopup: FC<MarginPopupType> = ({broker, setIsMarginShown}) => 
       </div>
     </>
   )
-}
-const MarginAlert = () => {
+})
+const MarginAlert = React.memo(() => {
   const [isAbleToShow, setIsAbleToShow] = useState(Array(6).fill(false))
   const alerts = [
     {
@@ -299,8 +299,8 @@ const MarginAlert = () => {
       })}
     </>
   )
-}
-export const MarginPopupMenu: FC<MarginPopupMenuType> = ({
+})
+export const MarginPopupMenu: FC<MarginPopupMenuType> = React.memo(({
   stock, broker, stocksToBuyCount, activeMarginTime, ableToBuy,
   setStocksToBuyCount, setStocksToBuyPrice, setActiveMarginTime, buyMarginStock}) => {
   
@@ -375,7 +375,7 @@ export const MarginPopupMenu: FC<MarginPopupMenuType> = ({
     
     </>
   )
-}
+})
 export const MarginPopupChart: FC<{stock: stockType}> = React.memo(({stock}) => {
 
   const [screenWidth, setScreenWidth] = useState(window.screen.width)

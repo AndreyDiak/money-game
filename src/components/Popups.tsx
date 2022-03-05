@@ -9,6 +9,7 @@ import { MarginPayBackPopup } from "./Game/Market/Margin/MarginPayBackPopup";
 import { MarginPopup } from "./Game/Market/Margin/MarginPopup";
 import { Chart } from "./Game/Market/Stocks/Chart";
 import { SellPopup } from "./Game/Market/Stocks/SellPopup";
+import { GameEndPopup } from "./GameEndPopup";
 
 export type PopupsType = {
   myStock: myStockType
@@ -29,7 +30,7 @@ export type PopupsType = {
   setIsMarginShown: (isMarginShown: boolean) => void
 }
 
-export const Popups:FC<PopupsType> = (props) => {
+export const Popups:FC<PopupsType> = React.memo((props) => {
 
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   const stocks = useSelector(getStocksSelector)
@@ -44,6 +45,7 @@ export const Popups:FC<PopupsType> = (props) => {
       {props.isStockToSell && <SellPopup stock={props.myStock} setIsStockToSell={props.setIsStockToSell} activeStock={props.activeStock}/>}
       {props.isHistoryShown && <Chart setIsHistoryShown={props.setIsHistoryShown} stock={props.stock}/>}
       {props.isMarginShown && <MarginPopup setIsMarginShown={props.setIsMarginShown} broker={props.activeBroker} /> }
+      {gameStatus !== 'process' && <GameEndPopup /> }
       {props.isMarginPayBackShown && 
       <MarginPayBackPopup 
         setIsMarginPayBackShown={props.setIsMarginPayBackShown}
@@ -88,4 +90,4 @@ export const Popups:FC<PopupsType> = (props) => {
       </Modal>
     </>
   )
-}
+})

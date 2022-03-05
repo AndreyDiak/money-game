@@ -29,6 +29,8 @@ import person8Avatar from "../img/characters/person-8-avatar.png"
 import person8Photo from "../img/characters/person-8.png"
 import person9Avatar from "../img/characters/person-9-avatar.png"
 import person9Photo from "../img/characters/person-9.png"
+import person16Avatar from "../img/characters/person-16-avatar.png"
+import person16Photo from "../img/characters/person-16.png"
 import { actions } from "./game-reducer"
 import { AppStateType, InferActionsType } from "./store"
 
@@ -52,7 +54,7 @@ let initialState = {
     {
       name: 'Эдди',
       age: 28,
-      saving: 15200,
+      saving: 1100,
       salary: 700,
       work: 'Маркетолог',
       expenses: [
@@ -64,12 +66,12 @@ let initialState = {
       difficulty: "easy",
       img: person1Photo,
       avatar: person1Avatar,
-    } as personType,
+    },
     {
       name: 'Макс',
       age: 24,
-      saving: 500,
-      salary: 650,
+      saving: 1000,
+      salary: 750,
       work: 'Менеджер',
       expenses: [
         {type: 'home', title: 'Дом', remainPrice: 3000, startPrice: 3000, payment: 4},
@@ -80,12 +82,12 @@ let initialState = {
       difficulty: 'easy',
       img: person2Photo,
       avatar: person2Avatar
-    } as personType,
+    },
     {
       name: 'Билл',
       age: 19,
-      saving: 430,
-      salary: 420,
+      saving: 830,
+      salary: 520,
       work: 'Разработчик',
       expenses: [
         {type: 'home', title: 'Дом', remainPrice: 1000, startPrice: 1000, payment: 3},
@@ -96,11 +98,11 @@ let initialState = {
       difficulty: 'normal',
       img: person3Photo,
       avatar: person3Avatar
-    } as personType,
+    },
     {
       name: 'Кейт',
       age: 23,
-      saving: 420,
+      saving: 720,
       salary: 530,
       work: 'Переводчик',
       expenses: [
@@ -112,11 +114,11 @@ let initialState = {
       difficulty: 'normal',
       img: person4Photo,
       avatar: person4Avatar
-    } as personType,
+    },
     {
       name: 'Фред',
       age: 21,
-      saving: 330,
+      saving: 530,
       salary: 370,
       work: 'Официант',
       expenses: [
@@ -128,12 +130,12 @@ let initialState = {
       difficulty: 'hard',
       img: person5Photo,
       avatar: person5Avatar
-    } as personType,
+    },
     {
       name: 'Джимми',
       age: 25,
-      saving: 475,
-      salary: 730,
+      saving: 925,
+      salary: 930,
       work: 'Режиссёр',
       expenses: [
         {type: 'home', title: 'Дом', remainPrice: 2500, startPrice: 2500, payment: 6},
@@ -144,12 +146,12 @@ let initialState = {
       difficulty: 'easy',
       img: person6Photo,
       avatar: person6Avatar
-    } as personType,
+    },
     {
       name: 'Брэд',
       age: 31,
-      saving: 490,
-      salary: 570,
+      saving: 890,
+      salary: 670,
       work: 'Страховщик',
       expenses: [
         {type: 'home', title: 'Дом', remainPrice: 1200, startPrice: 1200, payment: 4},
@@ -160,11 +162,11 @@ let initialState = {
       difficulty: 'easy',
       img: person7Photo,
       avatar: person7Avatar
-    } as personType,
+    },
     {
       name: 'Лизи',
       age: 26,
-      saving: 410,
+      saving: 710,
       salary: 550,
       work: 'Бухгалтер',
       expenses: [
@@ -176,12 +178,12 @@ let initialState = {
       difficulty: 'normal',
       img: person8Photo,
       avatar: person8Avatar
-    } as personType,
+    },
     {
       name: 'Изабель',
       age: 18,
-      saving: 600,
-      salary: 570,
+      saving: 1200,
+      salary: 650,
       work: 'Танцовщица',
       expenses: [
         {type: 'home', title: 'Дом', remainPrice: 1400, startPrice: 1400, payment: 3},
@@ -192,11 +194,11 @@ let initialState = {
       difficulty: 'easy',
       img: person9Photo,
       avatar: person9Avatar
-    } as personType,
+    },
     {
       name: 'Фрэнк',
       age: 29,
-      saving: 400,
+      saving: 550,
       salary: 600,
       work: 'Продюсер',
       expenses: [
@@ -208,11 +210,11 @@ let initialState = {
       difficulty: 'normal',
       img: person10Photo,
       avatar: person10Avatar
-    } as personType,
+    },
     {
       name: 'Алекс',
       age: 28,
-      saving: 310,
+      saving: 510,
       salary: 360,
       work: 'Журналист',
       expenses: [
@@ -224,11 +226,11 @@ let initialState = {
       difficulty: 'hard',
       img: person11Photo,
       avatar: person11Avatar
-    } as personType,
+    },
     {
       name: 'Адам',
       age: 28,
-      saving: 440,
+      saving: 740,
       salary: 580,
       work: 'Имиджмейкер',
       expenses: [
@@ -240,11 +242,11 @@ let initialState = {
       difficulty: 'normal',
       img: person12Photo,
       avatar: person12Avatar
-    } as personType,
+    },
     {
       name: 'Хейли',
       age: 27,
-      saving: 360,
+      saving: 560,
       salary: 330,
       work: 'Учитель',
       expenses: [
@@ -256,11 +258,11 @@ let initialState = {
       difficulty: 'hard',
       img: person13Photo,
       avatar: person13Avatar
-    } as personType,
+    },
     {
       name: 'Лили',
       age: 26,
-      saving: 340,
+      saving: 540,
       salary: 370,
       work: 'Врач',
       expenses: [
@@ -272,12 +274,12 @@ let initialState = {
       difficulty: 'hard',
       img: person14Photo,
       avatar: person14Avatar
-    } as personType,
+    },
     {
       name: 'Боб',
       age: 23,
-      saving: 540,
-      salary: 590,
+      saving: 640,
+      salary: 890,
       work: 'Инженер',
       expenses: [
         {type: 'home', title: 'Дом', remainPrice: 1500, startPrice: 1500, payment: 7},
@@ -288,8 +290,24 @@ let initialState = {
       difficulty: 'easy',
       img: person15Photo,
       avatar: person15Avatar
-    } as personType,
-  ],
+    },
+    {
+      name: 'Эльза',
+      age: 21,
+      saving: 600,
+      salary: 550,
+      work: 'Эскортинца',
+      expenses: [
+        {type: 'home', title: 'Дом', remainPrice: 2400, startPrice: 2400, payment: 6},
+        {type: 'car', title: 'Машина', remainPrice: 0, startPrice: 0, payment: 0},
+        {type: 'card', title: 'Кред. карта', remainPrice: 0, startPrice: 0, payment: 0},
+        {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
+      ],
+      difficulty: 'normal',
+      img: person16Photo,
+      avatar: person16Avatar
+    }
+  ] as personType[],
   // наш профиль . . .
   profile: null as null | personType, // профиль персонажа
   startSalary: 0, // начальная зп
@@ -464,7 +482,8 @@ export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
   // начисления с бизнесса
   let businessSummary = myBusiness.reduce((acc, next) => acc + next.income, 0)
   // долги игрока...
-  let expensesSummary = profile.expenses.reduce((acc, next) => next.remainPrice !== 0 ? acc + next.startPrice * next.payment / 100 : 0, 0)
+  let expensesSummary = profile.expenses.reduce((acc, next) => next.remainPrice > 0 ? acc + next.startPrice * next.payment / 100 : acc, 0)
+  // плата за детей...
   let childrenSummary = profilePage.childrenCount * 125
   // считаем новый доход персонажа...
   let NewIncome = Math.round(salary - tax - expensesSummary - childrenSummary + dividendsSummary + realtySummary + businessSummary)

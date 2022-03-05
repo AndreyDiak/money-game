@@ -107,7 +107,6 @@
   grid-template-areas: "menu menu" "preview settings";
   font-family: "Fira Mono", sans-serif;
   z-index: 10;
-  overflow: scroll;
 }
 .profileBack {
   position: absolute;
@@ -966,6 +965,7 @@
 }
 @media screen and (max-width: 768px) {
   .gameProfitMenu {
+    padding-left: 10px;
     justify-content: start;
   }
   .gameProfitMenu__item {
@@ -973,6 +973,13 @@
   }
   .gameProfitMenu__item button {
     width: 100%;
+  }
+  .gameProfitStocks {
+    padding: 30px 0 170px;
+  }
+  .gameProfitStocks__OfferBlocks__stocks {
+    overflow: scroll;
+    padding: 10px 0 70px;
   }
   .gameProfitStocks__Me {
     border-right: none;
@@ -983,10 +990,6 @@
   }
 }
 @media screen and (max-width: 480px) {
-  .gameProfitStocks {
-    padding: 30px 5px 50px;
-    overflow: scroll;
-  }
   .gameProfit .container {
     width: 100%;
     overflow: hidden;
@@ -1306,9 +1309,6 @@
   }
 }
 @media screen and (max-width: 768px) {
-  .gameWork {
-    height: auto;
-  }
   .gameWorkContent__profileImg {
     display: none;
   }
@@ -1318,6 +1318,12 @@
   .gameWorkContent .container {
     grid-template-areas: "incomes" "works" "profile";
     grid-template-columns: 1fr;
+  }
+}
+@media screen and (max-width: 480px) {
+  .gameWorkContent {
+    overflow: scroll;
+    padding: 20px 0 70px;
   }
 }
 .gameSpend {
@@ -1433,8 +1439,9 @@
   }
 }
 @media screen and (max-width: 768px) {
-  .gameSpend {
-    height: auto;
+  .gameSpendContent {
+    overflow: scroll;
+    padding: 20px 0 70px;
   }
 }
 @media screen and (max-width: 480px) {
@@ -1616,7 +1623,7 @@
     font-size: 14px;
   }
   .gameNewsBlocks {
-    padding: 20px;
+    padding: 20px 0px 70px;
     row-gap: 20px;
   }
 }
@@ -1652,7 +1659,6 @@
     font-size: 10px;
   }
   .gameNewsBlocks {
-    padding: 10px;
     row-gap: 10px;
   }
 }
@@ -2388,7 +2394,7 @@ input:checked, input:active, input:focus {
   color: goldenrod;
 }
 
-.chartPopup, .sellPopup, .marginPopup, .marginPaybackPopup {
+.chartPopup, .sellPopup, .marginPopup, .marginPaybackPopup, .endPopup {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -2399,64 +2405,64 @@ input:checked, input:active, input:focus {
   height: 100%;
   z-index: 10;
 }
-.chartPopupBlock, .sellPopupBlock, .marginPopupBlock, .marginPaybackPopupBlock {
+.chartPopupBlock, .sellPopupBlock, .marginPopupBlock, .marginPaybackPopupBlock, .endPopupBlock {
   position: relative;
   padding: 30px 40px;
   width: 700px;
   background-color: #f1f1f1;
   z-index: 3;
 }
-.chartPopupBlock__AlertTitle, .sellPopupBlock__AlertTitle, .marginPopupBlock__AlertTitle, .marginPaybackPopupBlock__AlertTitle {
+.chartPopupBlock__AlertTitle, .sellPopupBlock__AlertTitle, .marginPopupBlock__AlertTitle, .marginPaybackPopupBlock__AlertTitle, .endPopupBlock__AlertTitle {
   display: flex;
   align-items: center;
   column-gap: 10px;
 }
-.chartPopupBlock__Result, .sellPopupBlock__Result, .marginPopupBlock__Result, .marginPaybackPopupBlock__Result {
+.chartPopupBlock__Result, .sellPopupBlock__Result, .marginPopupBlock__Result, .marginPaybackPopupBlock__Result, .endPopupBlock__Result {
   font-size: 16px;
   font-family: "Fira Mono", sans-serif;
   font-weight: 500;
 }
-.chartPopupBlock__ResultMin b, .sellPopupBlock__ResultMin b, .marginPopupBlock__ResultMin b, .marginPaybackPopupBlock__ResultMin b {
+.chartPopupBlock__ResultMin b, .sellPopupBlock__ResultMin b, .marginPopupBlock__ResultMin b, .marginPaybackPopupBlock__ResultMin b, .endPopupBlock__ResultMin b {
   color: #f36f38;
 }
-.chartPopupBlock__ResultMax b, .sellPopupBlock__ResultMax b, .marginPopupBlock__ResultMax b, .marginPaybackPopupBlock__ResultMax b {
+.chartPopupBlock__ResultMax b, .sellPopupBlock__ResultMax b, .marginPopupBlock__ResultMax b, .marginPaybackPopupBlock__ResultMax b, .endPopupBlock__ResultMax b {
   color: #f67280;
 }
-.chartPopupBlock__Active, .sellPopupBlock__Active, .marginPopupBlock__Active, .marginPaybackPopupBlock__Active {
+.chartPopupBlock__Active, .sellPopupBlock__Active, .marginPopupBlock__Active, .marginPaybackPopupBlock__Active, .endPopupBlock__Active {
   display: grid;
   grid-template-columns: 1fr 3fr;
   align-items: center;
   grid-template-areas: "header portfolio" "stocks chart";
 }
-.chartPopupBlock__ActiveHeader, .sellPopupBlock__ActiveHeader, .marginPopupBlock__ActiveHeader, .marginPaybackPopupBlock__ActiveHeader {
+.chartPopupBlock__ActiveHeader, .sellPopupBlock__ActiveHeader, .marginPopupBlock__ActiveHeader, .marginPaybackPopupBlock__ActiveHeader, .endPopupBlock__ActiveHeader {
   grid-area: header;
   font-family: "Fira Mono", sans-serif;
   font-size: 18px;
 }
-.chartPopupBlock__ActivePortfolio, .sellPopupBlock__ActivePortfolio, .marginPopupBlock__ActivePortfolio, .marginPaybackPopupBlock__ActivePortfolio {
+.chartPopupBlock__ActivePortfolio, .sellPopupBlock__ActivePortfolio, .marginPopupBlock__ActivePortfolio, .marginPaybackPopupBlock__ActivePortfolio, .endPopupBlock__ActivePortfolio {
   grid-area: portfolio;
   font-family: "Fira Mono", sans-serif;
   font-size: 16px;
 }
-.chartPopupBlock__ActivePortfolio__summary b, .sellPopupBlock__ActivePortfolio__summary b, .marginPopupBlock__ActivePortfolio__summary b, .marginPaybackPopupBlock__ActivePortfolio__summary b {
+.chartPopupBlock__ActivePortfolio__summary b, .sellPopupBlock__ActivePortfolio__summary b, .marginPopupBlock__ActivePortfolio__summary b, .marginPaybackPopupBlock__ActivePortfolio__summary b, .endPopupBlock__ActivePortfolio__summary b {
   color: #57895b;
 }
-.chartPopupBlock__ActiveList, .sellPopupBlock__ActiveList, .marginPopupBlock__ActiveList, .marginPaybackPopupBlock__ActiveList {
+.chartPopupBlock__ActiveList, .sellPopupBlock__ActiveList, .marginPopupBlock__ActiveList, .marginPaybackPopupBlock__ActiveList, .endPopupBlock__ActiveList {
   grid-area: stocks;
 }
-.chartPopupBlock__ActiveList__header, .sellPopupBlock__ActiveList__header, .marginPopupBlock__ActiveList__header, .marginPaybackPopupBlock__ActiveList__header {
+.chartPopupBlock__ActiveList__header, .sellPopupBlock__ActiveList__header, .marginPopupBlock__ActiveList__header, .marginPaybackPopupBlock__ActiveList__header, .endPopupBlock__ActiveList__header {
   text-align: center;
 }
-.chartPopupBlock__ActiveList__stocks, .sellPopupBlock__ActiveList__stocks, .marginPopupBlock__ActiveList__stocks, .marginPaybackPopupBlock__ActiveList__stocks {
+.chartPopupBlock__ActiveList__stocks, .sellPopupBlock__ActiveList__stocks, .marginPopupBlock__ActiveList__stocks, .marginPaybackPopupBlock__ActiveList__stocks, .endPopupBlock__ActiveList__stocks {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
   column-gap: 10px;
 }
-.chartPopupBlock__ActiveChart, .sellPopupBlock__ActiveChart, .marginPopupBlock__ActiveChart, .marginPaybackPopupBlock__ActiveChart {
+.chartPopupBlock__ActiveChart, .sellPopupBlock__ActiveChart, .marginPopupBlock__ActiveChart, .marginPaybackPopupBlock__ActiveChart, .endPopupBlock__ActiveChart {
   grid-area: chart;
 }
-.chartPopupBlock__Menu, .sellPopupBlock__Menu, .marginPopupBlock__Menu, .marginPaybackPopupBlock__Menu {
+.chartPopupBlock__Menu, .sellPopupBlock__Menu, .marginPopupBlock__Menu, .marginPaybackPopupBlock__Menu, .endPopupBlock__Menu {
   margin-top: 20px;
   padding-bottom: 20px;
   padding-top: 20px;
@@ -2465,27 +2471,27 @@ input:checked, input:active, input:focus {
   align-items: center;
   justify-content: space-between;
 }
-.chartPopupBlock__MenuButtons, .sellPopupBlock__MenuButtons, .marginPopupBlock__MenuButtons, .marginPaybackPopupBlock__MenuButtons {
+.chartPopupBlock__MenuButtons, .sellPopupBlock__MenuButtons, .marginPopupBlock__MenuButtons, .marginPaybackPopupBlock__MenuButtons, .endPopupBlock__MenuButtons {
   display: flex;
   row-gap: 5px;
   column-gap: 5px;
   flex-direction: column;
 }
-.chartPopupBlock__MenuButtons button, .sellPopupBlock__MenuButtons button, .marginPopupBlock__MenuButtons button, .marginPaybackPopupBlock__MenuButtons button {
+.chartPopupBlock__MenuButtons button, .sellPopupBlock__MenuButtons button, .marginPopupBlock__MenuButtons button, .marginPaybackPopupBlock__MenuButtons button, .endPopupBlock__MenuButtons button {
   font-weight: 500;
   outline: none;
 }
-.chartPopupBlock__MenuTime, .sellPopupBlock__MenuTime, .marginPopupBlock__MenuTime, .marginPaybackPopupBlock__MenuTime {
+.chartPopupBlock__MenuTime, .sellPopupBlock__MenuTime, .marginPopupBlock__MenuTime, .marginPaybackPopupBlock__MenuTime, .endPopupBlock__MenuTime {
   display: flex;
   flex-direction: column;
   column-gap: 10px;
   row-gap: 10px;
 }
-.chartPopupBlock__MenuInfo, .sellPopupBlock__MenuInfo, .marginPopupBlock__MenuInfo, .marginPaybackPopupBlock__MenuInfo {
+.chartPopupBlock__MenuInfo, .sellPopupBlock__MenuInfo, .marginPopupBlock__MenuInfo, .marginPaybackPopupBlock__MenuInfo, .endPopupBlock__MenuInfo {
   display: flex;
   column-gap: 50px;
 }
-.chartPopupBlock__MenuInfo__Title, .sellPopupBlock__MenuInfo__Title, .marginPopupBlock__MenuInfo__Title, .marginPaybackPopupBlock__MenuInfo__Title {
+.chartPopupBlock__MenuInfo__Title, .sellPopupBlock__MenuInfo__Title, .marginPopupBlock__MenuInfo__Title, .marginPaybackPopupBlock__MenuInfo__Title, .endPopupBlock__MenuInfo__Title {
   margin-bottom: 5px;
   padding: 10px;
   font-weight: 700;
@@ -2493,11 +2499,11 @@ input:checked, input:active, input:focus {
   background: #439093;
   color: #fff;
 }
-.chartPopupBlock__MenuInfo__Input, .sellPopupBlock__MenuInfo__Input, .marginPopupBlock__MenuInfo__Input, .marginPaybackPopupBlock__MenuInfo__Input {
+.chartPopupBlock__MenuInfo__Input, .sellPopupBlock__MenuInfo__Input, .marginPopupBlock__MenuInfo__Input, .marginPaybackPopupBlock__MenuInfo__Input, .endPopupBlock__MenuInfo__Input {
   margin-top: 10px;
   margin-right: 10px;
 }
-.chartPopupBlock__Button, .sellPopupBlock__Button, .marginPopupBlock__Button, .marginPaybackPopupBlock__Button {
+.chartPopupBlock__Button, .sellPopupBlock__Button, .marginPopupBlock__Button, .marginPaybackPopupBlock__Button, .endPopupBlock__Button {
   margin-top: 15px;
   padding: 7px 25px;
   font-size: 24px;
@@ -2505,24 +2511,24 @@ input:checked, input:active, input:focus {
   border: 1px solid #282c34;
   border-radius: 2px;
 }
-.chartPopupBlock__Button:hover, .sellPopupBlock__Button:hover, .marginPopupBlock__Button:hover, .marginPaybackPopupBlock__Button:hover {
+.chartPopupBlock__Button:hover, .sellPopupBlock__Button:hover, .marginPopupBlock__Button:hover, .marginPaybackPopupBlock__Button:hover, .endPopupBlock__Button:hover {
   background: rgba(0, 0, 0, 0.12);
 }
-.chartPopupBlock__Title, .sellPopupBlock__Title, .marginPopupBlock__Title, .marginPaybackPopupBlock__Title {
+.chartPopupBlock__Title, .sellPopupBlock__Title, .marginPopupBlock__Title, .marginPaybackPopupBlock__Title, .endPopupBlock__Title {
   margin-bottom: 30px;
   font-size: 28px;
   font-weight: 500;
 }
-.chartPopupBlock__Close, .sellPopupBlock__Close, .marginPopupBlock__Close, .marginPaybackPopupBlock__Close {
+.chartPopupBlock__Close, .sellPopupBlock__Close, .marginPopupBlock__Close, .marginPaybackPopupBlock__Close, .endPopupBlock__Close {
   position: absolute;
   top: 30px;
   right: 30px;
   font-size: 30px;
 }
-.chartPopupBlock__Close:hover, .sellPopupBlock__Close:hover, .marginPopupBlock__Close:hover, .marginPaybackPopupBlock__Close:hover {
+.chartPopupBlock__Close:hover, .sellPopupBlock__Close:hover, .marginPopupBlock__Close:hover, .marginPaybackPopupBlock__Close:hover, .endPopupBlock__Close:hover {
   cursor: pointer;
 }
-.chartPopupBlock__Payback, .sellPopupBlock__Payback, .marginPopupBlock__Payback, .marginPaybackPopupBlock__Payback {
+.chartPopupBlock__Payback, .sellPopupBlock__Payback, .marginPopupBlock__Payback, .marginPaybackPopupBlock__Payback, .endPopupBlock__Payback {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
@@ -2531,37 +2537,37 @@ input:checked, input:active, input:focus {
   font-size: 18px;
   grid-template-areas: "time penalty" "stock stock" "menu menu";
 }
-.chartPopupBlock__Payback__Time, .chartPopupBlock__Payback__Stock, .chartPopupBlock__Payback__Penalty, .sellPopupBlock__Payback__Time, .sellPopupBlock__Payback__Stock, .sellPopupBlock__Payback__Penalty, .marginPopupBlock__Payback__Time, .marginPopupBlock__Payback__Stock, .marginPopupBlock__Payback__Penalty, .marginPaybackPopupBlock__Payback__Time, .marginPaybackPopupBlock__Payback__Stock, .marginPaybackPopupBlock__Payback__Penalty {
+.chartPopupBlock__Payback__Time, .chartPopupBlock__Payback__Stock, .chartPopupBlock__Payback__Penalty, .sellPopupBlock__Payback__Time, .sellPopupBlock__Payback__Stock, .sellPopupBlock__Payback__Penalty, .marginPopupBlock__Payback__Time, .marginPopupBlock__Payback__Stock, .marginPopupBlock__Payback__Penalty, .marginPaybackPopupBlock__Payback__Time, .marginPaybackPopupBlock__Payback__Stock, .marginPaybackPopupBlock__Payback__Penalty, .endPopupBlock__Payback__Time, .endPopupBlock__Payback__Stock, .endPopupBlock__Payback__Penalty {
   padding: 10px;
   text-align: center;
 }
-.chartPopupBlock__Payback__Time, .sellPopupBlock__Payback__Time, .marginPopupBlock__Payback__Time, .marginPaybackPopupBlock__Payback__Time {
+.chartPopupBlock__Payback__Time, .sellPopupBlock__Payback__Time, .marginPopupBlock__Payback__Time, .marginPaybackPopupBlock__Payback__Time, .endPopupBlock__Payback__Time {
   grid-area: time;
   color: #fff;
 }
-.chartPopupBlock__Payback__TimeExpires, .sellPopupBlock__Payback__TimeExpires, .marginPopupBlock__Payback__TimeExpires, .marginPaybackPopupBlock__Payback__TimeExpires {
+.chartPopupBlock__Payback__TimeExpires, .sellPopupBlock__Payback__TimeExpires, .marginPopupBlock__Payback__TimeExpires, .marginPaybackPopupBlock__Payback__TimeExpires, .endPopupBlock__Payback__TimeExpires {
   margin-bottom: 10px;
 }
-.chartPopupBlock__Payback__TimeExpires, .chartPopupBlock__Payback__TimeFinal, .sellPopupBlock__Payback__TimeExpires, .sellPopupBlock__Payback__TimeFinal, .marginPopupBlock__Payback__TimeExpires, .marginPopupBlock__Payback__TimeFinal, .marginPaybackPopupBlock__Payback__TimeExpires, .marginPaybackPopupBlock__Payback__TimeFinal {
+.chartPopupBlock__Payback__TimeExpires, .chartPopupBlock__Payback__TimeFinal, .sellPopupBlock__Payback__TimeExpires, .sellPopupBlock__Payback__TimeFinal, .marginPopupBlock__Payback__TimeExpires, .marginPopupBlock__Payback__TimeFinal, .marginPaybackPopupBlock__Payback__TimeExpires, .marginPaybackPopupBlock__Payback__TimeFinal, .endPopupBlock__Payback__TimeExpires, .endPopupBlock__Payback__TimeFinal {
   padding: 10px;
   display: flex;
   justify-content: space-between;
   background: #439093;
 }
-.chartPopupBlock__Payback__Penalty, .sellPopupBlock__Payback__Penalty, .marginPopupBlock__Payback__Penalty, .marginPaybackPopupBlock__Payback__Penalty {
+.chartPopupBlock__Payback__Penalty, .sellPopupBlock__Payback__Penalty, .marginPopupBlock__Payback__Penalty, .marginPaybackPopupBlock__Payback__Penalty, .endPopupBlock__Payback__Penalty {
   grid-area: penalty;
   color: #fff;
 }
-.chartPopupBlock__Payback__PenaltyCurrent, .sellPopupBlock__Payback__PenaltyCurrent, .marginPopupBlock__Payback__PenaltyCurrent, .marginPaybackPopupBlock__Payback__PenaltyCurrent {
+.chartPopupBlock__Payback__PenaltyCurrent, .sellPopupBlock__Payback__PenaltyCurrent, .marginPopupBlock__Payback__PenaltyCurrent, .marginPaybackPopupBlock__Payback__PenaltyCurrent, .endPopupBlock__Payback__PenaltyCurrent {
   margin-bottom: 10px;
 }
-.chartPopupBlock__Payback__PenaltyCurrent, .chartPopupBlock__Payback__PenaltyFinal, .sellPopupBlock__Payback__PenaltyCurrent, .sellPopupBlock__Payback__PenaltyFinal, .marginPopupBlock__Payback__PenaltyCurrent, .marginPopupBlock__Payback__PenaltyFinal, .marginPaybackPopupBlock__Payback__PenaltyCurrent, .marginPaybackPopupBlock__Payback__PenaltyFinal {
+.chartPopupBlock__Payback__PenaltyCurrent, .chartPopupBlock__Payback__PenaltyFinal, .sellPopupBlock__Payback__PenaltyCurrent, .sellPopupBlock__Payback__PenaltyFinal, .marginPopupBlock__Payback__PenaltyCurrent, .marginPopupBlock__Payback__PenaltyFinal, .marginPaybackPopupBlock__Payback__PenaltyCurrent, .marginPaybackPopupBlock__Payback__PenaltyFinal, .endPopupBlock__Payback__PenaltyCurrent, .endPopupBlock__Payback__PenaltyFinal {
   padding: 10px;
   display: flex;
   justify-content: space-between;
   background: #439093;
 }
-.chartPopupBlock__Payback__Stock, .sellPopupBlock__Payback__Stock, .marginPopupBlock__Payback__Stock, .marginPaybackPopupBlock__Payback__Stock {
+.chartPopupBlock__Payback__Stock, .sellPopupBlock__Payback__Stock, .marginPopupBlock__Payback__Stock, .marginPaybackPopupBlock__Payback__Stock, .endPopupBlock__Payback__Stock {
   margin: 10px;
   grid-area: stock;
   background: #439093;
@@ -2570,13 +2576,13 @@ input:checked, input:active, input:focus {
   align-items: center;
   color: #fff;
 }
-.chartPopupBlock__Payback__StockTitle, .sellPopupBlock__Payback__StockTitle, .marginPopupBlock__Payback__StockTitle, .marginPaybackPopupBlock__Payback__StockTitle {
+.chartPopupBlock__Payback__StockTitle, .sellPopupBlock__Payback__StockTitle, .marginPopupBlock__Payback__StockTitle, .marginPaybackPopupBlock__Payback__StockTitle, .endPopupBlock__Payback__StockTitle {
   padding: 10px;
 }
-.chartPopupBlock__Payback__Menu, .sellPopupBlock__Payback__Menu, .marginPopupBlock__Payback__Menu, .marginPaybackPopupBlock__Payback__Menu {
+.chartPopupBlock__Payback__Menu, .sellPopupBlock__Payback__Menu, .marginPopupBlock__Payback__Menu, .marginPaybackPopupBlock__Payback__Menu, .endPopupBlock__Payback__Menu {
   grid-area: menu;
 }
-.chartPopup::after, .sellPopup::after, .marginPopup::after, .marginPaybackPopup::after {
+.chartPopup::after, .sellPopup::after, .marginPopup::after, .marginPaybackPopup::after, .endPopup::after {
   content: "";
   position: absolute;
   width: 100vw;

@@ -10,7 +10,7 @@ import { SpendsCard } from "./SpendsCard";
 
 const { TabPane } = Tabs
 
-export const SpendsPage: FC = (props) => {
+export const SpendsPage: FC = React.memo(() => {
   //
   const month = useSelector(getMonthSelector)
   //
@@ -28,17 +28,8 @@ export const SpendsPage: FC = (props) => {
   //
   const profile = useSelector(getPersonSelector) as personType
   // расходы с новостей
-  // let newsExpensesPrice = 0
-  // if (newsExpenses.length !== 0) {
-  //   newsExpenses.forEach(expenses => {
-  //     newsExpensesPrice -= expenses.amount
-  //   })
-  // }
-  let expensesSummary = 0
-  expenses.map(expense => {
-    expensesSummary += expense.remainPrice
-  })
-
+  let expensesSummary = expenses.reduce((acc, next) => acc + next.remainPrice, 0)
+  
   return (
     <>
       <div className='gameSpend bannerBack'>
@@ -130,4 +121,4 @@ export const SpendsPage: FC = (props) => {
       </div>
     </>
   )
-}
+})

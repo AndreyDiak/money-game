@@ -11,7 +11,7 @@ type StocksType = {
   setActiveStock: any
 }
 
-export const Stocks: FC<StocksType> = ({setIsHistoryShown, setActiveStock}) => {
+export const Stocks: FC<StocksType> = React.memo(({setIsHistoryShown, setActiveStock}) => {
   const dispatch = useDispatch()
   // @ts-ignore
   const filteredStocks: stockType[] = useSelector((state: AppStateType) => state.stocksPage.filteredStocks)
@@ -76,4 +76,4 @@ export const Stocks: FC<StocksType> = ({setIsHistoryShown, setActiveStock}) => {
       </div>
     </>
   )
-}
+})

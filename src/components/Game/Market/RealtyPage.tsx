@@ -6,8 +6,9 @@ import {profileActions, updateIncome} from "../../../redux/profile-reducer";
 import {getIncomeSelector} from "../../../redux/profile-selector";
 import {getWalletSelector} from "../../../redux/game-selector";
 import {actions} from "../../../redux/game-reducer";
+import React from "react";
 
-export const RealtyPage = () => {
+export const RealtyPage = React.memo(() => {
 
   const dispatch = useDispatch()
   const myRealty = useSelector((state: AppStateType) => state.realtyPage.myRealty)
@@ -110,4 +111,4 @@ export const RealtyPage = () => {
       </div>
     </>
   )
-}
+})

@@ -12,8 +12,6 @@
     &Content
       padding: 30px
       height: inherit
-      //display: flex
-      //align-items: flex-end
       background: rgba(244, 212, 189, 0.6)
       z-index: 10
       &__profile
@@ -115,7 +113,7 @@
 
 @media screen and (max-width: 768px)
   .gameWork
-    height: auto
+    //height: auto
     &Content
       &__profile
         &Img
@@ -126,3 +124,9 @@
       .container
         grid-template-areas: 'incomes' 'works' 'profile'
         grid-template-columns: 1fr
+
+@media screen and (max-width: 480px)
+  .gameWork
+    &Content
+      overflow: scroll
+      padding: 20px 0 70px

@@ -166,7 +166,6 @@ export const gameReducer = (state = initialState, action: GameActionsType): Init
         month: 0,
         wallet: 0,
         income: 0,
-        // happenedEvents: Array(12).fill([] as eventType[])
       }
     case SET_GAME_STATUS:
       return {

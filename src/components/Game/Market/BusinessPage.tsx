@@ -1,14 +1,14 @@
 import Button from "antd/lib/button";
-import {useDispatch, useSelector} from "react-redux";
-import {getBusinessesSelector, getMyBusinessesSelector} from "../../../redux/business-selector";
-import {BusinessType, buyBusinessThunk, sellBusinessThunk} from "../../../redux/business-reducer";
-import {FC, useState} from "react";
-import {getWalletSelector} from "../../../redux/game-selector";
-import {updateIncome} from "../../../redux/profile-reducer";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { buyBusinessThunk, sellBusinessThunk } from "../../../redux/business-reducer";
+import { getBusinessesSelector, getMyBusinessesSelector } from "../../../redux/business-selector";
+import { getWalletSelector } from "../../../redux/game-selector";
+import { updateIncome } from "../../../redux/profile-reducer";
 
 
 
-export const BusinessPage = () => {
+export const BusinessPage = React.memo(() => {
 
   const dispatch = useDispatch()
   const businesses = useSelector(getBusinessesSelector)
@@ -104,17 +104,4 @@ export const BusinessPage = () => {
       </div>
     </>
   )
-}
-
-// const RenderBusinessBlock: FC<{business: BusinessType, isBought?: boolean, isMine: boolean, isMaxCount?: boolean}> = ({business, isBought, isMaxCount, isMine}) => {
-
-//   const dispatch = useDispatch()
-
-//   const priceToSell = Number((business.price * 0.6).toFixed(0))
-
-//   return (
-//     <>
-
-//     </>
-//   )
-// }
+})

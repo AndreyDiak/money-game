@@ -1,5 +1,5 @@
 import { Badge, notification, Spin } from "antd";
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useRoutes } from "react-router-dom";
 import { useHttp } from "../../hooks/http.hook";
@@ -26,7 +26,7 @@ import { RenderPlayerWork } from "./RenderPlayerWork";
 import { SpendsPage } from "./Spends/SpendsPage";
 
 
-export const GamePage: FC = () => {
+export const GamePage: FC = React.memo(() => {
 
   const dispatch = useDispatch()
   // переменная для скорости времени . . .
@@ -41,6 +41,7 @@ export const GamePage: FC = () => {
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   // статус игры
   const gameStatus = useSelector((state: AppStateType) => state.gamePage.gameStatus)
+  //
   const profile = useSelector(getPersonSelector)
   //
   const news = useSelector((state: AppStateType) => state.newsPage.news)
@@ -207,7 +208,7 @@ export const GamePage: FC = () => {
       </div>
     </>
   )
-}
+})
 type PagesType = {
   setIsStockToSell: (isShown: boolean) => void 
   setIsHistoryShown: (isShown: boolean) => void
@@ -217,7 +218,7 @@ type PagesType = {
   setActiveBroker: (activeBroker: brokerType) => void
   setIsMarginShown: (isMarginShown: boolean) => void
 }
-const Pages: FC<PagesType> = ({
+const Pages: FC<PagesType> = React.memo(({
   setIsHistoryShown, setMyActiveStock, setActiveStock,
   setIsStockToSell,setActiveBroker,setIsMarginShown,setIsMarginPayBackShown
 }) => {
@@ -265,7 +266,7 @@ const Pages: FC<PagesType> = ({
   ])
 
   return routes
-}
+})
 
 
 
