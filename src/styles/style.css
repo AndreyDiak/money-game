@@ -992,10 +992,30 @@
 @media screen and (max-width: 480px) {
   .gameProfit .container {
     width: 100%;
-    overflow: hidden;
+  }
+  .gameProfitMargin {
+    overflow: scroll;
+    max-height: 80vh;
+    padding: 10px 10px 50px;
+    column-gap: 15px;
+    row-gap: 15px;
   }
   .gameProfitMargin__block {
     grid-template-columns: 1fr;
+  }
+  .gameProfitMargin__block::after {
+    bottom: -7.25px;
+  }
+  .gameProfitMargin__blockButton {
+    margin-top: 5px;
+  }
+  .gameProfitMargin__blockAbout {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+  }
+  .gameProfitMargin__blockAbout__age {
+    font-size: 18px;
   }
 }
 .gameProfile {

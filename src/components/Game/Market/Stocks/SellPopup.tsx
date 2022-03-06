@@ -7,7 +7,7 @@ import { getWalletSelector } from "../../../../redux/game-selector";
 import { updateIncome } from "../../../../redux/profile-reducer";
 import { settingsActions } from "../../../../redux/settings-reducer";
 import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector";
-import { myStockType, stocksActions } from "../../../../redux/stocks-reducer";
+import { myStockType, removeStocksFromPortfolioThunk, stocksActions } from "../../../../redux/stocks-reducer";
 import { AppStateType } from "../../../../redux/store";
 import { MarginPopupChart } from "../Margin/MarginPopup";
 
@@ -20,7 +20,8 @@ export const SellPopup: FC<SellPopupType> = (props) => {
   // количество акций на продажу . . .
   const [stocksToSellCount, setStocksToSellCount] = useState(1)
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
-  const stockForChart = useSelector((state: AppStateType) => state.stocksPage.stocks.filter(s => s.title === props.stock.title)[0])
+  const stocks = useSelector((state: AppStateType) => state.stocksPage.stocks.filter(s => s.title === props.stock.title)[0])
+  const bonds = useSelector((state: AppStateType) => state.stocksPage.bonds.filter(b => b.title === props.stock.title)[0])
   const wallet = useSelector(getWalletSelector)
   const dispatch = useDispatch()
 
@@ -42,15 +43,18 @@ export const SellPopup: FC<SellPopupType> = (props) => {
 
   const sellStocks = () => {
     onCloseClick()
-    // уменьшаем количество акций в пакете . . .
-    dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount, props.activeStock))
-    // увеличиваем баланс пользователя . . .
-    dispatch(actions.setWallet(Math.round(wallet + stocksToSellCount * props.stock.price)))
-    // обновление общей цены портфеля...
-    dispatch(stocksActions.indexStocksSummaryPrice())
-    // обновляем доход (если акции были с дивидендами...)
-    dispatch(updateIncome())
+    //
+    dispatch(removeStocksFromPortfolioThunk(props.stock, stocksToSellCount, props.activeStock))
+    // // уменьшаем количество акций в пакете . . .
+    // dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount, props.activeStock))
+    // // увеличиваем баланс пользователя . . .
+    // dispatch(actions.setWallet(Math.round(wallet + stocksToSellCount * props.stock.price)))
+    // // обновление общей цены портфеля...
+    // dispatch(stocksActions.indexStocksSummaryPrice())
+    // // обновляем доход (если акции были с дивидендами...)
+    // dispatch(updateIncome())
   }
+  
   const onCloseClick = () => {
     props.setIsStockToSell(false)
     onChangeTime(timeSpeed)
@@ -69,7 +73,7 @@ export const SellPopup: FC<SellPopupType> = (props) => {
           </div>
           <div>
             {/*  @ts-ignore */}
-            <MarginPopupChart stock={stockForChart} />
+            <MarginPopupChart stock={[stocks, bonds].filter(s => s !== undefined)[0]} />
           </div>
           <div className="sellPopupBlock__Menu">
             <div className="sellPopupBlock__MenuInfo">

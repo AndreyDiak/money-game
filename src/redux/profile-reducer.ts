@@ -492,6 +492,7 @@ export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
 }
 
 export type ProfileActionsType = InferActionsType<typeof profileActions>
+
 export type expenseType = {
   type: string
   title: string

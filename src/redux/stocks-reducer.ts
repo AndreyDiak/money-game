@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { getRandomNumber } from './../utils/getRandomNumber';
-import { actions, GameActionsType } from './game-reducer';
+import { actions, GameActionsType, updateHistoryThunk } from './game-reducer';
 import { updateIncome } from './profile-reducer';
 import { AppStateType, InferActionsType } from "./store";
 
@@ -687,10 +687,10 @@ export const stocksActions = {
   indexingBonds: () => ({type: INDEXING_BONDS} as const)
 }
 
-export const addStocksToPortfolioThunk = (stock: stockType, count: number):ActionThunkType => (dispatch, getState) => {
+export const addStocksToPortfolioThunk = (stock: stockType, count: number): ActionThunkType => (dispatch, getState) => {
   let myStocksCopy = [ ...getState().stocksPage.myStocks ]
 
-  let newStock: myStockType = {
+  const newStock: myStockType = {
     title: stock.title,
     price: stock.price[stock.price.length - 1],
     count: count,
@@ -699,8 +699,6 @@ export const addStocksToPortfolioThunk = (stock: stockType, count: number):Actio
     dividendsAmount: stock.dividendsAmount
   }
   if (myStocksCopy.some(s => s.title === newStock.title)) {
-    // если у нас уже есть акции данной компании то мы добавляем их в позицию и усредняем цену...
-    //TODO доразобаца в проблеме...
     myStocksCopy = myStocksCopy.map((stock, index) => {
       if (stock.title === newStock.title) {
         let oldPrice = Number(((stock.count * stock.oldPrice + newStock.count * newStock.oldPrice) / (stock.count + newStock.count)).toFixed(1))
@@ -716,12 +714,25 @@ export const addStocksToPortfolioThunk = (stock: stockType, count: number):Actio
   } else {
     myStocksCopy = [ ...myStocksCopy, newStock ]
   }
-
+  // add operation to the history...
+  dispatch(updateHistoryThunk(newStock, 'buy', count))
   // update player porfolio...
   dispatch(stocksActions.updateMyStocks(myStocksCopy))
   // indexing new portfolio summar price...
   dispatch(stocksActions.indexStocksSummaryPrice())
   // updating player income (devidents amount?)
+  dispatch(updateIncome())
+}
+export const removeStocksFromPortfolioThunk = (stock: myStockType, count: number, index: number): ActionThunkType => (dispatch, getState) => {
+  //
+  dispatch(updateHistoryThunk(stock, 'sell', count))
+  // уменьшаем количество акций в пакете . . .
+  dispatch(stocksActions.sellStocks(stock, count, index))
+  // увеличиваем баланс пользователя . . .
+  dispatch(actions.updateWallet(count * stock.price))
+  // обновление общей цены портфеля...
+  dispatch(stocksActions.indexStocksSummaryPrice())
+  // обновляем доход (если акции были с дивидендами...)
   dispatch(updateIncome())
 }
 export const updateBrokerStocksCountThunk = (broker: brokerType, count: number, stockTitle: string): ActionThunkType => (dispatch, getState) => {
@@ -750,7 +761,7 @@ export const addMarginToPortfolioThunk = (stock: stockType, broker: brokerType ,
     return total
   }, 0.0025 * price) // if price > 100000$ we will pay 0.25% of this price...
 
-  let newMargin: MarginType = {
+  const newMargin: MarginType = {
     type: type, // short / long margin
     expiresIn: time, // time to giveBack...
     commision: broker.commission, // payOut commision...
@@ -767,7 +778,8 @@ export const addMarginToPortfolioThunk = (stock: stockType, broker: brokerType ,
     stockPrice: stock.price[stock.price.length - 1], // stock price
     stockCount: count // stock count
   }
-
+  // dispatch(updateHistoryThunk(newMargin, 'buy', count))
+  //
   dispatch(stocksActions.setMargin(newMargin))
 
 }
@@ -800,11 +812,11 @@ export const marginPayOutThunk = (count: number): ActionThunkType => (dispatch, 
 
       if (myStocksCopy[i].count === 0)
         myStocksCopy.splice(i, 1)
-    }
-      
-    
+    }  
   })
   dispatch(stocksActions.updateMyStocks(myStocksCopy))
+  // запись в историю...
+  dispatch(updateHistoryThunk(marginCopy, 'sell', count))
   // если мы торгуем в лонг то фиксируем разницу в цене и записываем ее на счет...
   if (marginCopy.type === 'long')
     dispatch(actions.updateWallet(price * count - marginCopy.stockPrice * count))
@@ -819,8 +831,6 @@ export const marginPayOutThunk = (count: number): ActionThunkType => (dispatch, 
     dispatch(stocksActions.setMargin(marginCopy))
   }
    
-
-
 }
 export type stockType = {
   title: string

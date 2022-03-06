@@ -289,12 +289,23 @@
         grid-template-areas: 'menu' 'danger' 'myStocks' 'stocks'
 @media screen and (max-width: 480px)
   .gameProfit
-    &Stocks
-      //padding: 30px 5px 50px
-      //overflow: scroll
     .container
       width: 100%
-      overflow: hidden
     &Margin
+      overflow: scroll
+      max-height: 80vh
+      padding: 10px 10px 50px
+      column-gap: 15px
+      row-gap: 15px
       &__block
         grid-template-columns: 1fr
+        &::after
+          bottom: -7.25px
+        &Button
+          margin-top: 5px
+        &About
+          display: flex
+          align-items: center
+          column-gap: 15px
+          &__age
+            font-size: 18px

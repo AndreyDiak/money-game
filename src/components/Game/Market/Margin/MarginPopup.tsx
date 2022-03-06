@@ -389,7 +389,6 @@ export const MarginPopupChart: FC<{stock: stockType}> = React.memo(({stock}) => 
   let labels: any[] = []
 
   // TODO настройка показа графика(неделя / месяц / год / все время)
-
   stock.price.forEach((price, index) => {
     let labelsCopy = [...labels]
     if(stock.price.length > 48 && index < stock.price.length - 48) {

@@ -20,6 +20,7 @@ const UPDATE_WALLET = 'gamePage/UPDATE_WALLET'
 const SET_INCOME = 'gamePage/SET_INCOME'
 
 const UPDATE_WALLET_FROM_SPENDS = 'gamePage/UPDATE_WALLET_FROM_SPENDS'
+const UPDATE_HISTORY = 'gamePage/UPDATE_HISTORY'
 
 const BUY_BUSINESS = 'gamePage/BUY_BUSINESS'
 const SELL_BUSINESS = 'gamePage/SELL_BUSINESS'
@@ -55,6 +56,8 @@ let initialState = {
   loseBalance: 0,
   //
   gameStatus: 'process' as GameStatusType,
+  // массив событий, покупка / продажа акций...
+  history: [] as any[],
   // месяцы игры . . .
   months: [
     {name: 'Январь', duration: 31}, {name: 'Февраль', duration: 28}, {name: 'Март', duration: 31},
@@ -144,6 +147,11 @@ export const gameReducer = (state = initialState, action: GameActionsType): Init
         ...state,
         income: state.income + action.income
       }
+    case UPDATE_HISTORY:
+      return {
+        ...state,
+        history: [...state.history, action.history]
+      }
     // обновление кошелька из-за затрат
     case UPDATE_WALLET_FROM_SPENDS:
       return {
@@ -187,7 +195,7 @@ export const gameReducer = (state = initialState, action: GameActionsType): Init
   }
 }
 
-export const  actions = {
+export const actions = {
   // actions даты и времени . . .
   setDay: (day: number) => ({type: SET_DAY, day} as const),
   setMonth: (month: number) => ({type: SET_MONTH, month} as const),
@@ -200,6 +208,7 @@ export const  actions = {
   updateWalletFromSpends: (wallet: number) => ({type: UPDATE_WALLET_FROM_SPENDS, wallet} as const),
   getNewsPayout: (payout: 'one' | 'regular', amount: number) => ({type: GET_NEWS_PAYOUT, payout, amount} as const),
 
+  updateHistory: (history: any) => ({type: UPDATE_HISTORY, history} as const),
   setVictoryBalance: (victory: number) => ({type: SET_VICTORY_BALANCE, victory} as const),
   // actions для бизнесса . . .
   buyBusiness: (price: number, income: number) => ({type: BUY_BUSINESS, price, income} as const),
@@ -242,7 +251,6 @@ export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
   }
 
 }
-
 export const balanceCheckThunk = (): ActionThunkType => (dispatch, getState) => {
   const income = getState().gamePage.income
   const wallet = getState().gamePage.wallet
@@ -269,6 +277,15 @@ export const balanceCheckThunk = (): ActionThunkType => (dispatch, getState) => 
     }
   }
 }
+export const updateHistoryThunk = (target: any, operationType: 'buy' | 'sell', amount: number): ActionThunkType => (dispatch, getState) => {
+  dispatch(actions.updateHistory({
+      title: target.title ? target.title : target.stockTitle,
+      price: target.price ? target.price : target.stockPrice, 
+      operationType,
+      amount
+    }))
+}
+
 export type DifficultyType = 'easy' | 'normal' | 'hard'
 export type GameStatusType = 'process' | 'win' | 'lose'
 export type GameActionsType = InferActionsType<typeof actions>
