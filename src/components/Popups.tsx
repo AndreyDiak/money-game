@@ -8,6 +8,7 @@ import { AppStateType } from "../redux/store";
 import { MarginPayBackPopup } from "./Game/Market/Margin/MarginPayBackPopup";
 import { MarginPopup } from "./Game/Market/Margin/MarginPopup";
 import { Chart } from "./Game/Market/Stocks/Chart";
+import { HistoryPopup } from "./Game/Market/Stocks/HistoryPopup";
 import { SellPopup } from "./Game/Market/Stocks/SellPopup";
 import { GameEndPopup } from "./GameEndPopup";
 
@@ -18,40 +19,46 @@ export type PopupsType = {
   stock: stockType
   isHistoryShown: boolean
   isStockToSell: boolean
-  showExitModal: boolean
+  isStockToBuy: boolean
   isMarketOpen: boolean
   isMarginShown: boolean
   isMarginPayBackShown: boolean
   setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
   setIsStockToSell: (isStockToSell: boolean) => void
+  setIsStockToBuy: (isStockToBuy: boolean) => void 
   setIsHistoryShown: (isHistoryShown: boolean) => void
   setIsMarketOpen: (isMarketOpen: boolean) => void
   setActiveStock: (activeStock: stockType) => void
   setIsMarginShown: (isMarginShown: boolean) => void
 }
 
-export const Popups:FC<PopupsType> = React.memo((props) => {
+export const Popups:FC<PopupsType> = React.memo(({
+  myStock, activeBroker, activeStock, stock,
+  isHistoryShown, isStockToSell, isMarketOpen, isMarginShown, isMarginPayBackShown, isStockToBuy,
+  setIsMarginPayBackShown, setActiveStock, setIsHistoryShown, setIsMarginShown, setIsMarketOpen, setIsStockToSell, setIsStockToBuy
+}) => {
 
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   const stocks = useSelector(getStocksSelector)
   const gameStatus = useSelector((state: AppStateType) => state.gamePage.gameStatus)
   
   const onButtonClick = () => {
-    props.setIsMarketOpen(false)
+    setIsMarketOpen(false)
   }
 
   return (
     <>
-      {props.isStockToSell && <SellPopup stock={props.myStock} setIsStockToSell={props.setIsStockToSell} activeStock={props.activeStock}/>}
-      {props.isHistoryShown && <Chart setIsHistoryShown={props.setIsHistoryShown} stock={props.stock}/>}
-      {props.isMarginShown && <MarginPopup setIsMarginShown={props.setIsMarginShown} broker={props.activeBroker} /> }
-      {gameStatus !== 'process' && <GameEndPopup /> }
-      {props.isMarginPayBackShown && 
+      {isStockToSell && <SellPopup stock={myStock} setIsStockToSell={setIsStockToSell} activeStock={activeStock}/>}
+      {isStockToBuy && <Chart setIsHistoryShown={setIsStockToBuy} stock={stock}/>}
+      {isMarginShown && <MarginPopup setIsMarginShown={setIsMarginShown} broker={activeBroker} /> }
+      {isHistoryShown && <HistoryPopup setIsHistoryShown={setIsHistoryShown} />}
+      {gameStatus !== 'process' && <GameEndPopup setIsHistoryShown={setIsHistoryShown}/> }
+      {isMarginPayBackShown && 
       <MarginPayBackPopup 
-        setIsMarginPayBackShown={props.setIsMarginPayBackShown}
+        setIsMarginPayBackShown={setIsMarginPayBackShown}
       /> 
       }
-      <Modal style={{width: '90%', textAlign: 'center'}} onCancel={onButtonClick} visible={props.isMarketOpen} title={'Рынок'} footer={[
+      <Modal style={{width: '90%', textAlign: 'center'}} onCancel={onButtonClick} visible={isMarketOpen} title={'Рынок'} footer={[
         <>
         </>
       ]}>

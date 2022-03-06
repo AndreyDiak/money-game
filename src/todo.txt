@@ -10,12 +10,12 @@
   +add margin PayBack modal
   +добавить нормальную продажу акций из портфеля в thunk для повторного использования...
   +tune routing on market page againts stocks page
+  +take off huge function from component
 
 '-'
   -add subscription to the investor journal, that gives ability to see stocks and bonds risks... (?)
   
 ===GAME_PAGE===
-  -take off huge function from component
   -доделать модалку когда игрок проигрывает или выигрывает...
 
 ===NEWS_PAGE===

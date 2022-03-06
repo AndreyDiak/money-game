@@ -44,15 +44,9 @@ export const SellPopup: FC<SellPopupType> = (props) => {
   const sellStocks = () => {
     onCloseClick()
     //
-    dispatch(removeStocksFromPortfolioThunk(props.stock, stocksToSellCount, props.activeStock))
-    // // уменьшаем количество акций в пакете . . .
-    // dispatch(stocksActions.sellStocks(props.stock, stocksToSellCount, props.activeStock))
-    // // увеличиваем баланс пользователя . . .
-    // dispatch(actions.setWallet(Math.round(wallet + stocksToSellCount * props.stock.price)))
-    // // обновление общей цены портфеля...
-    // dispatch(stocksActions.indexStocksSummaryPrice())
-    // // обновляем доход (если акции были с дивидендами...)
-    // dispatch(updateIncome())
+    dispatch(
+      removeStocksFromPortfolioThunk(props.stock, stocksToSellCount, props.activeStock)
+      )
   }
   
   const onCloseClick = () => {

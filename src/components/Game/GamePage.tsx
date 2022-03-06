@@ -55,37 +55,32 @@ export const GamePage: FC = React.memo(() => {
   const margin = useSelector((state: AppStateType) => state.stocksPage.margin)
   // активная акция . . .
   const [myActiveStock, setMyActiveStock] = useState(0)
-  // переменная для просмотра истории цены акции . . .
-  const [isHistoryShown, setIsHistoryShown] = useState(false)
-  // переменная для продажи акций . . .
-  const [isStockToSell, setIsStockToSell] = useState(false)
   // активная акция пользователя . . .
   const [activeStock, setActiveStock] = useState(null as null | stockType)
   //
   const [activeBroker, setActiveBroker] = useState({} as brokerType)
+  // переменная для продажи акций . . .
+  const [isStockToSell, setIsStockToSell] = useState(false)
+  //
+  const [isStockToBuy, setIsStockToBuy] = useState(false)
   //
   const [isMarginShown, setIsMarginShown] = useState(false)
+  // переменная для просмотра истории цены акции . . .
+  const [isHistoryShown, setIsHistoryShown] = useState(false)
   //
   const [isMarginPayBackShown, setIsMarginPayBackShown] = useState(false)
-  // проверка на конец игры . . .
-  const [isEndOfGame, setIsEndOfGame] = useState(false)
-  // показать окно при конце игры
-  const [showExitModal, setShowExitModal] = useState(false)
   //
   const [isMarketOpen, setIsMarketOpen] = useState(false)
   //
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
-
   // увеличиваем кол-во дней...
   const liveProcess = () => {
     if(timeSpeed !== 0 && gameStatus === 'process') {
       setTimeout(() => dispatch(actions.setDay(day + 1)), timeSpeed * 500)
     }
   }
-
   // запуск функций
   liveProcess()
-  console.log(gameStatus)
   // заполнение массива акциями . . .
   useEffect(() => {
     // создаём акции
@@ -94,7 +89,7 @@ export const GamePage: FC = React.memo(() => {
       dispatch(stocksActions.setStocks())
       dispatch(stocksActions.setBrokers())
       dispatch(stocksActions.setBonds())
-      // // // новости про акции
+      // новости про акции
       dispatch(newsActions.setAbleToShow('stocksNews'))
       openNotification('Рынок акций / облигаций открыт!')
       }
@@ -104,12 +99,6 @@ export const GamePage: FC = React.memo(() => {
     }
     if (income >= 4500 && businesses.length === 0) {
       openNotification('Купите ваш первый настоящий бизнесс!')
-    }
-    if (margin.length === 1) {
-      openNotification('Вы открыли позицию у брокера')
-    } else {
-      if (day > 3)
-        openNotification('Вы закрыли позицию у брокера')
     }
     },[income, margin])
 
@@ -135,7 +124,7 @@ export const GamePage: FC = React.memo(() => {
 
   return (
     <>
-      <Navbar isEndOfGame={isEndOfGame}/>
+      <Navbar />
       <Popups
         myStock={myStocks[myActiveStock]}
         setIsStockToSell={setIsStockToSell}
@@ -144,7 +133,8 @@ export const GamePage: FC = React.memo(() => {
         stock={activeStock as stockType}
         isHistoryShown={isHistoryShown}
         isStockToSell={isStockToSell}
-        showExitModal={showExitModal}
+        isStockToBuy={isStockToBuy}
+        setIsStockToBuy={setIsStockToBuy}
         setIsMarketOpen={setIsMarketOpen}
         isMarketOpen={isMarketOpen}
         activeBroker={activeBroker}
@@ -166,6 +156,7 @@ export const GamePage: FC = React.memo(() => {
           setIsMarginPayBackShown={setIsMarginPayBackShown} 
           setIsMarginShown={setIsMarginShown} 
           setIsStockToSell={setIsStockToSell}
+          setIsStockToBuy={setIsStockToBuy}
           setMyActiveStock={setMyActiveStock}
         />
         <div className="bottomNav">
@@ -177,9 +168,11 @@ export const GamePage: FC = React.memo(() => {
             </NavLink>
           </div>
           <div className="bottomNavItem">
-            <button className="" onClick={() => setIsMarketOpen(true)}>
-              <img src={menuIconMarket} alt=""/>
-            </button>
+            <NavLink to='/game/market'>
+              <button className="">
+                <img src={menuIconMarket} alt=""/>
+              </button>
+            </NavLink>
           </div>
           <div className="bottomNavItem">
             <NavLink to='/game/profile'>
@@ -212,6 +205,7 @@ export const GamePage: FC = React.memo(() => {
 type PagesType = {
   setIsStockToSell: (isShown: boolean) => void 
   setIsHistoryShown: (isShown: boolean) => void
+  setIsStockToBuy: (isShown: boolean) => void
   setMyActiveStock: (index: number) => void
   setActiveStock: (stock: stockType) => void
   setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
@@ -219,7 +213,7 @@ type PagesType = {
   setIsMarginShown: (isMarginShown: boolean) => void
 }
 const Pages: FC<PagesType> = React.memo(({
-  setIsHistoryShown, setMyActiveStock, setActiveStock,
+  setIsHistoryShown, setMyActiveStock, setActiveStock, setIsStockToBuy,
   setIsStockToSell,setActiveBroker,setIsMarginShown,setIsMarginPayBackShown
 }) => {
   const routes = useRoutes([
@@ -258,6 +252,7 @@ const Pages: FC<PagesType> = React.memo(({
           setMyActiveStock={setMyActiveStock}
           setActiveStock={setActiveStock}
           setIsStockToSell={setIsStockToSell}
+          setIsStockToBuy={setIsStockToBuy}
           setActiveBroker={setActiveBroker}
           setIsMarginShown={setIsMarginShown} 
           setIsMarginPayBackShown={setIsMarginPayBackShown}  

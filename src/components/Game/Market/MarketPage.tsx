@@ -10,6 +10,7 @@ export type MarketType = {
   setActiveStock: any
   setMyActiveStock: any
   setIsStockToSell: any
+  setIsStockToBuy: (isShown: boolean) => void
   setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
   setActiveBroker: (activeBroker: brokerType) => void
   setIsMarginShown: (isMarginShown: boolean) => void
@@ -25,6 +26,7 @@ export const MarketPage: FC<MarketType> = React.memo((props) => {
         setMyActiveStock={props.setMyActiveStock}
         setActiveStock={props.setActiveStock}
         setIsStockToSell={props.setIsStockToSell}
+        setIsStockToBuy={props.setIsStockToBuy}
         setActiveBroker={props.setActiveBroker}
         setIsMarginShown={props.setIsMarginShown}
         setIsMarginPayBackShown={props.setIsMarginPayBackShown}
@@ -39,6 +41,7 @@ export const MarketPage: FC<MarketType> = React.memo((props) => {
         setMyActiveStock={props.setMyActiveStock}
         setActiveStock={props.setActiveStock}
         setIsStockToSell={props.setIsStockToSell}
+        setIsStockToBuy={props.setIsStockToBuy}
         setActiveBroker={props.setActiveBroker}
         setIsMarginShown={props.setIsMarginShown}
         setIsMarginPayBackShown={props.setIsMarginPayBackShown}

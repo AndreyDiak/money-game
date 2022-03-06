@@ -1,5 +1,5 @@
 import { DoubleRightOutlined, PauseOutlined, RightOutlined } from "@ant-design/icons/lib/icons";
-import { Avatar, Badge, Menu, Progress } from 'antd';
+import { Avatar, Badge, Progress } from 'antd';
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -8,12 +8,10 @@ import { personType } from "../redux/profile-reducer";
 import { getPersonSelector } from "../redux/profile-selector";
 import { settingsActions } from "../redux/settings-reducer";
 import { getConstTimeSpeedSelector, getTimeSpeedSelector } from "../redux/settings-selector";
-import { getStocksSelector } from "../redux/stocks-selector";
 import { AppStateType } from "../redux/store";
 import { RenderTime } from "./Game/RenderTime";
-const { SubMenu } = Menu
 
-export const Navbar: FC<{isEndOfGame: boolean}> = React.memo(({isEndOfGame}) => {
+export const Navbar: FC = React.memo(() => {
 
   const dispatch = useDispatch()
 
@@ -25,13 +23,12 @@ export const Navbar: FC<{isEndOfGame: boolean}> = React.memo(({isEndOfGame}) => 
   //
   const wallet = useSelector(getWalletSelector)
   //
-  const income = useSelector((state: AppStateType) => state.profilePage.income)
-  //
-  const stocks = useSelector(getStocksSelector)
-  //
   const news = useSelector((state: AppStateType) => state.newsPage.news)
-  const [screenWidth, setScreenWidth] = useState(window.screen.width)
   //
+  const gameStatus = useSelector((state: AppStateType) => state.gamePage.gameStatus)
+  //
+  const isEndOfGame = !(gameStatus === 'process') // if game in progress - false
+  // 
   const onChangeTime = (time: number) => {
     dispatch(settingsActions.setTimeSpeed(time))
   }

@@ -14,6 +14,7 @@ export type RenderPlayerStocksType = {
   setActiveStock: any
   setMyActiveStock: any
   setIsStockToSell: any
+  setIsStockToBuy: (isShown: boolean) => void
   setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
   setActiveBroker: (activeBroker: brokerType) => void
   setIsMarginShown: (isMarginShown: boolean) => void
@@ -21,7 +22,7 @@ export type RenderPlayerStocksType = {
 type MarketType = 'portfolio' | 'stocks' | 'bonds' | 'margin'
 
 export const StocksPage: FC<RenderPlayerStocksType> = React.memo(({
-  setIsStockToSell, setMyActiveStock, setActiveStock, 
+  setIsStockToSell, setMyActiveStock, setActiveStock, setIsStockToBuy,
   setIsHistoryShown, setActiveBroker, setIsMarginShown, setIsMarginPayBackShown}) => {
   
   const dispatch = useDispatch()
@@ -40,13 +41,19 @@ export const StocksPage: FC<RenderPlayerStocksType> = React.memo(({
     dispatch(settingsActions.setTimeSpeed(0))
     setIsMarginPayBackShown(true)
   }
-
+  const onHistoryClick = () => {
+    dispatch(settingsActions.setTimeSpeed(0))
+    setIsHistoryShown(true)
+  }
   return (
     <>
       <div className="gameProfit bannerBack">
         <div className="gameProfitStocks">
             <div className="container">
               <div className="gameProfitMenu">
+                <div className="gameProfitMenu__History">
+                  <Button onClick={onHistoryClick}>История</Button>
+                </div>
                 {
                   screenWidth > 768 &&
                   <>
@@ -80,21 +87,21 @@ export const StocksPage: FC<RenderPlayerStocksType> = React.memo(({
                 ? <>
                   {/* 2 columns */}
                     <MyPortfolio
-                      setIsHistoryShown={setIsHistoryShown}
+                      setIsHistoryShown={setIsStockToBuy}
                       setActiveStock={setActiveStock}
                       setMyActiveStock={setMyActiveStock}
                       setIsStockToSell={setIsStockToSell}
                     />
                   {marketActiveFilter === 1 &&
                     <Stocks
-                      setIsHistoryShown={setIsHistoryShown}
+                      setIsHistoryShown={setIsStockToBuy}
                       setActiveStock={setActiveStock}
                     />
                   }
                   {marketActiveFilter === 2 &&
                     <Bonds 
                       setActiveStock={setActiveStock}
-                      setIsHistoryShown={setIsHistoryShown}
+                      setIsHistoryShown={setIsStockToBuy}
                     />
                   }
                   {marketActiveFilter === 3 &&
@@ -108,7 +115,7 @@ export const StocksPage: FC<RenderPlayerStocksType> = React.memo(({
                   {/* 1 column */}
                   {marketActiveFilter === 0 &&
                     <MyPortfolio
-                      setIsHistoryShown={setIsHistoryShown}
+                      setIsHistoryShown={setIsStockToBuy}
                       setActiveStock={setActiveStock}
                       setMyActiveStock={setMyActiveStock}
                       setIsStockToSell={setIsStockToSell}
@@ -116,14 +123,14 @@ export const StocksPage: FC<RenderPlayerStocksType> = React.memo(({
                   }
                   {marketActiveFilter === 1 &&
                     <Stocks
-                      setIsHistoryShown={setIsHistoryShown}
+                      setIsHistoryShown={setIsStockToBuy}
                       setActiveStock={setActiveStock}
                     />
                   }
                   {marketActiveFilter === 2 &&
                     <Bonds 
                       setActiveStock={setActiveStock}
-                      setIsHistoryShown={setIsHistoryShown}
+                      setIsHistoryShown={setIsStockToBuy}
                     />
                   }
                   {marketActiveFilter === 3 &&

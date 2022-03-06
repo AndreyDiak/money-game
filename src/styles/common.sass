@@ -28,7 +28,7 @@
   position: relative
   color: goldenrod
 
-.chartPopup, .sellPopup, .marginPopup, .marginPaybackPopup, .endPopup
+.chartPopup, .sellPopup, .marginPopup, .marginPaybackPopup, .endPopup, .historyPopup
   position: absolute
   display: flex
   justify-content: center
@@ -185,7 +185,44 @@
           padding: 10px
       &__Menu
         grid-area: menu
-
+    &__List
+      display: flex
+      flex-direction: column
+      align-items: center
+      column-gap: 15px
+      row-gap: 15px
+      max-height: 350px
+      overflow-y: scroll
+      &Item
+        padding: 10px
+        display: grid
+        grid-template-columns: 1fr 1fr
+        font-family: "Fira Mono", sans-serif
+        background: rgba(0,0,0,0.07)
+        border-radius: 5px
+        max-width: 70%
+        &__Title
+          font-size: 22px
+          font-weight: 700
+        &__Operation
+          text-align: end
+          font-size: 20px
+          font-weight: 700
+          justify-self: end
+          &Block
+            display: flex
+            column-gap: 10px
+            font-size: 14px
+    &__Bottom
+      margin-top: 10px
+      padding-top: 10px
+      border-top: 1px solid lightgrey
+      display: flex
+      justify-content: space-between
+      &Menu, &History
+        button
+          font-weight: 700
+          outline: none
   &::after
     content: ''
     position: absolute
@@ -206,7 +243,8 @@
     width: 1000px
   &Payback
     width: 800px
-
+.historyPopup
+  z-index: 100
 .bannerBack
   position: relative
   z-index: 1
@@ -296,7 +334,7 @@
 @media screen and (max-width: 768px)
   .container
     width: 85%
-  .chartPopup, .sellPopup, .marginPopup
+  .chartPopup, .sellPopup, .marginPopup, .historyPopup
     &Block
       padding: 10px 20px
       position: absolute
@@ -304,6 +342,9 @@
       left: 50%
       transform: translate(-50%, -50%)
       width: 90%
+      &__List
+        &Item
+          max-width: 90%
       &__Close
         top: 10px
         right: 10px
@@ -311,7 +352,6 @@
         grid-template-columns: 1fr
         row-gap: 10px
         grid-template-areas: 'time' 'penalty' 'stock' 'menu'
-        //font-size: 14px
       &__Result
         font-size: 14px
       &__Active
@@ -338,10 +378,22 @@
 @media screen and (max-width: 480px)
   .container
     width: 90%
-  .chartPopup, .sellPopup, .marginPopup
+  .chartPopup, .sellPopup, .marginPopup, .historyPopup, .marginPaybackPopup, .marginPopup
     &Block
       padding: 5px 10px
       width: 95%
+      &__List
+        &Item
+          max-width: 95%
+          &__Title
+            font-size: 18px
+          &__Operation
+            font-size: 16px
+            &Block
+              column-gap: 5px
+              font-size: 14px
+
+
       &__Title
         margin-bottom: 5px
         font-size: 16px

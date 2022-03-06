@@ -57,7 +57,7 @@ let initialState = {
   //
   gameStatus: 'process' as GameStatusType,
   // массив событий, покупка / продажа акций...
-  history: [] as any[],
+  history: [] as HistoryType[],
   // месяцы игры . . .
   months: [
     {name: 'Январь', duration: 31}, {name: 'Февраль', duration: 28}, {name: 'Март', duration: 31},
@@ -285,7 +285,12 @@ export const updateHistoryThunk = (target: any, operationType: 'buy' | 'sell', a
       amount
     }))
 }
-
+interface HistoryType {
+  title: string
+  price: number
+  operationType: 'buy' | 'sell'
+  amount: number
+}
 export type DifficultyType = 'easy' | 'normal' | 'hard'
 export type GameStatusType = 'process' | 'win' | 'lose'
 export type GameActionsType = InferActionsType<typeof actions>
