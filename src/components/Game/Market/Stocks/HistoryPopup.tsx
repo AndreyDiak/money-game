@@ -1,11 +1,12 @@
 import { CloseOutlined } from '@ant-design/icons'
+import React from 'react'
 import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { settingsActions } from '../../../../redux/settings-reducer'
 import { getConstTimeSpeedSelector } from '../../../../redux/settings-selector'
 import { AppStateType } from '../../../../redux/store'
 
-export const HistoryPopup: FC<{setIsHistoryShown: (isHistoryShown: boolean) => void}> = ({
+export const HistoryPopup: FC<{setIsHistoryShown: (isHistoryShown: boolean) => void}> = React.memo(({
   setIsHistoryShown
 }) => {
   const dispatch = useDispatch()
@@ -58,4 +59,4 @@ export const HistoryPopup: FC<{setIsHistoryShown: (isHistoryShown: boolean) => v
       </div>
     </div>
   )
-}
+})

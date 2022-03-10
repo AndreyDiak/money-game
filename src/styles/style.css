@@ -2634,7 +2634,7 @@ input:checked, input:active, input:focus {
   font-family: "Fira Mono", sans-serif;
   background: rgba(0, 0, 0, 0.07);
   border-radius: 5px;
-  max-width: 70%;
+  width: 70%;
 }
 .chartPopupBlock__ListItem__Title, .sellPopupBlock__ListItem__Title, .marginPopupBlock__ListItem__Title, .marginPaybackPopupBlock__ListItem__Title, .endPopupBlock__ListItem__Title, .historyPopupBlock__ListItem__Title {
   font-size: 22px;
@@ -2808,7 +2808,7 @@ input:checked, input:active, input:focus {
     width: 90%;
   }
   .chartPopupBlock__ListItem, .sellPopupBlock__ListItem, .marginPopupBlock__ListItem, .historyPopupBlock__ListItem {
-    max-width: 90%;
+    width: 90%;
   }
   .chartPopupBlock__Close, .sellPopupBlock__Close, .marginPopupBlock__Close, .historyPopupBlock__Close {
     top: 10px;
@@ -2854,7 +2854,7 @@ input:checked, input:active, input:focus {
     width: 95%;
   }
   .chartPopupBlock__ListItem, .sellPopupBlock__ListItem, .marginPopupBlock__ListItem, .historyPopupBlock__ListItem, .marginPaybackPopupBlock__ListItem, .marginPopupBlock__ListItem {
-    max-width: 95%;
+    width: 95%;
   }
   .chartPopupBlock__ListItem__Title, .sellPopupBlock__ListItem__Title, .marginPopupBlock__ListItem__Title, .historyPopupBlock__ListItem__Title, .marginPaybackPopupBlock__ListItem__Title, .marginPopupBlock__ListItem__Title {
     font-size: 18px;

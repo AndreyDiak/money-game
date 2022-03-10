@@ -238,7 +238,7 @@ const Pages: FC<PagesType> = React.memo(({
       path: 'news',
       element: 
         <NewsPage 
-          setIsHistoryShown={setIsHistoryShown}
+          setIsHistoryShown={setIsStockToBuy}
           setMyActiveStock={setMyActiveStock}
           setActiveStock={setActiveStock}
           setIsStockToSell={setIsStockToSell} 
