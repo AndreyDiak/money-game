@@ -1,14 +1,16 @@
-import home1 from './../img/realty/home-1.png'
-import home2 from './../img/realty/home-2.png'
-import home3 from './../img/realty/home-3.png'
-import home4 from './../img/realty/home-4.png'
-import home5 from './../img/realty/home-5.png'
-import home6 from './../img/realty/home-6.png'
-import home7 from './../img/realty/home-7.png'
-import home8 from './../img/realty/home-8.png'
-import home9 from './../img/realty/home-9.png'
-import home10 from './../img/realty/home-10.png'
-import {InferActionsType} from "./store";
+import { ThunkAction } from 'redux-thunk';
+import home1 from './../img/realty/home-1.png';
+import home10 from './../img/realty/home-10.png';
+import home2 from './../img/realty/home-2.png';
+import home3 from './../img/realty/home-3.png';
+import home4 from './../img/realty/home-4.png';
+import home5 from './../img/realty/home-5.png';
+import home6 from './../img/realty/home-6.png';
+import home7 from './../img/realty/home-7.png';
+import home8 from './../img/realty/home-8.png';
+import home9 from './../img/realty/home-9.png';
+import { getRandomNumber } from './../utils/getRandomNumber';
+import { AppStateType, InferActionsType } from "./store";
 
 const GENERATE_ACTIVE_REALTY = 'realtyPage/GENERATE_ACTIVE_REALTY'
 const RESET_ACTIVE_REALTY = 'realtyPage/RESET_ACTIVE_REALTY'
@@ -17,78 +19,48 @@ const SET_MY_REALTY = 'realtyPage/SET_MY_REALTY'
 
 let initialState = {
   activeRealty: null as null | realtyType,
-  realty: [
+  realtyList: [
     {
       title: 'Дом / 3 комн. / Стандарт',
-      deposit: 5000, // первый задаток за дом
-      price: 40000, // полная цена дома
-      payment: 240, // месячный доход с дома
       photo: home1
     },
     {
       title: 'Дом / 2 комн. / Стандарт',
-      deposit: 4500, // первый задаток за дом
-      price: 30000, // полная цена дома
-      payment: 210, // месячный доход с дома
       photo: home2
     },
     {
       title: 'Дом / 2 комн. / Модерн',
-      deposit: 5200, // первый задаток за дом
-      price: 43000, // полная цена дома
-      payment: 260, // месячный доход с дома
       photo: home3
     },
     {
       title: 'Дом / 4 комн. / Стандарт',
-      deposit: 5100, // первый задаток за дом
-      price: 42000, // полная цена дома
-      payment: 250, // месячный доход с дома
       photo: home4
     },
     {
       title: 'Коттедж / 5 комн. / Премиум',
-      deposit: 8000, // первый задаток за дом
-      price: 60000, // полная цена дома
-      payment: 370, // месячный доход с дома
       photo: home5
     },
     {
       title: 'Дом / 2 комн. / Гараж / Стандарт',
-      deposit: 6000, // первый задаток за дом
-      price: 48000, // полная цена дома
-      payment: 270, // месячный доход с дома
       photo: home6
     },
     {
       title: 'Дом / 3 комн. / Премиум',
-      deposit: 6000, // первый задаток за дом
-      price: 50000, // полная цена дома
-      payment: 300, // месячный доход с дома
       photo: home7
     },
     {
       title: 'Дом / 3 комн. / Гараж / Стандарт',
-      deposit: 6500, // первый задаток за дом
-      price: 54000, // полная цена дома
-      payment: 330, // месячный доход с дома
       photo: home8
     },
     {
       title: 'Дом / 3 комн. / Стандарт',
-      deposit: 4800, // первый задаток за дом
-      price: 35000, // полная цена дома
-      payment: 250, // месячный доход с дома
       photo: home9
     },
     {
       title: 'Летний дом / 4 комн. / Люкс',
-      deposit: 10000, // первый задаток за дом
-      price: 75000, // полная цена дома
-      payment: 400, // месячный доход с дома
       photo: home10
     },
-  ] as realtyType[],
+  ],
   myRealty: [
   ] as realtyType[],
 }
@@ -99,7 +71,7 @@ export const realtyReducer = (state = initialState, action: RealtyActionsType): 
     case GENERATE_ACTIVE_REALTY:
       return {
         ...state,
-        activeRealty: state.realty[Math.floor(Math.random() * state.realty.length)]
+        activeRealty: action.activeRealty
       }
     // обнуляем предложение по недвижимости
     case RESET_ACTIVE_REALTY:
@@ -124,18 +96,76 @@ export const realtyReducer = (state = initialState, action: RealtyActionsType): 
 }
 
 export const realtyActions = {
-  generateActiveRealty: () => ({type: GENERATE_ACTIVE_REALTY} as const),
+  setActiveRealty: (activeRealty: realtyType) => ({type: GENERATE_ACTIVE_REALTY, activeRealty} as const),
   resetActiveRealty: () => ({type: RESET_ACTIVE_REALTY} as const),
   buyRealty: () => ({type: BUY_REALTY} as const),
   setMyRealty: (myRealty: realtyType[]) => ({type: SET_MY_REALTY, myRealty} as const)
 }
 
+export const GenerateActiveRealtyThunk = (): RealtyThunkType => (dispatch, getState) => {
+  const realtyListCopy = [...getState().realtyPage.realtyList]
+  // выбриаем рандомный номер...
+  const realtyIndex = getRandomNumber(realtyListCopy.length)
+  // шанс для выпадение региона...
+  const regionChance = getRandomNumber(100)
+  const regionType: ChanceType = regionChance > 50 ? 'low' : regionChance > 20 ? 'medium' : 'high'
+  // шанс для выпадения спроса...
+  const demandChance = getRandomNumber(100)
+  const demandType: ChanceType = demandChance > 70 ? 'low' : regionChance > 30 ? 'medium' : 'high'
+  // цена недвижимости...
+  const realtyPrice = regionType === 'high' 
+    ? 40000 + getRandomNumber(40000) 
+      : regionType === 'medium' 
+        ? 20000 + getRandomNumber(20000) 
+        : 10000 + getRandomNumber(10000)
+  // размер первого депозита...
+  const realtyDeposit = realtyPrice * (15 + getRandomNumber(15)) / 100
+  // размер дохода...
+  const realtyIncome = realtyPrice * (5 + getRandomNumber(5)) / 100
+  //процент платы по закладной (может поменятся в зависимости от цены недвижимости...)
+  const realtyPaymentPercentage = 5 + getRandomNumber(5)
+  const activeRealty: realtyType = {
+    title: realtyListCopy[realtyIndex].title,
+    region: regionType,
+    demand: demandType,
+    price: realtyPrice,
+    deposit: realtyDeposit,
+    income: realtyIncome,
+    payment: realtyPaymentPercentage,
+    photo: realtyListCopy[realtyIndex].photo
+  }
+  dispatch(realtyActions.setActiveRealty(activeRealty))
+}
+
 export type InitialRealtyStateType = typeof initialState
 export type RealtyActionsType = InferActionsType<typeof realtyActions>
-export type realtyType = {
+export type RealtyThunkType = ThunkAction<any, AppStateType, unknown, RealtyActionsType>
+export interface realtyType {
   title: string
+  region: ChanceType
+  demand: ChanceType
   deposit: number
   price: number
+  income: number
   payment: number
   photo: string
 }
+type ChanceType = 'low' | 'medium' | 'high'
+/*
+//region: трущобы / город / элитный район / элитын
+//demand: слабый / средний / высокий / спрос
+// возможность торговли (до 3х раз)
+вы можете купить недвижимость по пониженной цене...
+от спроса будет зависеть, с какой вероятностью ваш дом захотят купить...
+от квартала будет зависеть как сильно вы сможете завысить цену...
+
+будем генерировать доход, задаток и полную цену
+плата по закладной может быть больше / меньше чем доход с дома...
+
+1 - мы покупаем дом и вносим задаток
+2 - мы платим процент по закладной каждый месяц
+3 - дом приносит ежемесячную прибыль 
+4 - может появится возможность продать дом,
+ если в новостях вдруг появится предложение
+
+*/
