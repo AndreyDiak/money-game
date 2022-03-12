@@ -2,7 +2,7 @@ import { ThunkAction } from 'redux-thunk';
 import { businessActions } from './business-reducer';
 import { newsActions } from './news-reducer';
 import { profileActions, ProfileActionsType, updateIncome } from './profile-reducer';
-import { realtyActions, RealtyActionsType } from './realty-reducer';
+import { generateActiveRealtyThunk, realtyActions, RealtyActionsType } from './realty-reducer';
 import { settingsActions, SettingsActionType } from './settings-reducer';
 import { spendsActions, SpendsActionType } from './spends-reducer';
 import { stocksActions, StocksActionType } from './stocks-reducer';
@@ -230,7 +230,7 @@ export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
   // чистая прибыль персонажа в месяц
   dispatch(actions.updateWallet(income))
   // создаем предложение по недвижимости
-  dispatch(realtyActions.generateActiveRealty())
+  dispatch(generateActiveRealtyThunk())
   // уменьшаем необходимую выплату по долгу на месячную ставку
   dispatch(profileActions.updateExpenses())
   // если мы выплатили целиком какой либо долг, то у нас растет ЗП
@@ -265,7 +265,7 @@ export const balanceCheckThunk = (): ActionThunkType => (dispatch, getState) => 
     // @ts-ignore
     dispatch(newsActions.resetNews())
   }
-  console.log('checking balance...')
+  // console.log('checking balance...')
   if (wallet <= loseBalance) {
     // player lose...
     dispatch(actions.setGameStatus('lose'))

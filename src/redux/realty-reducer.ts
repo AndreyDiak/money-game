@@ -61,6 +61,7 @@ let initialState = {
       photo: home10
     },
   ],
+  realtyHistory: [] as realtyType[],
   myRealty: [
   ] as realtyType[],
 }
@@ -71,7 +72,8 @@ export const realtyReducer = (state = initialState, action: RealtyActionsType): 
     case GENERATE_ACTIVE_REALTY:
       return {
         ...state,
-        activeRealty: action.activeRealty
+        activeRealty: action.activeRealty,
+        realtyHistory: [...state.realtyHistory, action.activeRealty]
       }
     // обнуляем предложение по недвижимости
     case RESET_ACTIVE_REALTY:
@@ -102,16 +104,17 @@ export const realtyActions = {
   setMyRealty: (myRealty: realtyType[]) => ({type: SET_MY_REALTY, myRealty} as const)
 }
 
-export const GenerateActiveRealtyThunk = (): RealtyThunkType => (dispatch, getState) => {
+export const generateActiveRealtyThunk = (): RealtyThunkType => (dispatch, getState) => {
+  // копия списка доступной недвижимости...
   const realtyListCopy = [...getState().realtyPage.realtyList]
-  // выбриаем рандомный номер...
+  // выбриаем рандомный индекс...
   const realtyIndex = getRandomNumber(realtyListCopy.length)
   // шанс для выпадение региона...
   const regionChance = getRandomNumber(100)
-  const regionType: ChanceType = regionChance > 50 ? 'low' : regionChance > 20 ? 'medium' : 'high'
+  const regionType: ChanceType = regionChance > 66 ? 'low' : regionChance > 33 ? 'medium' : 'high'
   // шанс для выпадения спроса...
   const demandChance = getRandomNumber(100)
-  const demandType: ChanceType = demandChance > 70 ? 'low' : regionChance > 30 ? 'medium' : 'high'
+  const demandType: ChanceType = demandChance > 66 ? 'low' : demandChance > 33 ? 'medium' : 'high'
   // цена недвижимости...
   const realtyPrice = regionType === 'high' 
     ? 40000 + getRandomNumber(40000) 
@@ -119,11 +122,12 @@ export const GenerateActiveRealtyThunk = (): RealtyThunkType => (dispatch, getSt
         ? 20000 + getRandomNumber(20000) 
         : 10000 + getRandomNumber(10000)
   // размер первого депозита...
-  const realtyDeposit = realtyPrice * (15 + getRandomNumber(15)) / 100
+  const realtyDeposit = Math.floor(realtyPrice * (15 + getRandomNumber(15)) / 100)
   // размер дохода...
-  const realtyIncome = realtyPrice * (5 + getRandomNumber(5)) / 100
-  //процент платы по закладной (может поменятся в зависимости от цены недвижимости...)
+  const realtyIncome = Math.floor(realtyPrice * (5 + getRandomNumber(5)) / 100)
+  // процент платы по закладной (может поменятся в зависимости от цены недвижимости...)
   const realtyPaymentPercentage = 5 + getRandomNumber(5)
+  // создаем новый объект новости...
   const activeRealty: realtyType = {
     title: realtyListCopy[realtyIndex].title,
     region: regionType,
@@ -134,6 +138,7 @@ export const GenerateActiveRealtyThunk = (): RealtyThunkType => (dispatch, getSt
     payment: realtyPaymentPercentage,
     photo: realtyListCopy[realtyIndex].photo
   }
+
   dispatch(realtyActions.setActiveRealty(activeRealty))
 }
 
