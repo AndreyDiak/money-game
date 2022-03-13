@@ -2,7 +2,7 @@ import { ThunkAction } from 'redux-thunk';
 import { businessActions } from './business-reducer';
 import { newsActions } from './news-reducer';
 import { profileActions, ProfileActionsType, updateIncome } from './profile-reducer';
-import { generateActiveRealtyThunk, realtyActions, RealtyActionsType } from './realty-reducer';
+import { generateActiveRealtyThunk, realtyActions, RealtyActionsType, buyRealtyThunk } from './realty-reducer';
 import { settingsActions, SettingsActionType } from './settings-reducer';
 import { spendsActions, SpendsActionType } from './spends-reducer';
 import { stocksActions, StocksActionType } from './stocks-reducer';
@@ -221,8 +221,8 @@ export const actions = {
 }
 
 export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
-  let income = getState().profilePage.income
-  let spendsLevel = getState().spendsPage.spendsLevel
+  const income = getState().profilePage.income
+  const spendsLevel = getState().spendsPage.spendsLevel
   // ставим первый день в месяце
   dispatch(actions.setDayInMonth(1))
   // зануляем траты прошлого месяца
@@ -231,6 +231,7 @@ export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
   dispatch(actions.updateWallet(income))
   // создаем предложение по недвижимости
   dispatch(generateActiveRealtyThunk())
+  dispatch(buyRealtyThunk(10000))
   // уменьшаем необходимую выплату по долгу на месячную ставку
   dispatch(profileActions.updateExpenses())
   // если мы выплатили целиком какой либо долг, то у нас растет ЗП

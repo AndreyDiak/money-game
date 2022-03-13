@@ -1,23 +1,22 @@
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../redux/store";
-import {Button, Carousel} from "antd";
-import {realtyActions, realtyType} from "../../../redux/realty-reducer";
-import {profileActions, updateIncome} from "../../../redux/profile-reducer";
-import {getIncomeSelector} from "../../../redux/profile-selector";
-import {getWalletSelector} from "../../../redux/game-selector";
-import {actions} from "../../../redux/game-reducer";
+import { Button, Carousel } from "antd";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "../../../redux/game-reducer";
+import { getWalletSelector } from "../../../redux/game-selector";
+import { updateIncome } from "../../../redux/profile-reducer";
+import { AppStateType } from "../../../redux/store";
+import { useTypedSelector } from "../../../utils/hooks/useTypedSelector";
 
 export const RealtyPage = React.memo(() => {
 
   const dispatch = useDispatch()
   const myRealty = useSelector((state: AppStateType) => state.realtyPage.myRealty)
-  const activeRealty = useSelector((state: AppStateType) => state.realtyPage.activeRealty) as realtyType
+  const activeRealty = useTypedSelector(state => state.realtyPage.activeRealty)
   const wallet = useSelector(getWalletSelector)
 
   const buyRealty = () => {
     // покупаем дом . . .
-    dispatch(realtyActions.buyRealty())
+    // dispatch(realtyActions.buyRealty())
     // обновляем доход . . .
     dispatch(updateIncome())
     // снимаем баланс пользователя
@@ -87,7 +86,7 @@ export const RealtyPage = React.memo(() => {
                       <div className='gameRealtyContent__blockInfo__priceItem'>
                         <div>МЕСЯЧНЫЙ ДОХОД:</div>
                         <b style={{color: '#57895b'}}>
-                          ${activeRealty.payment}
+                          ${activeRealty.income}
                         </b>
                       </div>
                     </div>

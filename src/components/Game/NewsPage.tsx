@@ -7,13 +7,14 @@ import {newsActions} from "../../redux/news-reducer";
 import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
 import {settingsActions} from "../../redux/settings-reducer";
 import { myStockType, stockType } from "../../redux/stocks-reducer";
+import { useTypedSelector } from "../../utils/hooks/useTypedSelector";
 
 
 export const NewsPage:FC<{setIsHistoryShown: any, setActiveStock: any, setMyActiveStock: any, setIsStockToSell: any}> = (props) => {
 
   const dispatch = useDispatch()
-  const news = useSelector((state: AppStateType) => state.newsPage.news)
-  const archive = useSelector((state: AppStateType) => state.newsPage.archive)
+  const news = useTypedSelector(state => state.newsPage.news)
+  const archive = useTypedSelector(state => state.newsPage.archive)
   const [isArchiveShown, setIsArchiveShown] = useState(false)
 
   const readAllNews = () => {
@@ -76,7 +77,7 @@ export const NewsPage:FC<{setIsHistoryShown: any, setActiveStock: any, setMyActi
   )
 }
 
-type NewsBlockType = {
+interface NewsBlockType {
   title: string
   company: string
   amount: number

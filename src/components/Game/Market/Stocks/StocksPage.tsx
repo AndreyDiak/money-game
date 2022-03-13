@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { settingsActions } from "../../../../redux/settings-reducer";
 import { brokerType } from "../../../../redux/stocks-reducer";
 import { AppStateType } from "../../../../redux/store";
+import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
 import { Bonds } from "../Bonds/Bonds";
 import { Margin } from "../Margin/Margin";
 import { MyPortfolio } from "./MyPortfolio";
@@ -27,7 +28,7 @@ export const StocksPage: FC<RenderPlayerStocksType> = React.memo(({
   
   const dispatch = useDispatch()
   const [marketActiveFilter, setMarketActiveFilter] = useState(1)
-  const margin = useSelector((state: AppStateType) => state.stocksPage.margin)
+  const margin = useTypedSelector(state => state.stocksPage.margin)
   // разрешение экрана...
   const filters = [
     {name: 'Портфель', filter: 'portfolio' as MarketType},

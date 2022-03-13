@@ -19,7 +19,7 @@ const BUY_REALTY = 'realtyPage/BUY_REALTY'
 const SET_MY_REALTY = 'realtyPage/SET_MY_REALTY'
 
 let initialState = {
-  activeRealty: null as null | realtyType,
+  activeRealty: {} as activeRealtyType,
   realtyList: [
     {
       title: 'Дом / 3 комн. / Стандарт',
@@ -62,9 +62,8 @@ let initialState = {
       photo: home10
     }
   ],
-  realtyHistory: [] as realtyType[],
-  myRealty: [
-  ] as realtyType[],
+  realtyHistory: [] as activeRealtyType[],
+  myRealty: [] as myRealtyType[],
 }
 
 export const realtyReducer = (state = initialState, action: RealtyActionsType): InitialRealtyStateType => {
@@ -81,38 +80,36 @@ export const realtyReducer = (state = initialState, action: RealtyActionsType): 
         ...state,
         activeRealty: {
           ...state.activeRealty,
-          // @ts-ignore
-          attempts: state.activeRealty?.attempts - 1
-        } as realtyType
+          attempts: state.activeRealty.attempts - 1
+        }
       }
-    // обнуляем предложение по недвижимости
-    // case RESET_ACTIVE_REALTY:
-    //   return {
-    //     ...state,
-    //     activeRealty: null
-    //   }
     case BUY_REALTY:
       return {
         ...state,
-        myRealty: [...state.myRealty, state.activeRealty] as realtyType[],
-        activeRealty: null
+        myRealty: [
+          ...state.myRealty, 
+          action.realty
+        ],
+        activeRealty: {
+          ...state.activeRealty,
+          isBought: true
+        }
       }
-    case SET_MY_REALTY:
-      return {
-        ...state,
-        myRealty: action.myRealty
-      }
+    // case SET_MY_REALTY:
+    //   return {
+    //     ...state,
+    //     myRealty: action.myRealty
+    //   }
     default:
       return state
   }
 }
 
 export const realtyActions = {
-  setActiveRealty: (activeRealty: realtyType) => ({type: GENERATE_ACTIVE_REALTY, activeRealty} as const),
+  setActiveRealty: (activeRealty: activeRealtyType) => ({type: GENERATE_ACTIVE_REALTY, activeRealty} as const),
   decreaseRealtyAttempts: () => ({type: DECREASE_REALTY_ATTEMPS} as const),
-  // resetActiveRealty: () => ({type: RESET_ACTIVE_REALTY} as const),
-  buyRealty: () => ({type: BUY_REALTY} as const),
-  setMyRealty: (myRealty: realtyType[]) => ({type: SET_MY_REALTY, myRealty} as const)
+  buyRealty: (realty: myRealtyType) => ({type: BUY_REALTY, realty} as const),
+  // setMyRealty: (myRealty: realtyType[]) => ({type: SET_MY_REALTY, myRealty} as const)
 }
 
 export const generateActiveRealtyThunk = (): RealtyThunkType => (dispatch, getState) => {
@@ -139,14 +136,14 @@ export const generateActiveRealtyThunk = (): RealtyThunkType => (dispatch, getSt
   // процент платы по закладной (может поменятся в зависимости от цены недвижимости...)
   const realtyPaymentPercentage = 5 + getRandomNumber(5)
   // создаем новый объект новости...
-  const activeRealty: realtyType = {
+  const activeRealty: activeRealtyType = {
     title: realtyListCopy[realtyIndex].title,
     region: regionType,
     demand: demandType,
     price: realtyPrice,
     deposit: realtyDeposit,
     income: realtyIncome,
-    payment: realtyPaymentPercentage,
+    paymentPercentage: realtyPaymentPercentage,
     attempts: 3, // колисество попыток чтобы потогроватся...
     isBought: false, // куплена ли недвижимость...
     photo: realtyListCopy[realtyIndex].photo
@@ -154,21 +151,46 @@ export const generateActiveRealtyThunk = (): RealtyThunkType => (dispatch, getSt
 
   dispatch(realtyActions.setActiveRealty(activeRealty))
 }
+export const buyRealtyThunk = (price: number): RealtyThunkType => (dispatch, getState) => {
+  const activeRealtyCopy = getState().realtyPage.activeRealty
 
+  const myRealty: myRealtyType = {
+    title: activeRealtyCopy.title,
+    region: activeRealtyCopy.region,
+    demand: activeRealtyCopy.demand,
+    photo: activeRealtyCopy.photo,
+    price,
+    income: activeRealtyCopy.income,
+    payment: price * activeRealtyCopy.paymentPercentage / 100,
+    mortgage: activeRealtyCopy.price - activeRealtyCopy.deposit
+  }
+  
+  dispatch(realtyActions.buyRealty(myRealty))
+}
 export type InitialRealtyStateType = typeof initialState
 export type RealtyActionsType = InferActionsType<typeof realtyActions>
 export type RealtyThunkType = ThunkAction<any, AppStateType, unknown, RealtyActionsType>
-export interface realtyType {
+interface activeRealtyType {
   title: string
   region: ChanceType
   demand: ChanceType
   deposit: number
   price: number
   income: number
-  payment: number
+  paymentPercentage: number
   photo: string
   attempts: number
   isBought: boolean
+}
+export interface myRealtyType {
+  title: string // название недвижимости...
+  region: ChanceType // уровень региона...
+  photo: string // фото
+  demand: ChanceType // спрос на недвижимость
+  price: number // цена за которую был куплен дом...
+  mortgage: number // размер закладной...
+  payment: number // плата по закладной...
+  income: number // доход с жилья...
 }
 type ChanceType = 'low' | 'medium' | 'high'
 /*

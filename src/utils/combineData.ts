@@ -1,18 +1,18 @@
-import {useSelector} from "react-redux";
-import {getMyBusinessesSelector} from "../redux/business-selector";
-import {BusinessType} from "../redux/business-reducer";
-import {realtyType} from "../redux/realty-reducer";
-import {myStockType, stockType} from "../redux/stocks-reducer";
-import {newsArrayType} from "../redux/news-reducer";
-import {expenseType, personType} from "../redux/profile-reducer";
-import {AppStateType} from "../redux/store";
-import {getMyStocksSelector, getStocksSelector} from "../redux/stocks-selector";
+import { useSelector } from "react-redux";
+import { BusinessType } from "../redux/business-reducer";
+import { getMyBusinessesSelector } from "../redux/business-selector";
+import { newsArrayType } from "../redux/news-reducer";
+import { personType } from "../redux/profile-reducer";
+import { myRealtyType } from "../redux/realty-reducer";
+import { myStockType, stockType } from "../redux/stocks-reducer";
+import { getMyStocksSelector, getStocksSelector } from "../redux/stocks-selector";
+import { AppStateType } from "../redux/store";
 
 export const CombineData = () => {
 
   const data = {
     myBusinesses: [] as BusinessType[],
-    myRealty: [] as realtyType[],
+    myRealty: [] as myRealtyType[],
     stocks: [] as stockType[],
     myStocks: [] as myStockType[],
     workedDays: 0,
