@@ -13,7 +13,8 @@ import { getRandomNumber } from './../utils/getRandomNumber';
 import { AppStateType, InferActionsType } from "./store";
 
 const GENERATE_ACTIVE_REALTY = 'realtyPage/GENERATE_ACTIVE_REALTY'
-const RESET_ACTIVE_REALTY = 'realtyPage/RESET_ACTIVE_REALTY'
+const DECREASE_REALTY_ATTEMPS = 'realtyPage/DECREASE_REALTY_ATTEMPS'
+// const RESET_ACTIVE_REALTY = 'realtyPage/RESET_ACTIVE_REALTY'
 const BUY_REALTY = 'realtyPage/BUY_REALTY'
 const SET_MY_REALTY = 'realtyPage/SET_MY_REALTY'
 
@@ -59,7 +60,7 @@ let initialState = {
     {
       title: 'Летний дом / 4 комн. / Люкс',
       photo: home10
-    },
+    }
   ],
   realtyHistory: [] as realtyType[],
   myRealty: [
@@ -75,12 +76,21 @@ export const realtyReducer = (state = initialState, action: RealtyActionsType): 
         activeRealty: action.activeRealty,
         realtyHistory: [...state.realtyHistory, action.activeRealty]
       }
-    // обнуляем предложение по недвижимости
-    case RESET_ACTIVE_REALTY:
+    case DECREASE_REALTY_ATTEMPS:
       return {
         ...state,
-        activeRealty: null
+        activeRealty: {
+          ...state.activeRealty,
+          // @ts-ignore
+          attempts: state.activeRealty?.attempts - 1
+        } as realtyType
       }
+    // обнуляем предложение по недвижимости
+    // case RESET_ACTIVE_REALTY:
+    //   return {
+    //     ...state,
+    //     activeRealty: null
+    //   }
     case BUY_REALTY:
       return {
         ...state,
@@ -99,7 +109,8 @@ export const realtyReducer = (state = initialState, action: RealtyActionsType): 
 
 export const realtyActions = {
   setActiveRealty: (activeRealty: realtyType) => ({type: GENERATE_ACTIVE_REALTY, activeRealty} as const),
-  resetActiveRealty: () => ({type: RESET_ACTIVE_REALTY} as const),
+  decreaseRealtyAttempts: () => ({type: DECREASE_REALTY_ATTEMPS} as const),
+  // resetActiveRealty: () => ({type: RESET_ACTIVE_REALTY} as const),
   buyRealty: () => ({type: BUY_REALTY} as const),
   setMyRealty: (myRealty: realtyType[]) => ({type: SET_MY_REALTY, myRealty} as const)
 }
@@ -136,6 +147,8 @@ export const generateActiveRealtyThunk = (): RealtyThunkType => (dispatch, getSt
     deposit: realtyDeposit,
     income: realtyIncome,
     payment: realtyPaymentPercentage,
+    attempts: 3, // колисество попыток чтобы потогроватся...
+    isBought: false, // куплена ли недвижимость...
     photo: realtyListCopy[realtyIndex].photo
   }
 
@@ -154,12 +167,15 @@ export interface realtyType {
   income: number
   payment: number
   photo: string
+  attempts: number
+  isBought: boolean
 }
 type ChanceType = 'low' | 'medium' | 'high'
 /*
 //region: трущобы / город / элитный район / элитын
 //demand: слабый / средний / высокий / спрос
 // возможность торговли (до 3х раз)
+// скосить цену можно на 10-
 вы можете купить недвижимость по пониженной цене...
 от спроса будет зависеть, с какой вероятностью ваш дом захотят купить...
 от квартала будет зависеть как сильно вы сможете завысить цену...
