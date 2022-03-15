@@ -1,12 +1,10 @@
-import {CheckSquareOutlined, InboxOutlined, MenuOutlined} from "@ant-design/icons/lib/icons";
-import {FC, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store";
-import {Button} from "antd";
-import {newsActions} from "../../redux/news-reducer";
-import {getMyStocksSelector, getStocksSelector} from "../../redux/stocks-selector";
-import {settingsActions} from "../../redux/settings-reducer";
-import { myStockType, stockType } from "../../redux/stocks-reducer";
+import { CheckSquareOutlined, InboxOutlined } from "@ant-design/icons/lib/icons";
+import { Button } from "antd";
+import { FC, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { newsActions } from "../../redux/news-reducer";
+import { settingsActions } from "../../redux/settings-reducer";
+import { getMyStocksSelector, getStocksSelector } from "../../redux/stocks-selector";
 import { useTypedSelector } from "../../utils/hooks/useTypedSelector";
 
 
@@ -46,6 +44,7 @@ export const NewsPage:FC<{setIsHistoryShown: any, setActiveStock: any, setMyActi
                     index={index}
                     isArchive={true}
                     month={newsBlock.month}
+                    type={newsBlock.type}
                     dayInMonth={newsBlock.dayInMonth}
                   />
                 )}
@@ -97,9 +96,16 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
 
   const dispatch = useDispatch()
 
-  const stocks: stockType[] = useSelector(getStocksSelector)
-  const myStocks: myStockType[] = useSelector(getMyStocksSelector)
-
+  const stocks = useSelector(getStocksSelector)
+  const myStocks = useSelector(getMyStocksSelector)
+  const myRealty = useTypedSelector(state => state.realtyPage.myRealty)
+  const themeColor = props.type === 'person' 
+    ? '#388e3c' 
+    : props.type === 'stock' 
+      ? '#439093' 
+      : props.type === 'realty' 
+        ? '#f4511e ' : '#b71c1c'
+        
   const moveToArchive = () => {
     dispatch(newsActions.setToArchive(props.index))
   }
@@ -131,7 +137,7 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
   return (
     <>
       <div className="gameNewsBlock">
-        <div className="gameNewsBlock__Title">
+        <div className="gameNewsBlock__Title" style={{background: themeColor}}>
           <b>Новость!</b>
           <span style={{color: '#def4e4'}}> / {props.month} {props.dayInMonth}</span>
         </div>
@@ -139,26 +145,37 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
           <div className="gameNewsBlock__NewsTitle">
             <b>{props.title}</b>
           </div>
-
-          {props.company !== ''
+          {/* если новость связана с акцией */}
+          {props.company !== '' && props.type === 'stock'
             ? <div className='gameNewsBlock__NewsCompany'>
                 <i>{props.company}</i>
               </div>
             : ''
           }
-
+          {props.company !== '' && props.type === 'realty'
+            ? <div>
+                {/* props.company === 'low' | 'medium' | 'high */}
+                {myRealty.some(realty => realty.region === props.company) 
+                  ? 'вы можете продать какую либо недвижимость...'
+                  : ''
+                }
+              </div>
+            : ''}
+          {/*  */}
           {props.type === 'stock' && props.condition === 0
             ? <div className="gameNewsBlock__NewsButton">
                 <Button onClick={() => buyStocks()}>Купить акцию</Button>
               </div>
             : ''
           }
+          {/*  */}
           {props.type === 'stock' && props.condition === 1 && myStocks.some(s => s.title === props.company)
             ? <div className="gameNewsBlock__NewsButton">
                 <Button onClick={() => sellStocks()}>Продать акцию</Button>
               </div>
             : ''
           }
+          {/*  */}
           {props.amount !== 0
             ? <div className="gameNewsBlock__NewsPrice">
               {props.amount > 0

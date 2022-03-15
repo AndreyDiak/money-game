@@ -192,7 +192,7 @@ export interface myRealtyType {
   payment: number // плата по закладной...
   income: number // доход с жилья...
 }
-type ChanceType = 'low' | 'medium' | 'high'
+export type ChanceType = 'low' | 'medium' | 'high'
 /*
 //region: трущобы / город / элитный район / элитын
 //demand: слабый / средний / высокий / спрос

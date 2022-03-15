@@ -98,6 +98,32 @@ let initialState = {
           ]
         }
       ] as VariantType[]
+    },
+    {
+      type: 'realtyNews' as NewsTypes,
+      ableToShow: true,
+      variants: [
+        {
+          variantType: 'positive',
+          titles: [
+            {title: 'Начало сезона, новые приезжие хотят купить дом.'},
+            {title: 'Развитие инфроструктуры в районе положительно влияет на цены.'}
+          ]
+        },
+        {
+          variantType: 'negative',
+          titles: [
+            {title: 'В районе наблюдаются проблемы с экологией, спрос на недвижимость падает.'},
+            {title: 'Рост преступности негативно влияет на цены в этом районе.'}
+          ]
+        },
+        {
+          variantType: 'neutral',
+          titles: [
+            {title: 'Рынок недвижимости в полном порядке.'},
+          ]
+        }
+      ] as VariantType[]
     }
   ],
   newsIncome: [] as newsExInType[],
@@ -265,6 +291,17 @@ export const setNewsThunk = (newsTypeIndex: number): NewsThunkType => (dispatch,
           dispatch(stocksActions.setPriceChangeInterval(news.company, timeInterval, growType))
         }
         break
+      // новость для рынка недвижимости
+      case "realtyNews":
+        news.type = 'realty'
+        news.condition = newsConditionIndex
+        if(newsVariant.variantType === 'negative' || newsVariant.variantType === 'positive') {
+          // news.company = realty[getRandomNumber(realty.length)].title
+          const regionChance = getRandomNumber(100)
+          news.company = regionChance > 66 ? 'high' : regionChance > 33 ? 'medium' : 'low'
+        }
+        
+        break
       default:
         return null
     }
@@ -280,6 +317,7 @@ export const generateNewsThunk = (): NewsThunkType => (dispatch, getState) => {
 
   // newsTypeIndex == 0 -> personNews
   // newsTypeIndex == 1 -> stocksNews
+  // newsTypeIndex == 3 -> realtyNews
   // newsTypeIndex == 2 -> businessNews
 
   let newsTypeIndex = getRandomNumber(newsTypeArray.reduce((acc, next) => next.ableToShow ? acc + 1 : acc, 0))
@@ -287,7 +325,7 @@ export const generateNewsThunk = (): NewsThunkType => (dispatch, getState) => {
   dispatch(setNewsThunk(newsTypeIndex))
 }
 
-export type NewsTypes = 'stocksNews' | 'businessNews' | 'personNews'
+export type NewsTypes = 'stocksNews' | 'businessNews' | 'personNews' | 'realtyNews'
 export type VariantType = {
   variantType: 'positive' | 'negative' | 'neutral',
   titles: {
