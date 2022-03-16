@@ -478,7 +478,7 @@ export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
   // начисление с аекций
   let dividendsSummary = myStocks.reduce((acc, next) => acc + next.dividendsAmount * next.count, 0)
   // начисления с недвижимости
-  let realtySummary = myRealty.reduce((acc, next) => acc + next.payment, 0)
+  let realtySummary = myRealty.reduce((acc, next) => acc + next.income, 0)
   // начисления с бизнесса
   let businessSummary = myBusiness.reduce((acc, next) => acc + next.income, 0)
   // долги игрока...
@@ -490,7 +490,6 @@ export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
   // новый доход игрока...
   dispatch(profileActions.updateIncome(NewIncome))
 }
-
 export type ProfileActionsType = InferActionsType<typeof profileActions>
 
 export type expenseType = {

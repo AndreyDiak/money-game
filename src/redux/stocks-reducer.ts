@@ -292,10 +292,31 @@ export const stocksReducer = (state = initialState, action: StocksActionType): I
       }
     // обновление акций . . .
     case UPDATE_STOCKS:
+      let stockToUpdateCopy = [...state.stocks]
+      let filteredStocksToUpdateCopy = [...state.filteredStocks]
+
+      stockToUpdateCopy.forEach((stock, index) => {
+        if (stock.title === action.title) {
+          stockToUpdateCopy[index] = {
+            ...stockToUpdateCopy[index],
+            count: stockToUpdateCopy[index].count - action.count
+          }
+        }
+      })
+
+      filteredStocksToUpdateCopy.forEach((fStock, fIndex) => {
+        if (fStock.title === action.title) {
+          filteredStocksToUpdateCopy[fIndex] = {
+            ...filteredStocksToUpdateCopy[fIndex],
+            count: filteredStocksToUpdateCopy[fIndex].count - action.count
+          }
+        }
+      })
+        
       return {
         ...state,
-        stocks: action.stocks,
-        filteredStocks: action.filteredStocks
+        stocks: stockToUpdateCopy,
+        filteredStocks: filteredStocksToUpdateCopy
       }
     // обнуление акций персонажа . . .
     case RESET_MY_STOCKS:
@@ -660,7 +681,7 @@ export const stocksActions = {
   setStocks: () => ({type: SET_STOCKS} as const),
   indexingStocks: () => ({type: INDEXING_STOCKS} as const),
   updateMyStocks: (myStocks: myStockType[]) => ({type: UPDATE_MY_STOCKS, myStocks} as const),
-  updateStocks: (stocks: stockType[], filteredStocks: stockType[]) => ({type: UPDATE_STOCKS, stocks, filteredStocks} as const),
+  updateStocks: (title: string, count: number) => ({type: UPDATE_STOCKS, title, count} as const),
   sellStocks: (stock: myStockType, count: number, activeStock: number) => ({type: SELL_STOCKS, stock, count, activeStock} as const),
   setPriceChangeInterval: (company: string, timeInterval: number, condition: 'up' | 'down') => ({type: SET_PRICE_CHANGE_INTERVAL, company, timeInterval, condition} as const),
   resetMyStocks: () => ({type: RESET_MY_STOCKS} as const),

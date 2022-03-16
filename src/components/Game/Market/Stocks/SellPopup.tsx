@@ -2,12 +2,8 @@ import { CloseOutlined } from "@ant-design/icons";
 import { Button, InputNumber } from "antd";
 import React, { FC, SetStateAction, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../../../../redux/game-reducer";
-import { getWalletSelector } from "../../../../redux/game-selector";
-import { updateIncome } from "../../../../redux/profile-reducer";
 import { settingsActions } from "../../../../redux/settings-reducer";
-import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector";
-import { myStockType, removeStocksFromPortfolioThunk, stocksActions } from "../../../../redux/stocks-reducer";
+import { myStockType, removeStocksFromPortfolioThunk } from "../../../../redux/stocks-reducer";
 import { AppStateType } from "../../../../redux/store";
 import { MarginPopupChart } from "../Margin/MarginPopup";
 
@@ -19,14 +15,12 @@ export type SellPopupType = {
 export const SellPopup: FC<SellPopupType> = (props) => {
   // количество акций на продажу . . .
   const [stocksToSellCount, setStocksToSellCount] = useState(1)
-  const timeSpeed = useSelector(getConstTimeSpeedSelector)
   const stocks = useSelector((state: AppStateType) => state.stocksPage.stocks.filter(s => s.title === props.stock.title)[0])
   const bonds = useSelector((state: AppStateType) => state.stocksPage.bonds.filter(b => b.title === props.stock.title)[0])
-  const wallet = useSelector(getWalletSelector)
   const dispatch = useDispatch()
 
-  const onChangeTime = (time: number) => {
-    dispatch(settingsActions.setTimeSpeed(time))
+  const onChangeTime = () => {
+    dispatch(settingsActions.setTimeSpeed())
   }
 
   const setStocksCount = (count: number) => {
@@ -51,7 +45,7 @@ export const SellPopup: FC<SellPopupType> = (props) => {
   
   const onCloseClick = () => {
     props.setIsStockToSell(false)
-    onChangeTime(timeSpeed)
+    onChangeTime()
   }
   
   return (

@@ -62,10 +62,19 @@ let initialState = {
       photo: home10
     }
   ],
+  realtyRegion: {
+    low: 'Трущобы',
+    medium: 'Город',
+    high: 'Элитный квартал'
+  },
+  realtyDemand: {
+    'low': 'Маленький спрос',
+    'medium': 'Средний спрос',
+    'high': 'Высокий спрос'
+  }, // чем выше спрос, тем большую цену можно завалить при продаже...
   realtyHistory: [] as activeRealtyType[],
   myRealty: [] as myRealtyType[],
 }
-
 export const realtyReducer = (state = initialState, action: RealtyActionsType): InitialRealtyStateType => {
   switch (action.type) {
     // создаем новое предложение по недвижимости

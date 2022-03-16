@@ -1,19 +1,19 @@
 import { Button, Carousel } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../../../redux/game-reducer";
-import { getWalletSelector } from "../../../redux/game-selector";
-import { updateIncome } from "../../../redux/profile-reducer";
-import { AppStateType } from "../../../redux/store";
-import { useTypedSelector } from "../../../utils/hooks/useTypedSelector";
+import { actions } from "../../../../redux/game-reducer";
+import { getWalletSelector } from "../../../../redux/game-selector";
+import { updateIncome } from "../../../../redux/profile-reducer";
+import { AppStateType } from "../../../../redux/store";
+import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
 
 export const RealtyPage = React.memo(() => {
 
   const dispatch = useDispatch()
-  const myRealty = useSelector((state: AppStateType) => state.realtyPage.myRealty)
+  const myRealty = useTypedSelector(state => state.realtyPage.myRealty)
   const activeRealty = useTypedSelector(state => state.realtyPage.activeRealty)
   const wallet = useSelector(getWalletSelector)
-
+  
   const buyRealty = () => {
     // покупаем дом . . .
     // dispatch(realtyActions.buyRealty())

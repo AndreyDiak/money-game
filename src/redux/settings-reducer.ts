@@ -20,7 +20,7 @@ export const settingsReducer = (state = initialState, action: SettingsActionType
     case SET_TIME_SPEED:
       return {
         ...state,
-        timeSpeed: action.timeSpeed
+        timeSpeed: action.time ? state.constTimeSpeed : action.time as number
       }
     case SET_CONST_TIME_SPEED:
       return {
@@ -40,7 +40,7 @@ export const settingsReducer = (state = initialState, action: SettingsActionType
 }
 
 export const settingsActions = {
-  setTimeSpeed: (timeSpeed: number) => ({type: SET_TIME_SPEED, timeSpeed} as const),
+  setTimeSpeed: (time?: number) => ({type: SET_TIME_SPEED, time} as const),
   setConstTimeSpeed: (constTimeSpeed: number) => ({type: SET_CONST_TIME_SPEED, constTimeSpeed} as const),
   setDifficulty: (difficulty: DifficultyType) => ({type: SET_DIFFICULTY, difficulty} as const),
 }
