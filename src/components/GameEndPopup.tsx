@@ -17,6 +17,7 @@ export const GameEndPopup: FC<{setIsHistoryShown: (isShown: boolean) => void}> =
           </div>
           <div className="endPopupBlock__About">
             {gameStatus === 'lose' ? '' : ''}
+            Денег потрачено: х
           </div>
           <div className="endPopupBlock__Bottom">
             <div className="endPopupBlock__BottomMenu">

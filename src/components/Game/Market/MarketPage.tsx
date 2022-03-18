@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { useRoutes } from "react-router-dom";
 import { brokerType } from "../../../redux/stocks-reducer";
 import { BusinessPage } from "./BusinessPage";
-import { RealtyPage } from "./RealtyPage";
+import { RealtyPage } from "./Realty/RealtyPage";
 import { StocksPage } from "./Stocks/StocksPage";
 
 export type MarketType = {

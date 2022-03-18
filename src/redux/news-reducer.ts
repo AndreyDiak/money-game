@@ -299,9 +299,10 @@ export const setNewsThunk = (newsTypeIndex: number): NewsThunkType => (dispatch,
         if(newsVariant.variantType === 'negative' || newsVariant.variantType === 'positive') {
           // news.company = realty[getRandomNumber(realty.length)].title
           const regionChance = getRandomNumber(100)
+          // благодаря новости мы просто генерируем район, в котором хотят купить жилье...
+          // если у игрока есть недвижимость в этой районе, то он может попробовать поторговать...
           news.company = regionChance > 66 ? 'high' : regionChance > 33 ? 'medium' : 'low'
         }
-        
         break
       default:
         return null

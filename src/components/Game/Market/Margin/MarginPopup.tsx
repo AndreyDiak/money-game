@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { actions } from "../../../../redux/game-reducer"
 import { getWalletSelector } from "../../../../redux/game-selector"
 import { settingsActions } from "../../../../redux/settings-reducer"
-import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector"
 import { addMarginToPortfolioThunk, addStocksToPortfolioThunk, brokerType, stocksActions, stockType, updateBrokerStocksCountThunk } from "../../../../redux/stocks-reducer"
 import { getStocksSelector } from "../../../../redux/stocks-selector"
 import { AppStateType } from "../../../../redux/store"
@@ -18,7 +17,6 @@ type MarginPopupType = {
 export const MarginPopup: FC<MarginPopupType> = React.memo(({broker, setIsMarginShown}) => {
 
   const dispatch = useDispatch()
-  const timeSpeed = useSelector(getConstTimeSpeedSelector)
   const stocksSummaryPrice = useSelector((state: AppStateType) => state.stocksPage.stocksSummaryPrice)
   const isInstructionCompleted = useSelector((state: AppStateType) => state.stocksPage.isInstructionCompleted)
   const stocks = useSelector(getStocksSelector)
@@ -46,7 +44,7 @@ export const MarginPopup: FC<MarginPopupType> = React.memo(({broker, setIsMargin
 
   const onCloseClick = () => {
     setIsMarginShown(false)
-    dispatch(settingsActions.setTimeSpeed(timeSpeed))
+    dispatch(settingsActions.setTimeSpeed())
   }
 
   const onButtonClick = () => {

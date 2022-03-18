@@ -3,6 +3,7 @@ import { Button } from "antd";
 import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { newsActions } from "../../redux/news-reducer";
+import { ChanceType } from "../../redux/realty-reducer";
 import { settingsActions } from "../../redux/settings-reducer";
 import { getMyStocksSelector, getStocksSelector } from "../../redux/stocks-selector";
 import { useTypedSelector } from "../../utils/hooks/useTypedSelector";
@@ -99,6 +100,7 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
   const stocks = useSelector(getStocksSelector)
   const myStocks = useSelector(getMyStocksSelector)
   const myRealty = useTypedSelector(state => state.realtyPage.myRealty)
+  const realtyRegion = useTypedSelector(state => state.realtyPage.realtyRegion)
   const themeColor = props.type === 'person' 
     ? '#388e3c' 
     : props.type === 'stock' 
@@ -133,7 +135,7 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
     props.setIsStockToSell(true)
     onChangeTime(0)
   }
-
+  console.log(props.type)
   return (
     <>
       <div className="gameNewsBlock">
@@ -145,33 +147,37 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
           <div className="gameNewsBlock__NewsTitle">
             <b>{props.title}</b>
           </div>
-          {/* если новость связана с акцией */}
+          {/* если новость связана с акцией... */}
           {props.company !== '' && props.type === 'stock'
             ? <div className='gameNewsBlock__NewsCompany'>
                 <i>{props.company}</i>
               </div>
             : ''
           }
+          {/* если новость связана с недвижимостью... */}
           {props.company !== '' && props.type === 'realty'
             ? <div>
                 {/* props.company === 'low' | 'medium' | 'high */}
+                <div className="gameNewsBlock__NewsRealty">
+                  Район: {realtyRegion[props.company as ChanceType]}
+                </div>
                 {myRealty.some(realty => realty.region === props.company) 
-                  ? 'вы можете продать какую либо недвижимость...'
-                  : ''
+                  ? <Button>Продать</Button>
+                  : 'У вас нет недвижимости в этом районе.'
                 }
               </div>
             : ''}
           {/*  */}
           {props.type === 'stock' && props.condition === 0
             ? <div className="gameNewsBlock__NewsButton">
-                <Button onClick={() => buyStocks()}>Купить акцию</Button>
+                <Button onClick={buyStocks}>Купить акцию</Button>
               </div>
             : ''
           }
           {/*  */}
           {props.type === 'stock' && props.condition === 1 && myStocks.some(s => s.title === props.company)
             ? <div className="gameNewsBlock__NewsButton">
-                <Button onClick={() => sellStocks()}>Продать акцию</Button>
+                <Button onClick={sellStocks}>Продать акцию</Button>
               </div>
             : ''
           }

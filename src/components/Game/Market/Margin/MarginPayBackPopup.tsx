@@ -1,14 +1,13 @@
 import { CloseOutlined } from "@ant-design/icons"
-import { FC, SetStateAction, useEffect, useState } from "react"
-import { AppStateType } from "../../../../redux/store"
-import {useSelector, useDispatch} from 'react-redux'
-import { stat } from "fs"
-import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector"
-import { settingsActions } from "../../../../redux/settings-reducer"
 import { Button, InputNumber } from "antd"
-import { marginPayOutThunk, stockType } from "../../../../redux/stocks-reducer"
+import { FC, useEffect, useState } from "react"
+import { useDispatch, useSelector } from 'react-redux'
 import { getWalletSelector } from "../../../../redux/game-selector"
 import { updateIncome } from "../../../../redux/profile-reducer"
+import { settingsActions } from "../../../../redux/settings-reducer"
+import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector"
+import { marginPayOutThunk } from "../../../../redux/stocks-reducer"
+import { AppStateType } from "../../../../redux/store"
 type MarginPayBackPopupType = {
   setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
 }
@@ -19,7 +18,6 @@ export const MarginPayBackPopup: FC<MarginPayBackPopupType> = ({
   const dispatch = useDispatch()
   const wallet = useSelector(getWalletSelector)
   const margin = useSelector((state: AppStateType) => state.stocksPage.margin[0])
-  const timeSpeed = useSelector(getConstTimeSpeedSelector)
 
   const day = useSelector((state: AppStateType) => state.gamePage.daysInMonth)
   const month = useSelector((state: AppStateType) => state.gamePage.month)
@@ -42,7 +40,7 @@ export const MarginPayBackPopup: FC<MarginPayBackPopupType> = ({
 
   const onCloseClick = () => {
     setIsMarginPayBackShown(false)
-    dispatch(settingsActions.setTimeSpeed(timeSpeed))
+    dispatch(settingsActions.setTimeSpeed())
   }
 
   const onButtonClick = () => {
