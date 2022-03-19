@@ -1,15 +1,16 @@
 import { Button, Select } from "antd";
 import React, { FC, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setPopupsShownThunk } from "../../../../redux/game-reducer";
 import { settingsActions } from "../../../../redux/settings-reducer";
 import { brokerType } from "../../../../redux/stocks-reducer";
-import { AppStateType } from "../../../../redux/store";
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
 import { Bonds } from "../Bonds/Bonds";
 import { Margin } from "../Margin/Margin";
 import { MyPortfolio } from "./MyPortfolio";
 import { Stocks } from "./Stocks";
 const {Option} = Select
+
 export type RenderPlayerStocksType = {
   setIsHistoryShown: any
   setActiveStock: any
@@ -20,11 +21,10 @@ export type RenderPlayerStocksType = {
   setActiveBroker: (activeBroker: brokerType) => void
   setIsMarginShown: (isMarginShown: boolean) => void
 }
+
 type MarketType = 'portfolio' | 'stocks' | 'bonds' | 'margin'
 
-export const StocksPage: FC<RenderPlayerStocksType> = React.memo(({
-  setIsStockToSell, setMyActiveStock, setActiveStock, setIsStockToBuy,
-  setIsHistoryShown, setActiveBroker, setIsMarginShown, setIsMarginPayBackShown}) => {
+export const StocksPage: FC<RenderPlayerStocksType> = React.memo(() => {
   
   const dispatch = useDispatch()
   const [marketActiveFilter, setMarketActiveFilter] = useState(1)
@@ -40,11 +40,11 @@ export const StocksPage: FC<RenderPlayerStocksType> = React.memo(({
   
   const onMarginClick = () => {
     dispatch(settingsActions.setTimeSpeed(0))
-    setIsMarginPayBackShown(true)
+    dispatch(setPopupsShownThunk('margin', true))
   }
   const onHistoryClick = () => {
     dispatch(settingsActions.setTimeSpeed(0))
-    setIsHistoryShown(true)
+    dispatch(setPopupsShownThunk('history', true))
   }
   return (
     <>

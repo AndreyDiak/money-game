@@ -2,7 +2,6 @@ import { Button, Menu, Modal } from "antd";
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { brokerType, myStockType, stockType } from "../redux/stocks-reducer";
 import { getStocksSelector } from "../redux/stocks-selector";
 import { AppStateType } from "../redux/store";
 import { MarginPayBackPopup } from "./Game/Market/Margin/MarginPayBackPopup";
@@ -12,30 +11,8 @@ import { HistoryPopup } from "./Game/Market/Stocks/HistoryPopup";
 import { SellPopup } from "./Game/Market/Stocks/SellPopup";
 import { GameEndPopup } from "./GameEndPopup";
 
-export type PopupsType = {
-  myStock: myStockType
-  activeBroker: brokerType
-  activeStock: number
-  stock: stockType
-  isHistoryShown: boolean
-  isStockToSell: boolean
-  isStockToBuy: boolean
-  isMarketOpen: boolean
-  isMarginShown: boolean
-  isMarginPayBackShown: boolean
-  setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
-  setIsStockToSell: (isStockToSell: boolean) => void
-  setIsStockToBuy: (isStockToBuy: boolean) => void 
-  setIsHistoryShown: (isHistoryShown: boolean) => void
-  setIsMarketOpen: (isMarketOpen: boolean) => void
-  setActiveStock: (activeStock: stockType) => void
-  setIsMarginShown: (isMarginShown: boolean) => void
-}
-
-export const Popups:FC<PopupsType> = React.memo(({
-  myStock, activeBroker, activeStock, stock,
-  isHistoryShown, isStockToSell, isMarketOpen, isMarginShown, isMarginPayBackShown, isStockToBuy,
-  setIsMarginPayBackShown, setActiveStock, setIsHistoryShown, setIsMarginShown, setIsMarketOpen, setIsStockToSell, setIsStockToBuy
+export const Popups:FC<{popups: any}> = React.memo(({
+ 
 }) => {
 
   const income = useSelector((state: AppStateType) => state.profilePage.income)
