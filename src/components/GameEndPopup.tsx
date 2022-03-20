@@ -1,12 +1,19 @@
 import { Button } from "antd"
 import React, { FC } from "react"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from "react-router-dom"
+import { setPopupsShownThunk } from "../redux/game-reducer"
 import { AppStateType } from "../redux/store"
 
-export const GameEndPopup: FC<{setIsHistoryShown: (isShown: boolean) => void}> = React.memo(({setIsHistoryShown}) => {
+export const GameEndPopup: FC = React.memo(() => {
 
   const gameStatus = useSelector((state: AppStateType) => state.gamePage.gameStatus)
+  const dispatch = useDispatch()
+
+  const onButtonClick = () => {
+    //...
+    dispatch(setPopupsShownThunk('history', true))
+  }
 
   return (
     <>
@@ -26,7 +33,7 @@ export const GameEndPopup: FC<{setIsHistoryShown: (isShown: boolean) => void}> =
               </NavLink>
             </div>
             <div className="endPopupBlock__BottomHistory">
-              <Button onClick={() => setIsHistoryShown(true)}>История</Button>
+              <Button onClick={onButtonClick}>История</Button>
             </div>
           </div>
         </div>

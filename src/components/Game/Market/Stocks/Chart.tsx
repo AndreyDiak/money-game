@@ -1,22 +1,19 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { Button, InputNumber } from "antd";
-import React, { FC, SetStateAction, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../../../../redux/game-reducer";
+import { actions, setPopupsShownThunk } from "../../../../redux/game-reducer";
 import { getWalletSelector } from "../../../../redux/game-selector";
 import { settingsActions } from "../../../../redux/settings-reducer";
 import { addStocksToPortfolioThunk, stocksActions, stockType } from "../../../../redux/stocks-reducer";
+import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
 import { MarginPopupChart } from "../Margin/MarginPopup";
 
-export type RenderChartType = {
-  setIsHistoryShown: SetStateAction<any>
-  stock: stockType
-}
-
-export const Chart: FC<RenderChartType> = ({setIsHistoryShown, stock}) => {
+export const Chart: FC = () => {
 
   const dispatch = useDispatch()
   const wallet = useSelector(getWalletSelector)
+  const stock = useTypedSelector(state => state.gamePage.popups.stock.active)
   // массив с акциями . . .
 
   const [stocksToBuyCount, setStocksToBuyCount] = useState(1)
@@ -57,7 +54,8 @@ export const Chart: FC<RenderChartType> = ({setIsHistoryShown, stock}) => {
   }
   // закрытие окна...
   const onCloseClick = () => {
-    setIsHistoryShown(false)
+    dispatch(setPopupsShownThunk('stock', false))
+    // setIsHistoryShown(false)
     dispatch(settingsActions.setTimeSpeed())
   }
   // проверка возможности покупки акций...

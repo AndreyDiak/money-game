@@ -2,10 +2,10 @@ import { ThunkAction } from 'redux-thunk';
 import { businessActions } from './business-reducer';
 import { newsActions } from './news-reducer';
 import { profileActions, ProfileActionsType, updateIncome } from './profile-reducer';
-import { generateActiveRealtyThunk, realtyActions, RealtyActionsType, buyRealtyThunk } from './realty-reducer';
+import { buyRealtyThunk, generateActiveRealtyThunk, RealtyActionsType } from './realty-reducer';
 import { settingsActions, SettingsActionType } from './settings-reducer';
 import { spendsActions, SpendsActionType } from './spends-reducer';
-import { stocksActions, StocksActionType } from './stocks-reducer';
+import { brokerType, stocksActions, StocksActionType, stockType } from './stocks-reducer';
 import { AppStateType, InferActionsType } from "./store";
 
 // time . . .
@@ -34,6 +34,7 @@ const SET_VICTORY_BALANCE = 'gamePage/SET_VICTORY_BALANCE'
 
 const SET_NEW_GAME = 'gamePage/SET_NEW_GAME'
 const SET_GAME_STATUS = 'gamePage/SET_GAME_STATUS'
+const UPDATE_POPUPS = 'gamePage/UPDATE_POPUPS'
 
 let initialState = {
   // счётчик дней . . .
@@ -58,6 +59,29 @@ let initialState = {
   gameStatus: 'process' as GameStatusType,
   // массив событий, покупка / продажа акций...
   history: [] as HistoryType[],
+  popups: {
+    stock: {
+      isShown: false,
+      active: {} as stockType
+    },
+    myStock: {
+      isShown: false,
+      active: 0
+    },
+    broker: {
+      isShown: false,
+      active: {} as brokerType
+    },
+    margin: {
+      isShown: false,
+    },
+    history: {
+      isShown: false,
+    },
+    market: {
+      isShown: false
+    }
+  },
   // месяцы игры . . .
   months: [
     {name: 'Январь', duration: 31}, {name: 'Февраль', duration: 28}, {name: 'Март', duration: 31},
@@ -217,7 +241,8 @@ export const actions = {
   initGame: () => ({type: INIT_GAME} as const),
 
   setNewGame: (day: number, dayInMonth: number, month: number, wallet: number, victoryBalance: number) => ({type: SET_NEW_GAME, day, dayInMonth, month, wallet, victoryBalance} as const),
-  setGameStatus: (status: GameStatusType) => ({type: SET_GAME_STATUS, status} as const)
+  setGameStatus: (status: GameStatusType) => ({type: SET_GAME_STATUS, status} as const),
+  updatePopups: (popups: any) => ({type: UPDATE_POPUPS, popups} as const)
 }
 
 export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
@@ -286,6 +311,19 @@ export const updateHistoryThunk = (target: any, operationType: 'buy' | 'sell', a
       amount
     }))
 }
+// thunk для отображения той или иной модалки...
+export const setPopupsShownThunk = (type: PopupsType, isShown: boolean ): ActionThunkType => (dispatch, getState) => {
+  let popupsCopy = getState().gamePage.popups
+  popupsCopy[type].isShown = isShown
+  dispatch(actions.updatePopups(popupsCopy))
+}
+// thunk, если в модалку надо передать какой либо активный элемент...
+export const setPopupsActiveThunk = (type: PopupsType, active: any): ActionThunkType => (dispatch, getState) => {
+  let popupsCopy = getState().gamePage.popups
+  // @ts-ignore
+  popupsCopy[type].active = active
+  dispatch(actions.updatePopups(popupsCopy))
+}
 interface HistoryType {
   title: string
   price: number
@@ -294,6 +332,7 @@ interface HistoryType {
 }
 export type DifficultyType = 'easy' | 'normal' | 'hard'
 export type GameStatusType = 'process' | 'win' | 'lose'
+export type PopupsType = 'stock' | 'myStock' | 'broker' | 'margin' | 'history' | 'market'
 export type GameActionsType = InferActionsType<typeof actions>
 type ActionThunkType = ThunkAction<any, AppStateType, unknown, 
 GameActionsType | SpendsActionType | RealtyActionsType | ProfileActionsType | StocksActionType | SettingsActionType>

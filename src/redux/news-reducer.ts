@@ -252,6 +252,7 @@ export const setNewsThunk = (newsTypeIndex: number): NewsThunkType => (dispatch,
     // шанс рождения ребенка примерно 5%
     news.title = 'Рождение ребенка это большое событие!'
     news.amount = -125
+    news.type = 'children'
     
     dispatch(profileActions.newChild())
     dispatch(updateIncome())

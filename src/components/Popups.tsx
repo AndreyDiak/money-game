@@ -1,10 +1,11 @@
 import { Button, Menu, Modal } from "antd";
 import React, { FC } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { brokerType, myStockType, stockType } from "../redux/stocks-reducer";
+import { setPopupsShownThunk } from "../redux/game-reducer";
 import { getStocksSelector } from "../redux/stocks-selector";
 import { AppStateType } from "../redux/store";
+import { useTypedSelector } from "../utils/hooks/useTypedSelector";
 import { MarginPayBackPopup } from "./Game/Market/Margin/MarginPayBackPopup";
 import { MarginPopup } from "./Game/Market/Margin/MarginPopup";
 import { Chart } from "./Game/Market/Stocks/Chart";
@@ -12,53 +13,29 @@ import { HistoryPopup } from "./Game/Market/Stocks/HistoryPopup";
 import { SellPopup } from "./Game/Market/Stocks/SellPopup";
 import { GameEndPopup } from "./GameEndPopup";
 
-export type PopupsType = {
-  myStock: myStockType
-  activeBroker: brokerType
-  activeStock: number
-  stock: stockType
-  isHistoryShown: boolean
-  isStockToSell: boolean
-  isStockToBuy: boolean
-  isMarketOpen: boolean
-  isMarginShown: boolean
-  isMarginPayBackShown: boolean
-  setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
-  setIsStockToSell: (isStockToSell: boolean) => void
-  setIsStockToBuy: (isStockToBuy: boolean) => void 
-  setIsHistoryShown: (isHistoryShown: boolean) => void
-  setIsMarketOpen: (isMarketOpen: boolean) => void
-  setActiveStock: (activeStock: stockType) => void
-  setIsMarginShown: (isMarginShown: boolean) => void
-}
+export const Popups:FC = React.memo(({}) => {
 
-export const Popups:FC<PopupsType> = React.memo(({
-  myStock, activeBroker, activeStock, stock,
-  isHistoryShown, isStockToSell, isMarketOpen, isMarginShown, isMarginPayBackShown, isStockToBuy,
-  setIsMarginPayBackShown, setActiveStock, setIsHistoryShown, setIsMarginShown, setIsMarketOpen, setIsStockToSell, setIsStockToBuy
-}) => {
+  const dispatch = useDispatch()
 
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   const stocks = useSelector(getStocksSelector)
   const gameStatus = useSelector((state: AppStateType) => state.gamePage.gameStatus)
-  
-  const onButtonClick = () => {
-    setIsMarketOpen(false)
+  const popups = useTypedSelector(state => state.gamePage.popups)
+
+  const onCloseClick = () => {
+    dispatch(setPopupsShownThunk('market', false))
+    // setIsMarketOpen(false)
   }
 
   return (
     <>
-      {isStockToSell && <SellPopup stock={myStock} setIsStockToSell={setIsStockToSell} activeStock={activeStock}/>}
-      {isStockToBuy && <Chart setIsHistoryShown={setIsStockToBuy} stock={stock}/>}
-      {isMarginShown && <MarginPopup setIsMarginShown={setIsMarginShown} broker={activeBroker} /> }
-      {isHistoryShown && <HistoryPopup setIsHistoryShown={setIsHistoryShown} />}
-      {gameStatus !== 'process' && <GameEndPopup setIsHistoryShown={setIsHistoryShown}/> }
-      {isMarginPayBackShown && 
-      <MarginPayBackPopup 
-        setIsMarginPayBackShown={setIsMarginPayBackShown}
-      /> 
-      }
-      <Modal style={{width: '90%', textAlign: 'center'}} onCancel={onButtonClick} visible={isMarketOpen} title={'Рынок'} footer={[
+      {popups.stock.isShown &&  <Chart /> }
+      {popups.myStock.isShown && <SellPopup />}  
+      {popups.broker.isShown && <MarginPopup /> }
+      {popups.history.isShown && <HistoryPopup /> }
+      {gameStatus !== 'process' && <GameEndPopup /> }
+      {popups.margin.isShown && <MarginPayBackPopup/> }
+      <Modal style={{width: '90%', textAlign: 'center'}} onCancel={onCloseClick} visible={popups.market.isShown} title={'Рынок'} footer={[
         <>
         </>
       ]}>
@@ -69,7 +46,7 @@ export const Popups:FC<PopupsType> = React.memo(({
             </p>
             : <Menu.Item>
               <NavLink to='/game/market'>
-                <Button onClick={onButtonClick}>Акции</Button>
+                <Button onClick={onCloseClick}>Акции</Button>
               </NavLink>
             </Menu.Item>
           }
@@ -79,7 +56,7 @@ export const Popups:FC<PopupsType> = React.memo(({
             </p>
             : <Menu.Item>
               <NavLink to='/game/market/realty'>
-                <Button onClick={onButtonClick}>Недвижимость</Button>
+                <Button onClick={onCloseClick}>Недвижимость</Button>
               </NavLink>
             </Menu.Item>
           }
@@ -89,7 +66,7 @@ export const Popups:FC<PopupsType> = React.memo(({
             </p>
             : <Menu.Item>
               <NavLink to='/game/market/business'>
-                <Button onClick={onButtonClick}>Бизнес</Button>
+                <Button onClick={onCloseClick}>Бизнес</Button>
               </NavLink>
             </Menu.Item>
           }

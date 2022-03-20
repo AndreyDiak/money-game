@@ -14,8 +14,8 @@ import { getDaySelector } from "../../redux/game-selector";
 import { newsActions } from "../../redux/news-reducer";
 import { getPersonSelector } from "../../redux/profile-selector";
 import { getTimeSpeedSelector } from "../../redux/settings-selector";
-import { brokerType, stocksActions, stockType } from "../../redux/stocks-reducer";
-import { getMyStocksSelector, getStocksSelector } from "../../redux/stocks-selector";
+import { stocksActions } from "../../redux/stocks-reducer";
+import { getStocksSelector } from "../../redux/stocks-selector";
 import { AppStateType } from "../../redux/store";
 import { Navbar } from "../Navbar";
 import { Popups } from "../Popups";
@@ -24,7 +24,6 @@ import { MarketPage } from "./Market/MarketPage";
 import { NewsPage } from "./NewsPage";
 import { RenderPlayerWork } from "./RenderPlayerWork";
 import { SpendsPage } from "./Spends/SpendsPage";
-
 
 export const GamePage: FC = React.memo(() => {
 
@@ -47,30 +46,29 @@ export const GamePage: FC = React.memo(() => {
   const news = useSelector((state: AppStateType) => state.newsPage.news)
   // массив с акциями . . .
   const stocks = useSelector(getStocksSelector)
-  // массив купленных акций . . .
-  const myStocks = useSelector(getMyStocksSelector)
+  
   // будущий массив с предложением по бизнессу . . .
   const businesses = useSelector(getBusinessesSelector)
   // количество новостей . . .
   const margin = useSelector((state: AppStateType) => state.stocksPage.margin)
   // активная акция . . .
-  const [myActiveStock, setMyActiveStock] = useState(0)
-  // активная акция пользователя . . .
-  const [activeStock, setActiveStock] = useState(null as null | stockType)
+  // const [myActiveStock, setMyActiveStock] = useState(0) // передаем индекс акции для продажи...
+  // активная акция пользователя . . .  
+  // const [activeStock, setActiveStock] = useState(null as null | stockType)
   //
-  const [activeBroker, setActiveBroker] = useState({} as brokerType)
+  // const [activeBroker, setActiveBroker] = useState({} as brokerType)
   // переменная для продажи акций . . .
-  const [isStockToSell, setIsStockToSell] = useState(false)
+  // const [isStockToSell, setIsStockToSell] = useState(false)
   //
-  const [isStockToBuy, setIsStockToBuy] = useState(false)
+  // const [isStockToBuy, setIsStockToBuy] = useState(false)
   //
-  const [isMarginShown, setIsMarginShown] = useState(false)
+  // const [isMarginShown, setIsMarginShown] = useState(false)
   // переменная для просмотра истории цены акции . . .
-  const [isHistoryShown, setIsHistoryShown] = useState(false)
+  // const [isHistoryShown, setIsHistoryShown] = useState(false)
   //
-  const [isMarginPayBackShown, setIsMarginPayBackShown] = useState(false)
+  // const [isMarginPayBackShown, setIsMarginPayBackShown] = useState(false)
   //
-  const [isMarketOpen, setIsMarketOpen] = useState(false)
+  // const [isMarketOpen, setIsMarketOpen] = useState(false)
   //
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
   // увеличиваем кол-во дней...
@@ -125,40 +123,13 @@ export const GamePage: FC = React.memo(() => {
   return (
     <>
       <Navbar />
-      <Popups
-        myStock={myStocks[myActiveStock]}
-        setIsStockToSell={setIsStockToSell}
-        activeStock={myActiveStock}
-        setIsHistoryShown={setIsHistoryShown}
-        stock={activeStock as stockType}
-        isHistoryShown={isHistoryShown}
-        isStockToSell={isStockToSell}
-        isStockToBuy={isStockToBuy}
-        setIsStockToBuy={setIsStockToBuy}
-        setIsMarketOpen={setIsMarketOpen}
-        isMarketOpen={isMarketOpen}
-        activeBroker={activeBroker}
-        isMarginShown={isMarginShown}
-        isMarginPayBackShown={isMarginPayBackShown}
-        setIsMarginShown={setIsMarginShown}
-        setActiveStock={setActiveStock}
-        setIsMarginPayBackShown={setIsMarginPayBackShown}
-      />
+      <Popups />
       <div style={screenWidth > 768
         ? {height: 'calc(100vh - 78px)', overflow: 'hidden'}
         : {height: 'calc(100vh - 50px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden'}}
       >
         {/* игровые роуты... */}
-        <Pages 
-          setActiveBroker={setActiveBroker} 
-          setActiveStock={setActiveStock} 
-          setIsHistoryShown={setIsHistoryShown} 
-          setIsMarginPayBackShown={setIsMarginPayBackShown} 
-          setIsMarginShown={setIsMarginShown} 
-          setIsStockToSell={setIsStockToSell}
-          setIsStockToBuy={setIsStockToBuy}
-          setMyActiveStock={setMyActiveStock}
-        />
+        <Pages />
         <div className="bottomNav">
           <div className="bottomNavItem">
             <NavLink to='/game/spends'>
@@ -202,20 +173,8 @@ export const GamePage: FC = React.memo(() => {
     </>
   )
 })
-type PagesType = {
-  setIsStockToSell: (isShown: boolean) => void 
-  setIsHistoryShown: (isShown: boolean) => void
-  setIsStockToBuy: (isShown: boolean) => void
-  setMyActiveStock: (index: number) => void
-  setActiveStock: (stock: stockType) => void
-  setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
-  setActiveBroker: (activeBroker: brokerType) => void
-  setIsMarginShown: (isMarginShown: boolean) => void
-}
-const Pages: FC<PagesType> = React.memo(({
-  setIsHistoryShown, setMyActiveStock, setActiveStock, setIsStockToBuy,
-  setIsStockToSell,setActiveBroker,setIsMarginShown,setIsMarginPayBackShown
-}) => {
+
+const Pages = React.memo(() => {
   const routes = useRoutes([
     {
       path: '',
@@ -237,26 +196,12 @@ const Pages: FC<PagesType> = React.memo(({
     {
       path: 'news',
       element: 
-        <NewsPage 
-          setIsHistoryShown={setIsStockToBuy}
-          setMyActiveStock={setMyActiveStock}
-          setActiveStock={setActiveStock}
-          setIsStockToSell={setIsStockToSell} 
-        />
+        <NewsPage />
     },
     {
       path: 'market',
       element:
-        <MarketPage
-          setIsHistoryShown={setIsHistoryShown}
-          setMyActiveStock={setMyActiveStock}
-          setActiveStock={setActiveStock}
-          setIsStockToSell={setIsStockToSell}
-          setIsStockToBuy={setIsStockToBuy}
-          setActiveBroker={setActiveBroker}
-          setIsMarginShown={setIsMarginShown} 
-          setIsMarginPayBackShown={setIsMarginPayBackShown}  
-        />
+        <MarketPage />
     }
   ])
 

@@ -1,21 +1,20 @@
 import { CloseOutlined } from '@ant-design/icons'
-import React from 'react'
-import { FC } from 'react'
+import React, { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { setPopupsShownThunk } from '../../../../redux/game-reducer'
 import { settingsActions } from '../../../../redux/settings-reducer'
 import { getConstTimeSpeedSelector } from '../../../../redux/settings-selector'
 import { AppStateType } from '../../../../redux/store'
 
-export const HistoryPopup: FC<{setIsHistoryShown: (isHistoryShown: boolean) => void}> = React.memo(({
-  setIsHistoryShown
-}) => {
+export const HistoryPopup: FC = React.memo(() => {
   const dispatch = useDispatch()
   const history = useSelector((state: AppStateType) => state.gamePage.history.reverse())
   const timeSpeed = useSelector(getConstTimeSpeedSelector)
   const gameStatus = useSelector((state: AppStateType) => state.gamePage.gameStatus)
   
   const onCloseClick = () => {
-    setIsHistoryShown(false)
+    dispatch(setPopupsShownThunk('history', false))
+    // setIsHistoryShown(false)
     if(gameStatus === 'process')
       dispatch(settingsActions.setTimeSpeed(timeSpeed))
   }

@@ -1,70 +1,57 @@
 import { ArrowDownOutlined, ArrowUpOutlined, FallOutlined, RiseOutlined } from "@ant-design/icons";
-import React, { FC, SetStateAction } from "react";
+import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setPopupsActiveThunk, setPopupsShownThunk } from "../../../../redux/game-reducer";
 import { settingsActions } from "../../../../redux/settings-reducer";
 import { myStockType, stockType } from "../../../../redux/stocks-reducer";
 import { AppStateType } from "../../../../redux/store";
 
-export type RenderStockType = {
-  stock: stockType,
-  index: number,
-  setIsHistoryShown: any,
-  setActiveStock: any
-}
 
-export type RenderMyStockType = {
-  stock: myStockType,
-  index: number,
-  setIsHistoryShown: any,
-  setActiveStock: SetStateAction<any>
-  setMyActiveStock: SetStateAction<any>
-  setIsStockToSell: SetStateAction<any>
-}
-
-export const StockCard: FC<RenderStockType> = React.memo((props) => {
+export const StockCard: FC<RenderStockType> = React.memo(({stock, index}) => {
 
   const dispatch = useDispatch()
   const isSubcsriptionBought = useSelector((state: AppStateType) => state.stocksPage.isSubscriptionBought)
+
   const onChangeTime = (time: number) => {
     dispatch(settingsActions.setTimeSpeed(time))
+  }
+
+  const onStockClick = () => {
+    dispatch(setPopupsActiveThunk('stock', stock))
+    dispatch(setPopupsShownThunk('stock', true))
+    onChangeTime(0)
   }
 
   return (
     <>
       <div className="gameProfitStocks__OfferBlock">
         <div className="gameProfitStocks__OfferBlock__Title">
-          {props.index + 1} - {props.stock.title}
+          {index + 1} - {stock.title}
         </div>
         <div className="gameProfitStocks__OfferBlock__Info">
           <div className="gameProfitStocks__OfferBlock__InfoPrice">
-            {props.stock.price[props.stock.price.length - 1]}$
+            {stock.price[stock.price.length - 1]}$
           </div>
           {isSubcsriptionBought &&
           <div className="gameProfitStocks__OfferBlock__InfoRisk">
-            риск: <b>{props.stock.risk}</b>
+            риск: <b>{stock.risk}</b>
           </div>
           }
-            {props.stock.dividendsPercentage === 0
+            {stock.dividendsPercentage === 0
               ? ''
               : <div className="gameProfitStocks__OfferBlock__InfoDividends">
-                  <span><b>Дивиденды : {props.stock.dividendsPercentage}%</b></span>
+                  <span><b>Дивиденды : {stock.dividendsPercentage}%</b></span>
                 </div>
               }
-          <div className="gameProfitStocks__OfferBlock__InfoCondition" style={props.stock.condition === 'up' ? {color: '#51ff3d'} : {color: 'red'}}>
-            {props.stock.condition === 'up'
-              //@ts-ignore
+          <div className="gameProfitStocks__OfferBlock__InfoCondition" style={stock.condition === 'up' ? {color: '#51ff3d'} : {color: 'red'}}>
+            {stock.condition === 'up'
               ? <b> <RiseOutlined /> </b>
-              //@ts-ignore
               : <b> <FallOutlined /> </b>
             }
           </div>
         </div>
         <div>
-          <button className="gameProfitStocks__OfferBlock__Button" onClick={() => {
-            props.setActiveStock(props.stock)
-            props.setIsHistoryShown(true)
-            onChangeTime(0)
-          }}>
+          <button className="gameProfitStocks__OfferBlock__Button" onClick={onStockClick}>
             Посмотреть историю
           </button>
         </div>
@@ -73,7 +60,7 @@ export const StockCard: FC<RenderStockType> = React.memo((props) => {
   )
 })
 
-export const RenderMyStock: FC<RenderMyStockType> = React.memo((props) => {
+export const RenderMyStock: FC<RenderMyStockType> = React.memo(({myStock, index}) => {
 
   const dispatch = useDispatch()
 
@@ -81,41 +68,41 @@ export const RenderMyStock: FC<RenderMyStockType> = React.memo((props) => {
     dispatch(settingsActions.setTimeSpeed(time))
   }
 
+  const onMyStockClick = () => {
+    dispatch(setPopupsActiveThunk('myStock', index))
+    dispatch(setPopupsShownThunk('myStock', true))
+    onChangeTime(0)
+  }
+
   return (
     <>
       <div className="gameProfitStocks__OfferBlock">
         <div className="gameProfitStocks__OfferBlock__Title">
-          {props.index + 1} - {props.stock.title}
+          {index + 1} - {myStock.title}
         </div>
         <div className="gameProfitStocks__OfferBlock__Info">
           <div className="gameProfitStocks__OfferBlock__InfoPrice">
-            {props.stock.price} / {props.stock.oldPrice}
+            {myStock.price} / {myStock.oldPrice}
           </div>
-          <div className="gameProfitStocks__OfferBlock__InfoCondition" style={props.stock.condition === 'up' ? {color: '#51ff3d'} : {color: 'red'}}>
-            {props.stock.condition === 'up'
-              //@ts-ignore
+          <div className="gameProfitStocks__OfferBlock__InfoCondition" style={myStock.condition === 'up' ? {color: '#51ff3d'} : {color: 'red'}}>
+            {myStock.condition === 'up'
               ? <b><ArrowUpOutlined /></b>
-              //@ts-ignore
               : <b><ArrowDownOutlined /></b>
             }
           </div>
           <div>
-            {props.stock.count} штук
+            {myStock.count} штук
           </div>
           {
-            props.stock.dividendsAmount > 0 && 
+            myStock.dividendsAmount > 0 && 
             <div>
               <b>Дивиденды: </b> 
-              ${props.stock.dividendsAmount}
+              ${myStock.dividendsAmount}
             </div>
           }
         </div>
         <div>
-          <button className="gameProfitStocks__OfferBlock__Button" onClick={() => {
-            props.setIsStockToSell(true)
-            props.setMyActiveStock(props.index)
-            onChangeTime(0)
-          }}>
+          <button className="gameProfitStocks__OfferBlock__Button" onClick={onMyStockClick}>
             Продать
           </button>
         </div>
@@ -124,3 +111,12 @@ export const RenderMyStock: FC<RenderMyStockType> = React.memo((props) => {
   )
 })
 
+export interface RenderStockType {
+  stock: stockType
+  index: number
+}
+
+export interface RenderMyStockType {
+  myStock: myStockType,
+  index: number,
+}

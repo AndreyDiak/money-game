@@ -1,17 +1,12 @@
-import { BondType, filterType, stocksActions, stockType } from "../../../../redux/stocks-reducer"
-import {useSelector, useDispatch} from 'react-redux'
-import {ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined} from "@ant-design/icons";
-import { FC, useState } from "react"
-import { StockCard } from "../Stocks/StockCard"
-import { Button, Input, Popover, Radio, Space } from "antd"
+import { ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined } from "@ant-design/icons";
+import { Button, Input, Popover, Radio, Space } from "antd";
+import React, { FC, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { BondType, filterType, stocksActions, stockType } from "../../../../redux/stocks-reducer";
 import { AppStateType } from "../../../../redux/store";
-import React from "react";
+import { StockCard } from "../Stocks/StockCard";
 
-type BondsType = {
-  setIsHistoryShown: (isHistoryShown: boolean) => void
-  setActiveStock: (activeStock: BondType) => void
-}
-export const Bonds: FC<BondsType> = React.memo(({setActiveStock, setIsHistoryShown}) => {
+export const Bonds: FC = React.memo(() => {
 
   const filteredBonds: BondType[] = useSelector((state: AppStateType) => state.stocksPage.filteredBonds)
   const [isReverse, setIsReverse] = useState(false)
@@ -63,8 +58,6 @@ export const Bonds: FC<BondsType> = React.memo(({setActiveStock, setIsHistorySho
               <StockCard
                 stock={bond as stockType}
                 index={index}
-                setIsHistoryShown={setIsHistoryShown}
-                setActiveStock={setActiveStock}
               />
             )}
           </div>

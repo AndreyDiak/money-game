@@ -2,19 +2,15 @@ import { CloseOutlined } from "@ant-design/icons"
 import { Button, InputNumber } from "antd"
 import { FC, useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
+import { setPopupsShownThunk } from "../../../../redux/game-reducer"
 import { getWalletSelector } from "../../../../redux/game-selector"
 import { updateIncome } from "../../../../redux/profile-reducer"
 import { settingsActions } from "../../../../redux/settings-reducer"
 import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector"
 import { marginPayOutThunk } from "../../../../redux/stocks-reducer"
 import { AppStateType } from "../../../../redux/store"
-type MarginPayBackPopupType = {
-  setIsMarginPayBackShown: (isMarginPayBackShown: boolean) => void
-}
 
-export const MarginPayBackPopup: FC<MarginPayBackPopupType> = ({
-  setIsMarginPayBackShown
-}) => {
+export const MarginPayBackPopup: FC = () => {
   const dispatch = useDispatch()
   const wallet = useSelector(getWalletSelector)
   const margin = useSelector((state: AppStateType) => state.stocksPage.margin[0])
@@ -39,7 +35,8 @@ export const MarginPayBackPopup: FC<MarginPayBackPopupType> = ({
     )
 
   const onCloseClick = () => {
-    setIsMarginPayBackShown(false)
+    dispatch(setPopupsShownThunk('margin', false))
+    // setIsMarginPayBackShown(false)
     dispatch(settingsActions.setTimeSpeed())
   }
 

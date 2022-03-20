@@ -1,17 +1,13 @@
-import {Button, Input, Popover, Radio, Space} from "antd";
-import {ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined} from "@ant-design/icons";
-import {filterType, stocksActions, stockType} from "../../../../redux/stocks-reducer";
-import {StockCard} from "./StockCard";
-import React, {FC, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../../redux/store";
+import { ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined } from "@ant-design/icons";
+import { Button, Input, Popover, Radio, Space } from "antd";
+import React, { FC, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { filterType, stocksActions, stockType } from "../../../../redux/stocks-reducer";
+import { AppStateType } from "../../../../redux/store";
+import { StockCard } from "./StockCard";
 
-type StocksType = {
-  setIsHistoryShown: any
-  setActiveStock: any
-}
 
-export const Stocks: FC<StocksType> = React.memo(({setIsHistoryShown, setActiveStock}) => {
+export const Stocks: FC = React.memo(() => {
   const dispatch = useDispatch()
   // @ts-ignore
   const filteredStocks: stockType[] = useSelector((state: AppStateType) => state.stocksPage.filteredStocks)
@@ -67,8 +63,6 @@ export const Stocks: FC<StocksType> = React.memo(({setIsHistoryShown, setActiveS
               <StockCard
                 stock={stock}
                 index={index}
-                setIsHistoryShown={setIsHistoryShown}
-                setActiveStock={setActiveStock}
               />
             )}
           </div>

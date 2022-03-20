@@ -1,21 +1,10 @@
-import {RenderMyStock} from "./StockCard";
-import React, {FC, SetStateAction} from "react";
-import {myStockType} from "../../../../redux/stocks-reducer";
-import {useSelector} from "react-redux";
-import {getMyStocksSelector} from "../../../../redux/stocks-selector";
+import React, { FC } from "react";
+import { useSelector } from "react-redux";
+import { myStockType } from "../../../../redux/stocks-reducer";
+import { getMyStocksSelector } from "../../../../redux/stocks-selector";
+import { RenderMyStock } from "./StockCard";
 
-type MyStocksType = {
-  setIsHistoryShown: any,
-  setActiveStock: SetStateAction<any>
-  setMyActiveStock: SetStateAction<any>
-  setIsStockToSell: SetStateAction<any>
-}
-
-export const MyPortfolio: FC<MyStocksType> = React.memo(({
-  setActiveStock,
-  setMyActiveStock,
-  setIsHistoryShown,
-  setIsStockToSell}) => {
+export const MyPortfolio: FC = React.memo(() => {
 
 const myStocks: myStockType[] = useSelector(getMyStocksSelector)
 
@@ -29,12 +18,8 @@ return (
       <div className="gameProfitStocks__OfferBlocks__stocks">
         {myStocks.map((stock, index) =>
           <RenderMyStock
-            stock={stock}
+            myStock={stock}
             index={index}
-            setIsHistoryShown={setIsHistoryShown}
-            setActiveStock={setActiveStock}
-            setMyActiveStock={setMyActiveStock}
-            setIsStockToSell={setIsStockToSell}
           />
         )}
       </div>

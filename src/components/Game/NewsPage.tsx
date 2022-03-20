@@ -9,7 +9,7 @@ import { getMyStocksSelector, getStocksSelector } from "../../redux/stocks-selec
 import { useTypedSelector } from "../../utils/hooks/useTypedSelector";
 
 
-export const NewsPage:FC<{setIsHistoryShown: any, setActiveStock: any, setMyActiveStock: any, setIsStockToSell: any}> = (props) => {
+export const NewsPage = () => {
 
   const dispatch = useDispatch()
   const news = useTypedSelector(state => state.newsPage.news)
@@ -63,10 +63,7 @@ export const NewsPage:FC<{setIsHistoryShown: any, setActiveStock: any, setMyActi
                     dayInMonth={newsBlock.dayInMonth}
                     type={newsBlock.type}
                     condition={newsBlock.condition}
-                    setIsHistoryShown={props.setIsHistoryShown}
-                    setActiveStock={props.setActiveStock}
-                    setMyActiveStock={props.setMyActiveStock}
-                    setIsStockToSell={props.setIsStockToSell}
+                    setPopups={setPopups}
                   />
                 )}
               </div>}
@@ -87,10 +84,7 @@ interface NewsBlockType {
   dayInMonth: number
   type?: string
   condition?: string | number
-  setIsHistoryShown?: any
-  setActiveStock?: any
-  setMyActiveStock?: any
-  setIsStockToSell?: any
+  setPopups: (object: any) => void
 }
 
 export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
@@ -115,10 +109,13 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
   const onChangeTime = (time: number) => {
     dispatch(settingsActions.setTimeSpeed(time))
   }
-
+  // открываем окно с акцией...
   const buyStocks = () => {
     stocks.map((stock, index) => {
       if (stock.title === props.company) {
+        props.setPopups((popups: any) => {
+          
+        })
         props.setActiveStock(stocks[index])
       }
     })
