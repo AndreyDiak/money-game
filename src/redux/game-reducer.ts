@@ -2,7 +2,7 @@ import { ThunkAction } from 'redux-thunk';
 import { businessActions } from './business-reducer';
 import { newsActions } from './news-reducer';
 import { profileActions, ProfileActionsType, updateIncome } from './profile-reducer';
-import { buyRealtyThunk, generateActiveRealtyThunk, RealtyActionsType } from './realty-reducer';
+import { activeRealtyType, buyRealtyThunk, generateActiveRealtyThunk, RealtyActionsType } from './realty-reducer';
 import { settingsActions, SettingsActionType } from './settings-reducer';
 import { spendsActions, SpendsActionType } from './spends-reducer';
 import { brokerType, stocksActions, StocksActionType, stockType } from './stocks-reducer';
@@ -71,6 +71,10 @@ let initialState = {
     broker: {
       isShown: false,
       active: {} as brokerType
+    },
+    realty: {
+      isShown: false,
+      active: {} as activeRealtyType
     },
     margin: {
       isShown: false,
@@ -332,7 +336,7 @@ interface HistoryType {
 }
 export type DifficultyType = 'easy' | 'normal' | 'hard'
 export type GameStatusType = 'process' | 'win' | 'lose'
-export type PopupsType = 'stock' | 'myStock' | 'broker' | 'margin' | 'history' | 'market'
+export type PopupsType = 'stock' | 'myStock' | 'broker' | 'realty' | 'margin' | 'history' | 'market'
 export type GameActionsType = InferActionsType<typeof actions>
 type ActionThunkType = ThunkAction<any, AppStateType, unknown, 
 GameActionsType | SpendsActionType | RealtyActionsType | ProfileActionsType | StocksActionType | SettingsActionType>

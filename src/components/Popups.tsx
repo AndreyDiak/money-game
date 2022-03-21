@@ -8,6 +8,7 @@ import { AppStateType } from "../redux/store";
 import { useTypedSelector } from "../utils/hooks/useTypedSelector";
 import { MarginPayBackPopup } from "./Game/Market/Margin/MarginPayBackPopup";
 import { MarginPopup } from "./Game/Market/Margin/MarginPopup";
+import { RealtyPopup } from "./Game/Market/Realty/RealtyPopup";
 import { Chart } from "./Game/Market/Stocks/Chart";
 import { HistoryPopup } from "./Game/Market/Stocks/HistoryPopup";
 import { SellPopup } from "./Game/Market/Stocks/SellPopup";
@@ -35,6 +36,7 @@ export const Popups:FC = React.memo(({}) => {
       {popups.history.isShown && <HistoryPopup /> }
       {gameStatus !== 'process' && <GameEndPopup /> }
       {popups.margin.isShown && <MarginPayBackPopup/> }
+      {popups.realty.isShown && <RealtyPopup /> }
       <Modal style={{width: '90%', textAlign: 'center'}} onCancel={onCloseClick} visible={popups.market.isShown} title={'Рынок'} footer={[
         <>
         </>

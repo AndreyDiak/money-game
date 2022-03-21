@@ -2,6 +2,7 @@ import { CheckSquareOutlined, InboxOutlined } from "@ant-design/icons/lib/icons"
 import { Button } from "antd";
 import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setPopupsActiveThunk, setPopupsShownThunk } from "../../redux/game-reducer";
 import { newsActions } from "../../redux/news-reducer";
 import { ChanceType } from "../../redux/realty-reducer";
 import { settingsActions } from "../../redux/settings-reducer";
@@ -63,7 +64,6 @@ export const NewsPage = () => {
                     dayInMonth={newsBlock.dayInMonth}
                     type={newsBlock.type}
                     condition={newsBlock.condition}
-                    setPopups={setPopups}
                   />
                 )}
               </div>}
@@ -84,7 +84,6 @@ interface NewsBlockType {
   dayInMonth: number
   type?: string
   condition?: string | number
-  setPopups: (object: any) => void
 }
 
 export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
@@ -113,23 +112,24 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
   const buyStocks = () => {
     stocks.map((stock, index) => {
       if (stock.title === props.company) {
-        props.setPopups((popups: any) => {
-          
-        })
-        props.setActiveStock(stocks[index])
+        dispatch(setPopupsActiveThunk('stock', stocks[index]))
+        // props.setActiveStock(stocks[index])
       }
     })
-    props.setIsHistoryShown(true)
+    dispatch(setPopupsShownThunk('stock', true))
+    // props.setIsHistoryShown(true)
     onChangeTime(0)
   }
 
   const sellStocks = () => {
     myStocks.map((stock, index) => {
       if (stock.title === props.company) {
-        props.setMyActiveStock(index)
+        dispatch(setPopupsActiveThunk('myStock', index))
+        // props.setMyActiveStock(index)
       }
     })
-    props.setIsStockToSell(true)
+    dispatch(setPopupsShownThunk('myStock', true))
+    // props.setIsStockToSell(true)
     onChangeTime(0)
   }
   console.log(props.type)

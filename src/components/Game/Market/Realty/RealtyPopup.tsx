@@ -1,22 +1,17 @@
 import { CloseOutlined } from "@ant-design/icons"
-import { FC } from "react"
+import React, { FC } from "react"
 import { useDispatch } from 'react-redux'
+import { setPopupsShownThunk } from "../../../../redux/game-reducer"
 import { settingsActions } from "../../../../redux/settings-reducer"
-<<<<<<< HEAD
-=======
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector"
->>>>>>> 8cb4577456b0abc83975552e1fd55412873c0b15
-type RealtyPopupType = {
-  isRealtyToSell: boolean // окно для покупки или продажи? 
-  setIsRealtyShown: (isRealtyShown: boolean) => void // закрытие окна...
-}
-export const RealtyPopup: FC<RealtyPopupType> = ({isRealtyToSell, setIsRealtyShown}) => {
+
+export const RealtyPopup: FC = React.memo(() => {
 
   const dispatch = useDispatch()
   const myRealty = useTypedSelector(state => state.realtyPage.myRealty)
 
   const onCloseClick = () => {
-    setIsRealtyShown(false)
+    dispatch(setPopupsShownThunk('realty', false))
     dispatch(settingsActions.setTimeSpeed())
   }
 
@@ -35,4 +30,4 @@ export const RealtyPopup: FC<RealtyPopupType> = ({isRealtyToSell, setIsRealtySho
       </div>
     </>
   )
-}
+})

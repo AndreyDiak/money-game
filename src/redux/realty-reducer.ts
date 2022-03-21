@@ -179,7 +179,7 @@ export const buyRealtyThunk = (price: number): RealtyThunkType => (dispatch, get
 export type InitialRealtyStateType = typeof initialState
 export type RealtyActionsType = InferActionsType<typeof realtyActions>
 export type RealtyThunkType = ThunkAction<any, AppStateType, unknown, RealtyActionsType>
-interface activeRealtyType {
+export interface activeRealtyType {
   title: string
   region: ChanceType
   demand: ChanceType

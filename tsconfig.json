@@ -22,5 +22,8 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "scripts": {
+    "start": "npm run start"
+  }
 }
