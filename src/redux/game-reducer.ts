@@ -2,7 +2,7 @@ import { ThunkAction } from 'redux-thunk';
 import { businessActions } from './business-reducer';
 import { newsActions } from './news-reducer';
 import { profileActions, ProfileActionsType, updateIncome } from './profile-reducer';
-import { activeRealtyType, buyRealtyThunk, generateActiveRealtyThunk, RealtyActionsType } from './realty-reducer';
+import { activeRealtyType, buyRealtyThunk, ChanceType, generateActiveRealtyThunk, RealtyActionsType } from './realty-reducer';
 import { settingsActions, SettingsActionType } from './settings-reducer';
 import { spendsActions, SpendsActionType } from './spends-reducer';
 import { brokerType, stocksActions, StocksActionType, stockType } from './stocks-reducer';
@@ -60,28 +60,40 @@ let initialState = {
   // массив событий, покупка / продажа акций...
   history: [] as HistoryType[],
   popups: {
+    // покупка акций / облигаций...
     stock: {
       isShown: false,
       active: {} as stockType
     },
+    // продажа акций / облигаций...
     myStock: {
       isShown: false,
       active: 0
     },
+    // окно с маржинальной торговлей...
     broker: {
       isShown: false,
       active: {} as brokerType
     },
-    realty: {
+    // покупка недвижимости...
+    realtyBuy: {
       isShown: false,
-      active: {} as activeRealtyType
+      active: {} as activeRealtyType // сам объект недвижимости...
     },
+    // проадажа недвижимости...
+    realtySell: {
+      isShown: false,
+      active: '' as ChanceType // регион в котором хотят купить недвижимость...
+    },
+    // возващение маржи
     margin: {
       isShown: false,
     },
+    // просмотр истории покупок / продаж
     history: {
       isShown: false,
     },
+    // менюшка рынков
     market: {
       isShown: false
     }
@@ -336,7 +348,7 @@ interface HistoryType {
 }
 export type DifficultyType = 'easy' | 'normal' | 'hard'
 export type GameStatusType = 'process' | 'win' | 'lose'
-export type PopupsType = 'stock' | 'myStock' | 'broker' | 'realty' | 'margin' | 'history' | 'market'
+export type PopupsType = 'stock' | 'myStock' | 'broker' | 'realtyBuy' | 'realtySell' | 'margin' | 'history' | 'market'
 export type GameActionsType = InferActionsType<typeof actions>
 type ActionThunkType = ThunkAction<any, AppStateType, unknown, 
 GameActionsType | SpendsActionType | RealtyActionsType | ProfileActionsType | StocksActionType | SettingsActionType>
