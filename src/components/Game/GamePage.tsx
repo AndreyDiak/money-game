@@ -9,7 +9,6 @@ import menuIconNews from "../../img/menu/news.svg";
 import menuIconProfile from "../../img/menu/profile.svg";
 import menuIconSpends from "../../img/menu/spends.svg";
 import { getBusinessesSelector } from "../../redux/business-selector";
-import { actions } from "../../redux/game-reducer";
 import { getDaySelector } from "../../redux/game-selector";
 import { newsActions } from "../../redux/news-reducer";
 import { getPersonSelector } from "../../redux/profile-selector";
@@ -17,6 +16,7 @@ import { getTimeSpeedSelector } from "../../redux/settings-selector";
 import { stocksActions } from "../../redux/stocks-reducer";
 import { getStocksSelector } from "../../redux/stocks-selector";
 import { AppStateType } from "../../redux/store";
+import useActions from "../../utils/hooks/useActions";
 import { Navbar } from "../Navbar";
 import { Popups } from "../Popups";
 import { BankPage } from "./BankPage";
@@ -26,6 +26,8 @@ import { RenderPlayerWork } from "./RenderPlayerWork";
 import { SpendsPage } from "./Spends/SpendsPage";
 
 export const GamePage: FC = React.memo(() => {
+
+  const { setDay } = useActions()
 
   const dispatch = useDispatch()
   // переменная для скорости времени . . .
@@ -51,30 +53,12 @@ export const GamePage: FC = React.memo(() => {
   const businesses = useSelector(getBusinessesSelector)
   // количество новостей . . .
   const margin = useSelector((state: AppStateType) => state.stocksPage.margin)
-  // активная акция . . .
-  // const [myActiveStock, setMyActiveStock] = useState(0) // передаем индекс акции для продажи...
-  // активная акция пользователя . . .  
-  // const [activeStock, setActiveStock] = useState(null as null | stockType)
-  //
-  // const [activeBroker, setActiveBroker] = useState({} as brokerType)
-  // переменная для продажи акций . . .
-  // const [isStockToSell, setIsStockToSell] = useState(false)
-  //
-  // const [isStockToBuy, setIsStockToBuy] = useState(false)
-  //
-  // const [isMarginShown, setIsMarginShown] = useState(false)
-  // переменная для просмотра истории цены акции . . .
-  // const [isHistoryShown, setIsHistoryShown] = useState(false)
-  //
-  // const [isMarginPayBackShown, setIsMarginPayBackShown] = useState(false)
-  //
-  // const [isMarketOpen, setIsMarketOpen] = useState(false)
-  //
+ 
   const [screenWidth, setScreenWidth] = useState(window.screen.width)
   // увеличиваем кол-во дней...
   const liveProcess = () => {
     if(timeSpeed !== 0 && gameStatus === 'process') {
-      setTimeout(() => dispatch(actions.setDay(day + 1)), timeSpeed * 500)
+      setTimeout(() => setDay(day + 1), timeSpeed * 500)
     }
   }
   // запуск функций
