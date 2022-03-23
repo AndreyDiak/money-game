@@ -24,13 +24,12 @@ const Popups = React.memo(() => {
   
   const onButtonClick = () => {
     dispatch(setPopupsShownThunk('market', false))
-    // setIsMarketOpen(false)
   }
 
   return (
     <>
       {popups.myStock.isShown && <SellPopup /> }
-      {popups.stock.isShown && <Chart />}
+      {popups.stock.isShown && <Chart /> }
       {popups.broker.isShown && <MarginPopup /> }
       {popups.history.isShown && <HistoryPopup />  }
       {gameStatus !== 'process' && <GameEndPopup /> }

@@ -17,13 +17,14 @@ import { stocksActions } from "../../redux/stocks-reducer";
 import { getStocksSelector } from "../../redux/stocks-selector";
 import { AppStateType } from "../../redux/store";
 import useActions from "../../utils/hooks/useActions";
+import RenderPlayerWork from "./RenderPlayerWork";
 
 const Navbar = React.lazy(() => import('../Navbar'))
 const Popups = React.lazy(() => import('../Popups'))
 const NewsPage = React.lazy(() => import('./NewsPage'))
 const BankPage = React.lazy(() => import('./BankPage'))
 const MarketPage = React.lazy(() => import('./Market/MarketPage'))
-const RenderPlayerWork = React.lazy(() => import('./RenderPlayerWork'))
+// const RenderPlayerWork = React.lazy(() => import('./RenderPlayerWork'))
 const SpendsPage = React.lazy(() => import('./Spends/SpendsPage'))
 
 export const GamePage: FC = React.memo(() => {
@@ -180,13 +181,11 @@ const Pages = React.memo(() => {
     },
     {
       path: 'news',
-      element: 
-        <NewsPage />
+      element: <NewsPage />
     },
     {
       path: 'market',
-      element:
-        <MarketPage />
+      element: <MarketPage />
     }
   ])
 
