@@ -14,7 +14,7 @@ import { HistoryPopup } from "./Game/Market/Stocks/HistoryPopup";
 import { SellPopup } from "./Game/Market/Stocks/SellPopup";
 import { GameEndPopup } from "./GameEndPopup";
 
-export const Popups = React.memo(() => {
+const Popups = React.memo(() => {
 
   const dispatch = useDispatch()
   const income = useSelector((state: AppStateType) => state.profilePage.income)
@@ -76,3 +76,5 @@ export const Popups = React.memo(() => {
     </>
   )
 })
+
+export default Popups

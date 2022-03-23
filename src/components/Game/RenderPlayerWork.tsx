@@ -1,17 +1,17 @@
-import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect} from "react";
-import {getDaySelector} from "../../redux/game-selector";
-import {getPersonSelector} from "../../redux/profile-selector";
-import {personType, updateIncome} from "../../redux/profile-reducer";
-import {AppStateType} from "../../redux/store";
-import {upWorkThunk, worksActions} from "../../redux/work-reducer";
-import {getMyStocksSelector} from "../../redux/stocks-selector";
-import {getMyBusinessesSelector} from "../../redux/business-selector";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import childrenFalse from "../../img/children-none.png";
 import childrenTrue from "../../img/children.png";
+import { getMyBusinessesSelector } from "../../redux/business-selector";
+import { getDaySelector } from "../../redux/game-selector";
+import { personType, updateIncome } from "../../redux/profile-reducer";
+import { getPersonSelector } from "../../redux/profile-selector";
 import { myStockType } from "../../redux/stocks-reducer";
+import { getMyStocksSelector } from "../../redux/stocks-selector";
+import { AppStateType } from "../../redux/store";
+import { upWorkThunk, worksActions } from "../../redux/work-reducer";
 
-export const RenderPlayerWork = () => {
+const RenderPlayerWork = () => {
 
   const dispatch = useDispatch()
 
@@ -195,3 +195,5 @@ export const RenderPlayerWork = () => {
     </>
   )
 }
+
+export default RenderPlayerWork

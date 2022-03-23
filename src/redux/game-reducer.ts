@@ -300,6 +300,7 @@ export const balanceCheckThunk = (): ActionThunkType => (dispatch, getState) => 
   const loseBalance = getState().gamePage.loseBalance
 
   const resetGame = () => {
+    
     dispatch(settingsActions.setTimeSpeed(0))
     dispatch(stocksActions.resetMyStocks())
     // @ts-ignore
@@ -307,7 +308,7 @@ export const balanceCheckThunk = (): ActionThunkType => (dispatch, getState) => 
     // @ts-ignore
     dispatch(newsActions.resetNews())
   }
-  // console.log('checking balance...')
+  
   if (wallet <= loseBalance) {
     // player lose...
     dispatch(actions.setGameStatus('lose'))

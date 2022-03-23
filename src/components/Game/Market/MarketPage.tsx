@@ -4,7 +4,7 @@ import { BusinessPage } from "./BusinessPage";
 import { RealtyPage } from "./Realty/RealtyPage";
 import { StocksPage } from "./Stocks/StocksPage";
 
-export const MarketPage = React.memo(() => {
+const MarketPage = React.memo(() => {
   
   const routes = useRoutes([
     {
@@ -34,3 +34,5 @@ return (
   </>
 )
 })
+
+export default MarketPage

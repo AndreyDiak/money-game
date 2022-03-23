@@ -1,4 +1,3 @@
-import { Tabs } from "antd";
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { getMonthSelector, getMonthsSelector } from "../../../redux/game-selector";
@@ -8,9 +7,7 @@ import { eventType } from "../../../redux/spends-reducer";
 import { AppStateType } from "../../../redux/store";
 import { SpendsCard } from "./SpendsCard";
 
-const { TabPane } = Tabs
-
-export const SpendsPage: FC = React.memo(() => {
+const SpendsPage: FC = React.memo(() => {
   //
   const month = useSelector(getMonthSelector)
   //
@@ -122,3 +119,5 @@ export const SpendsPage: FC = React.memo(() => {
     </>
   )
 })
+
+export default SpendsPage

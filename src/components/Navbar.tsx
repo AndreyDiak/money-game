@@ -1,6 +1,6 @@
 import { DoubleRightOutlined, PauseOutlined, RightOutlined } from "@ant-design/icons/lib/icons";
 import { Avatar, Badge, Progress } from 'antd';
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getWalletSelector } from "../redux/game-selector";
@@ -11,7 +11,7 @@ import { getConstTimeSpeedSelector, getTimeSpeedSelector } from "../redux/settin
 import { AppStateType } from "../redux/store";
 import { RenderTime } from "./Game/RenderTime";
 
-export const Navbar: FC = React.memo(() => {
+const Navbar: FC = React.memo(() => {
 
   const dispatch = useDispatch()
 
@@ -115,3 +115,5 @@ export const Navbar: FC = React.memo(() => {
     </>
   )
 })
+
+export default Navbar

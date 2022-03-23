@@ -10,7 +10,7 @@ import { getMyStocksSelector, getStocksSelector } from "../../redux/stocks-selec
 import { useTypedSelector } from "../../utils/hooks/useTypedSelector";
 
 
-export const NewsPage = () => {
+const NewsPage = () => {
 
   const dispatch = useDispatch()
   const news = useTypedSelector(state => state.newsPage.news)
@@ -227,3 +227,5 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
     </>
   )
 }
+
+export default NewsPage

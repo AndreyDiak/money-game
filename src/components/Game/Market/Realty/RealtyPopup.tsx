@@ -1,6 +1,6 @@
 import { CloseOutlined } from "@ant-design/icons"
 import { Slider } from "antd"
-import React, { FC, useState } from "react"
+import React, { FC, useCallback, useRef, useState } from "react"
 import { useDispatch } from 'react-redux'
 import { setPopupsShownThunk } from "../../../../redux/game-reducer"
 import { ChanceType, myRealtyType } from "../../../../redux/realty-reducer"
@@ -40,9 +40,30 @@ export const RealtyPopup: FC = React.memo(() => {
     dispatch( settingsActions.setTimeSpeed() )
   }
   
-  const onPriceChange = (e: any) => {
-    setRealtyPrice(e.target.value)
+  const onChangeHandler = (e: any) => {
+    onPriceChange(e.target.value)
   }
+
+  const useDebounce = (callback: any, delay: number) => {
+    const timer = useRef(0)
+
+    const debouncedCallback = useCallback((...args) => {
+      if (timer.current) {
+        clearTimeout(timer.current)
+      }
+      // @ts-ignore
+      timer.current = setTimeout(() => {
+        callback(...args)
+      }, delay)
+    }, [callback, delay])
+    
+    return debouncedCallback
+  }
+
+  const onPriceChange = useDebounce((value: number) => {
+    console.log(value)
+  }, 500)
+  
 
   const onBuyRealtyClick = () => {
 
@@ -78,7 +99,7 @@ export const RealtyPopup: FC = React.memo(() => {
                   defaultValue={realtyPrice} 
                   value={realtyPrice} 
                   max={realtyPrice + realtyChangePrice} 
-                  onChange={onPriceChange}
+                  onChange={onChangeHandler}
                 />
               </div>
             }

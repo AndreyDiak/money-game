@@ -1,13 +1,13 @@
-import {useDispatch, useSelector} from "react-redux";
-import {getPersonSelector} from "../../redux/profile-selector";
-import {payForExpensesThunk, personType, takeCreditThunk} from "../../redux/profile-reducer";
-import {Button, Input, Select} from "antd";
-import {useEffect, useState} from "react";
-import {AppStateType} from "../../redux/store";
+import { Button, Input, Select } from "antd";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { payForExpensesThunk, personType, takeCreditThunk } from "../../redux/profile-reducer";
+import { getPersonSelector } from "../../redux/profile-selector";
+import { AppStateType } from "../../redux/store";
 
 const { Option } = Select
 
-export const BankPage = () => {
+const BankPage = () => {
 
   const dispatch = useDispatch()
   const profile = useSelector(getPersonSelector) as personType
@@ -185,3 +185,5 @@ export const BankPage = () => {
     </>
   )
 }
+
+export default BankPage
