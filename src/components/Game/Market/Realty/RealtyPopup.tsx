@@ -3,7 +3,7 @@ import { Slider } from "antd"
 import React, { FC, useState } from "react"
 import { useDispatch } from 'react-redux'
 import { setPopupsShownThunk } from "../../../../redux/game-reducer"
-import { myRealtyType } from "../../../../redux/realty-reducer"
+import { ChanceType, myRealtyType } from "../../../../redux/realty-reducer"
 import { settingsActions } from "../../../../redux/settings-reducer"
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector"
 
@@ -17,6 +17,23 @@ export const RealtyPopup: FC = React.memo(() => {
   const [activeRealty, setActiveRealty] = useState(popups.realtyBuy.active)
   // цена недвижимости...
   const [realtyPrice, setRealtyPrice] = useState(activeRealty.price)
+  /*
+    надо разработать точный алгоритм продажи и покупки недвижимости...
+    прописать точную реализацию зависимости от региона и спроса на недвижимость...
+  */
+  const calculatePriceChange = ( price: number, region: ChanceType ) => {
+    return region === 'high' ? price * 0.4 : region === 'medium' ? price * 0.2 : price * 0.1
+  }
+  const calculateAttemptChance = ( dealPrice: number, startPrice: number, demand: ChanceType ) => {
+    let demandChance = demand === 'high' ? 0.7 : demand === 'medium' ? 0.5 : 0.3
+    let change = Math.abs( startPrice - dealPrice ) / startPrice // изменение цены...
+    return change < demandChance
+  }
+  // 
+  const [realtyChangePrice, setRealtyChangePrice] = useState(
+    calculatePriceChange( activeRealty.price, activeRealty.region )
+    )
+  //
   
   const onCloseClick = () => {
     dispatch( setPopupsShownThunk(isRealtyBuy ? 'realtyBuy' : 'realtySell', false) )
@@ -24,7 +41,7 @@ export const RealtyPopup: FC = React.memo(() => {
   }
   
   const onPriceChange = (e: any) => {
-    
+    setRealtyPrice(e.target.value)
   }
 
   const onBuyRealtyClick = () => {
@@ -53,9 +70,18 @@ export const RealtyPopup: FC = React.memo(() => {
                 <div className="realtyPopupBlock__RealtyActive__AboutDemand">{activeRealty.demand}</div>
               </div>
             </div>
-            <div className="realtyPopupBlock__RealtyMenu">
-              <Slider min={0} defaultValue={1} value={1} max={2} onChange={onPriceChange}/>
-            </div>
+            {
+              activeRealty.title &&
+              <div className="realtyPopupBlock__RealtyMenu">
+                <Slider 
+                  min={realtyPrice - realtyChangePrice} 
+                  defaultValue={realtyPrice} 
+                  value={realtyPrice} 
+                  max={realtyPrice + realtyChangePrice} 
+                  onChange={onPriceChange}
+                />
+              </div>
+            }
             {
               !isRealtyBuy &&
               <div className="realtyPopupBlock__RealtyList">
