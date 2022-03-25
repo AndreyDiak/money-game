@@ -84,7 +84,10 @@ let initialState = {
     // проадажа недвижимости...
     realtySell: {
       isShown: false,
-      active: '' as ChanceType // регион в котором хотят купить недвижимость...
+      active: {
+        region: '' as ChanceType,
+        wanted: 0
+      } // регион в котором хотят купить недвижимость...
     },
     // возващение маржи
     margin: {

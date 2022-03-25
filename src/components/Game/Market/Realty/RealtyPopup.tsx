@@ -61,7 +61,7 @@ export const RealtyPopup: FC = React.memo(() => {
   }
 
   const onPriceChange = useDebounce((value: number) => {
-    console.log(value)
+    // выполняем новый просчет коэффициента 
   }, 500)
   
 
