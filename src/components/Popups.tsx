@@ -34,7 +34,8 @@ const Popups = React.memo(() => {
       {popups.history.isShown && <HistoryPopup />  }
       {gameStatus !== 'process' && <GameEndPopup /> }
       {popups.margin.isShown && <MarginPayBackPopup /> }
-      {(popups.realtyBuy || popups.realtySell) && <RealtyPopup/> }
+      {/* @ts-ignore */}
+      {(popups.realtyBuy === true || popups.realtySell === true) && <RealtyPopup/> }
       <Modal style={{width: '90%', textAlign: 'center'}} onCancel={onButtonClick} visible={popups.market.isShown} title={'Рынок'} footer={[
         <>
         </>
