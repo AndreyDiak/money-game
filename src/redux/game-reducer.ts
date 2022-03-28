@@ -86,7 +86,8 @@ let initialState = {
       isShown: false,
       active: {
         region: '' as ChanceType,
-        wanted: 0
+        wanted: 0,
+        satisfaction: 0
       } // регион в котором хотят купить недвижимость...
     },
     // возващение маржи

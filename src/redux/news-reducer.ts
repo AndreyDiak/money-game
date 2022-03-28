@@ -304,7 +304,7 @@ export const setNewsThunk = (newsTypeIndex: number): NewsThunkType => (dispatch,
           const regionChance = getRandomNumber(100)
           // если у нас положительная новость то чем лучше регион тем лучше мы можем продать...
           // если новость плохая то чем лучше лучше регион тем меньше он падает в цене...
-          const wanted = newsConditionIndex === 0 
+          const wantedPrice = newsConditionIndex === 0 
             ? regionChance > 66 
               ? getRandomNumber(50) : regionChance > 33 
                 ? getRandomNumber(30) : getRandomNumber(15)
@@ -315,8 +315,9 @@ export const setNewsThunk = (newsTypeIndex: number): NewsThunkType => (dispatch,
           // благодаря новости мы просто генерируем район, в котором хотят купить жилье...
           // если у игрока есть недвижимость в этой районе, то он может попробовать поторговать...
           news.realty = {
-            region: regionChance > 66 ? 'high' : regionChance > 33 ? 'medium' : 'low',
-            wanted: wanted
+            region: regionChance > 66 ? 'high' : regionChance > 33 ? 'medium' : 'low', // регион недвижимости
+            wanted: wantedPrice, // коэф. цены от заданной
+            satisfaction: Number((0.6 + getRandomNumber(0.4)).toFixed(2)) // коэф. удовлетворения при покупки...
           }
           // диспатчим в state текущее предложение о покупке...
           dispatch(setPopupsActiveThunk('realtySell', news.realty))
@@ -362,6 +363,7 @@ interface newsArrayType {
   realty: {
     region: ChanceType
     wanted: number
+    satisfaction: number // [0.6 - 1.0]
   }
   type: string
   condition: string | number

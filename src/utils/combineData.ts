@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import { BusinessType } from "../redux/business-reducer";
 import { getMyBusinessesSelector } from "../redux/business-selector";
-import { newsArrayType } from "../redux/news-reducer";
 import { personType } from "../redux/profile-reducer";
 import { myRealtyType } from "../redux/realty-reducer";
 import { myStockType, stockType } from "../redux/stocks-reducer";
@@ -19,7 +18,7 @@ export const CombineData = () => {
     daysToUp: 0,
     workLevel: 0,
     workIncome: 0,
-    news: [] as newsArrayType[],
+    news: [],
     startSalary: 0,
     income: 0,
     childrenCount: 0,
@@ -40,7 +39,7 @@ export const CombineData = () => {
   data.daysToUp = useSelector((state: AppStateType) => state.worksPage.daysToUp)
   data.workLevel = useSelector((state: AppStateType) => state.worksPage.workLevel)
   data.workIncome = useSelector((state: AppStateType) => state.worksPage.workIncome)
-  data.news = useSelector((state: AppStateType) => state.newsPage.news)
+  // data.news = useSelector((state: AppStateType) => state.newsPage.news)
   data.startSalary = useSelector((state: AppStateType) => state.profilePage.startSalary)
   data.income = useSelector((state: AppStateType) => state.profilePage.income)
   data.childrenCount = useSelector((state: AppStateType) => state.profilePage.childrenCount)

@@ -5,7 +5,6 @@ import { NavLink } from "react-router-dom";
 import { setPopupsShownThunk } from "../redux/game-reducer";
 import { getStocksSelector } from "../redux/stocks-selector";
 import { AppStateType } from "../redux/store";
-import { useTypedSelector } from "../utils/hooks/useTypedSelector";
 import { MarginPayBackPopup } from "./Game/Market/Margin/MarginPayBackPopup";
 import { MarginPopup } from "./Game/Market/Margin/MarginPopup";
 import { RealtyPopup } from "./Game/Market/Realty/RealtyPopup";
@@ -20,7 +19,7 @@ const Popups = React.memo(() => {
   const income = useSelector((state: AppStateType) => state.profilePage.income)
   const stocks = useSelector(getStocksSelector)
   const gameStatus = useSelector((state: AppStateType) => state.gamePage.gameStatus)
-  const popups = useTypedSelector(state => state.gamePage.popups)
+  const popups = useSelector((state: AppStateType) => state.gamePage.popups)
   
   const onButtonClick = () => {
     dispatch(setPopupsShownThunk('market', false))
@@ -34,7 +33,8 @@ const Popups = React.memo(() => {
       {popups.history.isShown && <HistoryPopup />  }
       {gameStatus !== 'process' && <GameEndPopup /> }
       {popups.margin.isShown && <MarginPayBackPopup /> }
-      {(popups.realtyBuy || popups.realtySell) && <RealtyPopup/> }
+      {/* @ts-ignore */}
+      {(popups.realtyBuy === true || popups.realtySell === true) && <RealtyPopup/> }
       <Modal style={{width: '90%', textAlign: 'center'}} onCancel={onButtonClick} visible={popups.market.isShown} title={'Рынок'} footer={[
         <>
         </>
