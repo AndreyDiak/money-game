@@ -153,6 +153,7 @@ export const generateActiveRealtyThunk = (): RealtyThunkType => (dispatch, getSt
     deposit: realtyDeposit,
     income: realtyIncome,
     paymentPercentage: realtyPaymentPercentage,
+    satisfaction: Number((0.6 + getRandomNumber(0.4)).toFixed(2)), // удовлетворенность  продажей...
     attempts: 3, // колисество попыток чтобы потогроватся...
     isBought: false, // куплена ли недвижимость...
     photo: realtyListCopy[realtyIndex].photo
@@ -189,6 +190,7 @@ export interface activeRealtyType {
   paymentPercentage: number
   photo: string
   attempts: number
+  satisfaction: number
   isBought: boolean
 }
 export interface myRealtyType {

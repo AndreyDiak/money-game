@@ -1,9 +1,9 @@
 import { CloseOutlined } from "@ant-design/icons"
-import { Slider } from "antd"
-import React, { FC, useCallback, useRef, useState } from "react"
+import { Button, Slider } from "antd"
+import React, { FC, useCallback, useState } from "react"
 import { useDispatch } from 'react-redux'
 import { setPopupsShownThunk } from "../../../../redux/game-reducer"
-import { ChanceType, myRealtyType } from "../../../../redux/realty-reducer"
+import { activeRealtyType, ChanceType, myRealtyType } from "../../../../redux/realty-reducer"
 import { settingsActions } from "../../../../redux/settings-reducer"
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector"
 
@@ -12,31 +12,30 @@ export const RealtyPopup: FC = React.memo(() => {
   const dispatch = useDispatch()
   const myRealty = useTypedSelector(state => state.realtyPage.myRealty)
   const popups = useTypedSelector(state => state.gamePage.popups)
-  const isRealtyBuy = popups.realtyBuy.isShown // покупка или продажа...
+  const isRealtyToBuy = popups.realtyBuy.isShown // покупка или продажа...
+  // расчет максимального различия цена от стартового значения...
+  const calculatePriceChange = ( price: number, region: ChanceType ) => 
+    region === 'high' ? price * 0.6 : region === 'medium' ? price * 0.4 : price * 0.2
+
   // блок с активной недвижимостью...
-  const [activeRealty, setActiveRealty] = useState(popups.realtyBuy.active)
+  const [activeRealty, setActiveRealty] = useState<activeRealtyType | myRealtyType>({} as activeRealtyType | myRealtyType)
   // цена недвижимости...
   const [realtyPrice, setRealtyPrice] = useState(activeRealty.price)
-  /*
-    надо разработать точный алгоритм продажи и покупки недвижимости...
-    прописать точную реализацию зависимости от региона и спроса на недвижимость...
-  */
-  const calculatePriceChange = ( price: number, region: ChanceType ) => {
-    return region === 'high' ? price * 0.4 : region === 'medium' ? price * 0.2 : price * 0.1
-  }
-  const calculateAttemptChance = ( dealPrice: number, startPrice: number, demand: ChanceType ) => {
-    let demandChance = demand === 'high' ? 0.7 : demand === 'medium' ? 0.5 : 0.3
-    let change = Math.abs( startPrice - dealPrice ) / startPrice // изменение цены...
-    return change < demandChance
-  }
-  // 
-  const [realtyChangePrice, setRealtyChangePrice] = useState(
-    calculatePriceChange( activeRealty.price, activeRealty.region )
+ 
+  const [realtyChangePrice, setRealtyChangePrice] = useState( !!activeRealty ?
+    calculatePriceChange( activeRealty.price, activeRealty.region ) : null
     )
   //
-  
+    
+  const calculateAttemptChance = ( dealPrice: number, startPrice: number, demand: ChanceType ) => {
+    // let demandChance = demand === 'high' ? 0.7 : demand === 'medium' ? 0.5 : 0.3
+    // let change = Math.abs( startPrice - dealPrice ) / startPrice // изменение цены...
+    // return change < demandChance
+  }
+  // 
+
   const onCloseClick = () => {
-    dispatch( setPopupsShownThunk(isRealtyBuy ? 'realtyBuy' : 'realtySell', false) )
+    dispatch( setPopupsShownThunk(isRealtyToBuy ? 'realtyBuy' : 'realtySell', false) )
     dispatch( settingsActions.setTimeSpeed() )
   }
   
@@ -45,32 +44,34 @@ export const RealtyPopup: FC = React.memo(() => {
   }
 
   const useDebounce = (callback: any, delay: number) => {
-    const timer = useRef(0)
 
     const debouncedCallback = useCallback((...args) => {
-      if (timer.current) {
-        clearTimeout(timer.current)
-      }
-      // @ts-ignore
-      timer.current = setTimeout(() => {
+      const timer = setTimeout(() => {
         callback(...args)
       }, delay)
+
+      if (timer) {
+        clearTimeout(timer)
+      }
     }, [callback, delay])
     
     return debouncedCallback
   }
-
+  // hello world
   const onPriceChange = useDebounce((value: number) => {
-    // выполняем новый просчет коэффициента 
+    // @ts-ignore
+    let satisfaction = activeRealty.satisfaction
+    // @ts-ignore 
+    let wanted = isRealtyToBuy ? activeRealty.price : activeRealty.wanted
   }, 500)
   
 
   const onBuyRealtyClick = () => {
-
+    
   }
 
   const onSellRealtyClick = () => {
-
+    
   }
    
   return (
@@ -92,23 +93,29 @@ export const RealtyPopup: FC = React.memo(() => {
               </div>
             </div>
             {
-              activeRealty.title &&
+              !!activeRealty &&
               <div className="realtyPopupBlock__RealtyMenu">
                 <Slider 
+                  // @ts-ignore
                   min={realtyPrice - realtyChangePrice} 
                   defaultValue={realtyPrice} 
                   value={realtyPrice} 
+                  // @ts-ignore
                   max={realtyPrice + realtyChangePrice} 
                   onChange={onChangeHandler}
                 />
+                <div className="realtyPopupBlock__RealtyMenu__Button">
+                  { isRealtyToBuy 
+                    ? <Button onClick={onBuyRealtyClick}>Купить</Button> 
+                    : <Button onClick={onSellRealtyClick}>Продать</Button> 
+                  }
+                </div>
               </div>
             }
             {
-              !isRealtyBuy &&
+              !isRealtyToBuy &&
               <div className="realtyPopupBlock__RealtyList">
-                {myRealty.map((realty, index) => {
-                  return <MyRealtyBlock key={index} realty={realty} setActiveRealty={setActiveRealty} />
-                })}
+                {myRealty.map((realty, index) => <MyRealtyBlock key={index} realty={realty} setActiveRealty={() => setActiveRealty(realty)} />)}
               </div>
             }
           </div>
@@ -132,6 +139,11 @@ const MyRealtyBlock: FC<{realty: myRealtyType, setActiveRealty: (active: any) =>
         <div className="realtyPopupBlock__RealtyList__BlockAbout__Title">{realty.title}</div>
         <div className="realtyPopupBlock__RealtyList__BlockAbout__Region">{realty.region}</div>
         <div className="realtyPopupBlock__RealtyList__BlockAbout__Price">{realty.price}</div>
+      </div>
+      <div className="realtyPopupBlock__RealtyList__BlockButton">
+        <Button onClick={setActiveRealty}>
+          Выбрать
+        </Button>
       </div>
     </div>
   )

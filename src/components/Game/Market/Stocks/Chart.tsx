@@ -9,7 +9,7 @@ import { addStocksToPortfolioThunk, stocksActions, stockType } from "../../../..
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
 import { MarginPopupChart } from "../Margin/MarginPopup";
 
-export const Chart: FC = () => {
+export const Chart: FC = React.memo(() => {
 
   const dispatch = useDispatch()
   const wallet = useSelector(getWalletSelector)
@@ -67,7 +67,7 @@ export const Chart: FC = () => {
         || stocksToBuyCount > stock.count
     )
   }, [stocksToBuyCount, stocksToBuyPrice])
-
+  console.log('chart is open...')
   return (
     <>
       <div className="chartPopup">
@@ -87,7 +87,7 @@ export const Chart: FC = () => {
     </>
   )
 }
-
+)
 type RenderChartMenuType = {
   stock: stockType
   stocksToBuyCount: number

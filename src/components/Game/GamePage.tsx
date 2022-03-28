@@ -1,5 +1,5 @@
 import { Badge, notification, Spin } from "antd";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useRoutes } from "react-router-dom";
 import { useHttp } from "../../hooks/http.hook";
@@ -115,7 +115,14 @@ export const GamePage: FC = React.memo(() => {
         : {height: 'calc(100vh - 50px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden'}}
       >
         {/* игровые роуты... */}
-        <Pages />
+        <Suspense fallback={
+          <div>
+            <Spin size="large" />
+            <i>идет загрузка...</i>
+          </div>
+        }>
+          <Pages />
+        </Suspense>
         <div className="bottomNav">
           <div className="bottomNavItem">
             <NavLink to='/game/spends'>
