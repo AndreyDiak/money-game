@@ -98,7 +98,7 @@ type RenderChartMenuType = {
   setStocksCount: (count: number) => void
 }
 
-export const RenderChartMenu: FC<RenderChartMenuType> = ({
+export const RenderChartMenu: FC<RenderChartMenuType> = React.memo(({
   stock, stocksToBuyCount, stocksToBuyPrice, isAbleToBuy, 
   buyStocks, setStocksCount
 }) => {
@@ -146,5 +146,5 @@ export const RenderChartMenu: FC<RenderChartMenuType> = ({
 
     </>
   )
-}
+})
 

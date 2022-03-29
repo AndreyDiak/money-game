@@ -25,6 +25,9 @@ const Popups = React.memo(() => {
     dispatch(setPopupsShownThunk('market', false))
   }
 
+  console.log('обновление попапов')
+  console.log(popups)
+
   return (
     <>
       {popups.myStock.isShown && <SellPopup /> }

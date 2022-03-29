@@ -152,6 +152,12 @@ export const gameReducer = (state = initialState, action: GameActionsType): Init
         ...state,
         wallet: Math.round(state.wallet + action.wallet)
       }
+    // 
+    case UPDATE_POPUPS: 
+      return {
+        ...state,
+        popups: action.popups
+      }
     // обновление кошелька после новостей
     case GET_NEWS_PAYOUT:
 
@@ -335,13 +341,13 @@ export const updateHistoryThunk = (target: any, operationType: 'buy' | 'sell', a
 }
 // thunk для отображения той или иной модалки...
 export const setPopupsShownThunk = (type: PopupsType, isShown: boolean ): ActionThunkType => (dispatch, getState) => {
-  let popupsCopy = getState().gamePage.popups
+  let popupsCopy = {...getState().gamePage.popups}
   popupsCopy[type].isShown = isShown
   dispatch(actions.updatePopups(popupsCopy))
 }
 // thunk, если в модалку надо передать какой либо активный элемент...
 export const setPopupsActiveThunk = (type: PopupsType, active: any): ActionThunkType => (dispatch, getState) => {
-  let popupsCopy = getState().gamePage.popups
+  let popupsCopy = {...getState().gamePage.popups}
   // @ts-ignore
   popupsCopy[type].active = active
   dispatch(actions.updatePopups(popupsCopy))

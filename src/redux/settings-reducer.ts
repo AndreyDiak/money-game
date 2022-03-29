@@ -20,7 +20,7 @@ export const settingsReducer = (state = initialState, action: SettingsActionType
     case SET_TIME_SPEED:
       return {
         ...state,
-        timeSpeed: action.time ? state.constTimeSpeed : action.time as number
+        timeSpeed: typeof action.time === 'number' ? action.time : state.constTimeSpeed
       }
     case SET_CONST_TIME_SPEED:
       return {
