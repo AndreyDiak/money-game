@@ -68,6 +68,7 @@ export const Chart: FC = React.memo(() => {
     )
   }, [stocksToBuyCount, stocksToBuyPrice])
   console.log('chart is open...')
+  console.log('hello')
   return (
     <>
       <div className="chartPopup">
