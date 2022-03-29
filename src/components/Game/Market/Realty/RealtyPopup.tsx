@@ -1,6 +1,6 @@
 import { CloseOutlined } from "@ant-design/icons"
 import { Button, Slider } from "antd"
-import React, { FC, useCallback, useState } from "react"
+import React, { FC, useCallback, useEffect, useState } from "react"
 import { useDispatch } from 'react-redux'
 import { setPopupsShownThunk } from "../../../../redux/game-reducer"
 import { activeRealtyType, ChanceType, myRealtyType } from "../../../../redux/realty-reducer"
@@ -64,7 +64,10 @@ export const RealtyPopup: FC = React.memo(() => {
     // @ts-ignore 
     let wanted = isRealtyToBuy ? activeRealty.price : activeRealty.wanted
   }, 500)
-  
+  // если мы покупаем недвижку, то мы сетаем ее из активных попапов...
+  useEffect(() => {
+    if ( isRealtyToBuy ) setActiveRealty(popups.realtyBuy.active)
+  },[])
 
   const onBuyRealtyClick = () => {
     
@@ -73,7 +76,7 @@ export const RealtyPopup: FC = React.memo(() => {
   const onSellRealtyClick = () => {
     
   }
-   
+  console.log(activeRealty)
   return (
     <>
       <div className="realtyPopup">
@@ -95,6 +98,9 @@ export const RealtyPopup: FC = React.memo(() => {
             {
               !!activeRealty &&
               <div className="realtyPopupBlock__RealtyMenu">
+                <div className="realtyPopupBlock__RealtyChance">
+                  Шанс удачной сделки: {}
+                </div>
                 <Slider 
                   // @ts-ignore
                   min={realtyPrice - realtyChangePrice} 
@@ -115,7 +121,7 @@ export const RealtyPopup: FC = React.memo(() => {
             {
               !isRealtyToBuy &&
               <div className="realtyPopupBlock__RealtyList">
-                {myRealty.map((realty, index) => <MyRealtyBlock key={index} realty={realty} setActiveRealty={() => setActiveRealty(realty)} />)}
+                {myRealty.map((realty, index) => <MyRealtyBlock key={index} realty={realty} setActiveRealty={() => setActiveRealty({...realty, ...popups.realtySell.active})} />)}
               </div>
             }
           </div>

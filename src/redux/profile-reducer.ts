@@ -13,6 +13,8 @@ import person14Avatar from "../img/characters/person-14-avatar.png"
 import person14Photo from "../img/characters/person-14.png"
 import person15Avatar from "../img/characters/person-15-avatar.png"
 import person15Photo from "../img/characters/person-15.png"
+import person16Avatar from "../img/characters/person-16-avatar.png"
+import person16Photo from "../img/characters/person-16.png"
 import person2Avatar from "../img/characters/person-2-avatar.png"
 import person2Photo from "../img/characters/person-2.png"
 import person3Avatar from "../img/characters/person-3-avatar.png"
@@ -29,8 +31,6 @@ import person8Avatar from "../img/characters/person-8-avatar.png"
 import person8Photo from "../img/characters/person-8.png"
 import person9Avatar from "../img/characters/person-9-avatar.png"
 import person9Photo from "../img/characters/person-9.png"
-import person16Avatar from "../img/characters/person-16-avatar.png"
-import person16Photo from "../img/characters/person-16.png"
 import { actions } from "./game-reducer"
 import { AppStateType, InferActionsType } from "./store"
 
@@ -198,7 +198,7 @@ let initialState = {
     {
       name: 'Фрэнк',
       age: 29,
-      saving: 550,
+      saving: 55000,
       salary: 600,
       work: 'Продюсер',
       expenses: [
