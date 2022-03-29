@@ -18,7 +18,7 @@ export const RealtyPopup: FC = React.memo(() => {
     region === 'high' ? price * 0.6 : region === 'medium' ? price * 0.4 : price * 0.2
 
   // блок с активной недвижимостью...
-  const [activeRealty, setActiveRealty] = useState<activeRealtyType | myRealtyType>({} as activeRealtyType | myRealtyType)
+  const [activeRealty, setActiveRealty] = useState<activeRealtyType | myRealtyType>({} as activeRealtyType | (myRealtyType & {wanted: Number}))
   // цена недвижимости...
   const [realtyPrice, setRealtyPrice] = useState(activeRealty.price)
  
