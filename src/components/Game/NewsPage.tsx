@@ -1,16 +1,17 @@
 import { CheckSquareOutlined, InboxOutlined } from "@ant-design/icons/lib/icons";
 import { Button } from "antd";
+import React from "react";
 import { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPopupsActiveThunk, setPopupsShownThunk } from "../../redux/game-reducer";
-import { newsActions } from "../../redux/news-reducer";
+import { newsActions, newsArrayType } from "../../redux/news-reducer";
 import { ChanceType } from "../../redux/realty-reducer";
 import { settingsActions } from "../../redux/settings-reducer";
 import { getMyStocksSelector, getStocksSelector } from "../../redux/stocks-selector";
 import { useTypedSelector } from "../../utils/hooks/useTypedSelector";
 
 
-const NewsPage = () => {
+const NewsPage = React.memo(() => {
 
   const dispatch = useDispatch()
   const news = useTypedSelector(state => state.newsPage.news)
@@ -40,14 +41,8 @@ const NewsPage = () => {
                 {archive.map((newsBlock, index) =>
                   <RenderNewsBlock
                     key={index}
-                    title={newsBlock.title}
-                    company={newsBlock.company}
-                    amount={newsBlock.amount}
                     index={index}
-                    isArchive={true}
-                    month={newsBlock.month}
-                    type={newsBlock.type}
-                    dayInMonth={newsBlock.dayInMonth}
+                    news={newsBlock}
                   />
                 )}
               </div>
@@ -55,15 +50,8 @@ const NewsPage = () => {
                 {news.map((newsBlock, index) =>
                   <RenderNewsBlock
                     key={index}
-                    title={newsBlock.title}
-                    company={newsBlock.company}
-                    amount={newsBlock.amount}
                     index={index}
-                    isArchive={false}
-                    month={newsBlock.month}
-                    dayInMonth={newsBlock.dayInMonth}
-                    type={newsBlock.type}
-                    condition={newsBlock.condition}
+                    news={newsBlock}
                   />
                 )}
               </div>}
@@ -72,21 +60,16 @@ const NewsPage = () => {
       </div>
     </>
   )
-}
+})
 
 interface NewsBlockType {
-  title: string
-  company: string
-  amount: number
+  news: newsArrayType
   index: number
-  isArchive: boolean
-  month: string
-  dayInMonth: number
-  type?: string
-  condition?: string | number
 }
 
-export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
+export const RenderNewsBlock: FC<NewsBlockType> = React.memo(({news, index}) => {
+
+  // console.log(props)
 
   const dispatch = useDispatch()
 
@@ -94,115 +77,115 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
   const myStocks = useSelector(getMyStocksSelector)
   const myRealty = useTypedSelector(state => state.realtyPage.myRealty)
   const realtyRegion = useTypedSelector(state => state.realtyPage.realtyRegion)
-  const themeColor = props.type === 'person' 
+  const themeColor = news.type === 'person' 
     ? '#388e3c' 
-    : props.type === 'stock' 
+    : news.type === 'stock' 
       ? '#439093' 
-      : props.type === 'realty' 
+      : news.type === 'realty' 
         ? '#f4511e ' : '#b71c1c'
         
   const moveToArchive = () => {
-    dispatch(newsActions.setToArchive(props.index))
+    dispatch(newsActions.setToArchive(index))
   }
 
-  const onChangeTime = (time: number) => {
-    dispatch(settingsActions.setTimeSpeed(time))
+  const onChangeTime = () => {
+    dispatch(settingsActions.setTimeSpeed())
   }
   // открываем окно с акцией...
   const buyStocks = () => {
     stocks.map((stock, index) => {
-      if (stock.title === props.company) {
+      if (stock.title === news.company) {
         dispatch(setPopupsActiveThunk('stock', stocks[index]))
         // props.setActiveStock(stocks[index])
       }
     })
     dispatch(setPopupsShownThunk('stock', true))
     // props.setIsHistoryShown(true)
-    onChangeTime(0)
+    onChangeTime()
   }
 
   const sellStocks = () => {
     myStocks.map((stock, index) => {
-      if (stock.title === props.company) {
+      if (stock.title === news.company) {
         dispatch(setPopupsActiveThunk('myStock', index))
         // props.setMyActiveStock(index)
       }
     })
     dispatch(setPopupsShownThunk('myStock', true))
     // props.setIsStockToSell(true)
-    onChangeTime(0)
+    onChangeTime()
   }
-  console.log(props.type)
+  // console.log(props.type)
   return (
     <>
       <div className="gameNewsBlock">
         <div className="gameNewsBlock__Title" style={{background: themeColor}}>
           <b>Новость!</b>
-          <span style={{color: '#def4e4'}}> / {props.month} {props.dayInMonth}</span>
+          <span style={{color: '#def4e4'}}> / {news.month} {news.dayInMonth}</span>
         </div>
         <div className="gameNewsBlock__News">
           <div className="gameNewsBlock__NewsTitle">
-            <b>{props.title}</b>
+            <b>{news.title}</b>
           </div>
           {/* если новость связана с акцией... */}
-          {props.company !== '' && props.type === 'stock'
+          {news.company !== '' && news.type === 'stock'
             ? <div className='gameNewsBlock__NewsCompany'>
-                <i>{props.company}</i>
+                <i>{news.company}</i>
               </div>
             : ''
           }
           {/* если новость связана с недвижимостью... */}
-          {props.company !== '' && props.type === 'realty'
+          {news.type === 'realty'
             ? <div>
                 {/* props.company === 'low' | 'medium' | 'high */}
                 <div className="gameNewsBlock__NewsRealty">
-                  Район: {realtyRegion[props.company as ChanceType]}
+                  Район: {realtyRegion[news.realty.region]}
                 </div>
-                {myRealty.some(realty => realty.region === props.company) 
+                {myRealty.some(realty => realty.region === news.company) 
                   ? <Button>Продать</Button>
                   : 'У вас нет недвижимости в этом районе.'
                 }
               </div>
             : ''}
           {/*  */}
-          {props.type === 'stock' && props.condition === 0
+          {news.type === 'stock' && news.condition === 0
             ? <div className="gameNewsBlock__NewsButton">
                 <Button onClick={buyStocks}>Купить акцию</Button>
               </div>
             : ''
           }
           {/*  */}
-          {props.type === 'stock' && props.condition === 1 && myStocks.some(s => s.title === props.company)
+          {news.type === 'stock' && news.condition === 1 && myStocks.some(s => s.title === props.company)
             ? <div className="gameNewsBlock__NewsButton">
                 <Button onClick={sellStocks}>Продать акцию</Button>
               </div>
             : ''
           }
           {/*  */}
-          {props.amount !== 0
+          {news.amount !== 0
             ? <div className="gameNewsBlock__NewsPrice">
-              {props.amount > 0
+              {news.amount > 0
                 ?
                   <>
                     Вы заработали
                     <span className="gameNewsBlock__NewsPriceBold">
-                        ${props.amount}
+                        ${news.amount}
                     </span>
                   </>
                 : <>
-                    {props.title === 'Рождение ребенка это большое событие!'
+                    {news.title === 'Рождение ребенка это большое событие!'
                       ? 
                         <>
                           Ежемесячная трата на ребенка:
                           <span className="gameNewsBlock__NewsPriceBold">
-                            ${-props.amount}
+                            ${-news.amount}
                           </span>
                         </>
                       : 
                         <>
                           Вы потратили
                           <span className="gameNewsBlock__NewsPriceBold">
-                            ${-props.amount}
+                            ${-news.amount}
                           </span>
                         </>
                       }
@@ -212,7 +195,7 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
             : ''}
         </div>
         {/* кнопка для помещения новости в архив . . . */}
-        {props.isArchive
+        {news.isArchive
           ? ''
           :
             <div className='gameNewsBlock__Footer' >
@@ -226,6 +209,6 @@ export const RenderNewsBlock: FC<NewsBlockType> = (props) => {
         </div>
     </>
   )
-}
+})
 
 export default NewsPage

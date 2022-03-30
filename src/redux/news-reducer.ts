@@ -319,6 +319,7 @@ export const setNewsThunk = (newsTypeIndex: number): NewsThunkType => (dispatch,
             wanted: wantedPrice, // коэф. цены от заданной
             satisfaction: Number((0.6 + getRandomNumber(0.4)).toFixed(2)) // коэф. удовлетворения при покупки...
           }
+          console.log(news)
           // диспатчим в state текущее предложение о покупке...
           dispatch(setPopupsActiveThunk('realtySell', news.realty))
         }
@@ -354,7 +355,7 @@ export type VariantType = {
     amount?: number
   }[]
 }
-interface newsArrayType {
+export interface newsArrayType {
   title: string
   amount: number
   company: any
