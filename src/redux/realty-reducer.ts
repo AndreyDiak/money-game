@@ -9,7 +9,8 @@ import home6 from './../img/realty/home-6.png';
 import home7 from './../img/realty/home-7.png';
 import home8 from './../img/realty/home-8.png';
 import home9 from './../img/realty/home-9.png';
-import { getRandomNumber } from './../utils/getRandomNumber';
+import { getRandomNumber, getRealtySatisfaction } from './../utils/getRandomNumber';
+import { GameActionsType } from './game-reducer';
 import { AppStateType, InferActionsType } from "./store";
 
 const GENERATE_ACTIVE_REALTY = 'realtyPage/GENERATE_ACTIVE_REALTY'
@@ -153,7 +154,7 @@ export const generateActiveRealtyThunk = (): RealtyThunkType => (dispatch, getSt
     deposit: realtyDeposit,
     income: realtyIncome,
     paymentPercentage: realtyPaymentPercentage,
-    satisfaction: Number((0.6 + getRandomNumber(0.4)).toFixed(2)), // удовлетворенность  продажей...
+    satisfaction: getRealtySatisfaction(0.4), // удовлетворенность  продажей...
     attempts: 3, // колисество попыток чтобы потогроватся...
     isBought: false, // куплена ли недвижимость...
     photo: realtyListCopy[realtyIndex].photo

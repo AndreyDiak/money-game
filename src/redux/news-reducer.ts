@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk";
-import { getRandomNumber } from "../utils/getRandomNumber";
+import { getRealtySatisfaction, getRandomNumber } from "../utils/getRandomNumber";
 import { actions, GameActionsType, setPopupsActiveThunk } from "./game-reducer";
 import { profileActions, ProfileActionsType, updateIncome } from "./profile-reducer";
 import { ChanceType } from './realty-reducer';
@@ -316,8 +316,8 @@ export const setNewsThunk = (newsTypeIndex: number): NewsThunkType => (dispatch,
           // если у игрока есть недвижимость в этой районе, то он может попробовать поторговать...
           news.realty = {
             region: regionChance > 66 ? 'high' : regionChance > 33 ? 'medium' : 'low', // регион недвижимости
-            wanted: wantedPrice, // коэф. цены от заданной
-            satisfaction: Number((0.6 + getRandomNumber(0.4)).toFixed(2)) // коэф. удовлетворения при покупки...
+            wanted: 1 + wantedPrice / 100, // коэф. цены от заданной
+            satisfaction: getRealtySatisfaction(0.4) // коэф. удовлетворения при покупки...
           }
           console.log(news)
           // диспатчим в state текущее предложение о покупке...

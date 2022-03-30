@@ -43,6 +43,7 @@ const NewsPage = React.memo(() => {
                     key={index}
                     index={index}
                     news={newsBlock}
+                    isArchive
                   />
                 )}
               </div>
@@ -52,6 +53,7 @@ const NewsPage = React.memo(() => {
                     key={index}
                     index={index}
                     news={newsBlock}
+                    isArchive={false}
                   />
                 )}
               </div>}
@@ -65,11 +67,10 @@ const NewsPage = React.memo(() => {
 interface NewsBlockType {
   news: newsArrayType
   index: number
+  isArchive: boolean
 }
 
-export const RenderNewsBlock: FC<NewsBlockType> = React.memo(({news, index}) => {
-
-  // console.log(props)
+export const RenderNewsBlock: FC<NewsBlockType> = React.memo(({news, index, isArchive}) => {
 
   const dispatch = useDispatch()
 
@@ -96,11 +97,9 @@ export const RenderNewsBlock: FC<NewsBlockType> = React.memo(({news, index}) => 
     stocks.map((stock, index) => {
       if (stock.title === news.company) {
         dispatch(setPopupsActiveThunk('stock', stocks[index]))
-        // props.setActiveStock(stocks[index])
       }
     })
     dispatch(setPopupsShownThunk('stock', true))
-    // props.setIsHistoryShown(true)
     onChangeTime()
   }
 
@@ -108,14 +107,16 @@ export const RenderNewsBlock: FC<NewsBlockType> = React.memo(({news, index}) => 
     myStocks.map((stock, index) => {
       if (stock.title === news.company) {
         dispatch(setPopupsActiveThunk('myStock', index))
-        // props.setMyActiveStock(index)
       }
     })
     dispatch(setPopupsShownThunk('myStock', true))
-    // props.setIsStockToSell(true)
     onChangeTime()
   }
-  // console.log(props.type)
+
+  const onSellRealty = () => {
+    dispatch(setPopupsShownThunk('realtySell', true))
+  }
+
   return (
     <>
       <div className="gameNewsBlock">
@@ -135,14 +136,16 @@ export const RenderNewsBlock: FC<NewsBlockType> = React.memo(({news, index}) => 
             : ''
           }
           {/* если новость связана с недвижимостью... */}
-          {news.type === 'realty'
-            ? <div>
+          {news.type === 'realty' 
+            ? <div style={{'borderTop': '1px solid grey'}}> 
                 {/* props.company === 'low' | 'medium' | 'high */}
-                <div className="gameNewsBlock__NewsRealty">
-                  Район: {realtyRegion[news.realty.region]}
+                <div className="gameNewsBlock__NewsRealty" >
+                  <div className="gameNewsBlock__NewsPrice">
+                    <b>Район: <i>{realtyRegion[news.realty.region]}</i></b>
+                  </div>
                 </div>
-                {myRealty.some(realty => realty.region === news.company) 
-                  ? <Button>Продать</Button>
+                {myRealty.some(realty => realty.region === news.realty.region) 
+                  ? <Button onClick={onSellRealty}>Продать</Button>
                   : 'У вас нет недвижимости в этом районе.'
                 }
               </div>
@@ -155,7 +158,7 @@ export const RenderNewsBlock: FC<NewsBlockType> = React.memo(({news, index}) => 
             : ''
           }
           {/*  */}
-          {news.type === 'stock' && news.condition === 1 && myStocks.some(s => s.title === props.company)
+          {news.type === 'stock' && news.condition === 1 && myStocks.some(s => s.title === news.company)
             ? <div className="gameNewsBlock__NewsButton">
                 <Button onClick={sellStocks}>Продать акцию</Button>
               </div>
@@ -195,7 +198,7 @@ export const RenderNewsBlock: FC<NewsBlockType> = React.memo(({news, index}) => 
             : ''}
         </div>
         {/* кнопка для помещения новости в архив . . . */}
-        {news.isArchive
+        {isArchive
           ? ''
           :
             <div className='gameNewsBlock__Footer' >
