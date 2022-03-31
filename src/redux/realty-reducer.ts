@@ -10,7 +10,6 @@ import home7 from './../img/realty/home-7.png';
 import home8 from './../img/realty/home-8.png';
 import home9 from './../img/realty/home-9.png';
 import { getRandomNumber, getRealtySatisfaction } from './../utils/getRandomNumber';
-import { GameActionsType } from './game-reducer';
 import { AppStateType, InferActionsType } from "./store";
 
 const GENERATE_ACTIVE_REALTY = 'realtyPage/GENERATE_ACTIVE_REALTY'

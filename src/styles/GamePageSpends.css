@@ -161,8 +161,9 @@
 }
 
 @media screen and (max-width: 768px) {
-  .gameSpend {
-    height: auto;
+  .gameSpendContent {
+    overflow: scroll;
+    padding: 20px 0 70px;
   }
 }
 

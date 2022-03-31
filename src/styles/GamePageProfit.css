@@ -143,6 +143,7 @@
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
   grid-area: menu;
+  position: relative;
   margin-bottom: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -153,6 +154,17 @@
   -webkit-column-gap: 15px;
           column-gap: 15px;
   row-gap: 15px;
+}
+
+.gameProfitMenu__History {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.gameProfitMenu__History button {
+  font-weight: 900;
+  outline: none;
 }
 
 .gameProfitMenu__item button {
@@ -381,8 +393,17 @@
 }
 
 @media screen and (max-width: 1024px) {
+  .gameProfitMenu {
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+  }
   .gameProfitStocks__OfferBlock {
     width: 100%;
+  }
+  .gameProfitStocks__OfferBlocks__stocks {
+    overflow: scroll;
+    padding: 10px 0 100px;
   }
   .gameProfitStocks__OfferBlock__Title {
     font-size: 16px;
@@ -402,6 +423,7 @@
 
 @media screen and (max-width: 768px) {
   .gameProfitMenu {
+    padding-left: 10px;
     -webkit-box-pack: start;
         -ms-flex-pack: start;
             justify-content: start;
@@ -411,6 +433,9 @@
   }
   .gameProfitMenu__item button {
     width: 100%;
+  }
+  .gameProfitStocks {
+    padding: 30px 0 170px;
   }
   .gameProfitStocks__Me {
     border-right: none;
@@ -423,17 +448,42 @@
 }
 
 @media screen and (max-width: 480px) {
-  .gameProfitStocks {
-    padding: 30px 5px 50px;
-    overflow: scroll;
-  }
   .gameProfit .container {
     width: 100%;
-    overflow: hidden;
+  }
+  .gameProfitMenu__History {
+    right: 10px;
+  }
+  .gameProfitMargin {
+    overflow: scroll;
+    max-height: 80vh;
+    padding: 10px 10px 50px;
+    -webkit-column-gap: 15px;
+            column-gap: 15px;
+    row-gap: 15px;
   }
   .gameProfitMargin__block {
     -ms-grid-columns: 1fr;
         grid-template-columns: 1fr;
+  }
+  .gameProfitMargin__block::after {
+    bottom: -7.25px;
+  }
+  .gameProfitMargin__blockButton {
+    margin-top: 5px;
+  }
+  .gameProfitMargin__blockAbout {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-column-gap: 15px;
+            column-gap: 15px;
+  }
+  .gameProfitMargin__blockAbout__age {
+    font-size: 18px;
   }
 }
 /*# sourceMappingURL=GamePageProfit.css.map */

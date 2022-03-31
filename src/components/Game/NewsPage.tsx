@@ -1,11 +1,9 @@
 import { CheckSquareOutlined, InboxOutlined } from "@ant-design/icons/lib/icons";
 import { Button } from "antd";
-import React from "react";
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPopupsActiveThunk, setPopupsShownThunk } from "../../redux/game-reducer";
 import { newsActions, newsArrayType } from "../../redux/news-reducer";
-import { ChanceType } from "../../redux/realty-reducer";
 import { settingsActions } from "../../redux/settings-reducer";
 import { getMyStocksSelector, getStocksSelector } from "../../redux/stocks-selector";
 import { useTypedSelector } from "../../utils/hooks/useTypedSelector";
@@ -136,7 +134,7 @@ export const RenderNewsBlock: FC<NewsBlockType> = React.memo(({news, index, isAr
             : ''
           }
           {/* если новость связана с недвижимостью... */}
-          {news.type === 'realty' 
+          {news.type === 'realty' && news.realty.wanted
             ? <div style={{'borderTop': '1px solid grey'}}> 
                 {/* props.company === 'low' | 'medium' | 'high */}
                 <div className="gameNewsBlock__NewsRealty" >

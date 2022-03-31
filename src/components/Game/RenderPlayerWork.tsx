@@ -60,7 +60,7 @@ const RenderPlayerWork = () => {
   // пассивный доход с недвижимости
   let realtySummary = 0
   myRealty.forEach(realty => {
-    realtySummary += realty.payment
+    realtySummary += realty.income - realty.payment
   })
   // пассивный доход с бизнеса
   let businessSummary = 0

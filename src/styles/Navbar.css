@@ -1,7 +1,8 @@
 .navWrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 2fr 1fr;
+      grid-template-columns: 1fr 2fr 1fr;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -23,7 +24,6 @@
       -ms-flex-pack: center;
           justify-content: center;
   height: 100%;
-  width: 33%;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -87,8 +87,13 @@
 
 .navItem__link {
   font-size: 18px;
+  text-align: center;
   width: 75px;
   text-transform: uppercase;
+}
+
+.navItem__link span {
+  font-size: 18px;
 }
 
 .navItem__link a {
@@ -181,6 +186,9 @@
   .navItem__link {
     font-size: 14px;
     width: auto;
+  }
+  .navItem__link span {
+    font-size: 14px;
   }
   .navItemMenu {
     margin-left: 0;
