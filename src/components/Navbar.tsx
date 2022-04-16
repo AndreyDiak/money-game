@@ -74,28 +74,28 @@ const Navbar: FC = React.memo(() => {
           </div>
         </div>
         <div className="navItem">
-          <div className="navItem__link">
+          <div className="navItem__link" data-testid='nav-item'>
             <NavLink to='/game/spends'>
               Расходы
             </NavLink>
           </div>
-          <div className="navItem__link">
+          <div className="navItem__link" data-testid='nav-item'>
             <NavLink to='/game/market'>
               Биржа
             </NavLink>
           </div>
-          <div className="navItem__link">
+          <div className="navItem__link" data-testid='nav-item'>
             <NavLink to='/game/profile'>
               Профиль
             </NavLink>
           </div>
           
-          <div className="navItem__link">
+          <div className="navItem__link" data-testid='nav-item'>
             <NavLink to='/game/bank' >
               Банк
             </NavLink>
           </div>
-          <div className="navItem__link" >
+          <div className="navItem__link" data-testid='nav-item'>
             <Badge count={news.length} overflowCount={10}>
               <NavLink to='/game/news'>
                 Новости

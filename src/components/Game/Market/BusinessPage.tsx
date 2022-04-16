@@ -28,7 +28,7 @@ export const BusinessPage = React.memo(() => {
 
   return (
     <>
-      <div className="gameBusiness bannerBack">
+      <div className="gameBusiness bannerBack" data-testid='page-business'>
         <div className="container">
           <div className="gameBusinessContent">
             <div className="gameBusinessContent__menu">

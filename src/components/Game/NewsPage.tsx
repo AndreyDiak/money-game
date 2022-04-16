@@ -24,7 +24,7 @@ const NewsPage = React.memo(() => {
 
   return (
     <>
-      <div className="gameNews">
+      <div className="gameNews" data-testid='page-news'>
         <div className="gameNewsContent">
           <div className="container">
             <div className="gameNewsMenu">

@@ -29,7 +29,7 @@ const SpendsPage: FC = React.memo(() => {
   
   return (
     <>
-      <div className='gameSpend bannerBack'>
+      <div className='gameSpend bannerBack' data-testid='page-spends'>
         <div className="gameSpendContent">
           <div className="container">
             <div className="gameWorkContent__blocks gameWorkContent__expenses">

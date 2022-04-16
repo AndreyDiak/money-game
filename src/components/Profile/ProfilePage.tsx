@@ -111,7 +111,6 @@ export const ProfilePage: FC = () => {
             <Button>Обратно в меню</Button>
           </NavLink>
         </div>
-
         <div className="profileMenu">
           <div className="profileMenuTitle">Выбор персонажа</div>
           <div className="profileMenuList">

@@ -59,7 +59,7 @@ const BankPage = () => {
 
   return (
     <>
-      <div className="gameBank bannerBack">
+      <div className="gameBank bannerBack" data-testid='page-bank'>
         <div className="container">
           <div className="gameBankContent">
             <div className="gameBankContent__liabilities">

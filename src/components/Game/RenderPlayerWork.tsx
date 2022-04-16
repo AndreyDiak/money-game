@@ -76,7 +76,7 @@ const RenderPlayerWork = () => {
   }
   return (
     <>
-      <div className="gameWork bannerBack">
+      <div className="gameWork bannerBack" data-testid='page-gamework'>
           <div className="gameWorkContent">
             <div className="container">
               <div className="gameWorkContent__profile">

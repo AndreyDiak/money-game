@@ -29,9 +29,7 @@ const MarketPage = React.memo(() => {
   ])
   
 return (
-  <>
-    {routes}
-  </>
+  <div className='market' data-testid='page-market'>{routes}</div>
 )
 })
 
