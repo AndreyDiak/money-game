@@ -14,3 +14,4 @@ describe('getRealtySatisfaction', () => {
         expect(getRealtySatisfaction(0.4)).toBeGreaterThan(0.6)
     })
 })
+
