@@ -13,7 +13,6 @@ type RenderTimeType = {
 }
 
 export const RenderTime: FC<RenderTimeType> = (props) => {
-
   // день месяца . . .
   const dayInMonth = useSelector(getDayInMonthSelector)
   //

@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../../../redux/game-reducer";
 import { getWalletSelector } from "../../../../redux/game-selector";
 import { updateIncome } from "../../../../redux/profile-reducer";
-import { AppStateType } from "../../../../redux/store";
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
 
-export const RealtyPage = React.memo(() => {
+const RealtyPage = React.memo(() => {
 
   const dispatch = useDispatch()
   const myRealty = useTypedSelector(state => state.realtyPage.myRealty)
@@ -111,3 +110,5 @@ export const RealtyPage = React.memo(() => {
     </>
   )
 })
+
+export default RealtyPage;

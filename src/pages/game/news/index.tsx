@@ -2,11 +2,11 @@ import { CheckSquareOutlined, InboxOutlined } from "@ant-design/icons/lib/icons"
 import { Button } from "antd";
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPopupsActiveThunk, setPopupsShownThunk } from "../../redux/game-reducer";
-import { newsActions, newsArrayType } from "../../redux/news-reducer";
-import { settingsActions } from "../../redux/settings-reducer";
-import { getMyStocksSelector, getStocksSelector } from "../../redux/stocks-selector";
-import { useTypedSelector } from "../../utils/hooks/useTypedSelector";
+import { setPopupsActiveThunk, setPopupsShownThunk } from "../../../redux/game-reducer";
+import { newsActions, newsArrayType } from "../../../redux/news-reducer";
+import { settingsActions } from "../../../redux/settings-reducer";
+import { getMyStocksSelector, getStocksSelector } from "../../../redux/stocks-selector";
+import { useTypedSelector } from "../../../utils/hooks/useTypedSelector";
 
 
 const NewsPage = React.memo(() => {

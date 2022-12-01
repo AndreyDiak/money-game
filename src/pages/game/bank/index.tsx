@@ -1,9 +1,9 @@
 import { Button, Input, Select } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { payForExpensesThunk, personType, takeCreditThunk } from "../../redux/profile-reducer";
-import { getPersonSelector } from "../../redux/profile-selector";
-import { AppStateType } from "../../redux/store";
+import { payForExpensesThunk, personType, takeCreditThunk } from "../../../redux/profile-reducer";
+import { getPersonSelector } from "../../../redux/profile-selector";
+import { AppStateType } from "../../../redux/store";
 
 const { Option } = Select
 

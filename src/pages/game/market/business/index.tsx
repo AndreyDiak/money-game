@@ -1,14 +1,14 @@
 import Button from "antd/lib/button";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { buyBusinessThunk, sellBusinessThunk } from "../../../redux/business-reducer";
-import { getBusinessesSelector, getMyBusinessesSelector } from "../../../redux/business-selector";
-import { getWalletSelector } from "../../../redux/game-selector";
-import { updateIncome } from "../../../redux/profile-reducer";
+import { buyBusinessThunk, sellBusinessThunk } from "../../../../redux/business-reducer";
+import { getBusinessesSelector, getMyBusinessesSelector } from "../../../../redux/business-selector";
+import { getWalletSelector } from "../../../../redux/game-selector";
+import { updateIncome } from "../../../../redux/profile-reducer";
 
 
 
-export const BusinessPage = React.memo(() => {
+const BusinessPage = React.memo(() => {
 
   const dispatch = useDispatch()
   const businesses = useSelector(getBusinessesSelector)
@@ -105,3 +105,5 @@ export const BusinessPage = React.memo(() => {
     </>
   )
 })
+
+export default BusinessPage;

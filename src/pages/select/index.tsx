@@ -11,7 +11,7 @@ import {settingsActions} from "../../redux/settings-reducer";
 import {spendsActions} from "../../redux/spends-reducer";
 import {useHttp} from "../../hooks/http.hook";
 
-export const ProfilePage: FC = () => {
+const SelectPage: FC = () => {
 
   const {request} = useHttp()
   const token = useSelector((state: AppStateType) => state.app.token)
@@ -227,3 +227,5 @@ export const ProfilePage: FC = () => {
     </>
   )
 }
+
+export default SelectPage;

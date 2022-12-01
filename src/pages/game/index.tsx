@@ -1,7 +1,7 @@
 import { Badge, notification, Spin } from "antd";
 import React, { FC, Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useRoutes } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import menuIconBank from "../../img/menu/bank.svg";
 import menuIconMarket from "../../img/menu/market.svg";
 import menuIconNews from "../../img/menu/news.svg";
@@ -16,17 +16,13 @@ import { stocksActions } from "../../redux/stocks-reducer";
 import { getStocksSelector } from "../../redux/stocks-selector";
 import { AppStateType } from "../../redux/store";
 import useActions from "../../utils/hooks/useActions";
-import RenderPlayerWork from "../../pages/game/profile";
+import { GameRoutes } from "./_routes";
 
-const Navbar = React.lazy(() => import('../Navbar'))
-const Popups = React.lazy(() => import('../Popups'))
-const NewsPage = React.lazy(() => import('../../pages/game/news'))
-const BankPage = React.lazy(() => import('../../pages/game/bank'))
-const MarketPage = React.lazy(() => import('../../pages/game/market'))
-// const RenderPlayerWork = React.lazy(() => import('./RenderPlayerWork'))
-const SpendsPage = React.lazy(() => import('../../pages/game/spends'))
 
-export const GamePage: FC = React.memo(() => {
+const Navbar = React.lazy(() => import('../../components/Navbar'));
+const Popups = React.lazy(() => import('../../components/Popups'));
+
+const GamePage: FC = React.memo(() => {
 
   const { setDay } = useActions()
 
@@ -121,7 +117,7 @@ export const GamePage: FC = React.memo(() => {
             <i>идет загрузка...</i>
           </div>
         }>
-          <Pages />
+          <GameRoutes />
         </Suspense>
         <div className="bottomNav">
           <div className="bottomNavItem">
@@ -167,37 +163,8 @@ export const GamePage: FC = React.memo(() => {
   )
 })
 
-const Pages = React.memo(() => {
-  const routes = useRoutes([
-    {
-      path: '',
-      index: true,
-      element: <RenderPlayerWork />
-    },
-    {
-      path: 'spends',
-      element: <SpendsPage/> ,
-    },
-    {
-      path: 'profile',
-      element: <RenderPlayerWork />
-    },
-    {
-      path: 'bank',
-      element: <BankPage />
-    },
-    {
-      path: 'news',
-      element: <NewsPage />
-    },
-    {
-      path: 'market',
-      element: <MarketPage />
-    }
-  ])
+export default GamePage;
 
-  return routes
-})
 
 
 

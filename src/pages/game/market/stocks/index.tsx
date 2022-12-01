@@ -4,16 +4,16 @@ import { useDispatch } from 'react-redux';
 import { setPopupsShownThunk } from "../../../../redux/game-reducer";
 import { settingsActions } from "../../../../redux/settings-reducer";
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
-import { Bonds } from "../Bonds/Bonds";
-import { Margin } from "../Margin/Margin";
-import { MyPortfolio } from "./MyPortfolio";
-import { Stocks } from "./Stocks";
+import { Bonds } from "../../../../components/Game/Market/Bonds/Bonds";
+import { Margin } from "../../../../components/Game/Market/Margin/Margin";
+import { MyPortfolio } from "../../../../components/Game/Market/Stocks/MyPortfolio";
+import { Stocks } from "../../../../components/Game/Market/Stocks/Stocks";
 const {Option} = Select
 
 
 type MarketType = 'portfolio' | 'stocks' | 'bonds' | 'margin'
 
-export const StocksPage: FC = React.memo(() => {
+const StocksPage: FC = React.memo(() => {
   
   const dispatch = useDispatch()
   const [marketActiveFilter, setMarketActiveFilter] = useState(1)
@@ -109,3 +109,5 @@ export const StocksPage: FC = React.memo(() => {
     </>
   )
 })
+
+export default StocksPage;

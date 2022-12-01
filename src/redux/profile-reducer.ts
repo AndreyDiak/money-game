@@ -472,8 +472,8 @@ export const updateIncome = (): ProfileThunkType => (dispatch, getState) => {
   const profile = profilePage.profile as personType
   const tax = profilePage.tax
   const salary = profile.salary
-  const myStocks = getState().stocksPage.myStocks
-  const myRealty = getState().realtyPage.myRealty
+  const myStocks = getState().stocksPage.myStocks;
+  const myRealty = getState().realtyPage.myRealty;
   const myBusiness = getState().businessPage.myBusinesses
   // начисление с аекций
   let dividendsSummary = myStocks.reduce((acc, next) => acc + next.dividendsAmount * next.count, 0)

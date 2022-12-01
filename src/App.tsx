@@ -1,11 +1,14 @@
-import React from 'react';
-import { Main } from './components/Main/Main';
-import './styles/style.css';
+
 import 'antd/dist/antd.css';
+import { BrowserRouter } from 'react-router-dom';
+import Main from './pages';
+import './styles/style.css';
 export const App = () => {
   return (
     <div className="App">
-      <Main/>
+      <BrowserRouter>
+        <Main/>
+      </BrowserRouter>
     </div>
   )
 }

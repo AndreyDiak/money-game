@@ -1,9 +1,9 @@
 import {Button, Input, message} from "antd";
 import {NavLink} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {useHttp} from "../hooks/http.hook";
+import {useHttp} from "../../hooks/http.hook";
 import {useDispatch} from "react-redux";
-import {loginThunk} from "../redux/app-reducer";
+import {loginThunk} from "../../redux/app-reducer";
 
 export const LoginPage = () => {
 
@@ -16,7 +16,7 @@ export const LoginPage = () => {
       message.warning(error)
     }
     clearError()
-  }, [error, message, clearError])
+  }, [error, clearError])
 
   const changeHandler = (event: any) => {
     setFormData({...formData, [event.target.name]: event.target.value})

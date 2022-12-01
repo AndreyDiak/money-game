@@ -283,7 +283,7 @@ export const updateMonthThunk = (): ActionThunkType => (dispatch, getState) => {
   dispatch(actions.updateWallet(income))
   // создаем предложение по недвижимости
   dispatch(generateActiveRealtyThunk())
-  dispatch(buyRealtyThunk(10000))
+  // dispatch(buyRealtyThunk(10000))
   // уменьшаем необходимую выплату по долгу на месячную ставку
   dispatch(profileActions.updateExpenses())
   // если мы выплатили целиком какой либо долг, то у нас растет ЗП

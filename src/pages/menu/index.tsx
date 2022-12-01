@@ -6,7 +6,7 @@ import {AppStateType} from "../../redux/store";
 import {logoutThunk, setCurrentGameThunk} from "../../redux/app-reducer";
 import {useHttp} from "../../hooks/http.hook";
 
-export const MenuPage = () => {
+const MenuPage = () => {
 
   const dispatch = useDispatch()
 
@@ -118,3 +118,5 @@ export const MenuPage = () => {
     </>
   )
 }
+
+export default MenuPage;
