@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { actions, setPopupsShownThunk } from "../../../../redux/game/game-reducer";
 import { getWalletSelector } from "../../../../redux/game/game-selector";
 import { settingsActions } from "../../../../redux/settings-reducer";
-import { addStocksToPortfolioThunk, stocksActions, stockType } from "../../../../redux/market/stocks/stocks-reducer";
+import { addStocksToPortfolioThunk, stocksActions } from "../../../../redux/market/stocks/stocks-reducer";
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
 import { MarginPopupChart } from "./margin/MarginPopup";
+import { stockType } from "../../../../redux/market/stocks/typings";
 
 export const Chart: FC = React.memo(() => {
 

@@ -7,20 +7,18 @@ import {
   updateIncome,
 } from "../profile/profile-reducer";
 import {
-  activeRealtyType,
-  ChanceType,
   generateActiveRealtyThunk,
   RealtyActionsType,
 } from "../market/realty/realty-reducer";
 import { settingsActions, SettingsActionType } from "../settings-reducer";
 import { spendsActions, SpendsActionType } from "../spends-reducer";
 import {
-  brokerType,
   stocksActions,
   StocksActionType,
-  stockType,
 } from "../market/stocks/stocks-reducer";
 import { AppStateType, InferActionsType } from "../store";
+import { brokerType, stockType } from "../market/stocks/typings";
+import { activeRealtyType, ChanceType } from "../market/realty/typings";
 
 // time . . .
 // const SET_TIME_SPEED = 'gamePage/SET_TIME_SPEED'

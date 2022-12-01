@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
-import { myStockType } from "../../../../redux/market/stocks/stocks-reducer";
 import { getMyStocksSelector } from "../../../../redux/market/stocks/stocks-selector";
+import { myStockType } from "../../../../redux/market/stocks/typings";
 import { RenderMyStock } from "./StockCard";
 
 export const MyPortfolio: FC = React.memo(() => {

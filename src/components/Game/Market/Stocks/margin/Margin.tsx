@@ -3,8 +3,8 @@ import React, { FC } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { setPopupsActiveThunk, setPopupsShownThunk } from "../../../../../redux/game/game-reducer"
 import { settingsActions } from "../../../../../redux/settings-reducer"
-import { brokerType } from "../../../../../redux/market/stocks/stocks-reducer"
 import { getBrokersSelector } from "../../../../../redux/market/stocks/stocks-selector"
+import { brokerType } from "../../../../../redux/market/stocks/typings"
 
 export const Margin: FC = React.memo(({}) => {
   

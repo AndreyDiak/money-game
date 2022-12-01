@@ -20,6 +20,7 @@ import {
   getArchiveSelector,
   getNewsSelector,
 } from "../../../redux/news/news-selector";
+import { regionMap } from "../../../redux/market/realty/models";
 
 const NewsPage = React.memo(() => {
   const dispatch = useDispatch();
@@ -95,9 +96,6 @@ export const RenderNewsBlock: FC<NewsBlockType> = React.memo(
     const stocks = useSelector(getStocksSelector);
     const myStocks = useSelector(getMyStocksSelector);
     const myRealty = useTypedSelector((state) => state.realtyPage.myRealty);
-    const realtyRegion = useTypedSelector(
-      (state) => state.realtyPage.realtyRegion
-    );
     const themeColor =
       news.type === "person"
         ? "#388e3c"
@@ -171,7 +169,7 @@ export const RenderNewsBlock: FC<NewsBlockType> = React.memo(
                 <div className="gameNewsBlock__NewsRealty">
                   <div className="gameNewsBlock__NewsPrice">
                     <b>
-                      Район: <i>{realtyRegion[news.realty.region]}</i>
+                      Район: <i>{regionMap[news.realty.region]}</i>
                     </b>
                   </div>
                 </div>

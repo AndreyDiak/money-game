@@ -7,6 +7,16 @@ import {
 } from "../../game/game-reducer";
 import { updateIncome } from "../../profile/profile-reducer";
 import { AppStateType, InferActionsType } from "../../store";
+import { bonds, companies, conditions } from "./models";
+import {
+  BondType,
+  brokerType,
+  conditionType,
+  filterType,
+  MarginType,
+  myStockType,
+  stockType,
+} from "./typings";
 
 const SET_STOCKS = "gamePage/SET_STOCKS";
 const SELL_STOCKS = "gamePage/SELL_STOCKS";
@@ -44,38 +54,9 @@ let initialState = {
   // изменение цены . . .
   normalPriceChange: 3,
   // список компания с акциями . . .
-  companiesForStocks: [
-    "ТрансНефтКомпани",
-    "ОАО ГазНефтьМагистраль",
-    "ОАО СтройПрибор",
-    "ОАО СвободнаяЭнергия",
-    "ОАО ТранспортСтрой",
-    "ОАО ЦифровыеТехнологии",
-    "ОАО КосмосТек",
-    "МашинСтрой",
-    "ОАО КазиноАльянс",
-    "СибирьТек",
-    "ЕвропаБизнес",
-    "ЗАО АлмазПродажн",
-    "ЗАО ПлодЛюбви",
-    "ОАО ТенЗдоровье",
-    "СтройДвор",
-    "АвтоМаркет",
-    "ИнтернетСервис",
-    "ОАО ЭкмоСеть",
-    "ОАО БыстраяДоставка",
-    "АэроТехнологии",
-    "ОАО НаСвязи",
-  ],
+  companiesForStocks: companies,
   // список названий под облигаци...
-  companiesForBonds: [
-    "ЗАО ГосСтрой",
-    "ОАО МашинСервис",
-    "ОАО ВкуснаяЕда",
-    "ЗАО ЧистаяЭнергия",
-    "ЗданиеСтрой",
-    "ЗАО БыстрыйТранспорт",
-  ],
+  companiesForBonds: bonds,
   // акции в портфеле . . .
   myStocks: [] as myStockType[],
   // общая цена портфеля игрока...
@@ -155,8 +136,8 @@ export const stocksReducer = (
           // вероятносто того, что акция идёт вверх . . .
           condition:
             Math.random() * 10 >= state.normalPriceChange - 1 + risk
-              ? "up"
-              : "down",
+              ? conditions.UP
+              : conditions.DOWN,
           // должна ли рости акции всвязи с новостями . . .
           priceChangeInterval: 0,
           // процент девидендов
@@ -238,13 +219,13 @@ export const stocksReducer = (
           (getRandomNumber(10) - state.normalPriceChange).toFixed(0)
         );
         // изменение состояния акций при условии, что она не подвежена новостям . . .
-        let indexCondition: "up" | "down" = stock.condition;
+        let indexCondition = stock.condition;
 
         if (stock.priceChangeInterval === 0) {
           indexCondition =
             getRandomNumber(10) >= state.normalPriceChange - 1 + stock.risk
-              ? "up"
-              : "down";
+              ? conditions.UP
+              : conditions.DOWN;
         }
         // изменение цены акции . . .
         let indexPriceCount = Number(
@@ -263,7 +244,7 @@ export const stocksReducer = (
           stocksCopy[index].priceChangeInterval = Math.round(
             Math.random() * 3 + 1
           );
-          indexCondition = "up";
+          indexCondition = conditions.UP;
         }
 
         stocksCopy[index] = {
@@ -301,7 +282,10 @@ export const stocksReducer = (
               // new stock price
               price: price,
               // new stock condition / up / down
-              condition: price >= myStocksCopy[i].oldPrice ? "up" : "down",
+              condition:
+                price >= myStocksCopy[i].oldPrice
+                  ? conditions.UP
+                  : conditions.DOWN,
               // new dividend price
               // dividendsAmount: stock.dividendsAmount,
             };
@@ -577,7 +561,6 @@ export const stocksReducer = (
           //
           stocks: marginStocks,
         };
-        //@ts-ignore
         brokersCopy.push(broker);
       });
 
@@ -643,7 +626,7 @@ export const stocksReducer = (
           count: getRandomNumber(20) + 10,
           risk: risk,
           price: [price],
-          condition: getRandomNumber(10) > 5 ? "up" : "down",
+          condition: getRandomNumber(10) > 5 ? conditions.UP : conditions.DOWN,
           dividendsPercentage: percentage,
           dividendsAmount: (percentage * price) / 100,
         };
@@ -657,16 +640,16 @@ export const stocksReducer = (
       };
 
     case INDEXING_BONDS:
-      let indexingBondsCopy: BondType[] = [...state.bonds];
+      let indexingBondsCopy = [...state.bonds];
       let indexingMyStocksCopy = [...state.myStocks];
       let indexingFilteredBonds = [...state.filteredBonds];
 
       state.bonds.forEach((bond, index) => {
         // bond new condition...
-        let indexCondition: "up" | "down" =
+        let indexCondition: conditionType =
           getRandomNumber(10) >= state.normalPriceChange - 1 + bond.risk
-            ? "up"
-            : "down";
+            ? conditions.UP
+            : conditions.DOWN;
         // indexing bond count...
         let indexCount = Number(
           (getRandomNumber(10) - state.normalPriceChange).toFixed(0)
@@ -676,8 +659,8 @@ export const stocksReducer = (
           (bond.risk * Number((Math.random() + 0.1).toFixed(1))).toFixed(1)
         );
         // bond new price depends on condition and multiplier...
-        let indexPrice: number =
-          indexCondition === "up"
+        let indexPrice =
+          indexCondition === conditions.UP
             ? bond.price[bond.price.length - 1] + indexPriceCount
             : bond.price[bond.price.length - 1] - indexPriceCount;
         // price round...
@@ -715,7 +698,9 @@ export const stocksReducer = (
               price: price,
               // new stock condition / up / down
               condition:
-                price >= indexingMyStocksCopy[i].oldPrice ? "up" : "down",
+                price >= indexingMyStocksCopy[i].oldPrice
+                  ? conditions.UP
+                  : conditions.DOWN,
               // new dividend price
               dividendsAmount: indexingBondsCopy[index].dividendsAmount,
             };
@@ -793,7 +778,7 @@ export const stocksActions = {
   setPriceChangeInterval: (
     company: string,
     timeInterval: number,
-    condition: "up" | "down"
+    condition: conditionType
   ) =>
     ({
       type: SET_PRICE_CHANGE_INTERVAL,
@@ -858,7 +843,7 @@ export const addStocksToPortfolioThunk =
             ...stock,
             count: stock.count + newStock.count,
             oldPrice: oldPrice,
-            condition: stock.price >= oldPrice ? "up" : "down",
+            condition: stock.price >= oldPrice ? conditions.UP : conditions.DOWN,
           };
         }
         return stock;
@@ -1004,75 +989,6 @@ export const marginPayOutThunk =
       dispatch(stocksActions.setMargin(marginCopy));
     }
   };
-export type stockType = {
-  title: string;
-  count: number;
-  risk: number;
-  price: number[];
-  condition: "up" | "down";
-  priceChangeInterval: number;
-  dividendsPercentage: number;
-  dividendsAmount: number;
-  maxPrice: number;
-  minPrice: number;
-};
-export type BondType = {
-  title: string;
-  count: number;
-  risk: number;
-  price: number[];
-  condition: "up" | "down";
-  dividendsPercentage: number;
-  dividendsAmount: number;
-};
-export type myStockType = {
-  title: string;
-  price: number;
-  oldPrice: number;
-  count: number;
-  condition: "up" | "down";
-  dividendsAmount: number;
-};
-export type brokerType = {
-  name: string;
-  age: number;
-  commission: number;
-  leverAgeMin: number;
-  leverAgeMax: number;
-  timeMin: number;
-  timeMax: number;
-  stocks: stockType[];
-};
-export type marginStockType = {
-  expiresIn: number;
-  count: number;
-  startPrice: number;
-};
-// виды фильтров . . .
-export type filterType =
-  | "price"
-  | "condition"
-  | "title"
-  | "count"
-  | "none"
-  | "risk"
-  | "dividends";
-
-type MarginType = {
-  type: "short" | "long"; // the type of margin
-  expiresIn: number;
-  commision: number;
-  brokerName: string;
-  penaltyPay: number;
-  currentPenalty: number;
-  giveBackData: {
-    day: number;
-    month: number;
-  };
-  stockTitle: string;
-  stockPrice: number;
-  stockCount: number;
-};
 
 export type StocksActionType = InferActionsType<typeof stocksActions>;
 type ActionThunkType = ThunkAction<

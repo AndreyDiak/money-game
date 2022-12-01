@@ -6,6 +6,8 @@ import {
   getRealtySatisfaction,
 } from "../../../utils/getRandomNumber";
 import { AppStateType, InferActionsType } from "../../store";
+import { chances } from "./models";
+import { activeRealtyType, ChanceType, myRealtyType } from "./typings";
 
 const GENERATE_ACTIVE_REALTY = "realtyPage/GENERATE_ACTIVE_REALTY";
 const DECREASE_REALTY_ATTEMPS = "realtyPage/DECREASE_REALTY_ATTEMPS";
@@ -59,16 +61,7 @@ let initialState = {
       photo: realty.HOME_10,
     },
   ],
-  realtyRegion: {
-    low: "Трущобы",
-    medium: "Город",
-    high: "Элитный квартал",
-  },
-  realtyDemand: {
-    low: "Маленький спрос",
-    medium: "Средний спрос",
-    high: "Высокий спрос",
-  }, // чем выше спрос, тем большую цену можно завалить при продаже...
+  // чем выше спрос, тем большую цену можно завалить при продаже...
   realtyHistory: [] as activeRealtyType[],
   myRealty: [] as myRealtyType[],
 };
@@ -106,11 +99,6 @@ export const realtyReducer = (
           isBought: true,
         },
       };
-    // case SET_MY_REALTY:
-    //   return {
-    //     ...state,
-    //     myRealty: action.myRealty
-    //   }
     default:
       return state;
   }
@@ -134,11 +122,19 @@ export const generateActiveRealtyThunk =
     // шанс для выпадение региона...
     const regionChance = getRandomNumber(100);
     const regionType: ChanceType =
-      regionChance > 66 ? "low" : regionChance > 33 ? "medium" : "high";
+      regionChance > 66
+        ? chances.LOW
+        : regionChance > 33
+        ? chances.MEDIUM
+        : chances.HIGH;
     // шанс для выпадения спроса...
     const demandChance = getRandomNumber(100);
     const demandType: ChanceType =
-      demandChance > 66 ? "low" : demandChance > 33 ? "medium" : "high";
+      demandChance > 66
+        ? chances.LOW
+        : demandChance > 33
+        ? chances.MEDIUM
+        : chances.HIGH;
     // цена недвижимости...
     const realtyPrice =
       regionType === "high"
@@ -199,30 +195,6 @@ export type RealtyThunkType = ThunkAction<
   unknown,
   RealtyActionsType
 >;
-export interface activeRealtyType {
-  title: string;
-  region: ChanceType;
-  demand: ChanceType;
-  deposit: number;
-  price: number;
-  income: number;
-  paymentPercentage: number;
-  photo: string;
-  attempts: number;
-  satisfaction: number;
-  isBought: boolean;
-}
-export interface myRealtyType {
-  title: string; // название недвижимости...
-  region: ChanceType; // уровень региона...
-  photo: string; // фото
-  demand: ChanceType; // спрос на недвижимость
-  price: number; // цена за которую был куплен дом...
-  mortgage: number; // размер закладной...
-  payment: number; // плата по закладной...
-  income: number; // доход с жилья...
-}
-export type ChanceType = "low" | "medium" | "high";
 /*
 //region: трущобы / город / элитный район / элитын
 //demand: слабый / средний / высокий / спрос

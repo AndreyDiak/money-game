@@ -2,7 +2,9 @@ import { ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined } from "@ant-design
 import { Button, Input, Popover, Radio, Space } from "antd";
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterType, stocksActions, stockType } from "../../../../redux/market/stocks/stocks-reducer";
+import { filters } from "../../../../redux/market/stocks/models";
+import { stocksActions } from "../../../../redux/market/stocks/stocks-reducer";
+import { filterType } from "../../../../redux/market/stocks/typings";
 import { AppStateType } from "../../../../redux/store";
 import { StockCard } from "./StockCard";
 
@@ -29,7 +31,7 @@ export const Stocks: FC = React.memo(() => {
   );
 
   // применяем активнй фильтр к акциям на рынке...
-  const filterStocks = (title: filterType ,value: string) => {
+  const filterStocks = (title: filterType, value: string) => {
     dispatch(stocksActions.filterStocks(title, value))
   }
 
@@ -39,12 +41,15 @@ export const Stocks: FC = React.memo(() => {
         <div className="gameProfitStocks__Header">
           Акции
         </div>
-        
+
         <div className="gameProfitStocks__OfferBlocks">
           <div className="gameProfitStocks__OfferBlocks__menu">
-            <Input placeholder='Название акции...' className='gameProfitStocks__OfferBlocks__menuInput' onChange={(e) => filterStocks('title',e.target.value)}/>
+            <Input
+              placeholder='Название акции...'
+              className='gameProfitStocks__OfferBlocks__menuInput'
+              onChange={(e) => filterStocks(filters.TITLE, e.target.value)} />
             <Popover content={content} trigger="click" title='Фильтр акций'>
-              <Button style={{display: 'flex', alignItems: 'center'}}>Фильтры<SlidersOutlined style={{fontSize: '16px', fontWeight: 'normal'}}/></Button>
+              <Button style={{ display: 'flex', alignItems: 'center' }}>Фильтры<SlidersOutlined style={{ fontSize: '16px', fontWeight: 'normal' }} /></Button>
             </Popover>
             <Button onClick={() => {
               setIsReverse(!isReverse)

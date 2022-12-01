@@ -1,14 +1,13 @@
-import { getIsAbleToShowNotificationSelector } from "./../../redux/market/business/business-selector";
 import { notification } from "antd";
-import { useEffect, useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { businessActions } from "../../redux/market/business/business-reducer";
-import { getBusinessesSelector } from "../../redux/market/business/business-selector";
 import { newsActions } from "../../redux/news/news-reducer";
-import { useTypedSelector } from "../../utils/hooks/useTypedSelector";
 import { getIncomeSelector } from "../../redux/profile/profile-selector";
+import { useTypedSelector } from "../../utils/hooks/useTypedSelector";
+import { getIsAbleToShowNotificationSelector } from "./../../redux/market/business/business-selector";
 
-export const useRealty = () => {
+export const useBusiness = () => {
   // доход в месяц игрока . . .
 
   const dispatch = useDispatch();

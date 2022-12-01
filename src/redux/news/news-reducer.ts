@@ -1,10 +1,12 @@
+import { conditions } from './../market/stocks/models';
 import { ThunkAction } from "redux-thunk";
 import { getRealtySatisfaction, getRandomNumber } from "../../utils/getRandomNumber";
 import { actions, GameActionsType, setPopupsActiveThunk } from "../game/game-reducer";
 import { profileActions, ProfileActionsType, updateIncome } from "../profile/profile-reducer";
-import { ChanceType } from '../market/realty/realty-reducer';
 import { stocksActions, StocksActionType } from "../market/stocks/stocks-reducer";
 import { AppStateType, InferActionsType } from "../store";
+import { ChanceType } from '../market/realty/typings';
+import { chances } from '../market/realty/models';
 
 const ADD_NEWS = 'newsPage/ADD_NEWS'
 const ABLE_TO_SHOW = 'newsPage/ABLE_TO_SHOW'
@@ -290,7 +292,7 @@ export const setNewsThunk = (newsTypeIndex: number): NewsThunkType => (dispatch,
           // выбор компании...
           news.company = companies[getRandomNumber(companies.length)]
           
-          const growType = newsConditionIndex === 0 ? 'up' : 'down' // grow or fall
+          const growType = newsConditionIndex === 0 ? conditions.UP : conditions.DOWN // grow or fall
           const timeInterval = getRandomNumber(4) + 3 // time in wheeks to grow or fall
           dispatch(stocksActions.setPriceChangeInterval(news.company, timeInterval, growType))
         }
@@ -315,7 +317,7 @@ export const setNewsThunk = (newsTypeIndex: number): NewsThunkType => (dispatch,
           // благодаря новости мы просто генерируем район, в котором хотят купить жилье...
           // если у игрока есть недвижимость в этой районе, то он может попробовать поторговать...
           news.realty = {
-            region: regionChance > 66 ? 'high' : regionChance > 33 ? 'medium' : 'low', // регион недвижимости
+            region: regionChance > 66 ? chances.HIGH : regionChance > 33 ? chances.MEDIUM : chances.LOW, // регион недвижимости
             wanted: 1 + wantedPrice / 100, // коэф. цены от заданной
             satisfaction: getRealtySatisfaction(0.4) // коэф. удовлетворения при покупки...
           }

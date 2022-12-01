@@ -5,11 +5,11 @@ import { getMyBusinessesSelector } from "../../../redux/market/business/business
 import { getDaySelector } from "../../../redux/game/game-selector";
 import { personType, updateIncome } from "../../../redux/profile/profile-reducer";
 import { getPersonSelector } from "../../../redux/profile/profile-selector";
-import { myStockType } from "../../../redux/market/stocks/stocks-reducer";
 import { getMyStocksSelector } from "../../../redux/market/stocks/stocks-selector";
 import { AppStateType } from "../../../redux/store";
 import { upWorkThunk, worksActions } from "../../../redux/work-reducer";
 import { useTypedSelector } from "../../../utils/hooks/useTypedSelector";
+import { myStockType } from "../../../redux/market/stocks/typings";
 
 const ProfilePage = () => {
 
