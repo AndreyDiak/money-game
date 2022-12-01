@@ -4,10 +4,10 @@ import { useDispatch } from 'react-redux';
 import { setPopupsShownThunk } from "../../../../redux/game-reducer";
 import { settingsActions } from "../../../../redux/settings-reducer";
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
-import { Bonds } from "../../../../components/Game/Market/Bonds/Bonds";
-import { Margin } from "../../../../components/Game/Market/Margin/Margin";
-import { MyPortfolio } from "../../../../components/Game/Market/Stocks/MyPortfolio";
-import { Stocks } from "../../../../components/Game/Market/Stocks/Stocks";
+import { Bonds } from "../../../../components/game/market/Bonds/Bonds";
+import { Margin } from "../../../../components/game/market/Margin/Margin";
+import { MyPortfolio } from "../../../../components/game/market/Stocks/MyPortfolio";
+import { Stocks } from "../../../../components/game/market/Stocks/Stocks";
 const {Option} = Select
 
 

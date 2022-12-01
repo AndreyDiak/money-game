@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Children } from "../../../img";
+import { children } from "../../../img";
 import { getMyBusinessesSelector } from "../../../redux/business-selector";
 import { getDaySelector } from "../../../redux/game-selector";
 import { personType, updateIncome } from "../../../redux/profile-reducer";
@@ -86,11 +86,11 @@ const ProfilePage = () => {
                 <div className="gameWorkContent__profileChild">
                   {Array(3).fill(1).map((c, index) => {
                     return (
-                      <>
+                      <span key={index}>
                         <div>
-                          <img src={childrenCount - 1 >= index ? Children.TRUE : Children.FALSE} alt=""/>
+                          <img src={childrenCount - 1 >= index ? children.TRUE : children.FALSE} alt=""/>
                         </div>
-                      </>
+                      </span>
                     )
                   })}
                 </div>

@@ -5,7 +5,7 @@ import { expenseType, personType } from "../../../redux/profile-reducer";
 import { getExpensesSelector, getPersonSelector, getTaxSelector } from "../../../redux/profile-selector";
 import { eventType } from "../../../redux/spends-reducer";
 import { AppStateType } from "../../../redux/store";
-import { SpendsCard } from "../../../components/Game/Spends/SpendsCard";
+import { SpendsCard } from "../../../components/game/spends/SpendsCard";
 
 const SpendsPage: FC = React.memo(() => {
   //

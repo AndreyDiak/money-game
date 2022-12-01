@@ -9,7 +9,7 @@ import { getPersonSelector } from "../redux/profile-selector";
 import { settingsActions } from "../redux/settings-reducer";
 import { getConstTimeSpeedSelector, getTimeSpeedSelector } from "../redux/settings-selector";
 import { AppStateType } from "../redux/store";
-import { RenderTime } from "./Game/RenderTime";
+import { RenderTime } from "./game/RenderTime";
 
 const Navbar: FC = React.memo(() => {
 

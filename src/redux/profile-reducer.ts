@@ -1,36 +1,5 @@
 import { ThunkAction } from "redux-thunk"
-import person1Avatar from "../img/characters/person-1-avatar.png"
-import person1Photo from "../img/characters/person-1.png"
-import person10Avatar from "../img/characters/person-10-avatar.png"
-import person10Photo from "../img/characters/person-10.png"
-import person11Avatar from "../img/characters/person-11-avatar.png"
-import person11Photo from "../img/characters/person-11.png"
-import person12Avatar from "../img/characters/person-12-avatar.png"
-import person12Photo from "../img/characters/person-12.png"
-import person13Avatar from "../img/characters/person-13-avatar.png"
-import person13Photo from "../img/characters/person-13.png"
-import person14Avatar from "../img/characters/person-14-avatar.png"
-import person14Photo from "../img/characters/person-14.png"
-import person15Avatar from "../img/characters/person-15-avatar.png"
-import person15Photo from "../img/characters/person-15.png"
-import person16Avatar from "../img/characters/person-16-avatar.png"
-import person16Photo from "../img/characters/person-16.png"
-import person2Avatar from "../img/characters/person-2-avatar.png"
-import person2Photo from "../img/characters/person-2.png"
-import person3Avatar from "../img/characters/person-3-avatar.png"
-import person3Photo from "../img/characters/person-3.png"
-import person4Avatar from "../img/characters/person-4-avatar.png"
-import person4Photo from "../img/characters/person-4.png"
-import person5Avatar from "../img/characters/person-5-avatar.png"
-import person5Photo from "../img/characters/person-5.png"
-import person6Avatar from "../img/characters/person-6-avatar.png"
-import person6Photo from "../img/characters/person-6.png"
-import person7Avatar from "../img/characters/person-7-avatar.png"
-import person7Photo from "../img/characters/person-7.png"
-import person8Avatar from "../img/characters/person-8-avatar.png"
-import person8Photo from "../img/characters/person-8.png"
-import person9Avatar from "../img/characters/person-9-avatar.png"
-import person9Photo from "../img/characters/person-9.png"
+import { characters } from "../img"
 import { actions } from "./game-reducer"
 import { AppStateType, InferActionsType } from "./store"
 
@@ -64,8 +33,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 1200, startPrice: 1200, payment: 5},
       ],
       difficulty: "easy",
-      img: person1Photo,
-      avatar: person1Avatar,
+      img: characters.EDDIE.photo,
+      avatar: characters.EDDIE.avatar,
     },
     {
       name: 'Макс',
@@ -80,8 +49,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 1700, startPrice: 1700, payment: 4},
       ],
       difficulty: 'easy',
-      img: person2Photo,
-      avatar: person2Avatar
+      img: characters.MAX.photo,
+      avatar: characters.MAX.avatar
     },
     {
       name: 'Билл',
@@ -96,8 +65,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 1000, startPrice: 1000, payment: 3},
       ],
       difficulty: 'normal',
-      img: person3Photo,
-      avatar: person3Avatar
+      img: characters.BILL.photo,
+      avatar: characters.BILL.avatar
     },
     {
       name: 'Кейт',
@@ -112,8 +81,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
       ],
       difficulty: 'normal',
-      img: person4Photo,
-      avatar: person4Avatar
+      img: characters.KATE.photo,
+      avatar: characters.KATE.avatar
     },
     {
       name: 'Фред',
@@ -128,8 +97,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 1000, startPrice: 1000, payment: 3},
       ],
       difficulty: 'hard',
-      img: person5Photo,
-      avatar: person5Avatar
+      img: characters.FRED.photo,
+      avatar: characters.FRED.avatar
     },
     {
       name: 'Джимми',
@@ -144,8 +113,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
       ],
       difficulty: 'easy',
-      img: person6Photo,
-      avatar: person6Avatar
+      img: characters.JIMM.photo,
+      avatar: characters.JIMM.avatar
     },
     {
       name: 'Брэд',
@@ -160,8 +129,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
       ],
       difficulty: 'easy',
-      img: person7Photo,
-      avatar: person7Avatar
+      img: characters.BRAD.photo,
+      avatar: characters.BRAD.avatar
     },
     {
       name: 'Лизи',
@@ -176,8 +145,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
       ],
       difficulty: 'normal',
-      img: person8Photo,
-      avatar: person8Avatar
+      img: characters.LIZI.photo,
+      avatar: characters.LIZI.avatar
     },
     {
       name: 'Изабель',
@@ -192,8 +161,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 1000, startPrice: 1000, payment: 3},
       ],
       difficulty: 'easy',
-      img: person9Photo,
-      avatar: person9Avatar
+      img: characters.IZABEL.photo,
+      avatar: characters.IZABEL.avatar
     },
     {
       name: 'Фрэнк',
@@ -208,8 +177,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 850, startPrice: 850, payment: 6},
       ],
       difficulty: 'normal',
-      img: person10Photo,
-      avatar: person10Avatar
+      img: characters.FRANK.photo,
+      avatar: characters.FRANK.avatar
     },
     {
       name: 'Алекс',
@@ -224,8 +193,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
       ],
       difficulty: 'hard',
-      img: person11Photo,
-      avatar: person11Avatar
+      img: characters.ALEX.photo,
+      avatar: characters.ALEX.avatar
     },
     {
       name: 'Адам',
@@ -240,8 +209,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 800, startPrice: 800, payment: 8},
       ],
       difficulty: 'normal',
-      img: person12Photo,
-      avatar: person12Avatar
+      img: characters.ADAM.photo,
+      avatar: characters.ADAM.avatar
     },
     {
       name: 'Хейли',
@@ -256,8 +225,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
       ],
       difficulty: 'hard',
-      img: person13Photo,
-      avatar: person13Avatar
+      img: characters.HAILEY.photo,
+      avatar: characters.HAILEY.avatar
     },
     {
       name: 'Лили',
@@ -272,8 +241,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 600, startPrice: 600, payment: 5},
       ],
       difficulty: 'hard',
-      img: person14Photo,
-      avatar: person14Avatar
+      img: characters.LILI.photo,
+      avatar: characters.LILI.avatar
     },
     {
       name: 'Боб',
@@ -288,8 +257,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 200, startPrice: 200, payment: 7},
       ],
       difficulty: 'easy',
-      img: person15Photo,
-      avatar: person15Avatar
+      img: characters.BOB.photo,
+      avatar: characters.BOB.avatar
     },
     {
       name: 'Эльза',
@@ -304,8 +273,8 @@ let initialState = {
         {type: 'credit', title: 'Кредит', remainPrice: 0, startPrice: 0, payment: 0},
       ],
       difficulty: 'normal',
-      img: person16Photo,
-      avatar: person16Avatar
+      img: characters.ELZA.photo,
+      avatar: characters.ELZA.avatar
     }
   ] as personType[],
   // наш профиль . . .

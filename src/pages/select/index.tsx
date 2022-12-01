@@ -121,13 +121,13 @@ const SelectPage: FC = () => {
                 : <>
                   {filteredPersons.map((person, index) => {
                     return (
-                      <>
+                      <span key={index}>
                         <div className="profileMenuList__item" key={index}>
                           <button onClick={() => setActivePerson(index)} className='profileMenuList__itemImg' >
                             <Avatar src={person.avatar} size={100} style={activePerson === index ? {border: '2px solid crimson'} : {}}/>
                           </button>
                         </div>
-                      </>
+                      </span>
                     )
                   })}
                 </>
