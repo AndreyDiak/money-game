@@ -1,25 +1,20 @@
-import React, {FC, useEffect, useState} from "react"
-import {Avatar, Button} from "antd"
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store";
-import {profileActions, updateIncome} from "../../redux/profile-reducer";
-import {actions, DifficultyType} from "../../redux/game-reducer";
-import {NavLink} from "react-router-dom";
-import Radio, { RadioGroupContextProps } from "antd/lib/radio";
-import {getDifficultySelector, getTimeSpeedSelector} from "../../redux/settings-selector";
-import {settingsActions} from "../../redux/settings-reducer";
-import {spendsActions} from "../../redux/spends-reducer";
-import {useHttp} from "../../hooks/http.hook";
+import { Avatar, Button } from "antd";
+import Radio from "antd/lib/radio";
+import { FC, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { actions, DifficultyType } from "../../redux/game-reducer";
+import { profileActions, updateIncome } from "../../redux/profile-reducer";
+import { settingsActions } from "../../redux/settings-reducer";
+import { getTimeSpeedSelector } from "../../redux/settings-selector";
+import { spendsActions } from "../../redux/spends-reducer";
+import { AppStateType } from "../../redux/store";
 
 const SelectPage: FC = () => {
 
-  const {request} = useHttp()
-  const token = useSelector((state: AppStateType) => state.app.token)
-
   const dispatch = useDispatch()
   const timeSpeed = useSelector(getTimeSpeedSelector)
-  // const difficulty = useSelector(getDifficultySelector)
-  const victoryBalance = useSelector((state: AppStateType) => state.gamePage.victoryBalance)
+  
   const persons = useSelector((state: AppStateType) => state.profilePage.persons)
   const [activePerson, setActivePerson] = useState(0)
   const about = [
@@ -30,7 +25,7 @@ const SelectPage: FC = () => {
 
   const [filteredPersons, setFilteredPersons] = useState(persons.filter(f => f.difficulty === 'easy'))
   const [difficulty, setDifficulty] = useState<0 | 1 | 2>(0)
-  const [screenWidth, setScreenWidth] = useState(window.screen.width)
+
   // выбор скорости игры
   const timesSpeed = [8, 4, 2]
 
@@ -43,15 +38,6 @@ const SelectPage: FC = () => {
     return acc + next.startPrice * next.payment / 100
   }, tax)
   
-  const updateStats = async (profile: any) => {
-    try {
-      // const data = await request('/api/profile/new', 'POST', {profile},{
-      //   Authorization: `Bearer ${token}`
-      // })
-
-    } catch (e) {}
-  }
-
   const setProfile = async () => {
 
     const profile = filteredPersons[activePerson]
@@ -98,11 +84,8 @@ const SelectPage: FC = () => {
 
   useEffect(() => {
     dispatch(spendsActions.setEventsPrice())
-  },[,persons])
+  },[dispatch, persons])
 
-  useEffect(() => {
-    setScreenWidth(window.screen.width)
-  }, [window.screen.width])
   return (
     <>
       <div className="profile bannerBack">

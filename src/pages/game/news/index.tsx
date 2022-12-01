@@ -92,7 +92,7 @@ export const RenderNewsBlock: FC<NewsBlockType> = React.memo(({news, index, isAr
   }
   // открываем окно с акцией...
   const buyStocks = () => {
-    stocks.map((stock, index) => {
+    stocks.forEach((stock, index) => {
       if (stock.title === news.company) {
         dispatch(setPopupsActiveThunk('stock', stocks[index]))
       }
@@ -102,7 +102,7 @@ export const RenderNewsBlock: FC<NewsBlockType> = React.memo(({news, index, isAr
   }
 
   const sellStocks = () => {
-    myStocks.map((stock, index) => {
+    myStocks.forEach((stock, index) => {
       if (stock.title === news.company) {
         dispatch(setPopupsActiveThunk('myStock', index))
       }

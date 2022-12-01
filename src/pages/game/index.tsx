@@ -51,7 +51,7 @@ const GamePage: FC = React.memo(() => {
   // количество новостей . . .
   const margin = useSelector((state: AppStateType) => state.stocksPage.margin)
  
-  const [screenWidth, setScreenWidth] = useState(window.screen.width)
+  const [screenWidth] = useState(window.screen.width)
   // увеличиваем кол-во дней...
   const liveProcess = () => {
     if(timeSpeed !== 0 && gameStatus === 'process') {
@@ -80,7 +80,7 @@ const GamePage: FC = React.memo(() => {
     if (income >= 4500 && businesses.length === 0) {
       openNotification('Купите ваш первый настоящий бизнесс!')
     }
-    },[income, margin])
+    },[businesses.length, dispatch, income, margin, stocks.length])
 
   const openNotification = (text: string) => {
     notification.open({

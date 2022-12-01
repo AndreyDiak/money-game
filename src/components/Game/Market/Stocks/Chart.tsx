@@ -66,7 +66,7 @@ export const Chart: FC = React.memo(() => {
         || stocksToBuyCount < 1
         || stocksToBuyCount > stock.count
     )
-  }, [stocksToBuyCount, stocksToBuyPrice])
+  }, [stock.count, stocksToBuyCount, stocksToBuyPrice, wallet])
   
   return (
     <>

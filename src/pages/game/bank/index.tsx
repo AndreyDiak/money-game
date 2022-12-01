@@ -21,8 +21,8 @@ const BankPage = () => {
     setActiveExpense(value)
   }
 
-  const [creditPercentage, setCreditPercentage] = useState(15) // процентная ставка по кредиту
-  const [payoutPercentage, setPayoutPercentage] = useState(10) // процентная ставка на месячный платеж
+  const [creditPercentage] = useState(15) // процентная ставка по кредиту
+  const [payoutPercentage] = useState(10) // процентная ставка на месячный платеж
 
   const [creditAmount, setCreditAmount] = useState(1000) // размер займа
 
@@ -35,15 +35,15 @@ const BankPage = () => {
   useEffect(() => {
     setFinalPayout(Math.round(creditAmount + creditAmount * creditPercentage / 100))
 
-  },[creditAmount])
+  },[creditAmount, creditPercentage])
 
   useEffect(() => {
     setMonthPayout(finalPayout / payoutPercentage)
-  },[finalPayout])
+  },[finalPayout, payoutPercentage])
 
   useEffect(() => {
     setExpenseAmount(profile.expenses[activeExpense].remainPrice)
-  }, [activeExpense])
+  }, [activeExpense, profile.expenses])
 
   const payForExpenses = () => {
     dispatch(payForExpensesThunk(expenseAmount, profile.expenses[activeExpense].type))

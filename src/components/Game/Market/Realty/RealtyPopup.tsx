@@ -20,18 +20,18 @@ export const RealtyPopup: FC = React.memo(() => {
   // блок с активной недвижимостью...
   const [activeRealty, setActiveRealty] = useState<activeRealtyType | myRealtyType>({} as activeRealtyType | (myRealtyType & {wanted: Number}))
   // цена недвижимости...
-  const [realtyPrice, setRealtyPrice] = useState(activeRealty.price)
+  const [realtyPrice] = useState(activeRealty.price)
  
-  const [realtyChangePrice, setRealtyChangePrice] = useState( !!activeRealty ?
+  const [realtyChangePrice] = useState( !!activeRealty ?
     calculatePriceChange( activeRealty.price, activeRealty.region ) : null
     )
   //
     
-  const calculateAttemptChance = ( dealPrice: number, startPrice: number, demand: ChanceType ) => {
-    // let demandChance = demand === 'high' ? 0.7 : demand === 'medium' ? 0.5 : 0.3
-    // let change = Math.abs( startPrice - dealPrice ) / startPrice // изменение цены...
-    // return change < demandChance
-  }
+  // const calculateAttemptChance = ( dealPrice: number, startPrice: number, demand: ChanceType ) => {
+  //   // let demandChance = demand === 'high' ? 0.7 : demand === 'medium' ? 0.5 : 0.3
+  //   // let change = Math.abs( startPrice - dealPrice ) / startPrice // изменение цены...
+  //   // return change < demandChance
+  // }
   // 
 
   const onCloseClick = () => {
@@ -60,14 +60,14 @@ export const RealtyPopup: FC = React.memo(() => {
   // hello world
   const onPriceChange = useDebounce((value: number) => {
     // @ts-ignore
-    let satisfaction = activeRealty.satisfaction
+    // let satisfaction = activeRealty.satisfaction
     // @ts-ignore 
-    let wanted = isRealtyToBuy ? activeRealty.price : activeRealty.wanted
+    // let wanted = isRealtyToBuy ? activeRealty.price : activeRealty.wanted
   }, 500)
   // если мы покупаем недвижку, то мы сетаем ее из активных попапов...
   useEffect(() => {
     if ( isRealtyToBuy ) setActiveRealty(popups.realtyBuy.active)
-  },[])
+  },[isRealtyToBuy, popups.realtyBuy.active])
 
   const onBuyRealtyClick = () => {
     

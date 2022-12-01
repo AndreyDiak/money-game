@@ -25,7 +25,7 @@ const StocksPage: FC = React.memo(() => {
     {name: 'Облигации', filter: 'bonds' as MarketType},
     {name: 'Маржинальная торговля', filter: 'margin' as MarketType},
   ]
-  const [screenWidth, setScreenWidth] = useState(window.screen.width)
+  const [screenWidth] = useState(window.screen.width)
   
   const onMarginClick = () => {
     dispatch(settingsActions.setTimeSpeed(0))

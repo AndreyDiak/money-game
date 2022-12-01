@@ -1,10 +1,9 @@
-import {NavLink} from "react-router-dom";
-import React, {useCallback, useEffect, useState} from "react";
-import {message} from "antd";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store";
-import {logoutThunk, setCurrentGameThunk} from "../../redux/app-reducer";
-import {useHttp} from "../../hooks/http.hook";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { useHttp } from "../../hooks/http.hook";
+import { logoutThunk, setCurrentGameThunk } from "../../redux/app-reducer";
+import { AppStateType } from "../../redux/store";
 
 const MenuPage = () => {
 
@@ -15,9 +14,6 @@ const MenuPage = () => {
   const token = useSelector((state: AppStateType) => state.app.token)
   const [isGameExist, setIsGameExist] = useState(false)
   const [currentGame, setCurrentGame] = useState(null)
-  const info = () => {
-    message.warning('Эта функция пока не доступна(')
-  }
 
   const requestGame = useCallback(async () => {
     try {
@@ -33,7 +29,7 @@ const MenuPage = () => {
       // если пользователь не авторизован то мы удаляем данные о токене из локального кэша . . .
       dispatch(logoutThunk())
     }
-  }, [])
+  }, [dispatch, request, token])
 
   const continueGame = () => {
     dispatch(setCurrentGameThunk(currentGame))
@@ -41,7 +37,7 @@ const MenuPage = () => {
 
   useEffect(() => {
     requestGame()
-  }, [])
+  }, [requestGame])
 
   if(isLoading) {
     return (

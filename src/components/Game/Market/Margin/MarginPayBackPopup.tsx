@@ -6,7 +6,6 @@ import { setPopupsShownThunk } from "../../../../redux/game-reducer"
 import { getWalletSelector } from "../../../../redux/game-selector"
 import { updateIncome } from "../../../../redux/profile-reducer"
 import { settingsActions } from "../../../../redux/settings-reducer"
-import { getConstTimeSpeedSelector } from "../../../../redux/settings-selector"
 import { marginPayOutThunk } from "../../../../redux/stocks-reducer"
 import { AppStateType } from "../../../../redux/store"
 
@@ -21,7 +20,7 @@ export const MarginPayBackPopup: FC = () => {
 
   const stock = useSelector((state: AppStateType) => state.stocksPage.myStocks.filter(s => s.title === margin.stockTitle))
 
-  const [daysToPayBack, setDaysToPayBack] = useState(
+  const [daysToPayBack] = useState(
     margin.expiresIn > 0 
       ? month === margin.giveBackData.month 
         ? margin.giveBackData.day - day 
@@ -52,7 +51,7 @@ export const MarginPayBackPopup: FC = () => {
   useEffect(() => {
     if(stock.length > 0)
       setIsAbleToReturn(stocksToReturnCount <= stock[0].count)
-  }, [stocksToReturnCount])
+  }, [stock, stocksToReturnCount])
 
   return (
     <div className="marginPopup">
@@ -144,13 +143,13 @@ export const MarginPayBackMenu: FC<MarginPayBackMenuType> = ({
 }) => {
 
   // const wallet = useSelector(getWalletSelector)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
-  const timeSpeed = useSelector(getConstTimeSpeedSelector)
+  // const timeSpeed = useSelector(getConstTimeSpeedSelector)
   
-  const onChangeTime = (time: number) => {
-    dispatch(settingsActions.setTimeSpeed(time))
-  }
+  // const onChangeTime = (time: number) => {
+  //   dispatch(settingsActions.setTimeSpeed(time))
+  // }
 
   const setStocksCount = (count: number) => {
     if(count <= 0) {

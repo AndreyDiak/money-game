@@ -73,7 +73,8 @@ export const MarginPopup: FC = React.memo(() => {
       stocksToBuyPrice * broker.commission <= wallet
       )
       setCommision(Math.floor(stocksToBuyPrice * broker.commission))
-  }, [stocksToBuyPrice])
+
+  }, [activeMarginStock.count, broker.commission, maxLeverAge, minLeverAge, stocksToBuyCount, stocksToBuyPrice, wallet])
 
   return (
     <>
@@ -300,7 +301,7 @@ export const MarginPopupMenu: FC<MarginPopupMenuType> = React.memo(({
   stock, broker, stocksToBuyCount, activeMarginTime, ableToBuy,
   setStocksToBuyCount, setStocksToBuyPrice, setActiveMarginTime, buyMarginStock}) => {
   
-  const [screenWidth, setScreenWidth] = useState(window.screen.width)
+  const [screenWidth] = useState(window.screen.width)
   const setStocksCount = (count: number) => {
     if(count <= 0) {
       setStocksToBuyCount(1)
@@ -374,7 +375,7 @@ export const MarginPopupMenu: FC<MarginPopupMenuType> = React.memo(({
 })
 export const MarginPopupChart: FC<{stock: stockType}> = React.memo(({stock}) => {
 
-  const [screenWidth, setScreenWidth] = useState(window.screen.width)
+  const [screenWidth] = useState(window.screen.width)
   const Months = [
     'Январь', '', '', '', 'Февраль', '', '', '', 'Март', '', '', '',
     'Апрель', '', '', '', 'Май', '', '', '', 'Июнь', '', '', '',

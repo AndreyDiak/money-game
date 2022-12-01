@@ -48,7 +48,7 @@ const ProfilePage = () => {
     }
 
     dispatch(worksActions.setWorkedDays())
-  }, [day])
+  }, [day, daysToUp, dispatch, workLevel])
 
 
   // пассивный доход с дивидендов

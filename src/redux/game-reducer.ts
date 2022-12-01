@@ -2,7 +2,7 @@ import { ThunkAction } from 'redux-thunk';
 import { businessActions } from './business-reducer';
 import { newsActions } from './news-reducer';
 import { profileActions, ProfileActionsType, updateIncome } from './profile-reducer';
-import { activeRealtyType, buyRealtyThunk, ChanceType, generateActiveRealtyThunk, RealtyActionsType } from './realty-reducer';
+import { activeRealtyType, ChanceType, generateActiveRealtyThunk, RealtyActionsType } from './realty-reducer';
 import { settingsActions, SettingsActionType } from './settings-reducer';
 import { spendsActions, SpendsActionType } from './spends-reducer';
 import { brokerType, stocksActions, StocksActionType, stockType } from './stocks-reducer';
