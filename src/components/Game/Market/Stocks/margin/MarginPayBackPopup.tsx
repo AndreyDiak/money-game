@@ -2,12 +2,12 @@ import { CloseOutlined } from "@ant-design/icons"
 import { Button, InputNumber } from "antd"
 import { FC, useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { setPopupsShownThunk } from "../../../../redux/game-reducer"
-import { getWalletSelector } from "../../../../redux/game-selector"
-import { updateIncome } from "../../../../redux/profile-reducer"
-import { settingsActions } from "../../../../redux/settings-reducer"
-import { marginPayOutThunk } from "../../../../redux/stocks-reducer"
-import { AppStateType } from "../../../../redux/store"
+import { setPopupsShownThunk } from "../../../../../redux/game-reducer"
+import { getWalletSelector } from "../../../../../redux/game-selector"
+import { updateIncome } from "../../../../../redux/profile-reducer"
+import { settingsActions } from "../../../../../redux/settings-reducer"
+import { marginPayOutThunk } from "../../../../../redux/stocks-reducer"
+import { AppStateType } from "../../../../../redux/store"
 
 export const MarginPayBackPopup: FC = () => {
   const dispatch = useDispatch()

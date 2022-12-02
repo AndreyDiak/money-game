@@ -2,9 +2,9 @@ import { ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined } from "@ant-design
 import { Button, Input, Popover, Radio, Space } from "antd";
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { BondType, filterType, stocksActions, stockType } from "../../../../redux/stocks-reducer";
-import { AppStateType } from "../../../../redux/store";
-import { StockCard } from "../Stocks/StockCard";
+import { BondType, filterType, stocksActions, stockType } from "../../../../../redux/stocks-reducer";
+import { AppStateType } from "../../../../../redux/store";
+import { StockCard } from "../StockCard";
 
 export const Bonds: FC = React.memo(() => {
 

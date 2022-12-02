@@ -7,7 +7,7 @@ import { getWalletSelector } from "../../../../redux/game-selector";
 import { settingsActions } from "../../../../redux/settings-reducer";
 import { addStocksToPortfolioThunk, stocksActions, stockType } from "../../../../redux/stocks-reducer";
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
-import { MarginPopupChart } from "../Margin/MarginPopup";
+import { MarginPopupChart } from "./margin/MarginPopup";
 
 export const Chart: FC = React.memo(() => {
 

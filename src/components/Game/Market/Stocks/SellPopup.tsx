@@ -7,7 +7,7 @@ import { settingsActions } from "../../../../redux/settings-reducer";
 import { removeStocksFromPortfolioThunk } from "../../../../redux/stocks-reducer";
 import { AppStateType } from "../../../../redux/store";
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
-import { MarginPopupChart } from "../Margin/MarginPopup";
+import { MarginPopupChart } from "./margin/MarginPopup";
 
 export const SellPopup: FC = React.memo(() => {
   // количество акций на продажу . . .

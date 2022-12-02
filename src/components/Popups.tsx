@@ -5,12 +5,12 @@ import { NavLink } from "react-router-dom";
 import { setPopupsShownThunk } from "../redux/game-reducer";
 import { getStocksSelector } from "../redux/stocks-selector";
 import { AppStateType } from "../redux/store";
-import { MarginPayBackPopup } from "./game/market/Margin/MarginPayBackPopup";
-import { MarginPopup } from "./game/market/Margin/MarginPopup";
-import { RealtyPopup } from "./game/market/Realty/RealtyPopup";
-import { Chart } from "./game/market/Stocks/Chart";
-import { HistoryPopup } from "./game/market/Stocks/HistoryPopup";
-import { SellPopup } from "./game/market/Stocks/SellPopup";
+import { MarginPayBackPopup } from "./game/market/stocks/margin/MarginPayBackPopup";
+import { MarginPopup } from "./game/market/stocks/margin/MarginPopup";
+import { RealtyPopup } from "./game/market/realty/RealtyPopup";
+import { Chart } from "./game/market/stocks/Chart";
+import { HistoryPopup } from "./game/market/stocks/HistoryPopup";
+import { SellPopup } from "./game/market/stocks/SellPopup";
 import { GameEndPopup } from "./GameEndPopup";
 
 const Popups = React.memo(() => {

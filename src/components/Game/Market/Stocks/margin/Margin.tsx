@@ -1,10 +1,10 @@
 import { Button, Popover } from "antd"
 import React, { FC } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { setPopupsActiveThunk, setPopupsShownThunk } from "../../../../redux/game-reducer"
-import { settingsActions } from "../../../../redux/settings-reducer"
-import { brokerType } from "../../../../redux/stocks-reducer"
-import { getBrokersSelector } from "../../../../redux/stocks-selector"
+import { setPopupsActiveThunk, setPopupsShownThunk } from "../../../../../redux/game-reducer"
+import { settingsActions } from "../../../../../redux/settings-reducer"
+import { brokerType } from "../../../../../redux/stocks-reducer"
+import { getBrokersSelector } from "../../../../../redux/stocks-selector"
 
 export const Margin: FC = React.memo(({}) => {
   

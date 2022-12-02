@@ -3,13 +3,13 @@ import { Button, InputNumber, Slider } from "antd"
 import React, { FC, useEffect, useState } from "react"
 import { Line } from "react-chartjs-2"
 import { useDispatch, useSelector } from 'react-redux'
-import { actions, setPopupsShownThunk } from "../../../../redux/game-reducer"
-import { getWalletSelector } from "../../../../redux/game-selector"
-import { settingsActions } from "../../../../redux/settings-reducer"
-import { addMarginToPortfolioThunk, addStocksToPortfolioThunk, brokerType, stocksActions, stockType, updateBrokerStocksCountThunk } from "../../../../redux/stocks-reducer"
-import { getStocksSelector } from "../../../../redux/stocks-selector"
-import { AppStateType } from "../../../../redux/store"
-import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector"
+import { actions, setPopupsShownThunk } from "../../../../../redux/game-reducer"
+import { getWalletSelector } from "../../../../../redux/game-selector"
+import { settingsActions } from "../../../../../redux/settings-reducer"
+import { addMarginToPortfolioThunk, addStocksToPortfolioThunk, brokerType, stocksActions, stockType, updateBrokerStocksCountThunk } from "../../../../../redux/stocks-reducer"
+import { getStocksSelector } from "../../../../../redux/stocks-selector"
+import { AppStateType } from "../../../../../redux/store"
+import { useTypedSelector } from "../../../../../utils/hooks/useTypedSelector"
 
 export const MarginPopup: FC = React.memo(() => {
 

@@ -6,7 +6,6 @@ import { filterType, stocksActions, stockType } from "../../../../redux/stocks-r
 import { AppStateType } from "../../../../redux/store";
 import { StockCard } from "./StockCard";
 
-
 export const Stocks: FC = React.memo(() => {
   const dispatch = useDispatch()
   // @ts-ignore
