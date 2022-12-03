@@ -11,7 +11,6 @@ export const GameEndPopup: FC = React.memo(() => {
   const dispatch = useDispatch()
 
   const onButtonClick = () => {
-    //...
     dispatch(setPopupsShownThunk('history', true))
   }
 

@@ -10,6 +10,7 @@ import { settingsActions } from "../redux/settings-reducer";
 import { getConstTimeSpeedSelector, getTimeSpeedSelector } from "../redux/settings-selector";
 import { AppStateType } from "../redux/store";
 import { RenderTime } from "./game/RenderTime";
+import HeaderNav from "./navigation/HeaderNav";
 
 const Navbar: FC = React.memo(() => {
 
@@ -73,36 +74,7 @@ const Navbar: FC = React.memo(() => {
             </button>
           </div>
         </div>
-        <div className="navItem">
-          <div className="navItem__link">
-            <NavLink to='/game/spends'>
-              Расходы
-            </NavLink>
-          </div>
-          <div className="navItem__link">
-            <NavLink to='/game/market'>
-              Биржа
-            </NavLink>
-          </div>
-          <div className="navItem__link">
-            <NavLink to='/game/profile'>
-              Профиль
-            </NavLink>
-          </div>
-          
-          <div className="navItem__link">
-            <NavLink to='/game/bank' >
-              Банк
-            </NavLink>
-          </div>
-          <div className="navItem__link" >
-            <Badge count={news.length} overflowCount={10}>
-              <NavLink to='/game/news'>
-                Новости
-              </NavLink>
-            </Badge>
-          </div>
-        </div>
+        <HeaderNav />
         <div className="navItem">
           <RenderTime wallet={wallet}/>
           <div className="navItemBalance">

@@ -1,12 +1,7 @@
-import { Badge, notification, Spin } from "antd";
+import { notification, Spin } from "antd";
 import React, { FC, Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import menuIconBank from "../../img/menu/bank.svg";
-import menuIconMarket from "../../img/menu/market.svg";
-import menuIconNews from "../../img/menu/news.svg";
-import menuIconProfile from "../../img/menu/profile.svg";
-import menuIconSpends from "../../img/menu/spends.svg";
 import { getBusinessesSelector } from "../../redux/business-selector";
 import { getDaySelector } from "../../redux/game-selector";
 import { newsActions } from "../../redux/news-reducer";
@@ -18,9 +13,12 @@ import { AppStateType } from "../../redux/store";
 import useActions from "../../utils/hooks/useActions";
 import { GameRoutes } from "./_routes";
 
+import classes from './index.module.css';
+import { useStocks } from "../../hooks/useStocks";
 
 const Navbar = React.lazy(() => import('../../components/Navbar'));
 const Popups = React.lazy(() => import('../../components/Popups'));
+const BottomNav = React.lazy(() => import('../../components/navigation/BottomNav'));
 
 const GamePage: FC = React.memo(() => {
 
@@ -45,33 +43,24 @@ const GamePage: FC = React.memo(() => {
   const news = useSelector((state: AppStateType) => state.newsPage.news)
   // массив с акциями . . .
   const stocks = useSelector(getStocksSelector)
-  
+
   // будущий массив с предложением по бизнессу . . .
   const businesses = useSelector(getBusinessesSelector)
   // количество новостей . . .
   const margin = useSelector((state: AppStateType) => state.stocksPage.margin)
- 
+
   const [screenWidth] = useState(window.screen.width)
   // увеличиваем кол-во дней...
   const liveProcess = () => {
-    if(timeSpeed !== 0 && gameStatus === 'process') {
+    if (timeSpeed !== 0 && gameStatus === 'process') {
       setTimeout(() => setDay(day + 1), timeSpeed * 500)
     }
   }
   // запуск функций
-  liveProcess()
+  liveProcess();
   // заполнение массива акциями . . .
+  
   useEffect(() => {
-    // создаём акции
-    if (income >= 250 && stocks.length === 0) {
-      // создаём акции
-      dispatch(stocksActions.setStocks())
-      dispatch(stocksActions.setBrokers())
-      dispatch(stocksActions.setBonds())
-      // новости про акции
-      dispatch(newsActions.setAbleToShow('stocksNews'))
-      openNotification('Рынок акций / облигаций открыт!')
-      }
     // создаём недвижимость...
     if (income >= 1000 && businesses.length === 0) {
       openNotification('Рынок недвижимости открыт!')
@@ -80,7 +69,7 @@ const GamePage: FC = React.memo(() => {
     if (income >= 4500 && businesses.length === 0) {
       openNotification('Купите ваш первый настоящий бизнесс!')
     }
-    },[businesses.length, dispatch, income, margin, stocks.length])
+  }, [businesses.length, dispatch, income, margin, stocks.length])
 
   const openNotification = (text: string) => {
     notification.open({
@@ -92,8 +81,8 @@ const GamePage: FC = React.memo(() => {
   if (!profile) {
     return (
       <>
-        <div style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center'}}>
-          <Spin size={'large'}/> <br/>
+        <div className={classes.loaderContainer}>
+          <Spin size={'large'} /> <br />
           <NavLink to={'/'}>
             Выйдите в меню и перезгрузите страницу
           </NavLink>
@@ -106,58 +95,14 @@ const GamePage: FC = React.memo(() => {
     <>
       <Navbar />
       <Popups />
-      <div style={screenWidth > 768
-        ? {height: 'calc(100vh - 78px)', overflow: 'hidden'}
-        : {height: 'calc(100vh - 50px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', overflow: 'hidden'}}
+      <div className={screenWidth > 768
+        ? classes.mobileContainer
+        : classes.desktopContainer}
       >
         {/* игровые роуты... */}
-        <Suspense fallback={
-          <div>
-            <Spin size="large" />
-            <i>идет загрузка...</i>
-          </div>
-        }>
-          <GameRoutes />
-        </Suspense>
-        <div className="bottomNav">
-          <div className="bottomNavItem">
-            <NavLink to='/game/spends'>
-              <button className="">
-                <img src={menuIconSpends} alt=""/>
-              </button>
-            </NavLink>
-          </div>
-          <div className="bottomNavItem">
-            <NavLink to='/game/market'>
-              <button className="">
-                <img src={menuIconMarket} alt=""/>
-              </button>
-            </NavLink>
-          </div>
-          <div className="bottomNavItem">
-            <NavLink to='/game/profile'>
-              <button className="">
-                <img src={menuIconProfile} alt=""/>
-              </button>
-            </NavLink>
-          </div>
-          <div className="bottomNavItem">
-            <NavLink to='/game/bank'>
-              <button className="">
-                <img src={menuIconBank} alt=""/>
-              </button>
-            </NavLink>
-          </div>
-          <div className="bottomNavItem">
-            <Badge count={news.length} size={"small"} overflowCount={10}>
-              <NavLink to='/game/news'>
-                <button className="">
-                  <img src={menuIconNews} alt=""/>
-                </button>
-              </NavLink>
-            </Badge>
-          </div>
-        </div>
+        <GameRoutes />
+        {/* Нижняя навигация на телефонах */}
+        <BottomNav />
       </div>
     </>
   )

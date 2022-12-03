@@ -8,6 +8,7 @@ import { Bonds } from "../../../../components/game/market/stocks/bonds/Bonds";
 import { Margin } from "../../../../components/game/market/stocks/margin/Margin";
 import { MyPortfolio } from "../../../../components/game/market/stocks/MyPortfolio";
 import { Stocks } from "../../../../components/game/market/stocks/Stocks";
+import { useStocks } from "../../../../hooks/useStocks";
 const {Option} = Select
 
 
@@ -19,6 +20,9 @@ const StocksPage: FC = React.memo(() => {
   const [marketActiveFilter, setMarketActiveFilter] = useState(1)
   const margin = useTypedSelector(state => state.stocksPage.margin)
   // разрешение экрана...
+  
+  useStocks();
+
   const filters = [
     {name: 'Портфель', filter: 'portfolio' as MarketType},
     {name: 'Акции', filter: 'stocks' as MarketType},
