@@ -27,7 +27,6 @@ export const useStocks = () => {
 
   useEffect(() => {
     if (income >= 250 && stocks.length === 0) {
-      console.log('rerender')
       // создаём акции
       dispatch(stocksActions.setStocks());
       dispatch(stocksActions.setBrokers());

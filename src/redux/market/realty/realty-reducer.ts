@@ -1,14 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
-import home1 from './../img/realty/home-1.png';
-import home10 from './../img/realty/home-10.png';
-import home2 from './../img/realty/home-2.png';
-import home3 from './../img/realty/home-3.png';
-import home4 from './../img/realty/home-4.png';
-import home5 from './../img/realty/home-5.png';
-import home6 from './../img/realty/home-6.png';
-import home7 from './../img/realty/home-7.png';
-import home8 from './../img/realty/home-8.png';
-import home9 from './../img/realty/home-9.png';
+import { realty } from '../../../img';
+
 import { getRandomNumber, getRealtySatisfaction } from '../../../utils/getRandomNumber';
 import { AppStateType, InferActionsType } from "../../store";
 
@@ -25,43 +17,43 @@ let initialState = {
   realtyList: [
     {
       title: 'Дом / 3 комн. / Стандарт',
-      photo: home1
+      photo: realty.HOME_1
     },
     {
       title: 'Дом / 2 комн. / Стандарт',
-      photo: home2
+      photo: realty.HOME_2
     },
     {
       title: 'Дом / 2 комн. / Модерн',
-      photo: home3
+      photo: realty.HOME_3
     },
     {
       title: 'Дом / 4 комн. / Стандарт',
-      photo: home4
+      photo: realty.HOME_4
     },
     {
       title: 'Коттедж / 5 комн. / Премиум',
-      photo: home5
+      photo: realty.HOME_5
     },
     {
       title: 'Дом / 2 комн. / Гараж / Стандарт',
-      photo: home6
+      photo: realty.HOME_6
     },
     {
       title: 'Дом / 3 комн. / Премиум',
-      photo: home7
+      photo: realty.HOME_7
     },
     {
       title: 'Дом / 3 комн. / Гараж / Стандарт',
-      photo: home8
+      photo: realty.HOME_8
     },
     {
       title: 'Дом / 3 комн. / Стандарт',
-      photo: home9
+      photo: realty.HOME_9
     },
     {
       title: 'Летний дом / 4 комн. / Люкс',
-      photo: home10
+      photo: realty.HOME_10
     }
   ],
   realtyRegion: {

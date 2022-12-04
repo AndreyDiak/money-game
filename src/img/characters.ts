@@ -96,4 +96,4 @@ export const characters = {
     avatar: person16Avatar,
     photo: person16Photo,
   },
-}
+};

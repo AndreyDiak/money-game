@@ -1,3 +1,4 @@
+import { businessActions } from './../../redux/business-reducer';
 // if (income >= 1000 && businesses.length === 0) {
 //   openNotification('Рынок недвижимости открыт!')
 // }
@@ -10,6 +11,7 @@ import { newsActions } from "../../redux/news-reducer";
 import { stocksActions } from "../../redux/market/stocks/stocks-reducer";
 import { getStocksSelector } from "../../redux/market/stocks/stocks-selector";
 import { AppStateType } from "../../redux/store";
+import BusinessPage from "../../pages/game/market/business";
 
 export const useRealty = () => {
   // доход в месяц игрока . . .
@@ -31,15 +33,11 @@ export const useRealty = () => {
   }
 
   useEffect(() => {
-    if (income >= 250 && business.length === 0) {
-      console.log('rerender')
-      // создаём акции
-      dispatch(stocksActions.setStocks());
-      dispatch(stocksActions.setBrokers());
-      dispatch(stocksActions.setBonds());
+    if (income >= 2500 && business.length === 0) {
       // новости про акции
-      dispatch(newsActions.setAbleToShow("stocksNews"));
-      openNotification("Рынок акций / облигаций открыт!");
+      dispatch(newsActions.setAbleToShow('businessNews'));
+      dispatch(businessActions.openBusiness());
+      openNotification("Вам стала доступна покупка бизнеса!");
     }
   }, []);
 

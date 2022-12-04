@@ -10,14 +10,16 @@ import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
 import {actions} from "./game/game-reducer";
 
-const SET_BUSINESSES = 'businessPage/SET_BUSINESSES'
-const SET_MY_BUSINESSES = 'businessPage/SET_MY_BUSINESSES'
-const ADD_TO_MY_BUSINESSES = 'businessPage/ADD_TO_MY_BUSINESSES'
-const REMOVE_FROM_MY_BUSINESSES = 'businessPage/REMOVE_FROM_MY_BUSINESSES'
-const UPDATE_BUSINESS_INCOME = 'businessPage/UPDATE_BUSINESS_INCOME'
-const RESET_MY_BUSINESSES = 'businessPage/RESET_MY_BUSINESSES'
+const SET_BUSINESSES = 'businessPage/SET_BUSINESSES';
+const SET_MY_BUSINESSES = 'businessPage/SET_MY_BUSINESSES';
+const ADD_TO_MY_BUSINESSES = 'businessPage/ADD_TO_MY_BUSINESSES';
+const REMOVE_FROM_MY_BUSINESSES = 'businessPage/REMOVE_FROM_MY_BUSINESSES';
+const UPDATE_BUSINESS_INCOME = 'businessPage/UPDATE_BUSINESS_INCOME';
+const RESET_MY_BUSINESSES = 'businessPage/RESET_MY_BUSINESSES';
+const OPEN_BUSINESS = 'businessPage/OPEN_BUSINESS';
 
 let initialState = {
+  isAbleToGenerateBusiness: false,
   myBusinesses: [] as BusinessType[],
   // список компаний для бизнесса . . .
   businesses: [
@@ -68,6 +70,11 @@ let initialState = {
 
 export const businessReducer = (state = initialState, action: BusinessActionType): InitialBusinessStateType => {
   switch (action.type) {
+    case OPEN_BUSINESS:
+      return {
+        ...state,
+        isAbleToGenerateBusiness: true
+      }
     // покупка бизнесса
     case ADD_TO_MY_BUSINESSES:
       return {
@@ -117,6 +124,7 @@ export const businessReducer = (state = initialState, action: BusinessActionType
 }
 
 export const businessActions = {
+  openBusiness: () => ({type: OPEN_BUSINESS} as const),
   setBusinesses: () => ({type: SET_BUSINESSES} as const),
   setMyBusinesses: (myBusiness: BusinessType[]) => ({type: SET_MY_BUSINESSES, myBusiness} as const),
   addToMyBusinesses: (business: BusinessType) => ({type: ADD_TO_MY_BUSINESSES, business} as const),
