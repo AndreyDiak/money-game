@@ -9,16 +9,18 @@ import home6 from './../img/realty/home-6.png';
 import home7 from './../img/realty/home-7.png';
 import home8 from './../img/realty/home-8.png';
 import home9 from './../img/realty/home-9.png';
-import { getRandomNumber, getRealtySatisfaction } from './../utils/getRandomNumber';
-import { AppStateType, InferActionsType } from "./store";
+import { getRandomNumber, getRealtySatisfaction } from '../../../utils/getRandomNumber';
+import { AppStateType, InferActionsType } from "../../store";
 
-const GENERATE_ACTIVE_REALTY = 'realtyPage/GENERATE_ACTIVE_REALTY'
-const DECREASE_REALTY_ATTEMPS = 'realtyPage/DECREASE_REALTY_ATTEMPS'
+const GENERATE_ACTIVE_REALTY = 'realtyPage/GENERATE_ACTIVE_REALTY';
+const DECREASE_REALTY_ATTEMPS = 'realtyPage/DECREASE_REALTY_ATTEMPS';
+const OPEN_REALTY = 'realtyPage/OPEN_REALTY';
 // const RESET_ACTIVE_REALTY = 'realtyPage/RESET_ACTIVE_REALTY'
 const BUY_REALTY = 'realtyPage/BUY_REALTY'
 const SET_MY_REALTY = 'realtyPage/SET_MY_REALTY'
 
 let initialState = {
+  isAbleToGenerateRealty: false,
   activeRealty: {} as activeRealtyType,
   realtyList: [
     {
@@ -77,6 +79,11 @@ let initialState = {
 }
 export const realtyReducer = (state = initialState, action: RealtyActionsType): InitialRealtyStateType => {
   switch (action.type) {
+    case OPEN_REALTY:
+      return {
+        ...state,
+        isAbleToGenerateRealty: true
+      }
     // создаем новое предложение по недвижимости
     case GENERATE_ACTIVE_REALTY:
       return {
@@ -115,6 +122,7 @@ export const realtyReducer = (state = initialState, action: RealtyActionsType): 
 }
 
 export const realtyActions = {
+  openRealty: () => ({type: OPEN_REALTY} as const),
   setActiveRealty: (activeRealty: activeRealtyType) => ({type: GENERATE_ACTIVE_REALTY, activeRealty} as const),
   decreaseRealtyAttempts: () => ({type: DECREASE_REALTY_ATTEMPS} as const),
   buyRealty: (realty: myRealtyType) => ({type: BUY_REALTY, realty} as const),

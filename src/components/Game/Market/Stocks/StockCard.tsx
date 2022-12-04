@@ -1,9 +1,9 @@
 import { ArrowDownOutlined, ArrowUpOutlined, FallOutlined, RiseOutlined } from "@ant-design/icons";
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPopupsActiveThunk, setPopupsShownThunk } from "../../../../redux/game-reducer";
+import { setPopupsActiveThunk, setPopupsShownThunk } from "../../../../redux/game/game-reducer";
 import { settingsActions } from "../../../../redux/settings-reducer";
-import { myStockType, stockType } from "../../../../redux/stocks-reducer";
+import { myStockType, stockType } from "../../../../redux/market/stocks/stocks-reducer";
 import { AppStateType } from "../../../../redux/store";
 
 

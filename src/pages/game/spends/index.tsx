@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
-import { getMonthSelector, getMonthsSelector } from "../../../redux/game-selector";
-import { expenseType, personType } from "../../../redux/profile-reducer";
-import { getExpensesSelector, getPersonSelector, getTaxSelector } from "../../../redux/profile-selector";
+import { getMonthSelector, getMonthsSelector } from "../../../redux/game/game-selector";
+import { expenseType, personType } from "../../../redux/profile/profile-reducer";
+import { getExpensesSelector, getPersonSelector, getTaxSelector } from "../../../redux/profile/profile-selector";
 import { eventType } from "../../../redux/spends-reducer";
 import { AppStateType } from "../../../redux/store";
 import { SpendsCard } from "../../../components/game/spends/SpendsCard";

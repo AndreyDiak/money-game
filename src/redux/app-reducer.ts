@@ -1,11 +1,11 @@
 import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
 import {businessActions} from "./business-reducer";
-import {realtyActions} from "./realty-reducer";
-import {stocksActions} from "./stocks-reducer";
+import {realtyActions} from "./market/realty/realty-reducer";
+import {stocksActions} from "./market/stocks/stocks-reducer";
 import {worksActions} from "./work-reducer";
-import {actions} from "./game-reducer";
-import {profileActions} from "./profile-reducer";
+import {actions} from "./game/game-reducer";
+import {profileActions} from "./profile/profile-reducer";
 import {spendsActions} from "./spends-reducer";
 import {newsActions} from "./news-reducer";
 

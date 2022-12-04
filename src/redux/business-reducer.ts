@@ -8,7 +8,7 @@ import b7 from '../img/businesses/club.png'
 
 import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
-import {actions} from "./game-reducer";
+import {actions} from "./game/game-reducer";
 
 const SET_BUSINESSES = 'businessPage/SET_BUSINESSES'
 const SET_MY_BUSINESSES = 'businessPage/SET_MY_BUSINESSES'

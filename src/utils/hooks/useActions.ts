@@ -2,11 +2,11 @@ import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { appActions } from '../../redux/app-reducer'
 import { businessActions } from '../../redux/business-reducer'
-import { actions } from '../../redux/game-reducer'
-import { profileActions } from '../../redux/profile-reducer'
-import { realtyActions } from '../../redux/realty-reducer'
+import { actions } from '../../redux/game/game-reducer'
+import { profileActions } from '../../redux/profile/profile-reducer'
+import { realtyActions } from '../../redux/market/realty/realty-reducer'
 import { spendsActions } from '../../redux/spends-reducer'
-import { stocksActions } from '../../redux/stocks-reducer'
+import { stocksActions } from '../../redux/market/stocks/stocks-reducer'
 
 const AllActions = {
   ...actions,

@@ -1,9 +1,9 @@
 import { Button, Carousel } from "antd";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../../../../redux/game-reducer";
-import { getWalletSelector } from "../../../../redux/game-selector";
-import { updateIncome } from "../../../../redux/profile-reducer";
+import { actions } from "../../../../redux/game/game-reducer";
+import { getWalletSelector } from "../../../../redux/game/game-selector";
+import { updateIncome } from "../../../../redux/profile/profile-reducer";
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
 
 const RealtyPage = React.memo(() => {

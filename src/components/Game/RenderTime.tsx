@@ -1,12 +1,12 @@
 import { Breadcrumb } from "antd";
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actions, balanceCheckThunk, updateMonthThunk } from "../../redux/game-reducer";
-import { getDayInMonthSelector, getDaySelector, getMonthSelector, getMonthsSelector } from "../../redux/game-selector";
+import { actions, balanceCheckThunk, updateMonthThunk } from "../../redux/game/game-reducer";
+import { getDayInMonthSelector, getDaySelector, getMonthSelector, getMonthsSelector } from "../../redux/game/game-selector";
 import { generateNewsThunk } from "../../redux/news-reducer";
 import { weekSpendThunk } from "../../redux/spends-reducer";
-import { payMarginPenaltyThunk, stocksActions } from "../../redux/stocks-reducer";
-import { getStocksSelector } from "../../redux/stocks-selector";
+import { payMarginPenaltyThunk, stocksActions } from "../../redux/market/stocks/stocks-reducer";
+import { getStocksSelector } from "../../redux/market/stocks/stocks-selector";
 
 type RenderTimeType = {
   wallet: number

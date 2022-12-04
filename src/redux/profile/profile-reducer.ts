@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk"
-import { characters } from "../img"
-import { actions } from "./game-reducer"
-import { AppStateType, InferActionsType } from "./store"
+import { characters } from "../../img"
+import { actions } from "../game/game-reducer"
+import { AppStateType, InferActionsType } from "../store"
 
 const SET_PROFILE = 'profilePage/SET_PROFILE'
 const SET_TAX = 'profilePage/SET_TAX'

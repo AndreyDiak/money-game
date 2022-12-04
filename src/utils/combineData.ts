@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 import { BusinessType } from "../redux/business-reducer";
 import { getMyBusinessesSelector } from "../redux/business-selector";
-import { personType } from "../redux/profile-reducer";
-import { myRealtyType } from "../redux/realty-reducer";
-import { myStockType, stockType } from "../redux/stocks-reducer";
-import { getMyStocksSelector, getStocksSelector } from "../redux/stocks-selector";
+import { personType } from "../redux/profile/profile-reducer";
+import { myRealtyType } from "../redux/market/realty/realty-reducer";
+import { myStockType, stockType } from "../redux/market/stocks/stocks-reducer";
+import { getMyStocksSelector, getStocksSelector } from "../redux/market/stocks/stocks-selector";
 import { AppStateType } from "../redux/store";
 
 export const CombineData = () => {

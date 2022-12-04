@@ -1,12 +1,17 @@
+// if (income >= 1000 && businesses.length === 0) {
+//   openNotification('Рынок недвижимости открыт!')
+// }
+
 import { notification } from "antd";
 import { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { newsActions } from "../redux/news-reducer";
-import { stocksActions } from "../redux/stocks-reducer";
-import { getStocksSelector } from "../redux/stocks-selector";
-import { AppStateType } from "../redux/store";
+import { getBusinessesSelector } from "../../redux/business-selector";
+import { newsActions } from "../../redux/news-reducer";
+import { stocksActions } from "../../redux/market/stocks/stocks-reducer";
+import { getStocksSelector } from "../../redux/market/stocks/stocks-selector";
+import { AppStateType } from "../../redux/store";
 
-export const useStocks = () => {
+export const useRealty = () => {
   // доход в месяц игрока . . .
 
   const dispatch = useDispatch()
@@ -15,7 +20,7 @@ export const useStocks = () => {
     []
   );
 
-  const stocks = useSelector(getStocksSelector)
+  const business = useSelector(getBusinessesSelector)
   const income = useSelector(incomeSelector);
 
   const openNotification = (text: string) => {
@@ -26,7 +31,7 @@ export const useStocks = () => {
   }
 
   useEffect(() => {
-    if (income >= 250 && stocks.length === 0) {
+    if (income >= 250 && business.length === 0) {
       console.log('rerender')
       // создаём акции
       dispatch(stocksActions.setStocks());

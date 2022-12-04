@@ -1,4 +1,4 @@
-import {AppStateType} from "./store";
+import {AppStateType} from "../store";
 
 export const getPersonSelector = (state: AppStateType) => {
   return state.profilePage.profile

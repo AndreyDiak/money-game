@@ -1,7 +1,7 @@
 // spends and update . . .
 import { ThunkAction } from "redux-thunk";
 import { getRandomNumber } from "../utils/getRandomNumber";
-import { actions } from "./game-reducer";
+import { actions } from "./game/game-reducer";
 import { AppStateType, InferActionsType } from "./store";
 
 const WEEK_SPEND = 'gamePage/WEEK_SPEND'

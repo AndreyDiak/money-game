@@ -3,18 +3,18 @@ import React, { FC, Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getBusinessesSelector } from "../../redux/business-selector";
-import { getDaySelector } from "../../redux/game-selector";
+import { getDaySelector } from "../../redux/game/game-selector";
 import { newsActions } from "../../redux/news-reducer";
-import { getPersonSelector } from "../../redux/profile-selector";
+import { getPersonSelector } from "../../redux/profile/profile-selector";
 import { getTimeSpeedSelector } from "../../redux/settings-selector";
-import { stocksActions } from "../../redux/stocks-reducer";
-import { getStocksSelector } from "../../redux/stocks-selector";
+import { stocksActions } from "../../redux/market/stocks/stocks-reducer";
+import { getStocksSelector } from "../../redux/market/stocks/stocks-selector";
 import { AppStateType } from "../../redux/store";
 import useActions from "../../utils/hooks/useActions";
 import { GameRoutes } from "./_routes";
 
 import classes from './index.module.css';
-import { useStocks } from "../../hooks/useStocks";
+import { useStocks } from "../../hooks/market/useStocks";
 
 const Navbar = React.lazy(() => import('../../components/Navbar'));
 const Popups = React.lazy(() => import('../../components/Popups'));
@@ -59,7 +59,8 @@ const GamePage: FC = React.memo(() => {
   // запуск функций
   liveProcess();
   // заполнение массива акциями . . .
-  
+  useStocks();
+  //
   useEffect(() => {
     // создаём недвижимость...
     if (income >= 1000 && businesses.length === 0) {
@@ -76,7 +77,7 @@ const GamePage: FC = React.memo(() => {
       message: 'Поздравляем',
       description: text,
     });
-  }
+  };
 
   if (!profile) {
     return (

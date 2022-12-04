@@ -1,8 +1,8 @@
 import { ThunkAction } from 'redux-thunk';
-import { getRandomNumber } from './../utils/getRandomNumber';
-import { actions, GameActionsType, updateHistoryThunk } from './game-reducer';
-import { updateIncome } from './profile-reducer';
-import { AppStateType, InferActionsType } from "./store";
+import { getRandomNumber } from '../../../utils/getRandomNumber';
+import { actions, GameActionsType, updateHistoryThunk } from '../../game/game-reducer';
+import { updateIncome } from '../../profile/profile-reducer';
+import { AppStateType, InferActionsType } from "../../store";
 
 const SET_STOCKS = 'gamePage/SET_STOCKS'
 const SELL_STOCKS = 'gamePage/SELL_STOCKS'

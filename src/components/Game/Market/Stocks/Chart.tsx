@@ -2,10 +2,10 @@ import { CloseOutlined } from "@ant-design/icons";
 import { Button, InputNumber } from "antd";
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actions, setPopupsShownThunk } from "../../../../redux/game-reducer";
-import { getWalletSelector } from "../../../../redux/game-selector";
+import { actions, setPopupsShownThunk } from "../../../../redux/game/game-reducer";
+import { getWalletSelector } from "../../../../redux/game/game-selector";
 import { settingsActions } from "../../../../redux/settings-reducer";
-import { addStocksToPortfolioThunk, stocksActions, stockType } from "../../../../redux/stocks-reducer";
+import { addStocksToPortfolioThunk, stocksActions, stockType } from "../../../../redux/market/stocks/stocks-reducer";
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
 import { MarginPopupChart } from "./margin/MarginPopup";
 

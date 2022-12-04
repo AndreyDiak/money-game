@@ -1,6 +1,6 @@
 import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
-import {profileActions} from "./profile-reducer";
+import {profileActions} from "./profile/profile-reducer";
 
 const SET_DAYS_WORKED = 'workPage/SET_DAYS_WORKED'
 const UP_WORK = 'workPage/UP_WORK'

@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { buyBusinessThunk, sellBusinessThunk } from "../../../../redux/business-reducer";
 import { getBusinessesSelector, getMyBusinessesSelector } from "../../../../redux/business-selector";
-import { getWalletSelector } from "../../../../redux/game-selector";
-import { updateIncome } from "../../../../redux/profile-reducer";
+import { getWalletSelector } from "../../../../redux/game/game-selector";
+import { updateIncome } from "../../../../redux/profile/profile-reducer";
 
 
 

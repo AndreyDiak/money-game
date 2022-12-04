@@ -2,7 +2,7 @@ import { Button } from "antd"
 import React, { FC } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from "react-router-dom"
-import { setPopupsShownThunk } from "../redux/game-reducer"
+import { setPopupsShownThunk } from "../redux/game/game-reducer"
 import { AppStateType } from "../redux/store"
 
 export const GameEndPopup: FC = React.memo(() => {

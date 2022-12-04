@@ -2,8 +2,8 @@ import { CloseOutlined } from "@ant-design/icons"
 import { Button, Slider } from "antd"
 import React, { FC, useCallback, useEffect, useState } from "react"
 import { useDispatch } from 'react-redux'
-import { setPopupsShownThunk } from "../../../../redux/game-reducer"
-import { activeRealtyType, ChanceType, myRealtyType } from "../../../../redux/realty-reducer"
+import { setPopupsShownThunk } from "../../../../redux/game/game-reducer"
+import { activeRealtyType, ChanceType, myRealtyType } from "../../../../redux/market/realty/realty-reducer"
 import { settingsActions } from "../../../../redux/settings-reducer"
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector"
 

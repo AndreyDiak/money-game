@@ -2,7 +2,7 @@ import { ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined } from "@ant-design
 import { Button, Input, Popover, Radio, Space } from "antd";
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { BondType, filterType, stocksActions, stockType } from "../../../../../redux/stocks-reducer";
+import { BondType, filterType, stocksActions, stockType } from "../../../../../redux/market/stocks/stocks-reducer";
 import { AppStateType } from "../../../../../redux/store";
 import { StockCard } from "../StockCard";
 

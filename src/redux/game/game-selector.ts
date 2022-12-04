@@ -1,4 +1,4 @@
-import {AppStateType} from "./store";
+import {AppStateType} from "../store";
 
 // day return
 export const getDaySelector = (state: AppStateType) => {

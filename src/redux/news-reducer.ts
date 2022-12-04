@@ -1,9 +1,9 @@
 import { ThunkAction } from "redux-thunk";
 import { getRealtySatisfaction, getRandomNumber } from "../utils/getRandomNumber";
-import { actions, GameActionsType, setPopupsActiveThunk } from "./game-reducer";
-import { profileActions, ProfileActionsType, updateIncome } from "./profile-reducer";
-import { ChanceType } from './realty-reducer';
-import { stocksActions, StocksActionType } from "./stocks-reducer";
+import { actions, GameActionsType, setPopupsActiveThunk } from "./game/game-reducer";
+import { profileActions, ProfileActionsType, updateIncome } from "./profile/profile-reducer";
+import { ChanceType } from './market/realty/realty-reducer';
+import { stocksActions, StocksActionType } from "./market/stocks/stocks-reducer";
 import { AppStateType, InferActionsType } from "./store";
 
 const ADD_NEWS = 'newsPage/ADD_NEWS'
