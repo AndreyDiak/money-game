@@ -96,4 +96,8 @@ export const characters = {
     avatar: person16Avatar,
     photo: person16Photo,
   },
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 78d4b56 (added images exports)
