@@ -6,5 +6,5 @@ export const getBusinessesSelector = (state: AppStateType) =>
 export const getMyBusinessesSelector = (state: AppStateType) =>
   state.businessPage.myBusinesses;
 
-export const getIsAbleToGenerateBusinessSelector = (state: AppStateType) =>
-  state.businessPage.isAbleToGenerateBusiness;
+export const getIsAbleToShowNotificationSelector = (state: AppStateType) =>
+  state.businessPage.isAbleToShowNotification;

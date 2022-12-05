@@ -15,7 +15,7 @@ const BUY_REALTY = "realtyPage/BUY_REALTY";
 const SET_MY_REALTY = "realtyPage/SET_MY_REALTY";
 
 let initialState = {
-  isAbleToGenerateRealty: false,
+  isAbleToShowNotification: false,
   activeRealty: {} as activeRealtyType,
   realtyList: [
     {
@@ -80,7 +80,7 @@ export const realtyReducer = (
     case OPEN_REALTY:
       return {
         ...state,
-        isAbleToGenerateRealty: true,
+        isAbleToShowNotification: true,
       };
     // создаем новое предложение по недвижимости
     case GENERATE_ACTIVE_REALTY:

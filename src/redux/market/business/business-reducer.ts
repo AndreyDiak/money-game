@@ -12,7 +12,7 @@ const RESET_MY_BUSINESSES = "businessPage/RESET_MY_BUSINESSES";
 const OPEN_BUSINESS = "businessPage/OPEN_BUSINESS";
 
 let initialState = {
-  isAbleToGenerateBusiness: false,
+  isAbleToShowNotification: false,
   myBusinesses: [] as BusinessType[],
   // список компаний для бизнесса . . .
   businesses: [
@@ -69,7 +69,7 @@ export const businessReducer = (
     case OPEN_BUSINESS:
       return {
         ...state,
-        isAbleToGenerateBusiness: true,
+        isAbleToShowNotification: true,
       };
     // покупка бизнесса
     case ADD_TO_MY_BUSINESSES:

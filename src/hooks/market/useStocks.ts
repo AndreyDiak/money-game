@@ -26,7 +26,6 @@ export const useStocks = () => {
     const generateStocks = () => {
       console.log(income);
       if (income >= 250 && stocks.length === 0) {
-        console.log('тук')
         // создаём акции
         dispatch(stocksActions.setStocks());
         dispatch(stocksActions.setBrokers());
