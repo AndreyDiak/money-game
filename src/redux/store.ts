@@ -3,13 +3,13 @@ import { gameReducer } from "./game/game-reducer";
 import thunkMiddleWare from "redux-thunk";
 import { profileReducer } from "./profile/profile-reducer";
 import { settingsReducer } from "./settings-reducer";
-import { newsReducer } from "./news/news-reducer";
 import { worksReducer } from "./work-reducer";
 import { stocksReducer } from "./market/stocks/stocks-reducer";
-import { businessReducer } from "./market/business/business-reducer";
 import { appReducer } from "./app-reducer";
 import { spendsReducer } from "./spends-reducer";
 import { realtyReducer } from "./market/realty/realty-reducer";
+import { newsReducer } from "./news/news-reducer";
+import { businessReducer } from "./market/business/business-reducer";
 
 let rootReducer = combineReducers({
   gamePage: gameReducer,
