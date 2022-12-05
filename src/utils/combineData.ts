@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { BusinessType } from "../redux/business-reducer";
-import { getMyBusinessesSelector } from "../redux/business-selector";
+import { BusinessType } from "../redux/market/business/business-reducer";
+import { getMyBusinessesSelector } from "../redux/market/business/business-selector";
 import { personType } from "../redux/profile/profile-reducer";
 import { myRealtyType } from "../redux/market/realty/realty-reducer";
 import { myStockType, stockType } from "../redux/market/stocks/stocks-reducer";

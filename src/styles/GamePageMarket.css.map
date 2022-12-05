@@ -1,9 +1,1 @@
-{
-    "version": 3,
-    "mappings": "AAAA,AAAA,WAAW,CAAC;EACV,OAAO,EAAE,IAAI;EACb,KAAK,EAAE,IAAI;CAQW;;AAPrB,AAAD,kBAAQ,CAAC;EACP,KAAK,EAAE,IAAI;EACX,OAAO,EAAE,IAAI;EACb,OAAO,EAAE,EAAE;CAIO;;AAHjB,AAAD,wBAAO,CAAC;EACN,KAAK,EAAE,IAAI;EACX,UAAU,EAAE,OAAO;EACnB,KAAK,EAAE,IAAI;CAAG",
-    "sources": [
-        "GamePageMarket.sass"
-    ],
-    "names": [],
-    "file": "GamePageMarket.css"
-}
+{"version":3,"sources":["GamePageMarket.sass","GamePageMarket.css"],"names":[],"mappings":"AAAA;EACE,aAAA;EACA,WAAA;ACCF;ADAE;EACE,WAAA;EACA,aAAA;EACA,WAAA;ACEJ;ADDI;EACE,WAAA;EACA,mBAAA;EACA,WAAA;ACGN","file":"GamePageMarket.css"}

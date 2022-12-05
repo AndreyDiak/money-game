@@ -1,56 +1,33 @@
 .gameProfile {
   grid-area: profile;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   position: relative;
   height: 100vh;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
   border-right: 5px solid lightgrey;
-  font-family: 'Fira Mono', sans-serif;
+  font-family: "Fira Mono", sans-serif;
 }
-
 .gameProfileStats {
   padding-left: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
   height: 100px;
   background: #673c74;
   border-bottom: 3px solid #282c34;
 }
-
 .gameProfileStats__Avatar {
   position: relative;
 }
-
 .gameProfileStats__AvatarImg {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-column-gap: 20px;
-          column-gap: 20px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+  align-items: center;
 }
-
 .gameProfileStats__AvatarImgLevel {
   padding: 5px;
   position: absolute;
@@ -59,51 +36,39 @@
   text-align: center;
   bottom: 9px;
   left: 35px;
-  background: #1099d1;
+  background: rgb(16, 153, 209);
   border-radius: 50%;
   font-weight: 900;
   font-size: 15px;
 }
-
 .gameProfileStats__AvatarImgLevel:hover {
   cursor: pointer;
 }
-
 .gameProfileStats__AvatarImg__Name {
   font-weight: 700;
   font-size: 24px;
   color: #fff;
 }
-
 .gameProfileStats__Menu {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-column-gap: 15px;
-          column-gap: 15px;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
 }
-
 .gameProfileStats__MenuItem {
   color: #000;
   font-size: 20px;
   background: transparent;
   border: none;
 }
-
 .gameProfileStats__Wallet {
   padding-left: 20px;
   height: 100%;
   width: 150px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   font-size: 30px;
   background: rgba(68, 39, 76, 0.8);
 }
-
 .gameProfileProgress {
   padding: 20px;
   width: 100%;
@@ -111,7 +76,6 @@
   text-align: center;
   z-index: 2;
 }
-
 .gameProfileProgress__Title {
   margin: 15px auto;
   font-size: 36px;
@@ -119,136 +83,89 @@
   color: #f1f1f1;
   text-align: center;
 }
-
 .gameProfileProgress__Slider {
   margin: 15px auto;
   width: 400px;
   height: 10px;
 }
-
 .gameProfileHeader {
   margin-top: 30px;
   margin-bottom: 30px;
   font-size: 30px;
   font-weight: 700;
 }
-
 .gameProfileContent {
   position: relative;
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-between;
   height: calc(100% - 171px);
   background-size: cover;
   font-size: 30px;
   text-transform: uppercase;
 }
-
 .gameProfileContent__profile {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .gameProfileContent__profileChild span {
   height: 180px;
 }
-
 .gameProfileContent__profileChild span img {
   height: 100%;
 }
-
 .gameProfileContent__profileImg {
   height: 550px;
 }
-
 .gameProfileContent__profileImg img {
   width: 100%;
 }
-
 .gameProfileContent__Children {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .gameProfileContent__Children div {
   height: 200px;
 }
-
 .gameProfileContent__Children div img {
   height: 100%;
 }
-
 .gameProfileContent__Img {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
   height: 600px;
   width: 400px;
 }
-
 .gameProfileContent__Img img {
   height: 100%;
 }
-
 .gameProfileContent__Work {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
-
 .gameProfileContent__WorkStats {
   margin-top: -3px;
   padding: 10px 50px 10px 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   font-weight: 700;
   background: rgba(255, 255, 255, 0.7);
   z-index: 3;
   border: 3px solid #282c34;
   border-bottom-right-radius: 30px;
 }
-
 .gameProfileContent__WorkStats__Level {
   padding: 5px;
   margin-bottom: 20px;
   border-radius: 5px;
   color: #fff;
   border: 2px solid #282c34;
-  background: #cc5a5a;
+  background: rgb(204, 90, 90);
 }
-
 .gameProfileContent__WorkStats__Income span::after {
   top: -6px;
 }
-
 .gameProfileContent__WorkImg {
   margin-top: -3px;
   width: 150px;
@@ -257,9 +174,7 @@
   z-index: 3;
   border-bottom-left-radius: 30px;
 }
-
 .gameProfileContent__WorkImg img {
   width: 100%;
   border-bottom-left-radius: 30px;
-}
-/*# sourceMappingURL=GamePageProfile.css.map */
+}/*# sourceMappingURL=GamePageProfile.css.map */

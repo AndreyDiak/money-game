@@ -4,24 +4,13 @@
   position: relative;
   height: 100vh;
 }
-
 .menuContent {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   height: calc(100vh - 206px);
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  align-items: center;
 }
-
 .menuGameName {
   padding-top: 50px;
   text-align: center;
@@ -30,43 +19,32 @@
   font-weight: 900;
   color: #fff;
 }
-
 .menuHeader {
   margin-bottom: 20px;
   font-size: 65px;
   font-weight: 700;
   color: #fff0f4;
   z-index: 1;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
-
 .menuList {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  align-items: center;
+  flex-direction: column;
   row-gap: 20px;
   z-index: 1;
 }
-
 .menuListItem__Button {
   padding: 7px 12px;
   width: 320px;
   background: rgba(255, 255, 255, 0.4);
   font-size: 30px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 500;
   border: 1px solid #fff;
   border-radius: 10px;
   color: #fff;
 }
-
 .menuListItem__Button:hover {
   background: rgba(255, 255, 255, 0.65);
 }
@@ -84,7 +62,6 @@
     font-size: 24px;
   }
 }
-
 @media screen and (max-width: 768px) {
   .menuGameName {
     font-size: 32px;
@@ -101,7 +78,6 @@
     font-size: 18px;
   }
 }
-
 @media screen and (max-width: 480px) {
   .menuGameName {
     font-size: 28px;
@@ -117,5 +93,4 @@
     width: 200px;
     font-size: 16px;
   }
-}
-/*# sourceMappingURL=MenuPage.css.map */
+}/*# sourceMappingURL=MenuPage.css.map */

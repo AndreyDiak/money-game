@@ -1,35 +1,35 @@
-import person1Avatar from "./characters/person-1-avatar.png"
-import person1Photo from "./characters/person-1.png"
-import person10Avatar from "./characters/person-10-avatar.png"
-import person10Photo from "./characters/person-10.png"
-import person11Avatar from "./characters/person-11-avatar.png"
-import person11Photo from "./characters/person-11.png"
-import person12Avatar from "./characters/person-12-avatar.png"
-import person12Photo from "./characters/person-12.png"
-import person13Avatar from "./characters/person-13-avatar.png"
-import person13Photo from "./characters/person-13.png"
-import person14Avatar from "./characters/person-14-avatar.png"
-import person14Photo from "./characters/person-14.png"
-import person15Avatar from "./characters/person-15-avatar.png"
-import person15Photo from "./characters/person-15.png"
-import person16Avatar from "./characters/person-16-avatar.png"
-import person16Photo from "./characters/person-16.png"
-import person2Avatar from "./characters/person-2-avatar.png"
-import person2Photo from "./characters/person-2.png"
-import person3Avatar from "./characters/person-3-avatar.png"
-import person3Photo from "./characters/person-3.png"
-import person4Avatar from "./characters/person-4-avatar.png"
-import person4Photo from "./characters/person-4.png"
-import person5Avatar from "./characters/person-5-avatar.png"
-import person5Photo from "./characters/person-5.png"
-import person6Avatar from "./characters/person-6-avatar.png"
-import person6Photo from "./characters/person-6.png"
-import person7Avatar from "./characters/person-7-avatar.png"
-import person7Photo from "./characters/person-7.png"
-import person8Avatar from "./characters/person-8-avatar.png"
-import person8Photo from "./characters/person-8.png"
-import person9Avatar from "./characters/person-9-avatar.png"
-import person9Photo from "./characters/person-9.png"
+import person1Avatar from "./characters/person-1-avatar.png";
+import person1Photo from "./characters/person-1.png";
+import person10Avatar from "./characters/person-10-avatar.png";
+import person10Photo from "./characters/person-10.png";
+import person11Avatar from "./characters/person-11-avatar.png";
+import person11Photo from "./characters/person-11.png";
+import person12Avatar from "./characters/person-12-avatar.png";
+import person12Photo from "./characters/person-12.png";
+import person13Avatar from "./characters/person-13-avatar.png";
+import person13Photo from "./characters/person-13.png";
+import person14Avatar from "./characters/person-14-avatar.png";
+import person14Photo from "./characters/person-14.png";
+import person15Avatar from "./characters/person-15-avatar.png";
+import person15Photo from "./characters/person-15.png";
+import person16Avatar from "./characters/person-16-avatar.png";
+import person16Photo from "./characters/person-16.png";
+import person2Avatar from "./characters/person-2-avatar.png";
+import person2Photo from "./characters/person-2.png";
+import person3Avatar from "./characters/person-3-avatar.png";
+import person3Photo from "./characters/person-3.png";
+import person4Avatar from "./characters/person-4-avatar.png";
+import person4Photo from "./characters/person-4.png";
+import person5Avatar from "./characters/person-5-avatar.png";
+import person5Photo from "./characters/person-5.png";
+import person6Avatar from "./characters/person-6-avatar.png";
+import person6Photo from "./characters/person-6.png";
+import person7Avatar from "./characters/person-7-avatar.png";
+import person7Photo from "./characters/person-7.png";
+import person8Avatar from "./characters/person-8-avatar.png";
+import person8Photo from "./characters/person-8.png";
+import person9Avatar from "./characters/person-9-avatar.png";
+import person9Photo from "./characters/person-9.png";
 
 export const characters = {
   EDDIE: {
@@ -96,8 +96,4 @@ export const characters = {
     avatar: person16Avatar,
     photo: person16Photo,
   },
-<<<<<<< HEAD
 };
-=======
-}
->>>>>>> 78d4b56 (added images exports)

@@ -4,93 +4,104 @@ import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { actions, DifficultyType } from "../../redux/game/game-reducer";
-import { profileActions, updateIncome } from "../../redux/profile/profile-reducer";
+import {
+  profileActions,
+  updateIncome,
+} from "../../redux/profile/profile-reducer";
 import { settingsActions } from "../../redux/settings-reducer";
 import { getTimeSpeedSelector } from "../../redux/settings-selector";
 import { spendsActions } from "../../redux/spends-reducer";
 import { AppStateType } from "../../redux/store";
 
 const SelectPage: FC = () => {
+  const dispatch = useDispatch();
+  const timeSpeed = useSelector(getTimeSpeedSelector);
 
-  const dispatch = useDispatch()
-  const timeSpeed = useSelector(getTimeSpeedSelector)
-  
-  const persons = useSelector((state: AppStateType) => state.profilePage.persons)
-  const [activePerson, setActivePerson] = useState(0)
+  const persons = useSelector(
+    (state: AppStateType) => state.profilePage.persons
+  );
+  const [activePerson, setActivePerson] = useState(0);
   const about = [
-    'Быстрая игра, хорошо подходит для ознакомления с игрой, доступен только рынок акций, для победы добейтесь дохода в 5000$',
-    'Нормальная игры, подходит для тех кто изучил основные принципы игры и хочет попробовать что-то новенькое, доступен рынок акций и рынок недвижимости, для победы добейтесь дохода в 15000$',
-    'Долгая игра, пройдите суровую проверку своих навыков, все рынки доступны, для победы добейтесь дохода в 50000$',
-  ]
+    "Быстрая игра, хорошо подходит для ознакомления с игрой, доступен только рынок акций, для победы добейтесь дохода в 5000$",
+    "Нормальная игры, подходит для тех кто изучил основные принципы игры и хочет попробовать что-то новенькое, доступен рынок акций и рынок недвижимости, для победы добейтесь дохода в 15000$",
+    "Долгая игра, пройдите суровую проверку своих навыков, все рынки доступны, для победы добейтесь дохода в 50000$",
+  ];
 
-  const [filteredPersons, setFilteredPersons] = useState(persons.filter(f => f.difficulty === 'easy'))
-  const [difficulty, setDifficulty] = useState<0 | 1 | 2>(0)
+  const [filteredPersons, setFilteredPersons] = useState(
+    persons.filter((f) => f.difficulty === "easy")
+  );
+  const [difficulty, setDifficulty] = useState<0 | 1 | 2>(0);
 
   // выбор скорости игры
-  const timesSpeed = [8, 4, 2]
+  const timesSpeed = [8, 4, 2];
 
   // расчёт подоходного налога / зависит на прямую от зп
-  const tax = filteredPersons[activePerson].salary >= 500
-    ? filteredPersons[activePerson].salary * 0.15 // на зп более 100$ повышенный налог...
-    : filteredPersons[activePerson].salary * 0.10
+  const tax =
+    filteredPersons[activePerson].salary >= 500
+      ? filteredPersons[activePerson].salary * 0.15 // на зп более 100$ повышенный налог...
+      : filteredPersons[activePerson].salary * 0.1;
 
-  let taxesSummary = filteredPersons[activePerson].expenses.reduce((acc, next) => {
-    return acc + next.startPrice * next.payment / 100
-  }, tax)
-  
+  let taxesSummary = filteredPersons[activePerson].expenses.reduce(
+    (acc, next) => {
+      return acc + (next.startPrice * next.payment) / 100;
+    },
+    tax
+  );
+
   const setProfile = async () => {
-
-    const profile = filteredPersons[activePerson]
-
-    // await updateStats(profile)
-
-    dispatch(profileActions.setProfile(profile))
+    const profile = filteredPersons[activePerson];
+    dispatch(profileActions.setProfile(profile));
     // устанавливаем подоходный налог на зп
-    dispatch(profileActions.setTax(tax))
+    dispatch(profileActions.setTax(tax));
     // устанавливаем долги персонажа
     // dispatch(profileActions.setExpenses(persons[activePerson].expenses))
     // стартовый баланс
-    dispatch(actions.setWallet(profile.saving))
+    dispatch(actions.setWallet(profile.saving));
 
-    dispatch(updateIncome())
+    dispatch(updateIncome());
     // dispatch(actions.setIncome(persons[activePerson].salary - taxesSummary))
-  }
+  };
 
   const optionsTime = [
-    { label: 'день/4сек', value: timesSpeed[0] },
-    { label: 'день/2сек', value: timesSpeed[1] },
-    { label: 'день/1сек', value: timesSpeed[2] },
-  ]
-  
+    { label: "день/4сек", value: timesSpeed[0] },
+    { label: "день/2сек", value: timesSpeed[1] },
+    { label: "день/1сек", value: timesSpeed[2] },
+  ];
+
   const gameDifficulty = [
-    { label: 'Легко', value: 0 },
-    { label: 'Средне', value: 1 },
-    { label: 'Сложно', value: 2 },
-  ]
+    { label: "Легко", value: 0 },
+    { label: "Средне", value: 1 },
+    { label: "Сложно", value: 2 },
+  ];
 
   const onChangeTime = (e: any) => {
-    dispatch(settingsActions.setTimeSpeed(e.target.value))
-    dispatch(settingsActions.setConstTimeSpeed(e.target.value))
-  }
+    dispatch(settingsActions.setTimeSpeed(e.target.value));
+    dispatch(settingsActions.setConstTimeSpeed(e.target.value));
+  };
 
   const onChangeDifficulty = (e: any) => {
-    setDifficulty(e.target.value)
-    let [filter, balance] = e.target.value === 0 ? ['easy', 5000] : e.target.value === 1 ? ['normal', 15000] : ['hard', 50000]
-    dispatch(actions.setVictoryBalance(balance))
-    dispatch(actions.setDifficulty(filter as DifficultyType))
-    setActivePerson(0)
-    setFilteredPersons(persons.filter(f => f.difficulty === filter))
-  }
+    setDifficulty(e.target.value);
+    let [filter, balance] =
+      e.target.value === 0
+        ? ["easy", 5000]
+        : e.target.value === 1
+        ? ["normal", 15000]
+        : ["hard", 50000];
+    dispatch(actions.setVictoryBalance(balance));
+    dispatch(actions.setDifficulty(filter as DifficultyType));
+    setActivePerson(0);
+    setFilteredPersons(persons.filter((f) => f.difficulty === filter));
+  };
 
   useEffect(() => {
-    dispatch(spendsActions.setEventsPrice())
-  },[dispatch, persons])
+    dispatch(spendsActions.setEventsPrice());
+  }, [dispatch, persons]);
 
   return (
     <>
       <div className="profile bannerBack">
         <div className="profileBack">
-          <NavLink to='/'>
+          <NavLink to="/">
             <Button>Обратно в меню</Button>
           </NavLink>
         </div>
@@ -99,24 +110,36 @@ const SelectPage: FC = () => {
           <div className="profileMenuTitle">Выбор персонажа</div>
           <div className="profileMenuList">
             <div className="profileMenuList__items">
-              {filteredPersons.length === 0
-                ? 'загрузка'
-                : <>
+              {filteredPersons.length === 0 ? (
+                "загрузка"
+              ) : (
+                <>
                   {filteredPersons.map((person, index) => {
                     return (
                       <span key={index}>
                         <div className="profileMenuList__item" key={index}>
-                          <button onClick={() => setActivePerson(index)} className='profileMenuList__itemImg' >
-                            <Avatar src={person.avatar} size={100} style={activePerson === index ? {border: '2px solid crimson'} : {}}/>
+                          <button
+                            onClick={() => setActivePerson(index)}
+                            className="profileMenuList__itemImg"
+                          >
+                            <Avatar
+                              src={person.avatar}
+                              size={100}
+                              style={
+                                activePerson === index
+                                  ? { border: "2px solid crimson" }
+                                  : {}
+                              }
+                            />
                           </button>
                         </div>
                       </span>
-                    )
+                    );
                   })}
                 </>
-              }
+              )}
             </div>
-          </div> 
+          </div>
         </div>
         <div className="profilePreview">
           <div className="profilePreview__Name">
@@ -126,26 +149,30 @@ const SelectPage: FC = () => {
             </div>
           </div>
           <div className="profilePreview__Img">
-            <img src={filteredPersons[activePerson].img} alt=""/>
+            <img src={filteredPersons[activePerson].img} alt="" />
           </div>
           <div className="profilePreview__Stats">
-            <div className='profilePreview__StatsIncome'>
-              <div className="profilePreview__StatsTitle">
-                Доходы
+            <div className="profilePreview__StatsIncome">
+              <div className="profilePreview__StatsTitle">Доходы</div>
+              <div className="profilePreview__StatsBlock">
+                <div className="profilePreview__StatsBlock__Title">
+                  Зарплата:
+                </div>
+                <div className="profilePreview__StatsBlock__Price">
+                  ${filteredPersons[activePerson].salary}
+                </div>
               </div>
               <div className="profilePreview__StatsBlock">
-                <div className="profilePreview__StatsBlock__Title">Зарплата:</div>
-                <div className="profilePreview__StatsBlock__Price">${filteredPersons[activePerson].salary}</div>
-              </div>
-              <div className="profilePreview__StatsBlock">
-                <div className="profilePreview__StatsBlock__Title">Остаток:</div>
-                <div className="profilePreview__StatsBlock__Price">${filteredPersons[activePerson].salary - taxesSummary}</div>
+                <div className="profilePreview__StatsBlock__Title">
+                  Остаток:
+                </div>
+                <div className="profilePreview__StatsBlock__Price">
+                  ${filteredPersons[activePerson].salary - taxesSummary}
+                </div>
               </div>
             </div>
-            <div className='profilePreview__StatsExpenses'>
-              <div className="profilePreview__StatsTitle">
-                Расходы
-              </div>
+            <div className="profilePreview__StatsExpenses">
+              <div className="profilePreview__StatsTitle">Расходы</div>
               <div className="profilePreview__StatsBlock">
                 <div className="profilePreview__StatsBlock__Title">Налог:</div>
                 <div className="profilePreview__StatsBlock__Price">${tax}</div>
@@ -153,20 +180,24 @@ const SelectPage: FC = () => {
               {filteredPersons[activePerson].expenses.map((expense, index) => {
                 return (
                   <>
-                    {expense.remainPrice !== 0
-                      ? <div className='profilePreview__StatsBlock' key={index}>
-                          <div className="profilePreview__StatsBlock__Title">{expense.title}:</div>
-                          <div className="profilePreview__StatsBlock__Price">${expense.remainPrice * expense.payment / 100}</div>
+                    {expense.remainPrice !== 0 ? (
+                      <div className="profilePreview__StatsBlock" key={index}>
+                        <div className="profilePreview__StatsBlock__Title">
+                          {expense.title}:
                         </div>
-                      : ''}
+                        <div className="profilePreview__StatsBlock__Price">
+                          ${(expense.remainPrice * expense.payment) / 100}
+                        </div>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </>
-                )
+                );
               })}
             </div>
             <div className="profilePreview__StatsCash">
-              <div className="profilePreview__StatsTitle">
-                Наличные:
-              </div>
+              <div className="profilePreview__StatsTitle">Наличные:</div>
               <div className="profilePreview__StatsBlock">
                 ${filteredPersons[activePerson].saving}
               </div>
@@ -176,24 +207,24 @@ const SelectPage: FC = () => {
         <div className="profileSettings">
           <div className="profileSettings__Speed">
             Скорость игры
-            <br/>
+            <br />
             <Radio.Group
               options={optionsTime}
               onChange={onChangeTime}
               value={timeSpeed}
-              optionType="button"                
-              className='profileSettings__SpeedRadio'
+              optionType="button"
+              className="profileSettings__SpeedRadio"
             />
           </div>
           <div className="profileSettings__Condition">
             Сложность
-            <br/>
+            <br />
             <Radio.Group
               options={gameDifficulty}
               onChange={onChangeDifficulty}
               value={difficulty}
               optionType="button"
-              className='settingsListItem__Radio'
+              className="settingsListItem__Radio"
             />
             <br />
             <div className="profileSettings__ConditionAbout">
@@ -201,14 +232,16 @@ const SelectPage: FC = () => {
             </div>
           </div>
           <div className="profileSettings__Button">
-            <NavLink to='/game'>
-              <Button size="large" onClick={setProfile}>Начать игру</Button>
+            <NavLink to="/game">
+              <Button size="large" onClick={setProfile}>
+                Начать игру
+              </Button>
             </NavLink>
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default SelectPage;

@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { appActions } from '../../redux/app-reducer'
-import { businessActions } from '../../redux/business-reducer'
+import { businessActions } from '../../redux/market/business/business-reducer'
 import { actions } from '../../redux/game/game-reducer'
 import { profileActions } from '../../redux/profile/profile-reducer'
 import { realtyActions } from '../../redux/market/realty/realty-reducer'

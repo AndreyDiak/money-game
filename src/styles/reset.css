@@ -1,18 +1,15 @@
 body {
   margin: 0;
   padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 button, input {
   outline: none;
 }
-
 button:hover, input:hover {
   cursor: pointer;
 }
-
 button:active, input:active {
   outline: none;
 }
@@ -20,7 +17,6 @@ button:active, input:active {
 a {
   text-decoration: none;
 }
-
 a:hover {
   cursor: pointer;
 }
@@ -28,5 +24,4 @@ a:hover {
 input:checked, input:active, input:focus {
   border: none;
   outline: none;
-}
-/*# sourceMappingURL=reset.css.map */
+}/*# sourceMappingURL=reset.css.map */

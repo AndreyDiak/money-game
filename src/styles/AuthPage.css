@@ -1,50 +1,38 @@
 .auth {
   width: 100%;
   height: 100vh;
-  background: url("../img/auth-banner.jpeg") center no-repeat;
+  background: url("../img/banners/auth-banner.jpeg") center no-repeat;
   background-size: cover;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   font-family: "Fira Mono", sans-serif;
 }
-
 .authForm {
   margin: 0 auto;
   padding: 25px;
-  background: white;
+  background: rgb(255, 255, 255);
   z-index: 10;
   text-align: center;
   width: 700px;
 }
-
 .authFormInput {
   max-width: 60%;
 }
-
 .authFormBlock {
   margin-bottom: 15px;
   font-size: 22px;
   font-weight: 700;
 }
-
 .authFormButton {
   margin-top: 25px;
 }
-
 .authFormHeader {
   margin-bottom: 20px;
   position: relative;
 }
-
 .authFormHeader::after {
-  content: '';
+  content: "";
   height: 2px;
   width: 50px;
   position: absolute;
@@ -58,66 +46,42 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   z-index: 100;
 }
-
 .userPopupButtom {
   margin-top: 30px;
 }
-
 .userPopupBlock button {
   border: none;
   background: transparent;
 }
-
 .userPopupBlock button img {
   border: 2px solid #282c34;
   width: 130px;
 }
-
 .userPopupBlocks {
   z-index: 1000;
   width: 50%;
   padding: 25px;
   background: #fff;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   row-gap: 15px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
-
 .userPopupBlocks span {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-column-gap: 10px;
-          column-gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
   row-gap: 10px;
 }
-
 .userPopup::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
@@ -148,10 +112,8 @@
     bottom: -5px;
   }
 }
-
 @media screen and (max-width: 768px) {
   .authForm {
     width: 100%;
   }
-}
-/*# sourceMappingURL=AuthPage.css.map */
+}/*# sourceMappingURL=AuthPage.css.map */

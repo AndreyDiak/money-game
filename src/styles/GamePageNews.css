@@ -1,22 +1,16 @@
 .gameNews {
   position: relative;
   height: inherit;
-  background: url("../img/banner-news.jpg") center no-repeat;
+  background: url("../img/banners/banner-news.jpg") center no-repeat;
   background-size: cover;
   z-index: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   row-gap: 30px;
-  font-family: 'Fira Mono', sans-serif;
+  font-family: "Fira Mono", sans-serif;
 }
-
 .gameNews::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -24,65 +18,52 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
 }
-
 .gameNewsMenu {
   margin-top: 50px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  -webkit-column-gap: 30px;
-          column-gap: 30px;
+  justify-content: flex-end;
+  -moz-column-gap: 30px;
+       column-gap: 30px;
 }
-
 .gameNewsContent {
   height: inherit;
   z-index: 10;
   overflow: auto;
 }
-
 .gameNewsContent__Tabs .ant-tabs-nav {
   position: fixed;
-  width: calc(100% * 2/3.2);
+  width: 62.5%;
   background: #282c34;
   color: #fff;
 }
-
 .gameNewsBlock {
   padding: 20px;
   width: 50%;
   background: rgba(243, 243, 243, 0.9);
   z-index: 10;
 }
-
 .gameNewsBlock__Title {
   padding: 10px;
   margin-bottom: 10px;
   font-size: 24px;
-  background: #439093;
+  background: rgb(67, 144, 147);
   z-index: 10;
   color: #fff;
 }
-
 .gameNewsBlock__News {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-
 .gameNewsBlock__NewsTitle, .gameNewsBlock__NewsPrice {
   font-size: 18px;
   color: #414141;
   font-weight: 700;
 }
-
 .gameNewsBlock__NewsPriceBold {
   font-weight: 900;
   margin-left: 10px;
   color: #000;
 }
-
 .gameNewsBlock__NewsCompany {
   margin: 10px auto;
   padding: 10px;
@@ -92,34 +73,24 @@
   color: #fff;
   font-weight: 700;
 }
-
 .gameNewsBlock__NewsButton {
   text-align: center;
 }
-
 .gameNewsBlock__NewsButton button {
   background: #3e6787;
   color: #fff;
   font-weight: 900;
 }
-
 .gameNewsBlock__Footer {
   margin-top: 10px;
   padding-top: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-column-gap: 5px;
-          column-gap: 5px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
+  align-items: center;
+  justify-content: flex-start;
   border-top: 1px solid grey;
 }
-
 .gameNewsBlock__FooterButton {
   border: none;
   background: none;
@@ -128,35 +99,22 @@
   font-size: 24px;
   color: green;
 }
-
 .gameNewsBlock__FooterButton:hover {
   color: #19a204;
   font-size: 26px;
 }
-
 .gameNewsBlocks {
   margin-top: 30px;
   padding: 50px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  align-items: center;
   row-gap: 50px;
   overflow: auto;
   z-index: 10;
 }
-
 .gameNewsBlocks__reverse {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: reverse;
-      -ms-flex-direction: column-reverse;
-          flex-direction: column-reverse;
+  flex-direction: column-reverse;
 }
 
 @media screen and (max-width: 1200px) {
@@ -165,19 +123,17 @@
     width: 70%;
   }
 }
-
 @media screen and (max-width: 1024px) {
   .gameNewsBlock {
     padding: 10px;
     width: 80%;
   }
 }
-
 @media screen and (max-width: 768px) {
   .gameNewsMenu {
     margin-top: 20px;
-    -webkit-column-gap: 10px;
-            column-gap: 10px;
+    -moz-column-gap: 10px;
+         column-gap: 10px;
   }
   .gameNewsBlock {
     width: 85%;
@@ -216,7 +172,6 @@
     row-gap: 20px;
   }
 }
-
 @media screen and (max-width: 480px) {
   .gameNewsBlock {
     width: 100%;
@@ -251,5 +206,4 @@
   .gameNewsBlocks {
     row-gap: 10px;
   }
-}
-/*# sourceMappingURL=GamePageNews.css.map */
+}/*# sourceMappingURL=GamePageNews.css.map */

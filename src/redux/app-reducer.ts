@@ -1,13 +1,13 @@
 import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
-import {businessActions} from "./business-reducer";
+import {businessActions} from "./market/business/business-reducer";
 import {realtyActions} from "./market/realty/realty-reducer";
 import {stocksActions} from "./market/stocks/stocks-reducer";
 import {worksActions} from "./work-reducer";
 import {actions} from "./game/game-reducer";
 import {profileActions} from "./profile/profile-reducer";
 import {spendsActions} from "./spends-reducer";
-import {newsActions} from "./news-reducer";
+import {newsActions} from "./news/news-reducer";
 
 const SET_INSTRUCTION_COMPLETED = 'SET_INSTRUCTION_COMPLETED'
 const SET_TOKEN = 'auth/SET_TOKEN'
@@ -90,7 +90,7 @@ export const setCurrentGameThunk = (data: any): AppThunkType => (dispatch) => {
   dispatch(stocksActions.setNewStocks(data.stocks, data.myStocks))
   // @ts-ignore / работа персонажа . . .
   dispatch(worksActions.setNewWork(data.workedDays, data.daysToUp, data.workLevel, data.workIncome))
-  // @ts-ignore / состояние игры . . .
+  // @ts-ignore / состояние игры 
   dispatch(actions.setNewGame(data.day, data.dayInMonth, data.month, data.wallet, data.victoryBalance))
   // @ts-ignore / профиль . . .
   dispatch(profileActions.setNewProfile(data.startSalary, data.income, data.children, data.childrenCount, data.profile, data.tax))

@@ -1,46 +1,37 @@
-import { businessActions } from './../../redux/business-reducer';
-// if (income >= 1000 && businesses.length === 0) {
-//   openNotification('Рынок недвижимости открыт!')
-// }
-
+import { getIsAbleToGenerateBusinessSelector } from './../../redux/market/business/business-selector';
 import { notification } from "antd";
-import { useCallback, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getBusinessesSelector } from "../../redux/business-selector";
-import { newsActions } from "../../redux/news-reducer";
-import { stocksActions } from "../../redux/market/stocks/stocks-reducer";
-import { getStocksSelector } from "../../redux/market/stocks/stocks-selector";
-import { AppStateType } from "../../redux/store";
-import BusinessPage from "../../pages/game/market/business";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getIncomeSelector } from "../../redux/game/game-selector";
+import { businessActions } from "../../redux/market/business/business-reducer";
+import { getBusinessesSelector } from "../../redux/market/business/business-selector";
+import { newsActions } from "../../redux/news/news-reducer";
+import { useTypedSelector } from "../../utils/hooks/useTypedSelector";
 
 export const useRealty = () => {
   // доход в месяц игрока . . .
 
-  const dispatch = useDispatch()
-  const incomeSelector = useCallback(
-    (state: AppStateType) => state.profilePage.income,
-    []
-  );
+  const dispatch = useDispatch();
 
-  const business = useSelector(getBusinessesSelector)
-  const income = useSelector(incomeSelector);
+  const isAbleToGenerate = useTypedSelector(getIsAbleToGenerateBusinessSelector);
+  const income = useTypedSelector(getIncomeSelector);
 
   const openNotification = (text: string) => {
     notification.open({
-      message: 'Поздравляем',
+      message: "Поздравляем",
       description: text,
     });
-  }
+  };
 
   useEffect(() => {
-    if (income >= 2500 && business.length === 0) {
+    if (income >= 2500 && !isAbleToGenerate) {
+      console.log('business')
       // новости про акции
-      dispatch(newsActions.setAbleToShow('businessNews'));
+      dispatch(newsActions.setAbleToShow("businessNews"));
       dispatch(businessActions.openBusiness());
       openNotification("Вам стала доступна покупка бизнеса!");
     }
-  }, []);
+  }, [isAbleToGenerate]);
 
   return null;
-
 };

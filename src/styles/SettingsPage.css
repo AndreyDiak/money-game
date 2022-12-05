@@ -1,39 +1,27 @@
 .settings {
   width: 100vw;
   height: 100vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  background: url("../img/banner-settings.jpg") center no-repeat;
+  background: url("../img/banners/banner-settings.jpg") center no-repeat;
   background-size: cover;
 }
-
 .settingsList {
   padding: 100px 70px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 550px;
   height: 100vh;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
   row-gap: 30px;
   z-index: 2;
   font-size: 24px;
   font-weight: 700;
-  font-family: 'Fira Mono', sans-serif;
+  font-family: "Fira Mono", sans-serif;
   color: #fff;
   background: rgba(0, 0, 0, 0.65);
 }
-
 .settingsListItem {
   width: 350px;
   padding-bottom: 30px;
   border-bottom: 1px solid #cacaca;
-}
-/*# sourceMappingURL=SettingsPage.css.map */
+}/*# sourceMappingURL=SettingsPage.css.map */

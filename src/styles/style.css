@@ -1,3 +1,4 @@
+@import '~antd/dist/antd.css';
 .menu {
   background: url("../img/background.jpg") center no-repeat;
   background-size: cover;
@@ -99,7 +100,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: url("../img/banner-settings.jpg") center no-repeat;
+  background: url("../img/banners/banner-settings.jpg") center no-repeat;
   background-size: cover;
   display: grid;
   grid-template-columns: 2fr 2fr;
@@ -199,7 +200,7 @@
   padding: 5px;
   font-weight: 900;
   font-size: 24px;
-  background: #73c167;
+  background: rgb(115, 193, 103);
   color: #fff;
   text-transform: uppercase;
 }
@@ -338,7 +339,7 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-  background: url("../img/banner-settings.jpg") center no-repeat;
+  background: url("../img/banners/banner-settings.jpg") center no-repeat;
   background-size: cover;
 }
 .settingsList {
@@ -439,14 +440,16 @@
 }
 .workChoiceContent__ListItems {
   display: flex;
-  column-gap: 15px;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
 }
 .workChoiceContent__ListItem:hover {
   cursor: pointer;
 }
 
 .navWrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
   align-items: center;
   justify-content: space-between;
   background: #673c74;
@@ -459,9 +462,9 @@
   display: flex;
   justify-content: center;
   height: 100%;
-  width: 33%;
   align-items: center;
-  column-gap: 15px;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
 }
 .navItem:last-child {
   justify-content: space-between;
@@ -473,14 +476,16 @@
 .navItemProfile {
   padding: 10px;
   display: flex;
-  column-gap: 30px;
+  -moz-column-gap: 30px;
+       column-gap: 30px;
   align-items: center;
   font-weight: 900;
 }
 .navItemMenu {
   margin-left: 50px;
   display: flex;
-  column-gap: 25px;
+  -moz-column-gap: 25px;
+       column-gap: 25px;
 }
 .navItemMenu__block {
   border: none;
@@ -518,9 +523,10 @@
   bottom: 0;
   display: none;
   padding: 10px;
-  background: white;
+  background: rgb(255, 255, 255);
   justify-content: center;
-  column-gap: 15px;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
   z-index: 15;
 }
 .bottomNavItem {
@@ -554,7 +560,8 @@
 @media screen and (max-width: 1200px) {
   .navItemMenu {
     margin-left: 10px;
-    column-gap: 15px;
+    -moz-column-gap: 15px;
+         column-gap: 15px;
   }
   .navItem__link {
     width: 60px;
@@ -566,7 +573,8 @@
 }
 @media screen and (max-width: 1024px) {
   .navItem {
-    column-gap: 10px;
+    -moz-column-gap: 10px;
+         column-gap: 10px;
     width: auto;
   }
   .navItemBalance {
@@ -574,7 +582,8 @@
   }
   .navItemProfile {
     padding: 5px;
-    column-gap: 10px;
+    -moz-column-gap: 10px;
+         column-gap: 10px;
     font-size: 16px;
   }
   .navItem__link {
@@ -595,7 +604,6 @@
   .bottomNav {
     display: flex;
   }
-
   .navItem:last-child {
     height: 50px;
   }
@@ -614,7 +622,6 @@
   .navItem__link {
     display: none;
   }
-
   .ant-menu {
     text-align: center;
   }
@@ -626,9 +633,9 @@
   .ant-modal {
     width: 80% !important;
   }
-
   .navItemMenu {
-    column-gap: 5px;
+    -moz-column-gap: 5px;
+         column-gap: 5px;
   }
   .navItemBalance {
     font-size: 14px;
@@ -668,7 +675,7 @@
   width: 100%;
   height: inherit;
   flex-direction: column;
-  background: url("../img/banner-market.jpg") center no-repeat;
+  background: url("../img/banners/banner-market.jpg") center no-repeat;
   background-size: cover;
   color: #fff;
   z-index: 0;
@@ -689,7 +696,8 @@
   padding: 15px;
   display: flex;
   flex-direction: column;
-  column-gap: 30px;
+  -moz-column-gap: 30px;
+       column-gap: 30px;
   row-gap: 30px;
 }
 .gameProfitMargin__popup {
@@ -766,7 +774,8 @@
   margin-bottom: 10px;
   display: flex;
   justify-content: center;
-  column-gap: 15px;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
   row-gap: 15px;
 }
 .gameProfitMenu__History {
@@ -877,7 +886,8 @@
 }
 .gameProfitStocks__OfferBlock__Info {
   display: flex;
-  column-gap: 15px;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
 }
 .gameProfitStocks__OfferBlocks__menu {
   margin-top: 20px;
@@ -898,7 +908,8 @@
   }
   .gameProfitMargin__block {
     max-width: 95%;
-    column-gap: 5px;
+    -moz-column-gap: 5px;
+         column-gap: 5px;
   }
   .gameProfitMargin__blockStats {
     font-size: 16px;
@@ -933,7 +944,8 @@
     font-size: 18px;
   }
   .gameProfitStocks__OfferBlock__Info {
-    column-gap: 10px;
+    -moz-column-gap: 10px;
+         column-gap: 10px;
   }
   .gameProfitStocks__OfferBlock__Button {
     margin-top: 5px;
@@ -963,13 +975,14 @@
   }
   .gameProfitStocks__OfferBlocks__stocks {
     overflow: scroll;
-    padding: 10px 0 100px;
+    padding: 10px 0 10px;
   }
   .gameProfitStocks__OfferBlock__Title {
     font-size: 16px;
   }
   .gameProfitStocks__OfferBlock__Info {
-    column-gap: 7px;
+    -moz-column-gap: 7px;
+         column-gap: 7px;
   }
   .gameProfitStocks__OfferBlock__Button {
     padding: 3px 5px;
@@ -1012,7 +1025,8 @@
     overflow: scroll;
     max-height: 80vh;
     padding: 10px 10px 50px;
-    column-gap: 15px;
+    -moz-column-gap: 15px;
+         column-gap: 15px;
     row-gap: 15px;
   }
   .gameProfitMargin__block {
@@ -1027,7 +1041,8 @@
   .gameProfitMargin__blockAbout {
     display: flex;
     align-items: center;
-    column-gap: 15px;
+    -moz-column-gap: 15px;
+         column-gap: 15px;
   }
   .gameProfitMargin__blockAbout__age {
     font-size: 18px;
@@ -1059,7 +1074,8 @@
 }
 .gameProfileStats__AvatarImg {
   display: flex;
-  column-gap: 20px;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
   align-items: center;
 }
 .gameProfileStats__AvatarImgLevel {
@@ -1070,7 +1086,7 @@
   text-align: center;
   bottom: 9px;
   left: 35px;
-  background: #1099d1;
+  background: rgb(16, 153, 209);
   border-radius: 50%;
   font-weight: 900;
   font-size: 15px;
@@ -1085,7 +1101,8 @@
 }
 .gameProfileStats__Menu {
   display: flex;
-  column-gap: 15px;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
 }
 .gameProfileStats__MenuItem {
   color: #000;
@@ -1194,7 +1211,7 @@
   border-radius: 5px;
   color: #fff;
   border: 2px solid #282c34;
-  background: #cc5a5a;
+  background: rgb(204, 90, 90);
 }
 .gameProfileContent__WorkStats__Income span::after {
   top: -6px;
@@ -1219,7 +1236,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: url("../img/banner-work.jpg") no-repeat;
+  background: url("../img/banners/banner-work.jpg") no-repeat;
   background-size: cover;
   font-family: "Fira Mono", sans-serif;
 }
@@ -1267,7 +1284,8 @@
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "profile incomes " "profile works";
   row-gap: 20px;
-  column-gap: 20px;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
 }
 .gameWorkContent__block {
   text-align: center;
@@ -1283,7 +1301,7 @@
 }
 .gameWorkContent__blocks {
   padding: 25px;
-  background: #ead2ac;
+  background: rgb(234, 210, 172);
   width: calc(45% - 50px);
 }
 .gameWorkContent__blocksTitle {
@@ -1368,7 +1386,7 @@
   justify-content: center;
   height: inherit;
   width: 100%;
-  background: url("../img/banner-spends.jpg") center no-repeat;
+  background: url("../img/banners/banner-spends.jpg") center no-repeat;
   background-size: cover;
   z-index: 0;
   font-family: "Fira Mono", sans-serif;
@@ -1383,7 +1401,8 @@
 .gameSpendContent .container {
   display: flex;
   flex-wrap: wrap;
-  column-gap: 30px;
+  -moz-column-gap: 30px;
+       column-gap: 30px;
   row-gap: 30px;
   justify-content: center;
 }
@@ -1443,7 +1462,8 @@
   justify-content: center;
   overflow: auto;
   row-gap: 10px;
-  column-gap: 10px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -1464,7 +1484,8 @@
     font-size: 22px;
   }
   .gameSpendContent .container {
-    column-gap: 10px;
+    -moz-column-gap: 10px;
+         column-gap: 10px;
     row-gap: 10px;
   }
 }
@@ -1494,7 +1515,7 @@
 .gameNews {
   position: relative;
   height: inherit;
-  background: url("../img/banner-news.jpg") center no-repeat;
+  background: url("../img/banners/banner-news.jpg") center no-repeat;
   background-size: cover;
   z-index: 0;
   display: flex;
@@ -1515,7 +1536,8 @@
   margin-top: 50px;
   display: flex;
   justify-content: flex-end;
-  column-gap: 30px;
+  -moz-column-gap: 30px;
+       column-gap: 30px;
 }
 .gameNewsContent {
   height: inherit;
@@ -1524,7 +1546,7 @@
 }
 .gameNewsContent__Tabs .ant-tabs-nav {
   position: fixed;
-  width: calc(100% * 2/3.2);
+  width: 62.5%;
   background: #282c34;
   color: #fff;
 }
@@ -1538,7 +1560,7 @@
   padding: 10px;
   margin-bottom: 10px;
   font-size: 24px;
-  background: #439093;
+  background: rgb(67, 144, 147);
   z-index: 10;
   color: #fff;
 }
@@ -1577,7 +1599,8 @@
   margin-top: 10px;
   padding-top: 10px;
   display: flex;
-  column-gap: 5px;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
   align-items: center;
   justify-content: flex-start;
   border-top: 1px solid grey;
@@ -1623,7 +1646,8 @@
 @media screen and (max-width: 768px) {
   .gameNewsMenu {
     margin-top: 20px;
-    column-gap: 10px;
+    -moz-column-gap: 10px;
+         column-gap: 10px;
   }
   .gameNewsBlock {
     width: 85%;
@@ -1701,7 +1725,7 @@
   display: flex;
   justify-content: center;
   height: inherit;
-  background: url("../img/banner-business.jpg") center no-repeat;
+  background: url("../img/banners/banner-business.jpg") center no-repeat;
   background-size: cover;
   z-index: 3;
   font-family: "Fira Mono", sans-serif;
@@ -1825,7 +1849,7 @@
   justify-content: center;
   align-items: center;
   height: calc(100vh - 55px);
-  background: url("../img/banner-bank.jpg") center no-repeat;
+  background: url("../img/banners/banner-bank.jpg") center no-repeat;
   background-size: cover;
   z-index: 3;
   font-family: "Fira Mono", sans-serif;
@@ -1835,7 +1859,8 @@
   justify-content: center;
   width: 100%;
   height: inherit;
-  column-gap: 50px;
+  -moz-column-gap: 50px;
+       column-gap: 50px;
   flex-wrap: wrap;
   row-gap: 50px;
   z-index: 10;
@@ -1874,7 +1899,7 @@
   font-weight: 900;
   font-size: 28px;
   color: #fff;
-  background: #439093;
+  background: rgb(67, 144, 147);
 }
 .gameBankContent__Form {
   margin-top: 10px;
@@ -1929,7 +1954,8 @@
 
 @media screen and (max-width: 1200px) {
   .gameBankContent {
-    column-gap: 35px;
+    -moz-column-gap: 35px;
+         column-gap: 35px;
     row-gap: 35px;
   }
   .gameBankContent__liabilities, .gameBankContent__credit, .gameBankContent__payout, .gameBankContent__deposit {
@@ -1941,7 +1967,8 @@
     padding: 30px;
   }
   .gameBankContent {
-    column-gap: 20px;
+    -moz-column-gap: 20px;
+         column-gap: 20px;
     row-gap: 20px;
   }
   .gameBankContent__Blocks {
@@ -1959,7 +1986,6 @@
   .gameBankContent__liabilities, .gameBankContent__credit, .gameBankContent__payout, .gameBankContent__deposit {
     width: 70%;
   }
-
   .warning {
     padding: 15px;
     font-size: 14px;
@@ -2031,7 +2057,7 @@
   display: flex;
   width: 100%;
   height: inherit;
-  background: url("../img/banner-realty.jpg") center no-repeat;
+  background: url("../img/banners/banner-realty.jpg") center no-repeat;
   background-size: cover;
   color: #fff;
   font-family: "Fira Mono", sans-serif;
@@ -2062,7 +2088,8 @@
 .gameRealtyContent__blockInfo__priceItem {
   display: flex;
   justify-content: space-between;
-  column-gap: 30px;
+  -moz-column-gap: 30px;
+       column-gap: 30px;
   padding-bottom: 5px;
   margin-bottom: 5px;
   border-bottom: 2px solid #fff;
@@ -2119,7 +2146,8 @@
   display: flex;
   justify-content: center;
   max-height: 420px;
-  column-gap: 30px;
+  -moz-column-gap: 30px;
+       column-gap: 30px;
 }
 .gameRealtyContent__realtyTitle {
   margin: 0 auto 30px;
@@ -2163,7 +2191,7 @@
 .auth {
   width: 100%;
   height: 100vh;
-  background: url("../img/auth-banner.jpeg") center no-repeat;
+  background: url("../img/banners/auth-banner.jpeg") center no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -2173,7 +2201,7 @@
 .authForm {
   margin: 0 auto;
   padding: 25px;
-  background: white;
+  background: rgb(255, 255, 255);
   z-index: 10;
   text-align: center;
   width: 700px;
@@ -2238,7 +2266,8 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  column-gap: 10px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
   row-gap: 10px;
 }
 .userPopup::after {
@@ -2282,7 +2311,7 @@
   width: 100%;
   height: 100vh;
   padding: 100px 0;
-  background: url("../img/auth-banner.jpeg") center no-repeat;
+  background: url("../img/banners/auth-banner.jpeg") center no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -2303,7 +2332,8 @@
   grid-template-columns: 1fr 3fr;
   grid-template-areas: "img info" "stats stats";
   row-gap: 50px;
-  column-gap: 50px;
+  -moz-column-gap: 50px;
+       column-gap: 50px;
 }
 .userPageContent__profileImg {
   background: #fff;
@@ -2363,7 +2393,8 @@
 .userPageContent__profileStats__info {
   display: flex;
   grid-area: info;
-  column-gap: 15px;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
 }
 
 body {
@@ -2450,7 +2481,8 @@ input:checked, input:active, input:focus {
 .chartPopupBlock__AlertTitle, .sellPopupBlock__AlertTitle, .marginPopupBlock__AlertTitle, .marginPaybackPopupBlock__AlertTitle, .endPopupBlock__AlertTitle, .historyPopupBlock__AlertTitle {
   display: flex;
   align-items: center;
-  column-gap: 10px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
 }
 .chartPopupBlock__Result, .sellPopupBlock__Result, .marginPopupBlock__Result, .marginPaybackPopupBlock__Result, .endPopupBlock__Result, .historyPopupBlock__Result {
   font-size: 16px;
@@ -2458,10 +2490,10 @@ input:checked, input:active, input:focus {
   font-weight: 500;
 }
 .chartPopupBlock__ResultMin b, .sellPopupBlock__ResultMin b, .marginPopupBlock__ResultMin b, .marginPaybackPopupBlock__ResultMin b, .endPopupBlock__ResultMin b, .historyPopupBlock__ResultMin b {
-  color: #f36f38;
+  color: rgb(243, 111, 56);
 }
 .chartPopupBlock__ResultMax b, .sellPopupBlock__ResultMax b, .marginPopupBlock__ResultMax b, .marginPaybackPopupBlock__ResultMax b, .endPopupBlock__ResultMax b, .historyPopupBlock__ResultMax b {
-  color: #f67280;
+  color: rgb(246, 114, 128);
 }
 .chartPopupBlock__Active, .sellPopupBlock__Active, .marginPopupBlock__Active, .marginPaybackPopupBlock__Active, .endPopupBlock__Active, .historyPopupBlock__Active {
   display: grid;
@@ -2480,7 +2512,7 @@ input:checked, input:active, input:focus {
   font-size: 16px;
 }
 .chartPopupBlock__ActivePortfolio__summary b, .sellPopupBlock__ActivePortfolio__summary b, .marginPopupBlock__ActivePortfolio__summary b, .marginPaybackPopupBlock__ActivePortfolio__summary b, .endPopupBlock__ActivePortfolio__summary b, .historyPopupBlock__ActivePortfolio__summary b {
-  color: #57895b;
+  color: rgb(87, 137, 91);
 }
 .chartPopupBlock__ActiveList, .sellPopupBlock__ActiveList, .marginPopupBlock__ActiveList, .marginPaybackPopupBlock__ActiveList, .endPopupBlock__ActiveList, .historyPopupBlock__ActiveList {
   grid-area: stocks;
@@ -2492,7 +2524,8 @@ input:checked, input:active, input:focus {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
-  column-gap: 10px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
 }
 .chartPopupBlock__ActiveChart, .sellPopupBlock__ActiveChart, .marginPopupBlock__ActiveChart, .marginPaybackPopupBlock__ActiveChart, .endPopupBlock__ActiveChart, .historyPopupBlock__ActiveChart {
   grid-area: chart;
@@ -2509,7 +2542,8 @@ input:checked, input:active, input:focus {
 .chartPopupBlock__MenuButtons, .sellPopupBlock__MenuButtons, .marginPopupBlock__MenuButtons, .marginPaybackPopupBlock__MenuButtons, .endPopupBlock__MenuButtons, .historyPopupBlock__MenuButtons {
   display: flex;
   row-gap: 5px;
-  column-gap: 5px;
+  -moz-column-gap: 5px;
+       column-gap: 5px;
   flex-direction: column;
 }
 .chartPopupBlock__MenuButtons button, .sellPopupBlock__MenuButtons button, .marginPopupBlock__MenuButtons button, .marginPaybackPopupBlock__MenuButtons button, .endPopupBlock__MenuButtons button, .historyPopupBlock__MenuButtons button {
@@ -2519,19 +2553,21 @@ input:checked, input:active, input:focus {
 .chartPopupBlock__MenuTime, .sellPopupBlock__MenuTime, .marginPopupBlock__MenuTime, .marginPaybackPopupBlock__MenuTime, .endPopupBlock__MenuTime, .historyPopupBlock__MenuTime {
   display: flex;
   flex-direction: column;
-  column-gap: 10px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
   row-gap: 10px;
 }
 .chartPopupBlock__MenuInfo, .sellPopupBlock__MenuInfo, .marginPopupBlock__MenuInfo, .marginPaybackPopupBlock__MenuInfo, .endPopupBlock__MenuInfo, .historyPopupBlock__MenuInfo {
   display: flex;
-  column-gap: 50px;
+  -moz-column-gap: 50px;
+       column-gap: 50px;
 }
 .chartPopupBlock__MenuInfo__Title, .sellPopupBlock__MenuInfo__Title, .marginPopupBlock__MenuInfo__Title, .marginPaybackPopupBlock__MenuInfo__Title, .endPopupBlock__MenuInfo__Title, .historyPopupBlock__MenuInfo__Title {
   margin-bottom: 5px;
   padding: 10px;
   font-weight: 700;
   font-size: 16px;
-  background: #439093;
+  background: rgb(67, 144, 147);
   color: #fff;
 }
 .chartPopupBlock__MenuInfo__Input, .sellPopupBlock__MenuInfo__Input, .marginPopupBlock__MenuInfo__Input, .marginPaybackPopupBlock__MenuInfo__Input, .endPopupBlock__MenuInfo__Input, .historyPopupBlock__MenuInfo__Input {
@@ -2621,7 +2657,8 @@ input:checked, input:active, input:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  column-gap: 15px;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
   row-gap: 15px;
   max-height: 350px;
   overflow-y: scroll;
@@ -2647,7 +2684,8 @@ input:checked, input:active, input:focus {
 }
 .chartPopupBlock__ListItem__OperationBlock, .sellPopupBlock__ListItem__OperationBlock, .marginPopupBlock__ListItem__OperationBlock, .marginPaybackPopupBlock__ListItem__OperationBlock, .endPopupBlock__ListItem__OperationBlock, .historyPopupBlock__ListItem__OperationBlock {
   display: flex;
-  column-gap: 10px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
   font-size: 14px;
 }
 .chartPopupBlock__Bottom, .sellPopupBlock__Bottom, .marginPopupBlock__Bottom, .marginPaybackPopupBlock__Bottom, .endPopupBlock__Bottom, .historyPopupBlock__Bottom {
@@ -2703,24 +2741,6 @@ input:checked, input:active, input:focus {
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
   overflow: hidden;
-}
-
-.profile-start {
-  background: url("../img/banner-profile-1.jpg") center no-repeat;
-  background-size: cover;
-  z-index: 1;
-}
-
-.profile-medium {
-  background: url("../img/banner-profile-2.jpg") center no-repeat;
-  background-size: cover;
-  z-index: 1;
-}
-
-.profile-top {
-  background: url("../img/banner-profile-3.jpg") center no-repeat;
-  background-size: cover;
-  z-index: 1;
 }
 
 .ant-tabs-nav {
@@ -2788,7 +2808,6 @@ input:checked, input:active, input:focus {
     justify-content: center;
     flex-wrap: wrap;
   }
-
   .container {
     width: 80%;
   }
@@ -2797,7 +2816,6 @@ input:checked, input:active, input:focus {
   .container {
     width: 85%;
   }
-
   .chartPopupBlock, .sellPopupBlock, .marginPopupBlock, .historyPopupBlock {
     padding: 10px 20px;
     position: absolute;
@@ -2847,7 +2865,6 @@ input:checked, input:active, input:focus {
   .container {
     width: 90%;
   }
-
   .chartPopupBlock, .sellPopupBlock, .marginPopupBlock, .historyPopupBlock, .marginPaybackPopupBlock, .marginPopupBlock {
     padding: 5px 10px;
     width: 95%;
@@ -2862,7 +2879,8 @@ input:checked, input:active, input:focus {
     font-size: 16px;
   }
   .chartPopupBlock__ListItem__OperationBlock, .sellPopupBlock__ListItem__OperationBlock, .marginPopupBlock__ListItem__OperationBlock, .historyPopupBlock__ListItem__OperationBlock, .marginPaybackPopupBlock__ListItem__OperationBlock, .marginPopupBlock__ListItem__OperationBlock {
-    column-gap: 5px;
+    -moz-column-gap: 5px;
+         column-gap: 5px;
     font-size: 14px;
   }
   .chartPopupBlock__Title, .sellPopupBlock__Title, .marginPopupBlock__Title, .historyPopupBlock__Title, .marginPaybackPopupBlock__Title, .marginPopupBlock__Title {
@@ -2888,6 +2906,4 @@ input:checked, input:active, input:focus {
   .chartPopupBlock__MenuInfo div button, .sellPopupBlock__MenuInfo div button, .marginPopupBlock__MenuInfo div button, .historyPopupBlock__MenuInfo div button, .marginPaybackPopupBlock__MenuInfo div button, .marginPopupBlock__MenuInfo div button {
     display: none;
   }
-}
-
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

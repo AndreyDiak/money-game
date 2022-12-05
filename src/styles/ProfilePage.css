@@ -3,17 +3,14 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: url("../img/banner-settings.jpg") center no-repeat;
+  background: url("../img/banners/banner-settings.jpg") center no-repeat;
   background-size: cover;
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 2fr 2fr;
-      grid-template-columns: 2fr 2fr;
-      grid-template-areas: 'menu menu' 'preview settings';
-  font-family: 'Fira Mono', sans-serif;
+  grid-template-columns: 2fr 2fr;
+  grid-template-areas: "menu menu" "preview settings";
+  font-family: "Fira Mono", sans-serif;
   z-index: 10;
 }
-
 .profileBack {
   position: absolute;
   top: 30px;
@@ -21,185 +18,125 @@
   font-size: 24px;
   z-index: 100;
 }
-
 .profileBack button {
   font-size: 24px;
   height: auto;
 }
-
 .profileMenu {
   z-index: 10;
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 2;
   grid-area: menu;
 }
-
 .profileMenuTitle {
   text-align: center;
 }
-
 .profileMenuList {
   text-align: center;
 }
-
 .profileMenuList__item {
   width: 90px;
   height: 90px;
 }
-
 .profileMenuList__itemImg {
   background: transparent;
   width: 100%;
   outline: none;
   border: none;
 }
-
 .profileMenuList__itemImg span {
   width: 100% !important;
   height: 100% !important;
 }
-
 .profileMenuList__items {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
-
 .profileMenu__Button {
   padding: 20px;
   text-align: center;
 }
-
 .profileMenu__Button a button {
   height: auto;
   font-size: 28px;
   font-weight: 700;
 }
-
 .profilePreview {
   padding: 30px;
   background: rgba(0, 0, 0, 0.4);
-  display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 2fr 3fr;
-      grid-template-columns: 2fr 3fr;
+  grid-template-columns: 2fr 3fr;
   border: 1px solid white;
-      grid-template-areas: 'name stats' 'img stats';
+  grid-template-areas: "name stats" "img stats";
   z-index: 10;
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
   grid-area: preview;
 }
-
 .profilePreview__Name {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
   grid-area: name;
   font-size: 30px;
   color: #fff;
   font-weight: 900;
   max-width: 200px;
 }
-
 .profilePreview__NameWork {
   border-top: 1px solid white;
   color: darkgrey;
 }
-
 .profilePreview__Stats {
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 2;
-  -ms-grid-column: 2;
   grid-area: stats;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  flex-direction: column;
+  justify-content: center;
   font-weight: 700;
 }
-
 .profilePreview__StatsIncome, .profilePreview__StatsExpenses, .profilePreview__StatsCash {
   background: #f4d4bd;
 }
-
 .profilePreview__StatsIncome {
   margin-bottom: 15px;
 }
-
 .profilePreview__StatsExpenses {
   margin-bottom: 15px;
 }
-
 .profilePreview__StatsCash {
   font-size: 18px;
 }
-
 .profilePreview__StatsTitle {
   padding: 5px;
   font-weight: 900;
   font-size: 24px;
-  background: #73c167;
+  background: rgb(115, 193, 103);
   color: #fff;
   text-transform: uppercase;
 }
-
 .profilePreview__StatsBlock {
   margin: 7px;
   padding: 7px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   border-bottom: 1px solid #282c34;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
   font-size: 18px;
   font-weight: 700;
 }
-
 .profilePreview__StatsBlock:last-child {
   border-bottom: none;
 }
-
 .profilePreview__Img {
-  -ms-grid-row: 2;
-  -ms-grid-column: 1;
   grid-area: img;
   padding: 5px;
   max-height: 550px;
 }
-
 .profilePreview__Img img {
   z-index: -1;
   height: 100%;
 }
-
 .profileSettings {
   padding: 50px 75px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
-
 .profileSettings__Button {
   text-align: center;
   z-index: 100;
 }
-
 .profileSettings__Speed, .profileSettings__Condition {
   padding: 30px;
   text-align: center;
@@ -210,7 +147,6 @@
   font-size: 24px;
   border: 1px solid white;
 }
-
 .profileSettings__ConditionAbout {
   margin-top: 10px;
   padding-top: 10px;
@@ -226,12 +162,10 @@
     max-height: 450px;
   }
 }
-
 @media screen and (max-width: 1200px) {
   .profile {
-    -ms-grid-columns: 1fr;
-        grid-template-columns: 1fr;
-        grid-template-areas: 'menu' 'preview' 'settings';
+    grid-template-columns: 1fr;
+    grid-template-areas: "menu" "preview" "settings";
   }
   .profileMenuList__item {
     width: 70px;
@@ -257,7 +191,6 @@
     font-size: 14px;
   }
 }
-
 @media screen and (max-width: 1024px) {
   .profile {
     padding-top: 70px;
@@ -271,30 +204,25 @@
     font-size: 18px;
   }
 }
-
 @media screen and (max-width: 768px) {
   .profileMenuList__items {
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
   }
   .profilePreview {
-    -ms-grid-columns: 1fr;
-        grid-template-columns: 1fr;
-        grid-template-areas: 'name' 'stats';
+    grid-template-columns: 1fr;
+    grid-template-areas: "name" "stats";
   }
   .profilePreview__Img {
     display: none;
   }
 }
-
 @media screen and (max-width: 480px) {
   .profile {
     padding: 60px 10px;
   }
   .profileBack {
     right: 50%;
-    -webkit-transform: translateX(50%);
-            transform: translateX(50%);
+    transform: translateX(50%);
   }
   .profileSettings {
     padding: 10px;
@@ -309,5 +237,4 @@
   .profileSettings__Speed {
     margin-bottom: 10px;
   }
-}
-/*# sourceMappingURL=ProfilePage.css.map */
+}/*# sourceMappingURL=ProfilePage.css.map */

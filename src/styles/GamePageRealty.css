@@ -1,121 +1,81 @@
 .gameRealty {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 100%;
   height: inherit;
-  background: url("../img/banner-realty.jpg") center no-repeat;
+  background: url("../img/banners/banner-realty.jpg") center no-repeat;
   background-size: cover;
   color: #fff;
-  font-family: 'Fira Mono', sans-serif;
+  font-family: "Fira Mono", sans-serif;
 }
-
 .gameRealtyContent {
   padding: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   width: 100%;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   z-index: 10;
 }
-
 .gameRealtyContent__block {
   padding: 20px 30px;
   background: rgba(25, 58, 86, 0.8);
   width: 700px;
   border: 2px solid #fff;
 }
-
 .gameRealtyContent__blockInfo {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
-
 .gameRealtyContent__blockInfo__price {
   font-weight: 700;
   font-size: 18px;
 }
-
 .gameRealtyContent__blockInfo__priceItem {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-column-gap: 30px;
-          column-gap: 30px;
+  justify-content: space-between;
+  -moz-column-gap: 30px;
+       column-gap: 30px;
   padding-bottom: 5px;
   margin-bottom: 5px;
   border-bottom: 2px solid #fff;
 }
-
 .gameRealtyContent__blockInfo__priceItem:last-child {
   border-bottom: none;
 }
-
 .gameRealtyContent__blockImg {
   max-width: 300px;
 }
-
 .gameRealtyContent__blockImg img {
   width: 100%;
 }
-
 .gameRealtyContent__realty {
   padding: 10px 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  justify-content: center;
+  flex-direction: column;
   width: 700px;
   background: rgba(32, 68, 98, 0.7);
 }
-
 .gameRealtyContent__realtyItem {
   max-height: 380px;
   font-size: 18px;
   font-weight: 700;
   color: #fff;
 }
-
 .gameRealtyContent__realtyItem:last-child {
   border-right: none;
 }
-
 .gameRealtyContent__realtyItem__income {
   padding-bottom: 5px;
   margin-bottom: 5px;
   display: inline-block;
   border-bottom: 1px solid #fff;
 }
-
 .gameRealtyContent__realtyItem__title {
   margin-bottom: 10px;
   text-align: center;
   padding-bottom: 15px;
 }
-
 .gameRealtyContent__realtyItem__img {
   margin: 0 auto 12px;
   text-align: center;
@@ -123,24 +83,17 @@
   padding-bottom: 12px;
   border-bottom: 1px solid #fff;
 }
-
 .gameRealtyContent__realtyItem__img img {
   width: 100%;
 }
-
 .gameRealtyContent__realtyItems {
   padding: 30px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   max-height: 420px;
-  -webkit-column-gap: 30px;
-          column-gap: 30px;
+  -moz-column-gap: 30px;
+       column-gap: 30px;
 }
-
 .gameRealtyContent__realtyTitle {
   margin: 0 auto 30px;
   padding-bottom: 10px;
@@ -163,14 +116,10 @@
     font-size: 18px;
   }
   .gameRealtyContent__realtyInfo, .gameRealtyContent__blockInfo {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: reverse;
-        -ms-flex-direction: column-reverse;
-            flex-direction: column-reverse;
+    flex-direction: column-reverse;
     row-gap: 10px;
   }
 }
-
 @media screen and (max-width: 480px) {
   .gameRealtyContent__realtyItem {
     text-align: center;
@@ -183,5 +132,4 @@
   .gameRealtyContent__blockInfo__price {
     font-size: 14px;
   }
-}
-/*# sourceMappingURL=GamePageRealty.css.map */
+}/*# sourceMappingURL=GamePageRealty.css.map */

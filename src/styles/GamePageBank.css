@@ -1,165 +1,101 @@
 .gameBank {
   padding: 0 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   height: calc(100vh - 55px);
-  background: url("../img/banner-bank.jpg") center no-repeat;
+  background: url("../img/banners/banner-bank.jpg") center no-repeat;
   background-size: cover;
   z-index: 3;
-  font-family: 'Fira Mono', sans-serif;
+  font-family: "Fira Mono", sans-serif;
 }
-
 .gameBankContent {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
   width: 100%;
   height: inherit;
-  -webkit-column-gap: 50px;
-          column-gap: 50px;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  -moz-column-gap: 50px;
+       column-gap: 50px;
+  flex-wrap: wrap;
   row-gap: 50px;
   z-index: 10;
 }
-
 .gameBankContent .container {
   width: inherit;
 }
-
 .gameBankContent__liabilities, .gameBankContent__credit, .gameBankContent__payout, .gameBankContent__deposit {
   background: rgba(249, 235, 217, 0.9);
   width: 40%;
 }
-
 .gameBankContent__Menu {
   padding: 30px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  align-items: center;
+  justify-content: space-around;
 }
-
 .gameBankContent__MenuPay {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  align-items: center;
 }
-
 .gameBankContent__MenuPay__Price {
   margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid grey;
 }
-
 .gameBankContent__MenuPay__Input {
   width: 100%;
 }
-
 .gameBankContent__MenuPay__Input input {
   width: 50%;
 }
-
 .gameBankContent__Title {
   padding: 15px;
   font-weight: 900;
   font-size: 28px;
   color: #fff;
-  background: #439093;
+  background: rgb(67, 144, 147);
 }
-
 .gameBankContent__Form {
   margin-top: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   font-size: 18px;
 }
-
 .gameBankContent__FormPayload {
   padding-bottom: 10px;
   margin-bottom: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
-
 .gameBankContent__FormPayload:first-child {
   border-bottom: 1px solid grey;
 }
-
 .gameBankContent__FormPayloads {
   margin-top: 10px;
   width: 80%;
 }
-
 .gameBankContent__FormInput {
   margin-top: 10px;
   width: 30%;
 }
-
 .gameBankContent__Button {
   margin-bottom: 40px;
   text-align: center;
 }
-
 .gameBankContent__Block {
   padding-bottom: 15px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid #999999;
 }
-
 .gameBankContent__Blocks {
   padding: 30px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
   row-gap: 15px;
   font-size: 20px;
   font-weight: 500;
@@ -173,22 +109,21 @@
 
 @media screen and (max-width: 1200px) {
   .gameBankContent {
-    -webkit-column-gap: 35px;
-            column-gap: 35px;
+    -moz-column-gap: 35px;
+         column-gap: 35px;
     row-gap: 35px;
   }
   .gameBankContent__liabilities, .gameBankContent__credit, .gameBankContent__payout, .gameBankContent__deposit {
     width: 46%;
   }
 }
-
 @media screen and (max-width: 1024px) {
   .gameBank {
     padding: 30px;
   }
   .gameBankContent {
-    -webkit-column-gap: 20px;
-            column-gap: 20px;
+    -moz-column-gap: 20px;
+         column-gap: 20px;
     row-gap: 20px;
   }
   .gameBankContent__Blocks {
@@ -211,7 +146,6 @@
     font-size: 14px;
   }
 }
-
 @media screen and (max-width: 768px) {
   .gameBank {
     padding-bottom: 50px;
@@ -258,5 +192,4 @@
   .gameBankContent__liabilities, .gameBankContent__credit, .gameBankContent__payout, .gameBankContent__deposit {
     width: 90%;
   }
-}
-/*# sourceMappingURL=GamePageBank.css.map */
+}/*# sourceMappingURL=GamePageBank.css.map */
