@@ -10,17 +10,18 @@ import {
   setPopupsShownThunk,
 } from "../../../redux/game/game-reducer";
 import { newsActions, newsArrayType } from "../../../redux/news/news-reducer";
-import { settingsActions } from "../../../redux/settings-reducer";
+import { settingsActions } from "../../../redux/settings/settings-reducer";
 import {
   getMyStocksSelector,
   getStocksSelector,
-} from "../../../redux/market/stocks/stocks-selector";
+} from "../../../redux/market/stocks-selector";
 import { useTypedSelector } from "../../../utils/hooks/useTypedSelector";
 import {
   getArchiveSelector,
   getNewsSelector,
 } from "../../../redux/news/news-selector";
-import { regionMap } from "../../../redux/market/realty/models";
+import { regionMap } from "../../../redux/game/realty/models";
+import { popups } from "../../../redux/game/models";
 
 const NewsPage = React.memo(() => {
   const dispatch = useDispatch();
@@ -116,25 +117,25 @@ export const RenderNewsBlock: FC<NewsBlockType> = React.memo(
     const buyStocks = () => {
       stocks.forEach((stock, index) => {
         if (stock.title === news.company) {
-          dispatch(setPopupsActiveThunk("stock", stocks[index]));
+          dispatch(setPopupsActiveThunk(popups.STOCK, stocks[index]));
         }
       });
-      dispatch(setPopupsShownThunk("stock", true));
+      dispatch(setPopupsShownThunk(popups.STOCK, true));
       onChangeTime();
     };
 
     const sellStocks = () => {
       myStocks.forEach((stock, index) => {
         if (stock.title === news.company) {
-          dispatch(setPopupsActiveThunk("myStock", index));
+          dispatch(setPopupsActiveThunk(popups.MY_STOCK, index));
         }
       });
-      dispatch(setPopupsShownThunk("myStock", true));
+      dispatch(setPopupsShownThunk(popups.MY_STOCK, true));
       onChangeTime();
     };
 
     const onSellRealty = () => {
-      dispatch(setPopupsShownThunk("realtySell", true));
+      dispatch(setPopupsShownThunk(popups.REALTY_SELL, true));
     };
 
     return (

@@ -1,8 +1,8 @@
 import {AppStateType, InferActionsType} from "./store";
 import {ThunkAction} from "redux-thunk";
-import {businessActions} from "./market/business/business-reducer";
-import {realtyActions} from "./market/realty/realty-reducer";
-import {stocksActions} from "./market/stocks/stocks-reducer";
+import {businessActions} from "./game/business/business-reducer";
+import {realtyActions} from "./game/realty/realty-reducer";
+import {stocksActions} from "./market/stocks-reducer";
 import {worksActions} from "./work-reducer";
 import {actions} from "./game/game-reducer";
 import {profileActions} from "./profile/profile-reducer";

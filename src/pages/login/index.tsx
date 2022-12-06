@@ -1,9 +1,8 @@
-import {Button, Input, message} from "antd";
-import {NavLink} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {useHttp} from "../../hooks/http.hook";
-import {useDispatch} from "react-redux";
-import {loginThunk} from "../../redux/app-reducer";
+import { Button, Input, message } from "antd";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { useHttp } from "../../hooks/http.hook";
 
 export const LoginPage = () => {
 

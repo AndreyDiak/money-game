@@ -3,13 +3,14 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setPopupsShownThunk } from "../redux/game/game-reducer";
-import { getStocksSelector } from "../redux/market/stocks/stocks-selector";
+import { popups as popupsEnum } from "../redux/game/models";
+import { getStocksSelector } from "../redux/market/stocks-selector";
 import { AppStateType } from "../redux/store";
-import { RealtyPopup } from "./game/market/realty/RealtyPopup";
+import { RealtyPopup } from "./game/realty/RealtyPopup";
 import { Chart } from "./game/market/stocks/Chart";
-import { HistoryPopup } from "./game/market/stocks/HistoryPopup";
-import { MarginPayBackPopup } from "./game/market/stocks/margin/MarginPayBackPopup";
-import { MarginPopup } from "./game/market/stocks/margin/MarginPopup";
+import { HistoryPopup } from "./game/market/HistoryPopup";
+import { MarginPayBackPopup } from "./game/market/margin/MarginPayBackPopup";
+import { MarginPopup } from "./game/market/margin/MarginPopup";
 import { SellPopup } from "./game/market/stocks/SellPopup";
 import { GameEndPopup } from "./GameEndPopup";
 
@@ -23,7 +24,7 @@ const Popups = React.memo(() => {
   const popups = useSelector((state: AppStateType) => state.gamePage.popups);
 
   const onButtonClick = () => {
-    dispatch(setPopupsShownThunk("market", false));
+    dispatch(setPopupsShownThunk(popupsEnum.MARKET, false));
   };
 
   return (

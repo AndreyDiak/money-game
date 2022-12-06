@@ -1,31 +1,47 @@
-import React from "react"
+import React, { useState } from "react"
 import { useRoutes } from "react-router-dom"
+import { PortfolioList } from "../../../components/game/market/PortfolioList";
 
-const RealtyPage = React.lazy(() => import('./realty'));
-const StocksPage = React.lazy(() => import('./stocks'));
-const BusinessPage = React.lazy(() => import('./business'));
+const BondsList = React.lazy(() => import('./bonds'));
+const StocksList = React.lazy(() => import('./stocks'));
+const MaringList = React.lazy(() => import('./margin'));
 
 export const MarketRoutes = React.memo(() => {
+
+  const [screenWidth] = useState(window.screen.width);
 
   const routes = useRoutes([
     {
       path: '',
       index: true,
-      element: <StocksPage />
+      element: <StocksList />
     },
     {
       path: 'stocks',
-      element: <StocksPage />
+      element: <StocksList />
     },
     {
-      path: 'realty',
-      element: <RealtyPage />
+      path: 'bonds',
+      element: <BondsList />
     },
     {
-      path: 'business',
-      element: <BusinessPage />
+      path: 'margin',
+      element: <MaringList />
+    },
+    {
+      path: 'portfolio',
+      element: <PortfolioList />
     }
   ])
 
-  return routes
+  return (
+    <>
+      {screenWidth > 768 ? (
+        <>
+          <PortfolioList />
+          {routes}
+        </>
+      ) : routes}
+    </>
+  )
 });

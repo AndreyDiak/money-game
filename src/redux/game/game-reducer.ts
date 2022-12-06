@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk";
-import { businessActions } from "../market/business/business-reducer";
+import { businessActions } from "./business/business-reducer";
 import { newsActions } from "../news/news-reducer";
 import {
   profileActions,
@@ -9,16 +9,20 @@ import {
 import {
   generateActiveRealtyThunk,
   RealtyActionsType,
-} from "../market/realty/realty-reducer";
-import { settingsActions, SettingsActionType } from "../settings-reducer";
+} from "./realty/realty-reducer";
+import { settingsActions, SettingsActionType } from "../settings/settings-reducer";
 import { spendsActions, SpendsActionType } from "../spends-reducer";
 import {
   stocksActions,
   StocksActionType,
-} from "../market/stocks/stocks-reducer";
+} from "../market/stocks-reducer";
 import { AppStateType, InferActionsType } from "../store";
-import { brokerType, stockType } from "../market/stocks/typings";
-import { activeRealtyType, ChanceType } from "../market/realty/typings";
+import { brokerType, stockType } from "../market/typings";
+import { activeRealtyType, ChanceType } from "./realty/typings";
+import { HistoryType, PopupsType, statusesType } from "./typings";
+import { difficultiesType } from "../settings/typings";
+import { difficulty } from "../settings/models";
+import { statuses } from "./models";
 
 // time . . .
 // const SET_TIME_SPEED = 'gamePage/SET_TIME_SPEED'
@@ -64,11 +68,10 @@ let initialState = {
   // баланс необходимый для победы / возможно потом его можно менять . . .
   victoryBalance: 15000,
   //
-  difficulty: "easy" as DifficultyType,
   // баланс для поражения
   loseBalance: 0,
   //
-  gameStatus: "process" as GameStatusType,
+  gameStatus: "process" as statusesType,
   // массив событий, покупка / продажа акций...
   history: [] as HistoryType[],
   // объект с попапами...
@@ -273,7 +276,7 @@ export const actions = {
   setMonth: (month: number) => ({ type: SET_MONTH, month } as const),
   setDayInMonth: (dayInMonth: number) =>
     ({ type: SET_DAY_IN_MONTH, dayInMonth } as const),
-  setDifficulty: (difficulty: DifficultyType) =>
+  setDifficulty: (difficulty: difficultiesType) =>
     ({ type: SET_DIFFICULTY, difficulty } as const),
   // actions для кошелька . . .
   setWallet: (wallet: number) => ({ type: SET_WALLET, wallet } as const),
@@ -311,7 +314,7 @@ export const actions = {
       wallet,
       victoryBalance,
     } as const),
-  setGameStatus: (status: GameStatusType) =>
+  setGameStatus: (status: statusesType) =>
     ({ type: SET_GAME_STATUS, status } as const),
   updatePopups: (popups: any) => ({ type: UPDATE_POPUPS, popups } as const),
 };
@@ -371,12 +374,12 @@ export const balanceCheckThunk =
 
     if (wallet <= loseBalance) {
       // player lose...
-      dispatch(actions.setGameStatus("lose"));
+      dispatch(actions.setGameStatus(statuses.LOSE));
       resetGame();
     } else {
       if (income >= victoryBalance) {
         // player win
-        dispatch(actions.setGameStatus("win"));
+        dispatch(actions.setGameStatus(statuses.WIN));
       }
     }
   };
@@ -413,23 +416,7 @@ export const setPopupsActiveThunk =
     popupsCopy[type].active = active;
     dispatch(actions.updatePopups(popupsCopy));
   };
-interface HistoryType {
-  title: string;
-  price: number;
-  operationType: "buy" | "sell";
-  amount: number;
-}
-export type DifficultyType = "easy" | "normal" | "hard";
-export type GameStatusType = "process" | "win" | "lose";
-export type PopupsType =
-  | "stock"
-  | "myStock"
-  | "broker"
-  | "realtyBuy"
-  | "realtySell"
-  | "margin"
-  | "history"
-  | "market";
+
 export type GameActionsType = InferActionsType<typeof actions>;
 type ActionThunkType = ThunkAction<
   any,

@@ -2,8 +2,9 @@ import { ArrowDownOutlined, ArrowUpOutlined, FallOutlined, RiseOutlined } from "
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPopupsActiveThunk, setPopupsShownThunk } from "../../../../redux/game/game-reducer";
-import { myStockType, stockType } from "../../../../redux/market/stocks/typings";
-import { settingsActions } from "../../../../redux/settings-reducer";
+import { popups } from "../../../../redux/game/models";
+import { myStockType, stockType } from "../../../../redux/market/typings";
+import { settingsActions } from "../../../../redux/settings/settings-reducer";
 import { AppStateType } from "../../../../redux/store";
 
 
@@ -17,8 +18,8 @@ export const StockCard: FC<RenderStockType> = React.memo(({stock, index}) => {
   }
 
   const onStockClick = () => {
-    dispatch(setPopupsActiveThunk('stock', stock))
-    dispatch(setPopupsShownThunk('stock', true))
+    dispatch(setPopupsActiveThunk(popups.STOCK, stock))
+    dispatch(setPopupsShownThunk(popups.STOCK, true))
     onChangeTime(0)
   }
 
@@ -69,8 +70,8 @@ export const RenderMyStock: FC<RenderMyStockType> = React.memo(({myStock, index}
   }
 
   const onMyStockClick = () => {
-    dispatch(setPopupsActiveThunk('myStock', index))
-    dispatch(setPopupsShownThunk('myStock', true))
+    dispatch(setPopupsActiveThunk(popups.MY_STOCK, index))
+    dispatch(setPopupsShownThunk(popups.MY_STOCK, true))
     onChangeTime(0)
   }
 

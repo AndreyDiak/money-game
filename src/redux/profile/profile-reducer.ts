@@ -5,7 +5,6 @@ import { AppStateType, InferActionsType } from "../store";
 
 const SET_PROFILE = "profilePage/SET_PROFILE";
 const SET_TAX = "profilePage/SET_TAX";
-// const SET_EXPENSES = 'profilePage/SET_EXPENSES'
 const UPDATE_EXPENSES = "profilePage/UPDATE_EXPENSES";
 const PAY_FOR_EXPENSES = "profilePage/PAY_FOR_EXPENSES";
 const SET_CREDIT = "profilePage/SET_CREDIT";

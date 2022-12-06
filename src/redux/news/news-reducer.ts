@@ -1,12 +1,13 @@
-import { conditions } from './../market/stocks/models';
+import { conditions } from '../market/models';
 import { ThunkAction } from "redux-thunk";
 import { getRealtySatisfaction, getRandomNumber } from "../../utils/getRandomNumber";
 import { actions, GameActionsType, setPopupsActiveThunk } from "../game/game-reducer";
 import { profileActions, ProfileActionsType, updateIncome } from "../profile/profile-reducer";
-import { stocksActions, StocksActionType } from "../market/stocks/stocks-reducer";
+import { stocksActions, StocksActionType } from "../market/stocks-reducer";
 import { AppStateType, InferActionsType } from "../store";
-import { ChanceType } from '../market/realty/typings';
-import { chances } from '../market/realty/models';
+import { ChanceType } from '../game/realty/typings';
+import { chances } from '../game/realty/models';
+import { popups } from '../game/models';
 
 const ADD_NEWS = 'newsPage/ADD_NEWS'
 const ABLE_TO_SHOW = 'newsPage/ABLE_TO_SHOW'
@@ -323,7 +324,7 @@ export const setNewsThunk = (newsTypeIndex: number): NewsThunkType => (dispatch,
           }
           console.log(news)
           // диспатчим в state текущее предложение о покупке...
-          dispatch(setPopupsActiveThunk('realtySell', news.realty))
+          dispatch(setPopupsActiveThunk(popups.REALTY_SELL, news.realty))
         }
         break
       default:

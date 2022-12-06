@@ -3,11 +3,12 @@ import { Button, InputNumber } from "antd";
 import React, { FC, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPopupsShownThunk } from "../../../../redux/game/game-reducer";
-import { settingsActions } from "../../../../redux/settings-reducer";
-import { removeStocksFromPortfolioThunk } from "../../../../redux/market/stocks/stocks-reducer";
+import { settingsActions } from "../../../../redux/settings/settings-reducer";
+import { removeStocksFromPortfolioThunk } from "../../../../redux/market/stocks-reducer";
 import { AppStateType } from "../../../../redux/store";
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
-import { MarginPopupChart } from "./margin/MarginPopup";
+import { MarginPopupChart } from "../margin/MarginPopup";
+import { popups } from "../../../../redux/game/models";
 
 export const SellPopup: FC = React.memo(() => {
   // количество акций на продажу . . .
@@ -43,7 +44,7 @@ export const SellPopup: FC = React.memo(() => {
   }
   
   const onCloseClick = () => {
-    dispatch(setPopupsShownThunk('myStock', false))
+    dispatch(setPopupsShownThunk(popups.MY_STOCK, false))
     onChangeTime()
   }
   

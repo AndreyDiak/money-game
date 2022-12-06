@@ -2,14 +2,14 @@ import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import { gameReducer } from "./game/game-reducer";
 import thunkMiddleWare from "redux-thunk";
 import { profileReducer } from "./profile/profile-reducer";
-import { settingsReducer } from "./settings-reducer";
+import { settingsReducer } from "./settings/settings-reducer";
 import { worksReducer } from "./work-reducer";
-import { stocksReducer } from "./market/stocks/stocks-reducer";
+import { stocksReducer } from "./market/stocks-reducer";
 import { appReducer } from "./app-reducer";
 import { spendsReducer } from "./spends-reducer";
-import { realtyReducer } from "./market/realty/realty-reducer";
+import { realtyReducer } from "./game/realty/realty-reducer";
 import { newsReducer } from "./news/news-reducer";
-import { businessReducer } from "./market/business/business-reducer";
+import { businessReducer } from "./game/business/business-reducer";
 
 let rootReducer = combineReducers({
   gamePage: gameReducer,

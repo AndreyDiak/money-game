@@ -1,18 +1,24 @@
 import { Avatar, Button } from "antd";
 import Radio from "antd/lib/radio";
+import React from "react";
 import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { actions, DifficultyType } from "../../redux/game/game-reducer";
+// import SelectDifficulty from "../../components/select/SelectDifficulty";
+import { actions } from "../../redux/game/game-reducer";
 import {
   profileActions,
-  updateIncome,
+  updateIncome
 } from "../../redux/profile/profile-reducer";
-import { settingsActions } from "../../redux/settings-reducer";
-import { getTimeSpeedSelector } from "../../redux/settings-selector";
+import { optionsTime } from "../../redux/settings/models";
+import { settingsActions } from "../../redux/settings/settings-reducer";
+import { getTimeSpeedSelector } from "../../redux/settings/settings-selector";
+import { difficultiesType } from "../../redux/settings/typings";
 import { spendsActions } from "../../redux/spends-reducer";
 import { AppStateType } from "../../redux/store";
 
+const SelectDifficulty = React.lazy(() => import('../../components/select/SelectDifficulty'))
+const SelectTimeSpeed = React.lazy(() => import('../../components/select/SelectTimeSpeed'))
 const SelectPage: FC = () => {
   const dispatch = useDispatch();
   const timeSpeed = useSelector(getTimeSpeedSelector);
@@ -21,11 +27,6 @@ const SelectPage: FC = () => {
     (state: AppStateType) => state.profilePage.persons
   );
   const [activePerson, setActivePerson] = useState(0);
-  const about = [
-    "Быстрая игра, хорошо подходит для ознакомления с игрой, доступен только рынок акций, для победы добейтесь дохода в 5000$",
-    "Нормальная игры, подходит для тех кто изучил основные принципы игры и хочет попробовать что-то новенькое, доступен рынок акций и рынок недвижимости, для победы добейтесь дохода в 15000$",
-    "Долгая игра, пройдите суровую проверку своих навыков, все рынки доступны, для победы добейтесь дохода в 50000$",
-  ];
 
   const [filteredPersons, setFilteredPersons] = useState(
     persons.filter((f) => f.difficulty === "easy")
@@ -62,18 +63,6 @@ const SelectPage: FC = () => {
     // dispatch(actions.setIncome(persons[activePerson].salary - taxesSummary))
   };
 
-  const optionsTime = [
-    { label: "день/4сек", value: timesSpeed[0] },
-    { label: "день/2сек", value: timesSpeed[1] },
-    { label: "день/1сек", value: timesSpeed[2] },
-  ];
-
-  const gameDifficulty = [
-    { label: "Легко", value: 0 },
-    { label: "Средне", value: 1 },
-    { label: "Сложно", value: 2 },
-  ];
-
   const onChangeTime = (e: any) => {
     dispatch(settingsActions.setTimeSpeed(e.target.value));
     dispatch(settingsActions.setConstTimeSpeed(e.target.value));
@@ -85,10 +74,10 @@ const SelectPage: FC = () => {
       e.target.value === 0
         ? ["easy", 5000]
         : e.target.value === 1
-        ? ["normal", 15000]
-        : ["hard", 50000];
+          ? ["normal", 15000]
+          : ["hard", 50000];
     dispatch(actions.setVictoryBalance(balance));
-    dispatch(actions.setDifficulty(filter as DifficultyType));
+    dispatch(actions.setDifficulty(filter as difficultiesType));
     setActivePerson(0);
     setFilteredPersons(persons.filter((f) => f.difficulty === filter));
   };
@@ -205,32 +194,9 @@ const SelectPage: FC = () => {
           </div>
         </div>
         <div className="profileSettings">
-          <div className="profileSettings__Speed">
-            Скорость игры
-            <br />
-            <Radio.Group
-              options={optionsTime}
-              onChange={onChangeTime}
-              value={timeSpeed}
-              optionType="button"
-              className="profileSettings__SpeedRadio"
-            />
-          </div>
-          <div className="profileSettings__Condition">
-            Сложность
-            <br />
-            <Radio.Group
-              options={gameDifficulty}
-              onChange={onChangeDifficulty}
-              value={difficulty}
-              optionType="button"
-              className="settingsListItem__Radio"
-            />
-            <br />
-            <div className="profileSettings__ConditionAbout">
-              {about[difficulty]}
-            </div>
-          </div>
+          
+          <SelectDifficulty />
+          <SelectTimeSpeed />
           <div className="profileSettings__Button">
             <NavLink to="/game">
               <Button size="large" onClick={setProfile}>

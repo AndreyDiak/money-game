@@ -1,8 +1,8 @@
 import { notification } from "antd";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { stocksActions } from "../../redux/market/stocks/stocks-reducer";
-import { getStocksSelector } from "../../redux/market/stocks/stocks-selector";
+import { stocksActions } from "../../redux/market/stocks-reducer";
+import { getStocksSelector } from "../../redux/market/stocks-selector";
 import { newsActions } from "../../redux/news/news-reducer";
 import { getIncomeSelector } from "../../redux/profile/profile-selector";
 import { useTypedSelector } from './../../utils/hooks/useTypedSelector';

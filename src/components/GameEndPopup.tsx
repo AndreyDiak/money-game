@@ -3,6 +3,7 @@ import React, { FC } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from "react-router-dom"
 import { setPopupsShownThunk } from "../redux/game/game-reducer"
+import { popups } from "../redux/game/models"
 import { AppStateType } from "../redux/store"
 
 export const GameEndPopup: FC = React.memo(() => {
@@ -11,7 +12,7 @@ export const GameEndPopup: FC = React.memo(() => {
   const dispatch = useDispatch()
 
   const onButtonClick = () => {
-    dispatch(setPopupsShownThunk('history', true))
+    dispatch(setPopupsShownThunk(popups.HISTORY, true))
   }
 
   return (

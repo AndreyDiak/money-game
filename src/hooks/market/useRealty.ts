@@ -1,10 +1,10 @@
 import { notification } from "antd";
 import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { realtyActions } from "../../redux/market/realty/realty-reducer";
+import { realtyActions } from "../../redux/game/realty/realty-reducer";
 import { newsActions } from "../../redux/news/news-reducer";
 import { getIncomeSelector } from "../../redux/profile/profile-selector";
-import { getIsAbleToShowNotificationSelector } from './../../redux/market/business/business-selector';
+import { getIsAbleToShowNotificationSelector } from '../../redux/game/business/business-selector';
 import { useTypedSelector } from "./../../utils/hooks/useTypedSelector";
 
 export const useRealty = () => {

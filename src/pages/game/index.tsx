@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { getDaySelector } from "../../redux/game/game-selector";
 import { getPersonSelector } from "../../redux/profile/profile-selector";
-import { getTimeSpeedSelector } from "../../redux/settings-selector";
+import { getTimeSpeedSelector } from "../../redux/settings/settings-selector";
 import { AppStateType } from "../../redux/store";
 import useActions from "../../utils/hooks/useActions";
 import { GameRoutes } from "./_routes";

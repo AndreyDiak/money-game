@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { children } from "../../../img";
-import { getMyBusinessesSelector } from "../../../redux/market/business/business-selector";
+import { getMyBusinessesSelector } from "../../../redux/game/business/business-selector";
 import { getDaySelector } from "../../../redux/game/game-selector";
 import { personType, updateIncome } from "../../../redux/profile/profile-reducer";
 import { getPersonSelector } from "../../../redux/profile/profile-selector";
-import { getMyStocksSelector } from "../../../redux/market/stocks/stocks-selector";
+import { getMyStocksSelector } from "../../../redux/market/stocks-selector";
 import { AppStateType } from "../../../redux/store";
 import { upWorkThunk, worksActions } from "../../../redux/work-reducer";
 import { useTypedSelector } from "../../../utils/hooks/useTypedSelector";
-import { myStockType } from "../../../redux/market/stocks/typings";
+import { myStockType } from "../../../redux/market/typings";
 
 const ProfilePage = () => {
 

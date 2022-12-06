@@ -5,8 +5,8 @@ import { actions, balanceCheckThunk, updateMonthThunk } from "../../redux/game/g
 import { getDayInMonthSelector, getDaySelector, getMonthSelector, getMonthsSelector } from "../../redux/game/game-selector";
 import { generateNewsThunk } from "../../redux/news/news-reducer";
 import { weekSpendThunk } from "../../redux/spends-reducer";
-import { payMarginPenaltyThunk, stocksActions } from "../../redux/market/stocks/stocks-reducer";
-import { getStocksSelector } from "../../redux/market/stocks/stocks-selector";
+import { payMarginPenaltyThunk, stocksActions } from "../../redux/market/stocks-reducer";
+import { getStocksSelector } from "../../redux/market/stocks-selector";
 
 type RenderTimeType = {
   wallet: number
@@ -26,7 +26,7 @@ export const RenderTime: FC<RenderTimeType> = (props) => {
   // массив с месяцами . . .
   const months = useSelector(getMonthsSelector)
   // текущая работа . . .
-  const [screenWidth, setScreenWidth] = useState(window.screen.width)
+  const [screenWidth] = useState(window.screen.width)
   // массив с днями . . .
   const Days = [
     'Воскресенье', 'Понедельник', 'Вторник',
