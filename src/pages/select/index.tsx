@@ -1,7 +1,5 @@
 import { Avatar, Button } from "antd";
-import Radio from "antd/lib/radio";
-import React from "react";
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 // import SelectDifficulty from "../../components/select/SelectDifficulty";
@@ -10,7 +8,6 @@ import {
   profileActions,
   updateIncome
 } from "../../redux/profile/profile-reducer";
-import { optionsTime } from "../../redux/settings/models";
 import { settingsActions } from "../../redux/settings/settings-reducer";
 import { getTimeSpeedSelector } from "../../redux/settings/settings-selector";
 import { difficultiesType } from "../../redux/settings/typings";
