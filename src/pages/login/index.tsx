@@ -22,14 +22,14 @@ export const LoginPage = () => {
     setFormData({...formData, [event.target.name]: event.target.value})
   }
 
-  const loginHandler = async () => {
-    try {
-      const data = await request('/api/auth/login', 'POST', {...formData})
-      // auth.login(data.token , data.userId)
+  // const loginHandler = async () => {
+  //   try {
+  //     const data = await request('/api/auth/login', 'POST', {...formData})
+  //     // auth.login(data.token , data.userId)
 
-      dispatch(loginThunk(data.token, data.userId))
-    } catch (e) {}
-  }
+  //     dispatch(loginThunk(data.token, data.userId))
+  //   } catch (e) {}
+  // }
 
   return (
     <>
@@ -64,7 +64,7 @@ export const LoginPage = () => {
               size={'large'}
               className='authFormButton'
               type={'primary'}
-              onClick={loginHandler}
+              onClick={() => console.log('login')}
               disabled={isLoading}>
               Войти
             </Button>

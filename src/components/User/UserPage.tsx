@@ -30,30 +30,30 @@ export const UserPage = () => {
   const {request, isLoading} = useHttp()
   const token = useSelector((state: AppStateType) => state.app.token)
 
-  const requestProfile = useCallback(async () => {
-    try {
-      const data = await request('/api/profile/', 'GET', null , {
-        Authorization: `Bearer ${token}`
-      })
-      setProfile(data)
-      // находим любимого персонажа . . .
-      // TODO для тестировки данных
-      console.log(data)
-    } catch (e) {}
-  }, [token, request, setProfile])
+  // const requestProfile = useCallback(async () => {
+  //   try {
+  //     const data = await request('/api/profile/', 'GET', null , {
+  //       Authorization: `Bearer ${token}`
+  //     })
+  //     setProfile(data)
+  //     // находим любимого персонажа . . .
+  //     // TODO для тестировки данных
+  //     console.log(data)
+  //   } catch (e) {}
+  // }, [token, request, setProfile])
 
-  const changePhoto = async () => {
-    try {
-      const data = await request('/api/profile/photo/', 'POST', {photo}, {
-        Authorization: `Bearer ${token}`
-      })
-      message.success(data.message)
-      requestProfile()
-    } catch (e) {}
-  }
+  // const changePhoto = async () => {
+  //   try {
+  //     const data = await request('/api/profile/photo/', 'POST', {photo}, {
+  //       Authorization: `Bearer ${token}`
+  //     })
+  //     message.success(data.message)
+  //     requestProfile()
+  //   } catch (e) {}
+  // }
 
   useEffect(() => {
-    requestProfile()
+    // requestProfile()
   }, [])
 
   if (isLoading) {
@@ -88,7 +88,7 @@ export const UserPage = () => {
                     <div className='userPopupButton'>
                       <Button type={'primary'} onClick={() => {
                         setIsAvatarPopupShown(false)
-                        changePhoto()
+                        
                       }
                       }>
                         Подтвердить

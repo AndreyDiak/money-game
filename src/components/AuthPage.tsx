@@ -1,12 +1,12 @@
-import {Button, Input, message} from "antd";
-import {useEffect, useState} from "react";
-import {NavLink} from "react-router-dom";
-import {useHttp} from "../hooks/http.hook";
+import { Button, Input, message } from "antd";
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useHttp } from "../hooks/http.hook";
 
 export const AuthPage = () => {
 
-  const [formData, setFormData] = useState({email: '', password: '', login: ''})
-  const {isLoading, error, clearError, request} = useHttp()
+  const [formData, setFormData] = useState({ email: '', password: '', login: '' })
+  const { isLoading, error, clearError, request } = useHttp()
 
   useEffect(() => {
     if (error) {
@@ -16,15 +16,15 @@ export const AuthPage = () => {
   }, [error, message, clearError])
 
   const changeHandler = (event: any) => {
-    setFormData({...formData, [event.target.name]: event.target.value})
+    setFormData({ ...formData, [event.target.name]: event.target.value })
   }
 
-  const registerHandler = async () => {
-    try {
-      const data = await request('/api/auth/register', 'POST', {...formData})
-      message.success(data.message)
-    } catch (e) {}
-  }
+  // const registerHandler = async () => {
+  //   try {
+  //     const data = await request('/api/auth/register', 'POST', {...formData})
+  //     message.success(data.message)
+  //   } catch (e) {}
+  // }
 
   return (
     <>
@@ -39,7 +39,7 @@ export const AuthPage = () => {
                 name='email'
                 value={formData.email}
                 onChange={changeHandler}
-                placeholder='Введите почту...'/>
+                placeholder='Введите почту...' />
             </div>
             <div className="authFormBlock">
               <div className='authFormHeader'><b>НикНейм</b></div>
@@ -49,7 +49,7 @@ export const AuthPage = () => {
                 name='login'
                 value={formData.login}
                 onChange={changeHandler}
-                placeholder='Введите логин...'/>
+                placeholder='Введите логин...' />
             </div>
             <div className="authFormBlock">
               <div className='authFormHeader'><b>Пароль</b></div>
@@ -59,13 +59,13 @@ export const AuthPage = () => {
                 name='password'
                 value={formData.password}
                 onChange={changeHandler}
-                placeholder='Введите пароль...'/>
+                placeholder='Введите пароль...' />
             </div>
-            <Button size={'large'} className='authFormButton' type={'primary'} disabled={isLoading} onClick={registerHandler}>
+            <Button size={'large'} className='authFormButton' type={'primary'} disabled={isLoading} onClick={() => console.log('register')}>
               Регистрация
             </Button>
-            <br/>
-            <br/>
+            <br />
+            <br />
             <NavLink to='/login'>У меня есть аккаунт</NavLink>
           </div>
         </div>
