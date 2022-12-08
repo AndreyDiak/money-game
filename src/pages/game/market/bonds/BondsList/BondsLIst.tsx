@@ -1,24 +1,21 @@
 import { ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined } from "@ant-design/icons";
 import { Button, Input, Popover, Radio, Space } from "antd";
-import React, { FC, useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { filters } from "../../../../redux/market/models";
-import { stocksActions } from "../../../../redux/market/stocks-reducer";
-import { getFilteredStocksSelector } from "../../../../redux/market/stocks-selector";
-import { filterType } from "../../../../redux/market/typings";
-import { AppStateType } from "../../../../redux/store";
-import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
-import { StockCard } from "./StockCard";
+import React, { FC, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { filters } from "../../../../../redux/market/models";
+import { stocksActions } from "../../../../../redux/market/stocks-reducer";
+import { BondType, filterType, stockType } from "../../../../../redux/market/typings";
+import { AppStateType } from "../../../../../redux/store";
+import { StockCard } from "../../stocks/StockCard/StockCard";
 
-export const Stocks: FC = () => {
-  const dispatch = useDispatch();
+export const BondsList: FC = React.memo(() => {
 
-  const filteredStocks = useTypedSelector(useCallback(getFilteredStocksSelector, []));
+  const filteredBonds: BondType[] = useSelector((state: AppStateType) => state.stocksPage.filteredBonds)
   const [isReverse, setIsReverse] = useState(false)
-
+  const dispatch = useDispatch()
   const content = (
     <div>
-      <Radio.Group defaultValue={'none'} onChange={(e) => filterStocks(e.target.value, '')}>
+      <Radio.Group defaultValue={'none'} onChange={(e) => filterBonds(e.target.value, '')}>
         <Space direction='vertical'>
           <Radio value={'price'}>По цене</Radio>
           <Radio value={'condition'}>По росту</Radio>
@@ -32,34 +29,28 @@ export const Stocks: FC = () => {
     </div>
   );
 
-  // применяем активнй фильтр к акциям на рынке...
-  const filterStocks = (title: filterType, value: string) => {
-    dispatch(stocksActions.filterStocks(title, value))
+  const filterBonds = (title: filterType, value: string) => {
+    dispatch(stocksActions.filterBonds(title, value))
   }
 
   return (
     <>
       <div className="gameProfitStocks__Offer">
         <div className="gameProfitStocks__Header">
-          Акции
+          Облигации
         </div>
-
         <div className="gameProfitStocks__OfferBlocks">
           <div className="gameProfitStocks__OfferBlocks__menu">
             <Input
               placeholder='Название акции...'
               className='gameProfitStocks__OfferBlocks__menuInput'
-              onChange={(e) => filterStocks(filters.TITLE, e.target.value)}
-            />
-
+              onChange={(e) => filterBonds(filters.TITLE, e.target.value)} />
             <Popover content={content} trigger="click" title='Фильтр акций'>
-              <Button style={{ display: 'flex', alignItems: 'center' }}>
-                Фильтры<SlidersOutlined style={{ fontSize: '16px', fontWeight: 'normal' }} />
-              </Button>
+              <Button style={{ display: 'flex', alignItems: 'center' }}>Фильтры<SlidersOutlined style={{ fontSize: '16px', fontWeight: 'normal' }} /></Button>
             </Popover>
             <Button onClick={() => {
               setIsReverse(!isReverse)
-              dispatch(stocksActions.reverseFilteredStocks())
+              dispatch(stocksActions.reverseFilteredBonds())
             }}>
               {!isReverse
                 ? <ArrowUpOutlined />
@@ -67,11 +58,10 @@ export const Stocks: FC = () => {
               }
             </Button>
           </div>
-
           <div className="gameProfitStocks__OfferBlocks__stocks">
-            {filteredStocks.map((stock, index) =>
+            {filteredBonds.map((bond, index) =>
               <StockCard
-                stock={stock}
+                stock={bond as stockType}
                 index={index}
               />
             )}
@@ -80,4 +70,6 @@ export const Stocks: FC = () => {
       </div>
     </>
   )
-}
+})
+
+

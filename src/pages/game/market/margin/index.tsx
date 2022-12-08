@@ -1,12 +1,12 @@
 import React from "react";
-import { Margin } from "../../../../components/game/market/margin/Margin";
+import { MarginList } from "./MarginList/MarginList";
 
-const MarginList = React.memo(() => {
+const MarginPage = React.memo(() => {
   return (
     <div>
-      <Margin />
+      <MarginList />
     </div>
   );
 });
 
-export default MarginList;
+export default MarginPage;

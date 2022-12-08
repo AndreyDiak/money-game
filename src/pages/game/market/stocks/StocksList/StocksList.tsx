@@ -1,21 +1,23 @@
 import { ArrowDownOutlined, ArrowUpOutlined, SlidersOutlined } from "@ant-design/icons";
 import { Button, Input, Popover, Radio, Space } from "antd";
-import React, { FC, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { filters } from "../../../../redux/market/models";
-import { stocksActions } from "../../../../redux/market/stocks-reducer";
-import { BondType, filterType, stockType } from "../../../../redux/market/typings";
-import { AppStateType } from "../../../../redux/store";
-import { StockCard } from "../stocks/StockCard";
+import { FC, useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { filters } from "../../../../../redux/market/models";
+import { stocksActions } from "../../../../../redux/market/stocks-reducer";
+import { getFilteredStocksSelector } from "../../../../../redux/market/stocks-selector";
+import { filterType } from "../../../../../redux/market/typings";
+import { useTypedSelector } from "../../../../../utils/hooks/useTypedSelector";
+import { StockCard } from "../StockCard/StockCard";
 
-export const Bonds: FC = React.memo(() => {
+export const StocksList: FC = () => {
+  const dispatch = useDispatch();
 
-  const filteredBonds: BondType[] = useSelector((state: AppStateType) => state.stocksPage.filteredBonds)
+  const filteredStocks = useTypedSelector(useCallback(getFilteredStocksSelector, []));
   const [isReverse, setIsReverse] = useState(false)
-  const dispatch = useDispatch()
+
   const content = (
     <div>
-      <Radio.Group defaultValue={'none'} onChange={(e) => filterBonds(e.target.value, '')}>
+      <Radio.Group defaultValue={'none'} onChange={(e) => filterStocks(e.target.value, '')}>
         <Space direction='vertical'>
           <Radio value={'price'}>По цене</Radio>
           <Radio value={'condition'}>По росту</Radio>
@@ -29,28 +31,34 @@ export const Bonds: FC = React.memo(() => {
     </div>
   );
 
-  const filterBonds = (title: filterType, value: string) => {
-    dispatch(stocksActions.filterBonds(title, value))
+  // применяем активнй фильтр к акциям на рынке...
+  const filterStocks = (title: filterType, value: string) => {
+    dispatch(stocksActions.filterStocks(title, value))
   }
 
   return (
     <>
       <div className="gameProfitStocks__Offer">
         <div className="gameProfitStocks__Header">
-          Облигации
+          Акции
         </div>
+
         <div className="gameProfitStocks__OfferBlocks">
           <div className="gameProfitStocks__OfferBlocks__menu">
             <Input
               placeholder='Название акции...'
               className='gameProfitStocks__OfferBlocks__menuInput'
-              onChange={(e) => filterBonds(filters.TITLE, e.target.value)} />
+              onChange={(e) => filterStocks(filters.TITLE, e.target.value)}
+            />
+
             <Popover content={content} trigger="click" title='Фильтр акций'>
-              <Button style={{ display: 'flex', alignItems: 'center' }}>Фильтры<SlidersOutlined style={{ fontSize: '16px', fontWeight: 'normal' }} /></Button>
+              <Button style={{ display: 'flex', alignItems: 'center' }}>
+                Фильтры<SlidersOutlined style={{ fontSize: '16px', fontWeight: 'normal' }} />
+              </Button>
             </Popover>
             <Button onClick={() => {
               setIsReverse(!isReverse)
-              dispatch(stocksActions.reverseFilteredBonds())
+              dispatch(stocksActions.reverseFilteredStocks())
             }}>
               {!isReverse
                 ? <ArrowUpOutlined />
@@ -58,10 +66,11 @@ export const Bonds: FC = React.memo(() => {
               }
             </Button>
           </div>
+
           <div className="gameProfitStocks__OfferBlocks__stocks">
-            {filteredBonds.map((bond, index) =>
+            {filteredStocks.map((stock, index) =>
               <StockCard
-                stock={bond as stockType}
+                stock={stock}
                 index={index}
               />
             )}
@@ -70,6 +79,4 @@ export const Bonds: FC = React.memo(() => {
       </div>
     </>
   )
-})
-
-
+}

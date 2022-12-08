@@ -3,15 +3,16 @@ import { Button, InputNumber, Slider } from "antd"
 import React, { FC, useEffect, useState } from "react"
 import { Line } from "react-chartjs-2"
 import { useDispatch, useSelector } from 'react-redux'
-import { actions, setPopupsShownThunk } from "../../../../redux/game/game-reducer"
-import { getWalletSelector } from "../../../../redux/game/game-selector"
-import { popups } from "../../../../redux/game/models"
-import { addMarginToPortfolioThunk, addStocksToPortfolioThunk, stocksActions, updateBrokerStocksCountThunk } from "../../../../redux/market/stocks-reducer"
-import { getStocksSelector } from "../../../../redux/market/stocks-selector"
-import { brokerType, stockType } from "../../../../redux/market/typings"
-import { settingsActions } from "../../../../redux/settings/settings-reducer"
-import { AppStateType } from "../../../../redux/store"
-import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector"
+import { ChartGraph } from "../../../../../components/game/market/Chart/ChartGraph/ChartGraph"
+import { actions, setPopupsShownThunk } from "../../../../../redux/game/game-reducer"
+import { getWalletSelector } from "../../../../../redux/game/game-selector"
+import { popups } from "../../../../../redux/game/models"
+import { addMarginToPortfolioThunk, addStocksToPortfolioThunk, stocksActions, updateBrokerStocksCountThunk } from "../../../../../redux/market/stocks-reducer"
+import { getStocksSelector } from "../../../../../redux/market/stocks-selector"
+import { brokerType, stockType } from "../../../../../redux/market/typings"
+import { settingsActions } from "../../../../../redux/settings/settings-reducer"
+import { AppStateType } from "../../../../../redux/store"
+import { useTypedSelector } from "../../../../../utils/hooks/useTypedSelector"
 
 export const MarginPopup: FC = React.memo(() => {
 
@@ -122,7 +123,7 @@ export const MarginPopup: FC = React.memo(() => {
                   </div>
                 </div>
                 <div className="marginPopupBlock__ActiveChart">
-                  <MarginPopupChart stock={activeMarginStock} />
+                  <ChartGraph stock={activeMarginStock} />
                 </div>
               </div>
               <MarginPopupMenu
@@ -372,93 +373,6 @@ export const MarginPopupMenu: FC<MarginPopupMenuType> = React.memo(({
         </div>
       </div>
 
-    </>
-  )
-})
-export const MarginPopupChart: FC<{ stock: stockType }> = React.memo(({ stock }) => {
-
-  const [screenWidth] = useState(window.screen.width)
-  const Months = [
-    'Январь', '', '', '', 'Февраль', '', '', '', 'Март', '', '', '',
-    'Апрель', '', '', '', 'Май', '', '', '', 'Июнь', '', '', '',
-    'Июль', '', '', '', 'Август', '', '', '', 'Сентябрь', '', '', '',
-    'Октябрь', '', '', '', 'Ноябрь', '', '', '', 'Декабрь', '', '', '',
-  ]
-  const MonthsSmall = Months.map(month => month.length > 4 ? month.toLowerCase().slice(0, 3).concat('.') : month.toLowerCase())
-  let labels: any[] = []
-
-  // TODO настройка показа графика(неделя / месяц / год / все время)
-  stock.price.forEach((price, index) => {
-    let labelsCopy = [...labels]
-    if (stock.price.length > 48 && index < stock.price.length - 48) {
-      return
-    }
-
-    labelsCopy.push(price)
-    labels = labelsCopy
-  })
-
-
-  const data = {
-    labels: screenWidth > 768 ? Months : MonthsSmall,
-    datasets: [
-      {
-        label: 'цена за шт.',
-        data: labels,
-        fill: false,
-        // сглаживание . . .
-        lineTension: 0.4,
-        // цвета . . .
-        // backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgba(255, 99, 132, 0.8)',
-        borderCapStyle: 'butt',
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBorderWidth: 2,
-        pointRadius: 0,
-        pointHitRadius: 10,
-      },
-    ],
-  };
-  const options = {
-    scales: {
-      x: {
-        grid: {
-          // @ts-ignore
-          display: true,
-        }
-      },
-      y: {
-        grid: {
-          // @ts-ignore
-          display: true,
-        }
-      },
-    },
-  };
-  const optionsSmall = {
-    scales: {
-      x: {
-        grid: {
-          // @ts-ignore
-          display: false,
-        }
-      },
-      y: {
-        grid: {
-          // @ts-ignore
-          display: false,
-        }
-      },
-    },
-  };
-
-  return (
-    <>
-      <Line data={data} options={screenWidth > 768 ? options : optionsSmall} title='цена акций' contextMenu={'Привет'} />
     </>
   )
 })

@@ -1,12 +1,12 @@
 import React from "react";
-import { Bonds } from "../../../../components/game/market/bonds/Bonds";
+import { BondsList } from "./BondsList/BondsLIst";
 
-const BondsList = React.memo(() => {
+const BondsPage = React.memo(() => {
   return (
     <div>
-      <Bonds />
+      <BondsList />
     </div>
   )
 });
 
-export default BondsList;
+export default BondsPage;

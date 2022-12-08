@@ -1,13 +1,13 @@
 import { Button, Popover } from "antd"
 import React, { FC } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { setPopupsActiveThunk, setPopupsShownThunk } from "../../../../redux/game/game-reducer"
-import { settingsActions } from "../../../../redux/settings/settings-reducer"
-import { getBrokersSelector } from "../../../../redux/market/stocks-selector"
-import { brokerType } from "../../../../redux/market/typings"
-import { popups } from "../../../../redux/game/models"
+import { setPopupsActiveThunk, setPopupsShownThunk } from "../../../../../redux/game/game-reducer"
+import { settingsActions } from "../../../../../redux/settings/settings-reducer"
+import { getBrokersSelector } from "../../../../../redux/market/stocks-selector"
+import { brokerType } from "../../../../../redux/market/typings"
+import { popups } from "../../../../../redux/game/models"
 
-export const Margin: FC = React.memo(({}) => {
+export const MarginList: FC = React.memo(({}) => {
   
   const dispatch = useDispatch()
   const brokers: brokerType[] = useSelector(getBrokersSelector)

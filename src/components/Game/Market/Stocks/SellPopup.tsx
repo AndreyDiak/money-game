@@ -7,8 +7,8 @@ import { settingsActions } from "../../../../redux/settings/settings-reducer";
 import { removeStocksFromPortfolioThunk } from "../../../../redux/market/stocks-reducer";
 import { AppStateType } from "../../../../redux/store";
 import { useTypedSelector } from "../../../../utils/hooks/useTypedSelector";
-import { MarginPopupChart } from "../margin/MarginPopup";
 import { popups } from "../../../../redux/game/models";
+import { ChartGraph } from "../Chart/ChartGraph/ChartGraph";
 
 export const SellPopup: FC = React.memo(() => {
   // количество акций на продажу . . .
@@ -61,7 +61,7 @@ export const SellPopup: FC = React.memo(() => {
           </div>
           <div>
             {/*  @ts-ignore */}
-            <MarginPopupChart stock={[stocks, bonds].filter(s => s !== undefined)[0]} />
+            <ChartGraph stock={[stocks, bonds].filter(s => s !== undefined)[0]} />
           </div>
           <div className="sellPopupBlock__Menu">
             <div className="sellPopupBlock__MenuInfo">

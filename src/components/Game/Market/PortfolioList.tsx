@@ -1,9 +1,8 @@
 import React, { FC, useCallback } from "react";
-import { useSelector } from "react-redux";
+import { RenderMyStock } from "../../../pages/game/market/stocks/StockCard/StockCard";
 import { getMyStocksSelector } from "../../../redux/market/stocks-selector";
 import { myStockType } from "../../../redux/market/typings";
 import { useTypedSelector } from "../../../utils/hooks/useTypedSelector";
-import { RenderMyStock } from "./stocks/StockCard";
 
 export const PortfolioList: FC = React.memo(() => {
 

@@ -2,9 +2,9 @@ import React, { useState } from "react"
 import { useRoutes } from "react-router-dom"
 import { PortfolioList } from "../../../components/game/market/PortfolioList";
 
-const BondsList = React.lazy(() => import('./bonds'));
-const StocksList = React.lazy(() => import('./stocks'));
-const MaringList = React.lazy(() => import('./margin'));
+const BondsPage = React.lazy(() => import('./bonds'));
+const StocksPage = React.lazy(() => import('./stocks'));
+const MarginPage = React.lazy(() => import('./margin'));
 
 export const MarketRoutes = React.memo(() => {
 
@@ -14,19 +14,19 @@ export const MarketRoutes = React.memo(() => {
     {
       path: '',
       index: true,
-      element: <StocksList />
+      element: <StocksPage />
     },
     {
       path: 'stocks',
-      element: <StocksList />
+      element: <StocksPage />
     },
     {
       path: 'bonds',
-      element: <BondsList />
+      element: <BondsPage />
     },
     {
       path: 'margin',
-      element: <MaringList />
+      element: <MarginPage />
     },
     {
       path: 'portfolio',

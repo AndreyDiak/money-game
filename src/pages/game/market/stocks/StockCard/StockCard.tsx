@@ -1,12 +1,11 @@
 import { ArrowDownOutlined, ArrowUpOutlined, FallOutlined, RiseOutlined } from "@ant-design/icons";
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPopupsActiveThunk, setPopupsShownThunk } from "../../../../redux/game/game-reducer";
-import { popups } from "../../../../redux/game/models";
-import { myStockType, stockType } from "../../../../redux/market/typings";
-import { settingsActions } from "../../../../redux/settings/settings-reducer";
-import { AppStateType } from "../../../../redux/store";
-
+import { setPopupsActiveThunk, setPopupsShownThunk } from "../../../../../redux/game/game-reducer";
+import { popups } from "../../../../../redux/game/models";
+import { myStockType, stockType } from "../../../../../redux/market/typings";
+import { settingsActions } from "../../../../../redux/settings/settings-reducer";
+import { AppStateType } from "../../../../../redux/store";
 
 export const StockCard: FC<RenderStockType> = React.memo(({stock, index}) => {
 

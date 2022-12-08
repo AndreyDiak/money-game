@@ -2,15 +2,15 @@ import { CloseOutlined } from "@ant-design/icons"
 import { Button, InputNumber } from "antd"
 import { FC, useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
-import { setPopupsShownThunk } from "../../../../redux/game/game-reducer"
-import { getWalletSelector } from "../../../../redux/game/game-selector"
-import { updateIncome } from "../../../../redux/profile/profile-reducer"
-import { settingsActions } from "../../../../redux/settings/settings-reducer"
-import { marginPayOutThunk } from "../../../../redux/market/stocks-reducer"
-import { AppStateType } from "../../../../redux/store"
-import { popups } from "../../../../redux/game/models"
+import { setPopupsShownThunk } from "../../../../../redux/game/game-reducer"
+import { getWalletSelector } from "../../../../../redux/game/game-selector"
+import { updateIncome } from "../../../../../redux/profile/profile-reducer"
+import { settingsActions } from "../../../../../redux/settings/settings-reducer"
+import { marginPayOutThunk } from "../../../../../redux/market/stocks-reducer"
+import { AppStateType } from "../../../../../redux/store"
+import { popups } from "../../../../../redux/game/models"
 
-export const MarginPayBackPopup: FC = () => {
+export const MarginPaybackPopup: FC = () => {
   const dispatch = useDispatch()
   const wallet = useSelector(getWalletSelector)
   const margin = useSelector((state: AppStateType) => state.stocksPage.margin[0])

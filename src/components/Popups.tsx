@@ -7,12 +7,12 @@ import { popups as popupsEnum } from "../redux/game/models";
 import { getStocksSelector } from "../redux/market/stocks-selector";
 import { AppStateType } from "../redux/store";
 import { RealtyPopup } from "./game/realty/RealtyPopup";
-import { Chart } from "./game/market/stocks/Chart";
+import { Chart } from "./game/market/Chart/Chart";
 import { HistoryPopup } from "./game/market/HistoryPopup";
-import { MarginPayBackPopup } from "./game/market/margin/MarginPayBackPopup";
-import { MarginPopup } from "./game/market/margin/MarginPopup";
+import { MarginPopup } from "../pages/game/market/margin/MarginPopup/MarginPopup";
 import { SellPopup } from "./game/market/stocks/SellPopup";
 import { GameEndPopup } from "./GameEndPopup";
+import { MarginPaybackPopup } from "../pages/game/market/margin/MarginPaybackPopup/MarginPaybackPopup";
 
 const Popups = React.memo(() => {
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ const Popups = React.memo(() => {
       {popups.broker.isShown && <MarginPopup />}
       {popups.history.isShown && <HistoryPopup />}
       {gameStatus !== "process" && <GameEndPopup />}
-      {popups.margin.isShown && <MarginPayBackPopup />}
+      {popups.margin.isShown && <MarginPaybackPopup />}
       {/* @ts-ignore */}
       {(popups.realtyBuy === true || popups.realtySell === true) && (
         <RealtyPopup />
